@@ -1091,10 +1091,51 @@
     </div>
 
     <div class="help-section">
+      <h3>⚙ API 設定（三才Pro）</h3>
+      <p>如果想用「🤖 直接請AI分析」功能，需要先貼上你自己的Claude或Gemini API金鑰，只存在這支裝置的瀏覽器裡。設定一次之後就不用再管，這裡只是給你需要修改金鑰時使用的入口。</p>
+      <button class="mystic" id="apiSettingsOpenBtn" style="width:100%;margin-top:8px;">前往設定 API 金鑰</button>
+    </div>
+
+    <div class="help-section">
       <h3>🔒 隱私與限制</h3>
       <p>所有排盤紀錄、快捷設定只存在你這支手機的瀏覽器裡，不會上傳到任何地方。換手機或清除瀏覽器資料會遺失且無法復原。</p>
       <p style="margin-top:8px;">本工具核心排盤演算法已交叉驗證，惟命理解讀僅供參考反思之用，不構成醫療、法律或財務建議，人生的答案終究在你心中。</p>
     </div>
+  </div>
+</div>
+
+<div id="apiSettingsModal" class="hidden">
+  <div class="help-modal-inner">
+    <button id="apiSettingsCloseBtn" class="help-close">✕</button>
+    <h2 style="font-family:'Noto Serif TC';font-size:20px;margin-bottom:4px;">API 設定</h2>
+    <p style="font-size:12px;color:var(--brass);margin-bottom:20px;">金鑰只存在這支裝置的瀏覽器裡（localStorage），不會上傳到任何地方，也不會出現在網頁原始碼中。</p>
+
+    <div class="help-section">
+      <h3>Claude (Anthropic)</h3>
+      <div class="field">
+        <label>API Key</label>
+        <input type="password" id="claudeApiKeyInput" placeholder="sk-ant-...">
+      </div>
+    </div>
+
+    <div class="help-section">
+      <h3>Gemini (Google)</h3>
+      <div class="field">
+        <label>API Key</label>
+        <input type="password" id="geminiApiKeyInput" placeholder="AIza...">
+      </div>
+    </div>
+
+    <div class="help-section">
+      <h3>預設使用</h3>
+      <div class="radiorow" id="defaultProviderRow">
+        <label class="active" data-provider="claude"><input type="radio" name="defprov" value="claude" checked><span>Claude</span></label>
+        <label data-provider="gemini"><input type="radio" name="defprov" value="gemini"><span>Gemini</span></label>
+      </div>
+    </div>
+
+    <button class="mystic" id="apiSettingsSaveBtn" style="width:100%;margin-top:10px;">儲存設定</button>
+    <p id="apiSettingsStatus" style="text-align:center;font-size:12.5px;color:var(--brass);min-height:18px;margin-top:8px;"></p>
   </div>
 </div>
 
@@ -1105,7 +1146,8 @@
     <div class="eyebrow">San Cai</div>
     <h1>三 才</h1>
     <div class="brushline"></div>
-    <p>命是天註定，運操之在我手中。</p>
+    <p id="taglineText" style="cursor:pointer;">命是天註定，運操之在我手中。</p>
+    <p id="taglineSecret" class="hidden" style="font-size:12px;color:var(--calm-jade,#5f7a5e);margin-top:-8px;margin-bottom:14px;line-height:1.8;max-width:320px;">命局是相，是念頭生滅的背景；<br>操之在我的，是那顆「不住」的心。</p>
     <button id="helpOpenBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);margin-top:10px;cursor:pointer;">✦ 使用說明</button>
     <div id="objModeRow" style="margin-top:10px;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--paper-dim);">
       <span>AI解讀模式：</span>
@@ -1962,6 +2004,11 @@
         ✦ 紫微看格局，卦象看當下，八字看氣勢——宏觀到微觀，一次交叉解讀
       </p>
     </div>
+    <div class="sub-tabs">
+      <button class="sub-tab active" id="subTabCombineData">整合分析</button>
+      <button class="sub-tab" id="subTabAiResults">AI分析結果</button>
+    </div>
+    <div id="combineDataWrap">
     <div class="card">
       <div class="ritual-step">
         <h2>歷史紀錄</h2>
@@ -1983,12 +2030,25 @@
         <p style="font-size:13.8px;">如果同一件事分開問了好幾卦，或想把紫微斗數的流年／大限跟卦象放在一起看，勾選下面2項以上的紀錄（銅錢問卦、或從「紫微斗數」加入的流年／大限），可以生成一份合併的分析腳本，讓 AI 把不同命理系統的資料放在一起交叉解讀，而不是各看各的。</p>
         <p id="combineCount" style="font-size:13.8px;color:var(--brass);min-height:18px;">已選擇 0 筆</p>
         <button class="mystic" id="combineBtn" disabled style="width:100%;">❐ 產生整合分析腳本（至少選2筆）</button>
+        <button class="mystic secondary" id="combineAiBtn" disabled style="width:100%;margin-top:8px;">🤖 直接請AI分析（需先設定API金鑰）</button>
         <p id="combineStatus" style="text-align:center;font-size:12.7px;color:var(--brass);min-height:16px;margin:6px 0 0;"></p>
         <textarea id="combineOutput" class="hidden" readonly style="width:100%;min-height:200px;font-size:13.2px;line-height:1.7;background:rgba(255,252,240,0.5);border:1px solid var(--line-strong);border-radius:2px;padding:12px;color:var(--ink);font-family:'Noto Sans TC';margin-top:8px;"></textarea>
       </div>
     </div>
 
     <div id="historyList"></div>
+  </div>
+  </div>
+
+  <div id="aiResultsWrap" class="hidden">
+    <div class="card">
+      <div class="ritual-step">
+        <h2>AI 分析結果</h2>
+        <p>透過「🤖 直接請AI分析」產生的結果會自動存在這裡，方便日後查閱、不用重新問一次。只存在這支裝置的瀏覽器裡。</p>
+        <button class="mystic" id="clearAiResultsBtn" style="border-color:var(--vermilion);">清空所有結果</button>
+      </div>
+    </div>
+    <div id="aiResultsList"></div>
   </div>
 
 
@@ -4218,9 +4278,11 @@ function deleteHistoryRecord(idx){
 }
 function updateCombineUI(){
   const btn = document.getElementById('combineBtn');
+  const aiBtn = document.getElementById('combineAiBtn');
   const countEl = document.getElementById('combineCount');
   countEl.textContent = `已選擇 ${selectedHistoryIdx.size} 筆`;
   btn.disabled = selectedHistoryIdx.size < 2;
+  aiBtn.disabled = selectedHistoryIdx.size < 2;
 }
 function renderHistory(){
   const list = loadHistory();
@@ -4359,6 +4421,32 @@ document.getElementById('combineBtn').addEventListener('click', async ()=>{
   } catch(err){ autoOk = false; }
   statusEl.textContent = autoOk ? '✓ 已自動複製到剪貼簿，可直接貼到任何 AI 對話' : '自動複製未成功，內容已顯示在下方文字框，請長按選取「全選」→「複製」';
   outputEl.scrollIntoView({behavior:'smooth', block:'center'});
+});
+document.getElementById('combineAiBtn').addEventListener('click', async ()=>{
+  const list = loadHistory();
+  const records = Array.from(selectedHistoryIdx).sort((a,b)=>a-b).map(i=>list[i]);
+  const statusEl = document.getElementById('combineStatus');
+  const btn = document.getElementById('combineAiBtn');
+  const text = buildCombinedPrompt(records);
+  const roles = [...new Set(records.map(r=>r.role).filter(Boolean))];
+  btn.disabled = true;
+  const origLabel = btn.textContent;
+  btn.textContent = '⏳ AI分析中，請稍候...';
+  statusEl.textContent = '';
+  try{
+    const result = await callAI(text);
+    saveAiResult({
+      provider: result.provider, model: result.model, text: result.text,
+      role: roles.length===1 ? roles[0] : (roles.length>1 ? roles.join('、') : ''),
+      sourceLabel: `整合分析（${records.length}項資料：${records.map(r=>r.type).join('、')}）`
+    });
+    statusEl.textContent = `✓ ${result.provider==='claude'?'Claude':'Gemini'} 分析完成，已存到「AI分析結果」頁籤`;
+  } catch(err){
+    statusEl.textContent = '✗ ' + err.message;
+  } finally {
+    btn.disabled = selectedHistoryIdx.size < 2;
+    btn.textContent = origLabel;
+  }
 });
 
 /* ===================== 卦象文字彙整（供複製給 AI 判讀） ===================== */
@@ -4780,6 +4868,11 @@ function getObjModeInstruction(){
   return '';
 }
 
+/* ===================== 藏在標語底下的一句話 ===================== */
+document.getElementById('taglineText').addEventListener('click', ()=>{
+  document.getElementById('taglineSecret').classList.toggle('hidden');
+});
+
 /* ===================== 使用說明彈窗 ===================== */
 (function(){
   const modal = document.getElementById('helpModal');
@@ -4789,6 +4882,150 @@ function getObjModeInstruction(){
   closeBtn.addEventListener('click', ()=> modal.classList.add('hidden'));
   modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.add('hidden'); });
 })();
+
+/* ===================== API 設定（金鑰只存 localStorage） ===================== */
+const API_SETTINGS_KEY = 'sancai_api_settings_v1';
+function loadApiSettings(){
+  try{ return JSON.parse(localStorage.getItem(API_SETTINGS_KEY)) || {}; }catch(e){ return {}; }
+}
+function saveApiSettings(s){
+  try{ localStorage.setItem(API_SETTINGS_KEY, JSON.stringify(s)); }catch(e){}
+}
+(function(){
+  const modal = document.getElementById('apiSettingsModal');
+  const openBtn = document.getElementById('apiSettingsOpenBtn');
+  const closeBtn = document.getElementById('apiSettingsCloseBtn');
+  openBtn.addEventListener('click', ()=>{
+    document.getElementById('helpModal').classList.add('hidden');
+    const s = loadApiSettings();
+    document.getElementById('claudeApiKeyInput').value = s.claudeKey || '';
+    document.getElementById('geminiApiKeyInput').value = s.geminiKey || '';
+    const provider = s.defaultProvider || 'claude';
+    document.querySelectorAll('#defaultProviderRow label').forEach(lb=>{
+      lb.classList.toggle('active', lb.dataset.provider===provider);
+      lb.querySelector('input').checked = lb.dataset.provider===provider;
+    });
+    document.getElementById('apiSettingsStatus').textContent = '';
+    modal.classList.remove('hidden');
+  });
+  closeBtn.addEventListener('click', ()=> modal.classList.add('hidden'));
+  modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.add('hidden'); });
+  document.querySelectorAll('#defaultProviderRow label').forEach(lb=>{
+    lb.addEventListener('click', ()=>{
+      document.querySelectorAll('#defaultProviderRow label').forEach(x=>x.classList.remove('active'));
+      lb.classList.add('active');
+    });
+  });
+  document.getElementById('apiSettingsSaveBtn').addEventListener('click', ()=>{
+    const claudeKey = document.getElementById('claudeApiKeyInput').value.trim();
+    const geminiKey = document.getElementById('geminiApiKeyInput').value.trim();
+    const defaultProvider = document.querySelector('#defaultProviderRow input:checked').value;
+    saveApiSettings({ claudeKey, geminiKey, defaultProvider });
+    document.getElementById('apiSettingsStatus').textContent = '✓ 已儲存';
+  });
+})();
+
+/* ===================== AI API 直接呼叫（Claude / Gemini） ===================== */
+const CLAUDE_MODEL = 'claude-sonnet-5';
+const GEMINI_MODEL = 'gemini-3.6-flash';
+
+async function callClaudeAPI(promptText, apiKey){
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: CLAUDE_MODEL,
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: promptText }]
+    })
+  });
+  if(!resp.ok){
+    const errText = await resp.text().catch(()=> '');
+    throw new Error(`Claude API 錯誤（${resp.status}）：${errText.slice(0,200)}`);
+  }
+  const data = await resp.json();
+  return data.content.map(b=> b.text || '').join('\n');
+}
+
+async function callGeminiAPI(promptText, apiKey){
+  const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: promptText }] }]
+    })
+  });
+  if(!resp.ok){
+    const errText = await resp.text().catch(()=> '');
+    throw new Error(`Gemini API 錯誤（${resp.status}）：${errText.slice(0,200)}`);
+  }
+  const data = await resp.json();
+  return data.candidates[0].content.parts.map(p=> p.text || '').join('\n');
+}
+
+async function callAI(promptText, provider){
+  const s = loadApiSettings();
+  const useProvider = provider || s.defaultProvider || 'claude';
+  if(useProvider === 'claude'){
+    if(!s.claudeKey) throw new Error('尚未設定 Claude API Key，請先到「✦ 使用說明」裡的「⚙ API 設定」輸入。');
+    return { provider:'claude', model:CLAUDE_MODEL, text: await callClaudeAPI(promptText, s.claudeKey) };
+  } else {
+    if(!s.geminiKey) throw new Error('尚未設定 Gemini API Key，請先到「✦ 使用說明」裡的「⚙ API 設定」輸入。');
+    return { provider:'gemini', model:GEMINI_MODEL, text: await callGeminiAPI(promptText, s.geminiKey) };
+  }
+}
+
+/* ===================== AI 分析結果（獨立儲存區） ===================== */
+const AI_RESULTS_KEY = 'sancai_ai_results_v1';
+function loadAiResults(){
+  try{ return JSON.parse(localStorage.getItem(AI_RESULTS_KEY)) || []; }catch(e){ return []; }
+}
+function saveAiResult(entry){
+  const list = loadAiResults();
+  list.unshift({ ...entry, timeText: new Date().toLocaleString('zh-Hant-TW',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}) });
+  try{ localStorage.setItem(AI_RESULTS_KEY, JSON.stringify(list)); }catch(e){}
+}
+function renderAiResults(){
+  const list = loadAiResults();
+  const el = document.getElementById('aiResultsList');
+  if(!list.length){
+    el.innerHTML = '<p class="hist-empty">還沒有任何AI分析結果，先去「整合分析」或各板塊按「🤖 直接請AI分析」試試看。</p>';
+    return;
+  }
+  el.innerHTML = list.map((r,i)=>`
+    <div class="hist-item">
+      <button class="hist-del" data-idx="${i}" title="刪除">✕</button>
+      <div class="hist-time">
+        <span class="hist-type" style="background:var(--blue,#3a5a8c);">${r.provider==='claude'?'Claude':'Gemini'}</span>
+        ${r.role? `<span class="hist-role">${r.role}</span>` : ''}
+        ${r.timeText}
+      </div>
+      <div class="hist-q">${r.sourceLabel || ''}</div>
+      <div class="hist-detail" style="white-space:pre-wrap;line-height:1.85;">${r.text}</div>
+    </div>
+  `).join('');
+  el.querySelectorAll('.hist-del').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(confirm('確定要刪除這筆AI分析結果嗎？')){
+        const list2 = loadAiResults();
+        list2.splice(parseInt(btn.dataset.idx),1);
+        try{ localStorage.setItem(AI_RESULTS_KEY, JSON.stringify(list2)); }catch(e){}
+        renderAiResults();
+      }
+    });
+  });
+}
+document.getElementById('clearAiResultsBtn').addEventListener('click', ()=>{
+  if(confirm('確定要清空所有AI分析結果嗎？此動作無法復原。')){
+    try{ localStorage.setItem(AI_RESULTS_KEY, JSON.stringify([])); }catch(e){}
+    renderAiResults();
+  }
+});
 
 /* ===================== 回到頂部按鈕 ===================== */
 const backToTopBtn = document.getElementById('backToTopBtn');
@@ -4840,6 +5077,23 @@ function activateTianjiSub(key){
 }
 Object.keys(tianjiSubs).forEach(key=>{
   tianjiSubs[key].tab.addEventListener('click', ()=> activateTianjiSub(key));
+});
+
+/* 天人合一 子頁籤 */
+const combineSubs = {
+  data: {tab: document.getElementById('subTabCombineData'), el: document.getElementById('combineDataWrap')},
+  aiResults: {tab: document.getElementById('subTabAiResults'), el: document.getElementById('aiResultsWrap')}
+};
+function activateCombineSub(key){
+  Object.keys(combineSubs).forEach(k=>{
+    combineSubs[k].tab.classList.toggle('active', k===key);
+    combineSubs[k].el.classList.toggle('hidden', k!==key);
+  });
+  if(key === 'aiResults') renderAiResults();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+Object.keys(combineSubs).forEach(key=>{
+  combineSubs[key].tab.addEventListener('click', ()=> activateCombineSub(key));
 });
 
 /* 卜卦 子頁籤 */
