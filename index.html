@@ -206,6 +206,7 @@
     border-radius:16px 16px 0 0; padding:28px 22px 36px; position:relative;
     box-shadow:0 -4px 24px rgba(0,0,0,0.25);
   }
+  .obj-mode-btn.active{ background:var(--calm-jade,#5f7a5e) !important; color:#f2ecd9 !important; border-color:var(--calm-jade,#5f7a5e) !important; font-weight:700; }
   .help-close{
     position:absolute; top:16px; right:18px; background:transparent; border:none;
     font-size:18px; color:var(--brass); cursor:pointer; padding:4px 8px;
@@ -1085,6 +1086,11 @@
     </div>
 
     <div class="help-section">
+      <h3>🤖 AI解讀模式</h3>
+      <p>頁首有個「AI解讀模式」切換：「獨立客觀分析」會在複製給AI的內容開頭加一句提醒，請AI不要參考你們過去聊過的其他事情、也不要用它對你的既有印象來分析，單純依這次提供的命理資料客觀判斷；「延續一般對話」則不加這個提醒，讓AI可以自然接續你們平常的對話脈絡。兩者都可以隨時切換，切換後之後所有「複製給AI」的按鈕都會套用新的設定。</p>
+    </div>
+
+    <div class="help-section">
       <h3>🔒 隱私與限制</h3>
       <p>所有排盤紀錄、快捷設定只存在你這支手機的瀏覽器裡，不會上傳到任何地方。換手機或清除瀏覽器資料會遺失且無法復原。</p>
       <p style="margin-top:8px;">本工具核心排盤演算法已交叉驗證，惟命理解讀僅供參考反思之用，不構成醫療、法律或財務建議，人生的答案終究在你心中。</p>
@@ -1101,6 +1107,11 @@
     <div class="brushline"></div>
     <p>命是天註定，運操之在我手中。</p>
     <button id="helpOpenBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);margin-top:10px;cursor:pointer;">✦ 使用說明</button>
+    <div id="objModeRow" style="margin-top:10px;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--paper-dim);">
+      <span>AI解讀模式：</span>
+      <button type="button" class="obj-mode-btn" data-mode="continue" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">延續一般對話</button>
+      <button type="button" class="obj-mode-btn active" data-mode="objective" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">獨立客觀分析</button>
+    </div>
   </header>
 
   <div class="top-tabs">
@@ -3103,7 +3114,7 @@ ${selfHuaText}
 ${patterns}`;
 }
 function buildZiweiPrompt(c){
-  return `你是一位精通紫微斗數（方外人飛星四化）與倪海廈中醫紫微對應框架的命理顧問。請根據以下已排定的命盤資料，給我一段有溫度、有見地、但誠實不誇大的深度解讀。
+  return `${getObjModeInstruction()}你是一位精通紫微斗數（方外人飛星四化）與倪海廈中醫紫微對應框架的命理顧問。請根據以下已排定的命盤資料，給我一段有溫度、有見地、但誠實不誇大的深度解讀。
 
 ${buildZiweiPromptBlock(c)}
 
@@ -3275,7 +3286,7 @@ ${flyLines}
 ${selfHuaList.length ? selfHuaList.map(s=>`自化${s.hua}：${s.star}`).join('、') : '無'}`;
 }
 function buildDaxianPrompt(c, p, fly, selfHuaList){
-  return `你是一位精通紫微斗數飛星四化的命理顧問。請針對以下這個大限（十年運限），給我一段深度解讀。
+  return `${getObjModeInstruction()}你是一位精通紫微斗數飛星四化的命理顧問。請針對以下這個大限（十年運限），給我一段深度解讀。
 
 ${buildDaxianPromptBlock(c, p, fly, selfHuaList)}
 
@@ -3423,7 +3434,7 @@ ${flyLines}
 ${dxNote}`;
 }
 function buildLiunianPrompt(c, yearInput, gIdx, zIdx, huaList){
-  return `你是一位精通紫微斗數飛星四化的命理顧問。請針對以下這個流年（西元${yearInput}年），給我一段深度解讀。
+  return `${getObjModeInstruction()}你是一位精通紫微斗數飛星四化的命理顧問。請針對以下這個流年（西元${yearInput}年），給我一段深度解讀。
 
 ${buildLiunianPromptBlock(c, yearInput, gIdx, zIdx, huaList)}
 
@@ -4339,7 +4350,7 @@ ${buildNajiaLines(d)}
 初爻${d.liushen[0]}　二爻${d.liushen[1]}　三爻${d.liushen[2]}　四爻${d.liushen[3]}　五爻${d.liushen[4]}　上爻${d.liushen[5]}`;
 }
 function buildAiPrompt(d){
-  return `你是一位精通中國傳統易經六爻占卜（納甲裝卦法）的命理顧問。請根據以下已經排定的卦象資料，給使用者一段有溫度、有見地、但誠實不誇大的解讀。
+  return `${getObjModeInstruction()}你是一位精通中國傳統易經六爻占卜（納甲裝卦法）的命理顧問。請根據以下已經排定的卦象資料，給使用者一段有溫度、有見地、但誠實不誇大的解讀。
 
 ${buildCastDataBlock(d)}
 
@@ -4370,7 +4381,7 @@ function buildCombinedPrompt(records){
     ? `這幾項資料可能同時包含<b>紫微斗數</b>（命盤結構、大限流年）、<b>八字</b>（四柱十神、大運）與<b>易經六爻</b>（針對具體問題起卦），是不同的命理系統。紫微、八字看的是「格局與運勢趨勢」（八字更重五行氣勢與十神心理特質），六爻看的是「具體事情當下的吉凶與應期」，請你特別說明這些系統對照起來是否互相印證、或呈現出不同時間尺度／不同層次的訊息。\n\n`
     : '';
 
-  return `你是一位同時精通紫微斗數、八字命理與中國傳統易經六爻占卜（納甲裝卦法）的命理顧問。使用者針對同一件現實處境，準備了以下${records.length}項命理資料，請你綜合這些資料，給一段有溫度、有見地、但誠實不誇大的整合分析。
+  return `${getObjModeInstruction()}你是一位同時精通紫微斗數、八字命理與中國傳統易經六爻占卜（納甲裝卦法）的命理顧問。使用者針對同一件現實處境，準備了以下${records.length}項命理資料，請你綜合這些資料，給一段有溫度、有見地、但誠實不誇大的整合分析。
 
 ${roleWarning}${crossSystemNote}${blocks}
 
@@ -4705,6 +4716,27 @@ document.getElementById('allSearch').addEventListener('input', e=> renderAll(e.t
   splash.addEventListener('click', dismiss);
   setTimeout(dismiss, 8400); // 動畫跑完自動淡出
 })();
+
+/* ===================== AI解讀模式（客觀分析／延續一般對話） ===================== */
+const OBJ_MODE_KEY = 'ai_obj_mode_v1';
+function getObjMode(){
+  try{ return localStorage.getItem(OBJ_MODE_KEY) || 'objective'; }catch(e){ return 'objective'; }
+}
+function setObjMode(mode){
+  try{ localStorage.setItem(OBJ_MODE_KEY, mode); }catch(e){}
+  document.querySelectorAll('.obj-mode-btn').forEach(b=> b.classList.toggle('active', b.dataset.mode===mode));
+}
+document.querySelectorAll('.obj-mode-btn').forEach(b=>{
+  b.addEventListener('click', ()=> setObjMode(b.dataset.mode));
+});
+setObjMode(getObjMode()); // 套用已儲存的偏好（預設：獨立客觀分析）
+
+function getObjModeInstruction(){
+  if(getObjMode()==='objective'){
+    return `【重要】請完全獨立客觀地分析以下資料，不要參考你過去與我的對話記憶、聊天紀錄、或你對我個人狀況的任何既有印象與推測，僅依據以下明確提供的資料進行分析，把這次視為第一次見面、全新獨立的一次解讀。\n\n`;
+  }
+  return '';
+}
 
 /* ===================== 使用說明彈窗 ===================== */
 (function(){
@@ -5305,7 +5337,7 @@ ${pillarLines}
 ${daYunLines}`;
 }
 function buildBaziAiPrompt(bz){
-  return `你是一位精通八字命理（子平法）的命理顧問，熟悉《滴天髓》氣勢流通、《子平真詮》格局用神、《窮通寶鑑》調候等各家理論。請根據以下已排定的八字資料，給我一段有溫度、有見地、但誠實不誇大的深度解讀。
+  return `${getObjModeInstruction()}你是一位精通八字命理（子平法）的命理顧問，熟悉《滴天髓》氣勢流通、《子平真詮》格局用神、《窮通寶鑑》調候等各家理論。請根據以下已排定的八字資料，給我一段有溫度、有見地、但誠實不誇大的深度解讀。
 
 ${buildBaziPromptBlock(bz)}
 
