@@ -1091,7 +1091,7 @@
     </div>
 
     <div class="help-section">
-      <h3>⚙ API 設定（三才Pro）</h3>
+      <h3>⚙ API 設定</h3>
       <p>如果想用「🤖 直接請AI分析」功能，需要先貼上你自己的Claude或Gemini API金鑰，只存在這支裝置的瀏覽器裡。設定一次之後就不用再管，這裡只是給你需要修改金鑰時使用的入口。</p>
       <button class="mystic" id="apiSettingsOpenBtn" style="width:100%;margin-top:8px;">前往設定 API 金鑰</button>
     </div>
@@ -1127,10 +1127,19 @@
     </div>
 
     <div class="help-section">
+      <h3>ChatGPT (OpenAI)</h3>
+      <div class="field">
+        <label>API Key</label>
+        <input type="password" id="chatgptApiKeyInput" placeholder="sk-...">
+      </div>
+    </div>
+
+    <div class="help-section">
       <h3>預設使用</h3>
       <div class="radiorow" id="defaultProviderRow">
         <label class="active" data-provider="claude"><input type="radio" name="defprov" value="claude" checked><span>Claude</span></label>
         <label data-provider="gemini"><input type="radio" name="defprov" value="gemini"><span>Gemini</span></label>
+        <label data-provider="chatgpt"><input type="radio" name="defprov" value="chatgpt"><span>ChatGPT</span></label>
       </div>
     </div>
 
@@ -1146,10 +1155,10 @@
     <div class="eyebrow">San Cai</div>
     <h1>三 才</h1>
     <div class="brushline"></div>
-    <p id="taglineText" style="cursor:pointer;">命是天註定，運操之在我手中。</p>
-    <p id="taglineSecret" class="hidden" style="font-size:12px;color:var(--calm-jade,#5f7a5e);margin-top:-8px;margin-bottom:14px;line-height:1.8;max-width:320px;">命局是相，是念頭生滅的背景；<br>操之在我的，是那顆「不住」的心。</p>
-    <button id="helpOpenBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);margin-top:10px;cursor:pointer;">✦ 使用說明</button>
-    <div id="objModeRow" style="margin-top:10px;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--paper-dim);">
+    <p id="taglineText" style="cursor:pointer;margin-bottom:0;">命是天註定，運操之在我手中。</p>
+    <p id="taglineSecret" class="hidden" style="font-size:12px;color:var(--calm-jade,#5f7a5e);margin-top:12px;margin-bottom:6px;line-height:2;max-width:320px;">命局是相，是念頭生滅的背景；<br>操之在我的，是那顆「不住」的心。</p>
+    <button id="helpOpenBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);margin-top:22px;cursor:pointer;">✦ 使用說明</button>
+    <div id="objModeRow" style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--paper-dim);">
       <span>AI解讀模式：</span>
       <button type="button" class="obj-mode-btn" data-mode="continue" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">延續一般對話</button>
       <button type="button" class="obj-mode-btn active" data-mode="objective" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">獨立客觀分析</button>
@@ -4440,7 +4449,7 @@ document.getElementById('combineAiBtn').addEventListener('click', async ()=>{
       role: roles.length===1 ? roles[0] : (roles.length>1 ? roles.join('、') : ''),
       sourceLabel: `整合分析（${records.length}項資料：${records.map(r=>r.type).join('、')}）`
     });
-    statusEl.textContent = `✓ ${result.provider==='claude'?'Claude':'Gemini'} 分析完成，已存到「AI分析結果」頁籤`;
+    statusEl.textContent = `✓ ${result.provider==='claude'?'Claude':(result.provider==='gemini'?'Gemini':'ChatGPT')} 分析完成，已存到「AI分析結果」頁籤`;
   } catch(err){
     statusEl.textContent = '✗ ' + err.message;
   } finally {
@@ -4900,6 +4909,7 @@ function saveApiSettings(s){
     const s = loadApiSettings();
     document.getElementById('claudeApiKeyInput').value = s.claudeKey || '';
     document.getElementById('geminiApiKeyInput').value = s.geminiKey || '';
+    document.getElementById('chatgptApiKeyInput').value = s.chatgptKey || '';
     const provider = s.defaultProvider || 'claude';
     document.querySelectorAll('#defaultProviderRow label').forEach(lb=>{
       lb.classList.toggle('active', lb.dataset.provider===provider);
@@ -4919,8 +4929,9 @@ function saveApiSettings(s){
   document.getElementById('apiSettingsSaveBtn').addEventListener('click', ()=>{
     const claudeKey = document.getElementById('claudeApiKeyInput').value.trim();
     const geminiKey = document.getElementById('geminiApiKeyInput').value.trim();
+    const chatgptKey = document.getElementById('chatgptApiKeyInput').value.trim();
     const defaultProvider = document.querySelector('#defaultProviderRow input:checked').value;
-    saveApiSettings({ claudeKey, geminiKey, defaultProvider });
+    saveApiSettings({ claudeKey, geminiKey, chatgptKey, defaultProvider });
     document.getElementById('apiSettingsStatus').textContent = '✓ 已儲存';
   });
 })();
@@ -4928,6 +4939,7 @@ function saveApiSettings(s){
 /* ===================== AI API 直接呼叫（Claude / Gemini） ===================== */
 const CLAUDE_MODEL = 'claude-sonnet-5';
 const GEMINI_MODEL = 'gemini-3.6-flash';
+const CHATGPT_MODEL = 'gpt-5.1';
 
 async function callClaudeAPI(promptText, apiKey){
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
@@ -4968,15 +4980,38 @@ async function callGeminiAPI(promptText, apiKey){
   return data.candidates[0].content.parts.map(p=> p.text || '').join('\n');
 }
 
+async function callChatGPTAPI(promptText, apiKey){
+  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({
+      model: CHATGPT_MODEL,
+      messages: [{ role: 'user', content: promptText }]
+    })
+  });
+  if(!resp.ok){
+    const errText = await resp.text().catch(()=> '');
+    throw new Error(`ChatGPT API 錯誤（${resp.status}）：${errText.slice(0,200)}${resp.status===0?'（可能是瀏覽器CORS限制，OpenAI官方對直接瀏覽器呼叫的支援不像Claude/Gemini完整）':''}`);
+  }
+  const data = await resp.json();
+  return data.choices.map(c=> c.message.content || '').join('\n');
+}
+
 async function callAI(promptText, provider){
   const s = loadApiSettings();
   const useProvider = provider || s.defaultProvider || 'claude';
   if(useProvider === 'claude'){
     if(!s.claudeKey) throw new Error('尚未設定 Claude API Key，請先到「✦ 使用說明」裡的「⚙ API 設定」輸入。');
     return { provider:'claude', model:CLAUDE_MODEL, text: await callClaudeAPI(promptText, s.claudeKey) };
-  } else {
+  } else if(useProvider === 'gemini'){
     if(!s.geminiKey) throw new Error('尚未設定 Gemini API Key，請先到「✦ 使用說明」裡的「⚙ API 設定」輸入。');
     return { provider:'gemini', model:GEMINI_MODEL, text: await callGeminiAPI(promptText, s.geminiKey) };
+  } else {
+    if(!s.chatgptKey) throw new Error('尚未設定 ChatGPT API Key，請先到「✦ 使用說明」裡的「⚙ API 設定」輸入。');
+    return { provider:'chatgpt', model:CHATGPT_MODEL, text: await callChatGPTAPI(promptText, s.chatgptKey) };
   }
 }
 
@@ -5001,7 +5036,7 @@ function renderAiResults(){
     <div class="hist-item">
       <button class="hist-del" data-idx="${i}" title="刪除">✕</button>
       <div class="hist-time">
-        <span class="hist-type" style="background:var(--blue,#3a5a8c);">${r.provider==='claude'?'Claude':'Gemini'}</span>
+        <span class="hist-type" style="background:var(--blue,#3a5a8c);">${r.provider==='claude'?'Claude':(r.provider==='gemini'?'Gemini':'ChatGPT')}</span>
         ${r.role? `<span class="hist-role">${r.role}</span>` : ''}
         ${r.timeText}
       </div>
