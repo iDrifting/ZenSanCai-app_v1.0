@@ -1157,7 +1157,14 @@
     <div class="grid2">
       <div class="field">
         <label>國曆出生日期</label>
-        <input type="date" id="solarDate" min="1900-02-01" max="2059-12-31">
+        <div style="display:flex;gap:6px;align-items:center;">
+          <input type="number" id="solarYear" placeholder="年" min="1900" max="2059" style="flex:1.3;text-align:center;">
+          <span style="color:var(--paper-dim);">/</span>
+          <input type="number" id="solarMonth" placeholder="月" min="1" max="12" style="flex:1;text-align:center;">
+          <span style="color:var(--paper-dim);">/</span>
+          <input type="number" id="solarDay" placeholder="日" min="1" max="31" style="flex:1;text-align:center;">
+        </div>
+        <input type="hidden" id="solarDate">
       </div>
       <div class="field">
         <label>出生時辰</label>
@@ -1401,7 +1408,14 @@
       <h2><span class="num">1</span>輸入生辰</h2>
       <div class="field">
         <label>國曆出生日期</label>
-        <input type="date" id="baziDate" min="1900-01-01" max="2059-12-31">
+        <div style="display:flex;gap:6px;align-items:center;">
+          <input type="number" id="baziYear" placeholder="年" min="1900" max="2059" style="flex:1.3;text-align:center;">
+          <span style="color:var(--paper-dim);">/</span>
+          <input type="number" id="baziMonth" placeholder="月" min="1" max="12" style="flex:1;text-align:center;">
+          <span style="color:var(--paper-dim);">/</span>
+          <input type="number" id="baziDay" placeholder="日" min="1" max="31" style="flex:1;text-align:center;">
+        </div>
+        <input type="hidden" id="baziDate">
       </div>
       <div class="field">
         <label>出生時辰</label>
@@ -2622,7 +2636,7 @@ function renderPresetButtons(){
   wrap.querySelectorAll('.preset-load').forEach(b=>{
     b.addEventListener('click', ()=>{
       const p = list[parseInt(b.dataset.idx)];
-      document.getElementById('solarDate').value = p.date;
+      setDateFieldsFromISO('solar', p.date);
       document.getElementById('hourSel').value = p.hour;
       setGender(p.gender);
       document.getElementById('ziweiRoleInput').value = p.label;
@@ -2726,7 +2740,7 @@ function renderZiweiHistory(){
   el.querySelectorAll('.hist-reload').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const r = list[parseInt(btn.dataset.idx)];
-      document.getElementById('solarDate').value = `${r.y}-${String(r.m).padStart(2,'0')}-${String(r.d).padStart(2,'0')}`;
+      setDateFieldsFromISO('solar', `${r.y}-${String(r.m).padStart(2,'0')}-${String(r.d).padStart(2,'0')}`);
       document.getElementById('hourSel').value = r.hourSelVal;
       setGender(r.gender);
       document.getElementById('calcBtn').click();
@@ -2741,6 +2755,34 @@ document.getElementById('ziweiClearHistoryBtn').addEventListener('click', ()=>{
   }
 });
 renderZiweiHistory();
+
+/* ===================== 生辰年月日欄位同步（直接打字，不彈跳選擇器） ===================== */
+function syncDateFields(prefix){
+  const y = document.getElementById(prefix+'Year').value;
+  const m = document.getElementById(prefix+'Month').value;
+  const d = document.getElementById(prefix+'Day').value;
+  const hidden = document.getElementById(prefix+'Date');
+  if(y && m && d){
+    const mm = String(m).padStart(2,'0'), dd = String(d).padStart(2,'0');
+    hidden.value = `${y}-${mm}-${dd}`;
+  } else {
+    hidden.value = '';
+  }
+}
+function setDateFieldsFromISO(prefix, isoStr){
+  if(!isoStr) return;
+  const [y,m,d] = isoStr.split('-');
+  document.getElementById(prefix+'Year').value = parseInt(y);
+  document.getElementById(prefix+'Month').value = parseInt(m);
+  document.getElementById(prefix+'Day').value = parseInt(d);
+  syncDateFields(prefix);
+}
+['solarYear','solarMonth','solarDay'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', ()=> syncDateFields('solar'));
+});
+['baziYear','baziMonth','baziDay'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', ()=> syncDateFields('bazi'));
+});
 
 document.getElementById('calcBtn').addEventListener('click', ()=>{
   const dateVal = document.getElementById('solarDate').value;
@@ -5400,7 +5442,7 @@ function renderBaziPresetButtons(){
   wrap.querySelectorAll('.preset-load').forEach(b=>{
     b.addEventListener('click', ()=>{
       const p = list[parseInt(b.dataset.idx)];
-      document.getElementById('baziDate').value = p.date;
+      setDateFieldsFromISO('bazi', p.date);
       document.getElementById('baziHourSel').value = ziweiHourValToBaziHour(p.hour);
       const radio = document.querySelector(`#baziGenderRow input[value="${p.gender}"]`);
       if(radio) radio.checked = true;
