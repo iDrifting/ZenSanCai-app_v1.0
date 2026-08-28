@@ -364,6 +364,10 @@
   footer{text-align:center; color:var(--brass); font-size:11.6px; padding:20px 10px 4px; line-height:2; letter-spacing:0.02em; font-family:'Noto Sans TC';}
 
   .hidden{display:none !important;}
+  #ritualTransition{ opacity:0; transition:opacity 0.9s ease; }
+  #ritualTransition.ritual-visible{ opacity:1; }
+  #step2{ opacity:0; transition:opacity 1s ease; }
+  #step2.step2-visible{ opacity:1; }
 
   @media (prefers-reduced-motion: reduce){
     .coin.flipping{ animation:none; }
@@ -1590,6 +1594,44 @@
         </select>
       </div>
       <button class="mystic" id="beginBtn">開始擲卦</button>
+    </div>
+  </div>
+
+  <!-- 靜心過場：香煙裊裊 -->
+  <div class="card hidden" id="ritualTransition">
+    <div class="ritual-step" style="padding:30px 10px;">
+      <svg width="160" height="210" viewBox="0 0 200 260" style="display:block;margin:0 auto;">
+        <defs>
+          <radialGradient id="ritualGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#e8b96a" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#e8b96a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="100" cy="70" r="45" fill="url(#ritualGlow)">
+          <animate attributeName="r" values="40;50;40" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <line x1="100" y1="90" x2="100" y2="200" stroke="#8a7355" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="100" cy="88" r="4" fill="#d9822b">
+          <animate attributeName="opacity" values="0.7;1;0.7" dur="1.6s" repeatCount="indefinite"/>
+        </circle>
+        <path d="M100 84 C 95 65, 108 50, 100 30 C 92 12, 105 -2, 100 -18" fill="none" stroke="#a89c86" stroke-width="2.5" stroke-linecap="round" opacity="0.55">
+          <animate attributeName="d" values="
+            M100 84 C 95 65, 108 50, 100 30 C 92 12, 105 -2, 100 -18;
+            M100 84 C 105 65, 92 50, 100 30 C 108 12, 95 -2, 100 -18;
+            M100 84 C 95 65, 108 50, 100 30 C 92 12, 105 -2, 100 -18" dur="6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.6;0" dur="6s" repeatCount="indefinite"/>
+        </path>
+        <path d="M100 84 C 90 68, 112 48, 100 25" fill="none" stroke="#a89c86" stroke-width="2" stroke-linecap="round" opacity="0.4">
+          <animate attributeName="d" values="
+            M100 84 C 90 68, 112 48, 100 25;
+            M100 84 C 110 68, 88 48, 100 25;
+            M100 84 C 90 68, 112 48, 100 25" dur="5s" begin="1.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.5;0" dur="5s" begin="1.5s" repeatCount="indefinite"/>
+        </path>
+        <rect x="70" y="200" width="60" height="14" rx="4" fill="#c9a45c" opacity="0.5"/>
+      </svg>
+      <p style="font-family:'Noto Serif TC';color:var(--calm-jade,#5f7a5e);font-size:15px;margin-top:8px;letter-spacing:0.15em;text-align:center;">靜心　誠意　再問</p>
     </div>
   </div>
 
@@ -4002,12 +4044,27 @@ document.getElementById('beginBtn').addEventListener('click', ()=>{
   topicText = document.getElementById('topicSelect').value;
   document.getElementById('questionEcho').textContent = questionText ? '「' + questionText + '」' : '靜觀其變，隨緣映照';
   step1.classList.add('hidden');
-  step2.classList.remove('hidden');
-  lines = [];
-  currentLineIdx = 0;
-  renderProgress();
-  updateCastTitle();
-  step2.scrollIntoView({behavior:'smooth'});
+  const ritual = document.getElementById('ritualTransition');
+  ritual.classList.remove('hidden');
+  ritual.scrollIntoView({behavior:'smooth'});
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=> ritual.classList.add('ritual-visible'));
+  });
+  setTimeout(()=>{
+    ritual.classList.remove('ritual-visible'); // 開始淡出
+    setTimeout(()=>{
+      ritual.classList.add('hidden');
+      step2.classList.remove('hidden');
+      lines = [];
+      currentLineIdx = 0;
+      renderProgress();
+      updateCastTitle();
+      step2.scrollIntoView({behavior:'smooth'});
+      requestAnimationFrame(()=>{
+        requestAnimationFrame(()=> step2.classList.add('step2-visible'));
+      });
+    }, 900); // 等淡出動畫跑完
+  }, 1800); // 淡入完成後停留時間
 });
 
 function renderProgress(){
@@ -4103,6 +4160,7 @@ function formatCastTime(date){
 
 function showResult(){
   step2.classList.add('hidden');
+  step2.classList.remove('step2-visible');
   step3.classList.remove('hidden');
 
   const castTime = new Date();
