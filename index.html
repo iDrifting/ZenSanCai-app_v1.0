@@ -5100,8 +5100,14 @@ function renderAiResults(){
       </div>
       <div class="hist-q">${r.sourceLabel || ''}</div>
       <div class="hist-detail" style="white-space:pre-wrap;line-height:1.85;">${r.text}</div>
+      <button class="report-ai-btn" data-idx="${i}" style="margin-top:10px;background:transparent;border:1px solid var(--line-strong);border-radius:10px;padding:4px 12px;font-size:11px;color:var(--paper-dim);cursor:pointer;">⚑ 回報這則內容</button>
     </div>
   `).join('');
+  el.querySelectorAll('.report-ai-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      alert('若這則AI生成的內容有令人不適、不當或有疑慮之處，歡迎透過本工具GitHub頁面的Issues功能回報給開發者，我們會盡快處理。\n\n（此為AI依你提供的命理資料即時生成的內容，非本工具預先撰寫）');
+    });
+  });
   el.querySelectorAll('.hist-del').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       if(confirm('確定要刪除這筆AI分析結果嗎？')){
