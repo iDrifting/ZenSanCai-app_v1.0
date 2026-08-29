@@ -1105,6 +1105,17 @@
       <p>所有排盤紀錄、快捷設定只存在你這支手機的瀏覽器裡，不會上傳到任何地方。換手機或清除瀏覽器資料會遺失且無法復原。</p>
       <p style="margin-top:8px;">本工具核心排盤演算法已交叉驗證，惟命理解讀僅供參考反思之用，不構成醫療、法律或財務建議，人生的答案終究在你心中。</p>
     </div>
+
+    <div class="help-section">
+      <h3>💾 資料備份（匯出／匯入）</h3>
+      <p>換手機、換瀏覽器前，建議先匯出備份；到新裝置後再匯入，快捷、歷史紀錄、AI分析結果、API金鑰設定都能完整還原。匯出檔案是純文字JSON，<b>內含你的API金鑰，請自行妥善保存、不要公開分享這個備份檔</b>。</p>
+      <div style="display:flex;gap:10px;margin-top:10px;">
+        <button class="mystic" id="exportDataBtn" style="flex:1;">匯出備份</button>
+        <button class="mystic secondary" id="importDataBtn" style="flex:1;">匯入備份</button>
+      </div>
+      <input type="file" id="importDataFile" accept="application/json" class="hidden">
+      <p id="exportImportStatus" style="text-align:center;font-size:12px;color:var(--brass);min-height:18px;margin-top:8px;"></p>
+    </div>
   </div>
 </div>
 
@@ -4949,6 +4960,69 @@ document.getElementById('taglineText').addEventListener('click', ()=>{
   closeBtn.addEventListener('click', ()=> modal.classList.add('hidden'));
   modal.addEventListener('click', (e)=>{ if(e.target===modal) modal.classList.add('hidden'); });
 })();
+
+/* ===================== 資料備份（匯出／匯入全部 localStorage） ===================== */
+const BACKUP_KEYS = {
+  presets: 'ziwei_my_presets_v1',
+  ziweiHistory: 'ziwei_history_v1',
+  divinationHistory: 'divination_history_v1',
+  objMode: 'ai_obj_mode_v1',
+  apiSettings: 'sancai_api_settings_v1',
+  aiResults: 'sancai_ai_results_v1'
+};
+document.getElementById('exportDataBtn').addEventListener('click', ()=>{
+  const statusEl = document.getElementById('exportImportStatus');
+  const backup = { exportedAt: new Date().toISOString(), app: '三才', version: 1, data: {} };
+  Object.entries(BACKUP_KEYS).forEach(([label, key])=>{
+    const raw = localStorage.getItem(key);
+    if(raw === null) return;
+    try{ backup.data[key] = JSON.parse(raw); }
+    catch(e){ backup.data[key] = raw; } // 非JSON格式（如純文字設定值）原樣保留
+  });
+  const blob = new Blob([JSON.stringify(backup, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dateStr = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `三才備份_${dateStr}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  statusEl.textContent = '✓ 已匯出備份檔，請妥善保存';
+});
+
+document.getElementById('importDataBtn').addEventListener('click', ()=>{
+  document.getElementById('importDataFile').click();
+});
+document.getElementById('importDataFile').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const statusEl = document.getElementById('exportImportStatus');
+  const reader = new FileReader();
+  reader.onload = (evt)=>{
+    try{
+      const backup = JSON.parse(evt.target.result);
+      if(!backup.data || backup.app !== '三才'){
+        statusEl.textContent = '✗ 這不是有效的三才備份檔';
+        return;
+      }
+      if(!confirm('匯入備份會覆蓋目前裝置上的所有快捷、歷史紀錄、AI分析結果與API設定，確定要繼續嗎？此動作無法復原。')) return;
+      Object.entries(backup.data).forEach(([key, value])=>{
+        try{
+          const toStore = typeof value === 'string' ? value : JSON.stringify(value);
+          localStorage.setItem(key, toStore);
+        }catch(e){}
+      });
+      statusEl.textContent = '✓ 匯入完成，重新整理頁面後生效';
+      setTimeout(()=> location.reload(), 1200);
+    }catch(err){
+      statusEl.textContent = '✗ 備份檔案格式錯誤，無法匯入';
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
 
 /* ===================== API 設定（金鑰只存 localStorage） ===================== */
 const API_SETTINGS_KEY = 'sancai_api_settings_v1';
