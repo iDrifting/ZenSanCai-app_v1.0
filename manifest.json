@@ -1,7 +1,7 @@
 {
   "name": "三才",
   "short_name": "三才",
-  "description": "紫微斗數・易經卜卦・陽宅風水",
+  "description": "紫微斗數・八字・易經卜卦・陽宅風水，跨系統AI整合分析",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
