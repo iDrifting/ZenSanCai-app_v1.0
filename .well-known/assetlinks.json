@@ -1,8 +1,11 @@
 [{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "io.github.idrifting.twa",
-        "sha256_cert_fingerprints": ["EC:B7:02:A8:18:6F:A8:1A:0D:C4:36:6C:0D:26:6F:7D:15:E0:66:A9:00:99:45:B5:9B:6A:36:1A:5A:08:F6:D4"]
-      }
-    }]
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.github.idrifting.twa",
+    "sha256_cert_fingerprints": [
+      "67:9C:4C:62:F4:40:3E:87:55:DB:65:F0:01:B7:CE:58:57:89:98:AC:8E:9C:89:08:61:D6:C7:C9:20:2A:32:0A",
+      "BB:B0:17:AD:B1:99:B7:E4:EB:A6:1E:B9:31:48:80:F7:AC:7C:3B:63:45:E2:B0:83:B0:34:EC:A0:A0:83:63:D8"
+    ]
+  }
+}]
