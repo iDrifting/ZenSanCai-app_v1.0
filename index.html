@@ -374,6 +374,43 @@
     .hex-line .seg{ animation:none; opacity:1; transform:scaleX(1); }
   }
 
+  /* ============ 自訂確認彈窗（取代瀏覽器原生 confirm，不顯示網址） ============ */
+  #appConfirmModal{
+    position:fixed; inset:0; z-index:9500;
+    background:rgba(30,24,16,0.55);
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
+    opacity:0; pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  #appConfirmModal.show{ opacity:1; pointer-events:auto; }
+  .app-confirm-box{
+    background:var(--paper,#f0e8d8);
+    border:1px solid var(--line-strong, rgba(32,29,23,0.24));
+    border-radius:4px;
+    max-width:340px; width:100%;
+    padding:26px 24px 22px;
+    text-align:center;
+    box-shadow:0 8px 28px rgba(38,34,26,0.3);
+    transform:scale(0.94);
+    transition:transform .2s ease;
+  }
+  #appConfirmModal.show .app-confirm-box{ transform:scale(1); }
+  .app-confirm-msg{
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:15px; line-height:1.85; color:var(--ink,#201d17);
+    margin:0 0 22px; white-space:pre-wrap;
+  }
+  .app-confirm-row{display:flex; gap:12px; justify-content:center;}
+  .app-confirm-row button{
+    flex:1; font-family:'Noto Serif TC',serif; font-weight:700; font-size:14.9px;
+    padding:10px 0; border-radius:2px; cursor:pointer;
+    border:2px solid var(--vermilion, #9c4a35);
+  }
+  .app-confirm-cancel{ background:transparent; color:var(--ink-soft,#6b6353); border-color:var(--line-strong, rgba(32,29,23,0.24)) !important; }
+  .app-confirm-ok{ background:var(--vermilion,#9c4a35); color:#f2e6cf; }
+  .app-confirm-ok:active, .app-confirm-cancel:active{ transform:scale(0.96); }
+
 /* ===== 紫微斗數樣式 ===== */
 
   
@@ -2119,6 +2156,40 @@
   </footer>
 </div>
 
+<!-- ============ 自訂確認彈窗（取代瀏覽器原生 confirm） ============ -->
+<div id="appConfirmModal">
+  <div class="app-confirm-box">
+    <p class="app-confirm-msg" id="appConfirmMsg"></p>
+    <div class="app-confirm-row">
+      <button class="app-confirm-cancel" id="appConfirmCancelBtn">取消</button>
+      <button class="app-confirm-ok" id="appConfirmOkBtn">確定</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ 自訂確認彈窗邏輯：appConfirm(message) 回傳 Promise<boolean> ============ */
+function appConfirm(message){
+  return new Promise((resolve)=>{
+    const modal = document.getElementById('appConfirmModal');
+    const msgEl = document.getElementById('appConfirmMsg');
+    const okBtn = document.getElementById('appConfirmOkBtn');
+    const cancelBtn = document.getElementById('appConfirmCancelBtn');
+    msgEl.textContent = message;
+    modal.classList.add('show');
+    function cleanup(result){
+      modal.classList.remove('show');
+      okBtn.removeEventListener('click', onOk);
+      cancelBtn.removeEventListener('click', onCancel);
+      resolve(result);
+    }
+    function onOk(){ cleanup(true); }
+    function onCancel(){ cleanup(false); }
+    okBtn.addEventListener('click', onOk);
+    cancelBtn.addEventListener('click', onCancel);
+  });
+}
+</script>
 <script>
 
 /* ============ 基礎資料 ============ */
@@ -2769,12 +2840,13 @@ function renderPresetButtons(){
     b.addEventListener('click', (e)=>{
       e.stopPropagation();
       const idx = parseInt(b.dataset.idx);
-      if(confirm('確定要刪除「'+list[idx].label+'」這個快捷嗎？')){
+      appConfirm('確定要刪除「'+list[idx].label+'」這個快捷嗎？').then(ok=>{
+        if(!ok) return;
         list.splice(idx,1);
         savePresets(list);
         renderPresetButtons();
         renderBaziPresetButtons();
-      }
+      });
     });
   });
   renderCastRoleQuick();
@@ -2856,7 +2928,7 @@ function renderZiweiHistory(){
   `).join('');
   el.querySelectorAll('.hist-del').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      if(confirm('確定刪除這筆命盤紀錄嗎？')) deleteZiweiHistory(parseInt(btn.dataset.idx));
+      appConfirm('確定刪除這筆命盤紀錄嗎？').then(ok=>{ if(ok) deleteZiweiHistory(parseInt(btn.dataset.idx)); });
     });
   });
   el.querySelectorAll('.hist-reload').forEach(btn=>{
@@ -2871,10 +2943,11 @@ function renderZiweiHistory(){
   });
 }
 document.getElementById('ziweiClearHistoryBtn').addEventListener('click', ()=>{
-  if(confirm('確定要清空所有紫微命盤紀錄嗎？此動作無法復原。')){
+  appConfirm('確定要清空所有紫微命盤紀錄嗎？此動作無法復原。').then(ok=>{
+    if(!ok) return;
     try{ localStorage.setItem(ZIWEI_HISTORY_KEY, JSON.stringify([])); }catch(e){}
     renderZiweiHistory();
-  }
+  });
 });
 renderZiweiHistory();
 
@@ -4432,7 +4505,7 @@ function renderHistory(){
   }).join('');
   el.querySelectorAll('.hist-del').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      if(confirm('確定刪除這筆紀錄嗎？')) deleteHistoryRecord(parseInt(btn.dataset.idx));
+      appConfirm('確定刪除這筆紀錄嗎？').then(ok=>{ if(ok) deleteHistoryRecord(parseInt(btn.dataset.idx)); });
     });
   });
   el.querySelectorAll('.hist-select').forEach(cb=>{
@@ -4444,10 +4517,11 @@ function renderHistory(){
   });
 }
 document.getElementById('clearHistoryBtn').addEventListener('click', ()=>{
-  if(confirm('確定要清空所有歷史紀錄嗎？此動作無法復原。')){
+  appConfirm('確定要清空所有歷史紀錄嗎？此動作無法復原。').then(ok=>{
+    if(!ok) return;
     try{ localStorage.setItem(HISTORY_KEY, JSON.stringify([])); }catch(e){}
     renderHistory();
-  }
+  });
 });
 function renderRoleDeleteControl(list){
   const row = document.getElementById('roleDeleteRow');
@@ -4472,11 +4546,12 @@ document.getElementById('roleDeleteBtn').addEventListener('click', ()=>{
   const isNoRole = role === '__NO_ROLE__';
   const count = isNoRole ? list.filter(r=>!r.role).length : list.filter(r=>r.role===role).length;
   const label = isNoRole ? '沒有角色標籤' : `「${role}」`;
-  if(confirm(`確定要刪除${label}的所有紀錄嗎？共 ${count} 筆，此動作無法復原。`)){
+  appConfirm(`確定要刪除${label}的所有紀錄嗎？共 ${count} 筆，此動作無法復原。`).then(ok=>{
+    if(!ok) return;
     const filtered = isNoRole ? list.filter(r=>r.role) : list.filter(r=>r.role!==role);
     try{ localStorage.setItem(HISTORY_KEY, JSON.stringify(filtered)); }catch(e){}
     renderHistory();
-  }
+  });
 });
 document.getElementById('combineBtn').addEventListener('click', async ()=>{
   const list = loadHistory();
@@ -5001,24 +5076,32 @@ document.getElementById('importDataFile').addEventListener('change', (e)=>{
   const statusEl = document.getElementById('exportImportStatus');
   const reader = new FileReader();
   reader.onload = (evt)=>{
+    let backup;
     try{
-      const backup = JSON.parse(evt.target.result);
-      if(!backup.data || backup.app !== '三才'){
-        statusEl.textContent = '✗ 這不是有效的三才備份檔';
-        return;
-      }
-      if(!confirm('匯入備份會覆蓋目前裝置上的所有快捷、歷史紀錄、AI分析結果與API設定，確定要繼續嗎？此動作無法復原。')) return;
-      Object.entries(backup.data).forEach(([key, value])=>{
-        try{
-          const toStore = typeof value === 'string' ? value : JSON.stringify(value);
-          localStorage.setItem(key, toStore);
-        }catch(e){}
-      });
-      statusEl.textContent = '✓ 匯入完成，重新整理頁面後生效';
-      setTimeout(()=> location.reload(), 1200);
+      backup = JSON.parse(evt.target.result);
     }catch(err){
       statusEl.textContent = '✗ 備份檔案格式錯誤，無法匯入';
+      return;
     }
+    if(!backup.data || backup.app !== '三才'){
+      statusEl.textContent = '✗ 這不是有效的三才備份檔';
+      return;
+    }
+    appConfirm('匯入備份會覆蓋目前裝置上的所有快捷、歷史紀錄、AI分析結果與API設定，確定要繼續嗎？此動作無法復原。').then(ok=>{
+      if(!ok) return;
+      try{
+        Object.entries(backup.data).forEach(([key, value])=>{
+          try{
+            const toStore = typeof value === 'string' ? value : JSON.stringify(value);
+            localStorage.setItem(key, toStore);
+          }catch(e){}
+        });
+        statusEl.textContent = '✓ 匯入完成，重新整理頁面後生效';
+        setTimeout(()=> location.reload(), 1200);
+      }catch(err){
+        statusEl.textContent = '✗ 備份檔案格式錯誤，無法匯入';
+      }
+    });
   };
   reader.readAsText(file);
   e.target.value = '';
@@ -5184,20 +5267,22 @@ function renderAiResults(){
   });
   el.querySelectorAll('.hist-del').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      if(confirm('確定要刪除這筆AI分析結果嗎？')){
+      appConfirm('確定要刪除這筆AI分析結果嗎？').then(ok=>{
+        if(!ok) return;
         const list2 = loadAiResults();
         list2.splice(parseInt(btn.dataset.idx),1);
         try{ localStorage.setItem(AI_RESULTS_KEY, JSON.stringify(list2)); }catch(e){}
         renderAiResults();
-      }
+      });
     });
   });
 }
 document.getElementById('clearAiResultsBtn').addEventListener('click', ()=>{
-  if(confirm('確定要清空所有AI分析結果嗎？此動作無法復原。')){
+  appConfirm('確定要清空所有AI分析結果嗎？此動作無法復原。').then(ok=>{
+    if(!ok) return;
     try{ localStorage.setItem(AI_RESULTS_KEY, JSON.stringify([])); }catch(e){}
     renderAiResults();
-  }
+  });
 });
 
 /* ===================== 回到頂部按鈕 ===================== */
@@ -5881,12 +5966,13 @@ function renderBaziPresetButtons(){
     b.addEventListener('click', (e)=>{
       e.stopPropagation();
       const idx = parseInt(b.dataset.idx);
-      if(confirm('確定要刪除「'+list[idx].label+'」這個快捷嗎？')){
+      appConfirm('確定要刪除「'+list[idx].label+'」這個快捷嗎？').then(ok=>{
+        if(!ok) return;
         list.splice(idx,1);
         savePresets(list);
         renderBaziPresetButtons();
         renderPresetButtons();
-      }
+      });
     });
   });
 }
