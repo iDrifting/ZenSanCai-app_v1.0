@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>紫微・八字・卜卦，是什麼？</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+  :root{
+    --paper: #f0e8d8;
+    --paper-dim: #a99a7c;
+    --ink: #3a2f22;
+    --ink-soft: #6b5d47;
+    --brass: #c9a45c;
+    --gold-bright: #b8873a;
+    --jade: #5f7a5e;
+    --vermilion: #a8433a;
+    --blue: #3a5a8c;
+    --line: #d9cdb0;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Noto Sans TC', sans-serif; line-height:1.7; overflow-x:hidden;
+  }
+  .wrap{ max-width:640px; margin:0 auto; padding:0 20px; }
+
+  .hero{
+    min-height:86vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; padding:40px 20px;
+  }
+  .hero-eyebrow{ font-size:12px; letter-spacing:0.3em; color:var(--brass); margin-bottom:18px; text-transform:uppercase; }
+  .hero h1{ font-family:'Noto Serif TC', serif; font-weight:900; font-size:clamp(26px,7vw,40px); line-height:1.5; margin-bottom:22px; }
+  .hero p{ color:var(--ink-soft); font-size:15px; max-width:400px; margin:0 auto 36px; }
+  .hero-scroll-hint{ font-size:12px; color:var(--paper-dim); animation:bob 2s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+  section{ padding:70px 0; border-top:1px solid var(--line); }
+  section:first-of-type{ border-top:none; }
+  .eyebrow{ font-size:11px; letter-spacing:0.2em; color:var(--brass); text-transform:uppercase; margin-bottom:10px; font-weight:700; }
+  h2{ font-family:'Noto Serif TC', serif; font-weight:700; font-size:clamp(22px,5vw,30px); margin-bottom:14px; line-height:1.4; }
+  .lede{ color:var(--ink-soft); font-size:15px; margin-bottom:30px; max-width:480px; }
+  figure{ margin:0 0 24px; text-align:center; }
+  figcaption{ font-size:13px; color:var(--paper-dim); margin-top:10px; }
+
+  .card{
+    background:rgba(255,252,240,0.55); border:1px solid var(--line); border-radius:6px;
+    padding:22px 20px; margin-bottom:16px;
+  }
+  .card h3{ font-family:'Noto Serif TC',serif; font-size:16px; margin-bottom:6px; }
+  .card p{ font-size:13.5px; color:var(--ink-soft); }
+
+  .tag{
+    display:inline-block; font-size:11px; font-weight:700; padding:3px 12px;
+    border-radius:12px; margin-bottom:14px; letter-spacing:0.05em;
+  }
+  .tag.ziwei{ background:rgba(184,135,58,0.18); color:var(--gold-bright); }
+  .tag.bazi{ background:rgba(95,122,94,0.18); color:var(--jade); }
+  .tag.bugua{ background:rgba(58,90,140,0.18); color:var(--blue); }
+
+  .compare-row{ display:flex; gap:12px; margin-bottom:14px; }
+  .compare-col{
+    flex:1; text-align:center; padding:18px 10px; border-radius:6px;
+    border:1px solid var(--line); background:rgba(255,252,240,0.4);
+  }
+  .compare-col .icon{ font-size:26px; margin-bottom:8px; }
+  .compare-col .label{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:14px; margin-bottom:4px; }
+  .compare-col .desc{ font-size:11.5px; color:var(--ink-soft); }
+
+  footer{ text-align:center; padding:60px 20px 80px; color:var(--paper-dim); font-size:12.5px; }
+  footer .brush{ width:60px; height:2px; background:var(--brass); margin:0 auto 20px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">San Cai · 命理入門</div>
+  <h1>紫微・八字・卜卦<br>到底在看什麼？</h1>
+  <p>三種完全不同的角度，看同一件事：你的人生。用五分鐘搞懂它們各自在問什麼問題。</p>
+  <div class="hero-scroll-hint">↓ 往下滑</div>
+</div>
+
+<div class="wrap">
+
+<section>
+  <div class="eyebrow">先有個全局概念</div>
+  <h2>同一個你，三種不同的「拍照方式」</h2>
+  <p class="lede">紫微斗數跟八字，拍的是你「出生那一刻」的定裝照，一輩子不變；卜卦拍的是「現在這一秒」的即時快照，每次都不一樣。</p>
+
+  <figure>
+    <svg viewBox="0 0 600 260" width="100%" style="max-width:480px;">
+      <circle cx="150" cy="70" r="8" fill="#a8433a"/>
+      <text x="150" y="100" text-anchor="middle" font-family="Noto Sans TC" font-size="12" fill="#6b5d47">你出生的那一刻</text>
+      <path d="M150 78 L150 130" stroke="#a8433a" stroke-width="2" stroke-dasharray="4,4"/>
+
+      <rect x="60" y="140" width="110" height="70" rx="8" fill="#c9a45c" opacity="0.25" stroke="#b8873a" stroke-width="1.5"/>
+      <text x="115" y="168" text-anchor="middle" font-size="22">📷</text>
+      <text x="115" y="195" text-anchor="middle" font-family="Noto Sans TC" font-size="12" font-weight="700" fill="#3a2f22">紫微／八字</text>
+      <text x="115" y="235" text-anchor="middle" font-family="Noto Sans TC" font-size="11" fill="#6b5d47">拍一次，一輩子不變</text>
+
+      <text x="420" y="60" text-anchor="middle" font-family="Noto Sans TC" font-size="12" fill="#6b5d47">現在這一秒</text>
+      <circle cx="420" cy="90" r="7" fill="#3a5a8c"/>
+      <circle cx="460" cy="120" r="7" fill="#3a5a8c" opacity="0.5"/>
+      <circle cx="500" cy="150" r="7" fill="#3a5a8c" opacity="0.3"/>
+      <path d="M420 97 Q 440 105 460 113" stroke="#3a5a8c" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+      <path d="M460 127 Q 480 135 500 143" stroke="#3a5a8c" stroke-width="1.5" stroke-dasharray="3,3" fill="none"/>
+      <rect x="360" y="160" width="130" height="60" rx="8" fill="#3a5a8c" opacity="0.15" stroke="#3a5a8c" stroke-width="1.5"/>
+      <text x="425" y="188" text-anchor="middle" font-size="22">🎲</text>
+      <text x="425" y="210" text-anchor="middle" font-family="Noto Sans TC" font-size="12" font-weight="700" fill="#3a2f22">卜卦</text>
+      <text x="425" y="245" text-anchor="middle" font-family="Noto Sans TC" font-size="11" fill="#6b5d47">隨時能問，每次都不同</text>
+    </svg>
+  </figure>
+</section>
+
+<section>
+  <span class="tag ziwei">紫微斗數</span>
+  <h2>把你的一生，畫成一張12格的地圖</h2>
+  <p class="lede">根據出生的年月日時，把滿天星星「分配」到12個房間裡，每個房間管一件事——事業、財運、婚姻、健康……星星落在哪裡，那個房間就特別亮。</p>
+
+  <figure>
+    <svg viewBox="0 0 400 400" width="100%" style="max-width:320px;">
+      <g font-family="Noto Sans TC" font-size="11" fill="#3a2f22" text-anchor="middle">
+        <circle cx="200" cy="65" r="26" fill="#f0e8d8" stroke="#b8873a" stroke-width="1.5"/>
+        <text x="200" y="69">命宮</text>
+
+        <circle cx="267" cy="83" r="26" fill="#f0e8d8" stroke="#d9cdb0" stroke-width="1.5"/>
+        <text x="267" y="87">兄弟</text>
+
+        <circle cx="318" cy="132" r="26" fill="#f0e8d8" stroke="#a8433a" stroke-width="2"/>
+        <text x="318" y="136">夫妻</text>
+
+        <circle cx="335" cy="200" r="26" fill="#f0e8d8" stroke="#d9cdb0" stroke-width="1.5"/>
+        <text x="335" y="204">子女</text>
+
+        <circle cx="318" cy="268" r="26" fill="#f0e8d8" stroke="#5f7a5e" stroke-width="2"/>
+        <text x="318" y="272">財帛</text>
+
+        <circle cx="267" cy="317" r="26" fill="#f0e8d8" stroke="#d9cdb0" stroke-width="1.5"/>
+        <text x="267" y="321">疾厄</text>
+
+        <circle cx="200" cy="335" r="26" fill="#f0e8d8" stroke="#d9cdb0" stroke-width="1.5"/>
+        <text x="200" y="339">遷移</text>
+
+        <circle cx="133" cy="317" r="26" fill="#f0e8d8" stroke="#d9cdb0" stroke-width="1.5"/>
+        <text x="133" y="321">交友</text>
+
+        <circle cx="82" cy="268" r="26" fill="#f0e8d8" stroke="#b8873a" stroke-width="2"/>
+        <text x="82" y="272">官祿</text>
+
+        <circle cx="65" cy="200" r="26" fill="#f0e8d8" stroke="#d9cdb0" stroke-width="1.5"/>
+        <text x="65" y="204">田宅</text>
+
+        <circle cx="82" cy="132" r="26" fill="#f0e8d8" stroke="#d9cdb0" stroke-width="1.5"/>
+        <text x="82" y="136">福德</text>
+
+        <circle cx="133" cy="83" r="26" fill="#f0e8d8" stroke="#d9cdb0" stroke-width="1.5"/>
+        <text x="133" y="87">父母</text>
+      </g>
+
+      <circle cx="200" cy="200" r="55" fill="#3a2f22"/>
+      <text x="200" y="192" text-anchor="middle" font-family="Noto Serif TC" font-weight="700" font-size="13" fill="#f0e8d8">你的</text>
+      <text x="200" y="212" text-anchor="middle" font-family="Noto Serif TC" font-weight="700" font-size="13" fill="#f0e8d8">出生時刻</text>
+    </svg>
+    <figcaption>12個房間各管一件事，紅色＝夫妻宮特別亮，綠色＝財帛宮特別亮（示意）</figcaption>
+  </figure>
+
+  <div class="card">
+    <h3>一句話理解</h3>
+    <p>紫微斗數回答的問題是：<b>「我天生的性格跟格局，適合往哪個方向發展？」</b>——看的是一輩子的底色，還有每個十年階段（大限）、每一年（流年）的重點會落在哪裡。</p>
+  </div>
+</section>
+
+<section>
+  <span class="tag bazi">八字</span>
+  <h2>用四組密碼，記錄你出生那刻的「五行配方」</h2>
+  <p class="lede">年、月、日、時，各自換算成一組兩個字的干支代碼，四組共八個字——這就是「八字」名字的由來。這八個字裡藏著金木水火土的比例，決定你的體質跟性格傾向。</p>
+
+  <figure>
+    <svg viewBox="0 0 460 240" width="100%" style="max-width:380px;">
+      <text x="230" y="24" text-anchor="middle" font-family="Noto Sans TC" font-size="12" fill="#6b5d47">出生：年・月・日・時</text>
+      <path d="M230 32 L230 52" stroke="#b8873a" stroke-width="2" stroke-dasharray="4,4"/>
+
+      <g font-family="Noto Serif TC" text-anchor="middle">
+        <rect x="20" y="60" width="90" height="150" rx="6" fill="#f7f2e4" stroke="#c9a45c" stroke-width="2"/>
+        <text x="65" y="45" font-family="Noto Sans TC" font-size="11" fill="#6b5d47">年柱</text>
+        <rect x="35" y="75" width="60" height="55" rx="4" fill="#c9a45c" opacity="0.3"/>
+        <text x="65" y="112" font-weight="900" font-size="26" fill="#3a2f22">甲</text>
+        <rect x="35" y="140" width="60" height="55" rx="4" fill="#5f7a5e" opacity="0.25"/>
+        <text x="65" y="177" font-weight="900" font-size="26" fill="#3a2f22">子</text>
+
+        <rect x="130" y="60" width="90" height="150" rx="6" fill="#f7f2e4" stroke="#c9a45c" stroke-width="2"/>
+        <text x="175" y="45" font-family="Noto Sans TC" font-size="11" fill="#6b5d47">月柱</text>
+        <rect x="145" y="75" width="60" height="55" rx="4" fill="#c9a45c" opacity="0.3"/>
+        <text x="175" y="112" font-weight="900" font-size="26" fill="#3a2f22">丙</text>
+        <rect x="145" y="140" width="60" height="55" rx="4" fill="#5f7a5e" opacity="0.25"/>
+        <text x="175" y="177" font-weight="900" font-size="26" fill="#3a2f22">寅</text>
+
+        <rect x="240" y="60" width="90" height="150" rx="6" fill="#f7f2e4" stroke="#a8433a" stroke-width="2.5"/>
+        <text x="285" y="45" font-family="Noto Sans TC" font-size="11" fill="#a8433a" font-weight="700">日柱（你自己）</text>
+        <rect x="255" y="75" width="60" height="55" rx="4" fill="#a8433a" opacity="0.25"/>
+        <text x="285" y="112" font-weight="900" font-size="26" fill="#3a2f22">戊</text>
+        <rect x="255" y="140" width="60" height="55" rx="4" fill="#5f7a5e" opacity="0.25"/>
+        <text x="285" y="177" font-weight="900" font-size="26" fill="#3a2f22">午</text>
+
+        <rect x="350" y="60" width="90" height="150" rx="6" fill="#f7f2e4" stroke="#c9a45c" stroke-width="2"/>
+        <text x="395" y="45" font-family="Noto Sans TC" font-size="11" fill="#6b5d47">時柱</text>
+        <rect x="365" y="75" width="60" height="55" rx="4" fill="#c9a45c" opacity="0.3"/>
+        <text x="395" y="112" font-weight="900" font-size="26" fill="#3a2f22">壬</text>
+        <rect x="365" y="140" width="60" height="55" rx="4" fill="#5f7a5e" opacity="0.25"/>
+        <text x="395" y="177" font-weight="900" font-size="26" fill="#3a2f22">子</text>
+      </g>
+    </svg>
+    <figcaption>四柱、八個字——「日柱」的天干代表你自己本人</figcaption>
+  </figure>
+
+  <div class="card">
+    <h3>一句話理解</h3>
+    <p>八字回答的問題是：<b>「我天生的能量配方是強是弱？缺什麼、多什麼？」</b>——用金木水火土的平衡，判斷體質、心理特質，以及每個大運階段該補強哪個方向。</p>
+  </div>
+</section>
+
+<section>
+  <span class="tag bugua">卜卦</span>
+  <h2>丟六次銅錢，問一個當下的具體問題</h2>
+  <p class="lede">跟紫微八字不一樣，卜卦不看你的出生資料——它看的是「此刻」。心裡想著一個問題，丟六次銅錢，由下往上疊成一個卦象，直接回答這件事現在的吉凶。</p>
+
+  <figure>
+    <svg viewBox="0 0 420 320" width="100%" style="max-width:340px;">
+      <circle cx="150" cy="40" r="22" fill="#c9a45c"/>
+      <rect x="145" y="34" width="10" height="10" fill="#f0e8d8"/>
+      <circle cx="200" cy="30" r="22" fill="#c9a45c"/>
+      <rect x="195" y="24" width="10" height="10" fill="#f0e8d8"/>
+      <circle cx="250" cy="40" r="22" fill="#c9a45c"/>
+      <rect x="245" y="34" width="10" height="10" fill="#f0e8d8"/>
+      <text x="200" y="85" text-anchor="middle" font-family="Noto Sans TC" font-size="12" fill="#6b5d47">丟六次，由下往上疊</text>
+
+      <path d="M200 95 L200 120" stroke="#3a5a8c" stroke-width="2" stroke-dasharray="4,4"/>
+
+      <g stroke="#3a2f22" stroke-width="8" stroke-linecap="round">
+        <line x1="130" y1="140" x2="180" y2="140"/>
+        <line x1="220" y1="140" x2="270" y2="140"/>
+        <line x1="130" y1="165" x2="270" y2="165"/>
+        <line x1="130" y1="190" x2="270" y2="190"/>
+        <line x1="130" y1="215" x2="180" y2="215"/>
+        <line x1="220" y1="215" x2="270" y2="215"/>
+        <line x1="130" y1="240" x2="270" y2="240"/>
+        <line x1="130" y1="265" x2="270" y2="265"/>
+      </g>
+      <text x="290" y="145" font-family="Noto Sans TC" font-size="10" fill="#a99a7c">第6爻</text>
+      <text x="290" y="269" font-family="Noto Sans TC" font-size="10" fill="#a99a7c">第1爻（先丟）</text>
+
+      <text x="200" y="300" text-anchor="middle" font-family="Noto Sans TC" font-size="12" fill="#6b5d47">組成一個卦，對應一個答案</text>
+    </svg>
+    <figcaption>實線＝陽爻，斷開的線＝陰爻，六條線由下往上疊成一卦</figcaption>
+  </figure>
+
+  <div class="card">
+    <h3>一句話理解</h3>
+    <p>卜卦回答的問題是：<b>「這件我正在煩惱的事，現在的走向是什麼？」</b>——不是看一輩子，是看「這個時間點」的具體吉凶，適合拿來問明確的單一問題。</p>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">整合起來看</div>
+  <h2>三個角度，剛好互補</h2>
+  <p class="lede">這也是為什麼三才把三個系統放在一起、還能交給AI一起解讀——同一件煩惱的事，可以同時從「格局」「氣勢」「當下」三個角度照一次。</p>
+
+  <div class="compare-row">
+    <div class="compare-col">
+      <div class="icon">🗺️</div>
+      <div class="label">紫微斗數</div>
+      <div class="desc">看格局<br>一輩子的地圖</div>
+    </div>
+    <div class="compare-col">
+      <div class="icon">⚖️</div>
+      <div class="label">八字</div>
+      <div class="desc">看氣勢<br>五行的強弱平衡</div>
+    </div>
+    <div class="compare-col">
+      <div class="icon">🎯</div>
+      <div class="label">卜卦</div>
+      <div class="desc">看當下<br>此刻這件事的答案</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p style="font-size:13.5px;">紫微跟八字像是<b>看一份完整的體質報告跟人生地圖</b>；卜卦則像<b>今天去問醫生「我這禮拜感冒該怎麼辦」</b>——地圖是固定的，但每次遇到的具體狀況，還是要當下問一次才準。</p>
+  </div>
+</section>
+
+<footer>
+  <div class="brush"></div>
+  一張地圖，一份體質報告，一次當下的提問——<br>三種角度合起來看，才是完整的畫面。
+</footer>
+
+</div>
+</body>
+</html>
