@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三才App 是什麼？</title>
+<style>
+  :root{
+    --paper: #efe9dc;
+    --paper2: #e1d7c1;
+    --ink: #201d17;
+    --ink-soft: #6b6353;
+    --ink-faint: rgba(32,29,23,0.42);
+    --vermilion: #9c4a35;
+    --vermilion-deep: #7a3323;
+    --brass: #87754f;
+    --brass-bright: #a08356;
+    --line: rgba(32,29,23,0.13);
+    --jade: #5f7a5e;
+    --card: #f5f1e6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    line-height:1.75;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:34px 20px 100px;}
+
+  /* HERO */
+  .hero{text-align:center;padding:10px 0 24px;}
+  .hero svg{width:150px;height:150px;}
+  .hero .eyebrow{
+    font-size:12px;letter-spacing:0.3em;color:var(--brass);
+    text-transform:uppercase;margin-bottom:10px;font-weight:700;
+  }
+  .hero h1{
+    font-family:"Noto Serif TC","Songti TC",serif;
+    font-size:36px;font-weight:900;letter-spacing:0.25em;
+    margin:6px 0 10px;
+  }
+  .hero .brushline{width:56px;height:3px;background:var(--vermilion);margin:0 auto 14px;border-radius:2px;}
+  .hero p{color:var(--ink-soft);font-size:15px;margin:0;}
+
+  section{margin:46px 0;}
+  h2{
+    font-family:"Noto Serif TC",serif;
+    font-size:20px;font-weight:800;
+    margin:0 0 4px;
+    display:flex;align-items:center;gap:8px;
+  }
+  h2 .dot{
+    width:26px;height:26px;border-radius:50%;
+    background:var(--vermilion);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;flex-shrink:0;
+    font-family:"Noto Serif TC",serif;
+  }
+  .lead{color:var(--ink-soft);font-size:14px;margin:0 0 18px;}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:22px;
+    box-shadow:0 2px 12px rgba(50,42,28,0.06);
+  }
+
+  /* 四大系統 網格 */
+  .sys-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .sys-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 12px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .2s, transform .15s;
+  }
+  .sys-card:active{transform:scale(0.97);}
+  .sys-card.open{border-color:var(--vermilion);}
+  .sys-card svg{width:52px;height:52px;}
+  .sys-card h3{
+    font-family:"Noto Serif TC",serif;font-size:15px;
+    margin:8px 0 4px;font-weight:800;
+  }
+  .sys-card .sys-oneliner{font-size:11.5px;color:var(--ink-soft);margin:0;}
+  .sys-detail{
+    display:none;
+    text-align:left;
+    font-size:12.5px;
+    color:var(--ink);
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+    line-height:1.85;
+  }
+  .sys-card.open .sys-detail{display:block;}
+  .sys-tap-hint{font-size:10.5px;color:var(--brass);margin-top:6px;}
+  .sys-card.open .sys-tap-hint{display:none;}
+
+  /* 天人合一 融合圖 */
+  .merge-visual{text-align:center;margin:14px 0 18px;}
+  .merge-visual svg{width:260px;height:150px;}
+
+  /* 價值觀 checklist */
+  .value-row{
+    display:flex;align-items:center;gap:14px;
+    padding:13px 4px;
+    border-bottom:1px solid var(--line);
+  }
+  .value-row:last-child{border-bottom:none;}
+  .value-row svg{width:34px;height:34px;flex-shrink:0;}
+  .value-row .value-text b{display:block;font-size:14.5px;margin-bottom:2px;}
+  .value-row .value-text span{font-size:12.5px;color:var(--ink-soft);}
+
+  /* 卦象DEMO */
+  .demo-box{text-align:center;}
+  .hex-display{
+    display:flex;flex-direction:column-reverse;gap:8px;
+    align-items:center;margin:18px auto 10px;max-width:140px;min-height:110px;
+  }
+  .hex-line{width:100%;height:9px;display:flex;justify-content:center;gap:7px;}
+  .hex-line .seg{height:9px;border-radius:1px;background:var(--ink);opacity:0.15;transition:all .3s;}
+  .hex-line.yang .seg{width:100%;}
+  .hex-line.yin .seg{width:42%;}
+  .hex-line.filled .seg{opacity:1;background:var(--vermilion-deep);}
+  .demo-coins{display:flex;justify-content:center;gap:14px;margin:14px 0;}
+  .demo-coin{
+    width:38px;height:38px;border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, #cbab63, #93773c 65%, #6b5528);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 4px rgba(38,34,26,0.3);
+  }
+  .demo-coin::before{content:'';width:11px;height:11px;background:var(--paper);transform:rotate(45deg);}
+  .demo-coin.flip{animation:coinflip .6s ease;}
+  @keyframes coinflip{50%{transform:rotateY(720deg) scale(1.2);}100%{transform:rotateY(1440deg);}}
+  .demo-btn{
+    background:var(--vermilion);color:var(--paper);
+    border:none;padding:10px 26px;border-radius:4px;
+    font-family:"Noto Serif TC",serif;font-weight:700;font-size:14.5px;
+    cursor:pointer;letter-spacing:0.05em;
+  }
+  .demo-btn:disabled{opacity:0.4;}
+  .demo-btn:active{transform:scale(0.96);}
+  .demo-status{font-size:12.5px;color:var(--ink-soft);margin-top:10px;min-height:18px;}
+  .demo-reset{
+    background:none;border:none;color:var(--brass);text-decoration:underline;
+    font-size:12px;cursor:pointer;margin-top:8px;
+  }
+
+  /* 上傳信仰照片示意 */
+  .faith-demo{display:flex;align-items:center;gap:16px;}
+  .faith-demo svg{width:60px;height:60px;flex-shrink:0;}
+  .faith-demo p{font-size:13px;color:var(--ink-soft);margin:0;}
+
+  footer{
+    text-align:center;color:var(--brass);font-size:12px;
+    margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+    letter-spacing:0.05em;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <svg viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="92" fill="none" stroke="#87754f" stroke-width="1.5" opacity="0.3"/>
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#9c4a35" stroke-width="1.5" opacity="0.4"/>
+      <g stroke="#201d17" stroke-width="1" opacity="0.5">
+        <line x1="100" y1="30" x2="100" y2="170"/>
+        <line x1="30" y1="100" x2="170" y2="100"/>
+        <line x1="49" y1="49" x2="151" y2="151"/>
+        <line x1="151" y1="49" x2="49" y2="151"/>
+      </g>
+      <circle cx="100" cy="100" r="10" fill="#9c4a35"/>
+      <text x="100" y="106" font-size="12" fill="#efe9dc" text-anchor="middle" font-weight="bold">三</text>
+    </svg>
+    <div class="eyebrow">San Cai · 命理工具</div>
+    <h1>三才App</h1>
+    <div class="brushline"></div>
+    <p>從零開始，看懂這是什麼。</p>
+  </div>
+
+  <!-- 一句話說明 -->
+  <section>
+    <div class="card" style="text-align:center;">
+      <p style="font-size:15.5px;margin:0;line-height:2;">
+        把<b style="color:var(--vermilion-deep);">四種傳統命理術</b>裝進一支手機App，<br>
+        全部<b style="color:var(--jade);">免費</b>、<b style="color:var(--jade);">無廣告</b>、資料<b style="color:var(--jade);">只留在你手機裡</b>。
+      </p>
+    </div>
+  </section>
+
+  <!-- 四大系統 -->
+  <section>
+    <h2><span class="dot">1</span>裡面有四套命理術</h2>
+    <p class="lead">點卡片看每一套是做什麼的。</p>
+    <div class="sys-grid">
+
+      <div class="sys-card" onclick="toggleSys(this)">
+        <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="#9c4a35" stroke-width="2"/><circle cx="32" cy="32" r="4" fill="#9c4a35"/><g stroke="#87754f" stroke-width="1"><line x1="32" y1="6" x2="32" y2="58"/><line x1="6" y1="32" x2="58" y2="32"/><line x1="13" y1="13" x2="51" y2="51"/><line x1="51" y1="13" x2="13" y2="51"/></g><circle cx="32" cy="10" r="2.5" fill="#a08356"/><circle cx="54" cy="32" r="2.5" fill="#a08356"/><circle cx="32" cy="54" r="2.5" fill="#a08356"/><circle cx="10" cy="32" r="2.5" fill="#a08356"/></svg>
+        <h3>紫微斗數</h3>
+        <p class="sys-oneliner">看一生的格局</p>
+        <p class="sys-tap-hint">點我看更多 ↓</p>
+        <div class="sys-detail">
+          輸入出生時間，排出十二宮星盤，看你這一生的<b>大方向</b>——事業、財富、婚姻、健康的整體趨勢，還有現在走到哪一段「大限」。
+        </div>
+      </div>
+
+      <div class="sys-card" onclick="toggleSys(this)">
+        <svg viewBox="0 0 64 64"><rect x="10" y="14" width="8" height="36" rx="2" fill="#9c4a35"/><rect x="24" y="14" width="8" height="36" rx="2" fill="#a08356"/><rect x="38" y="14" width="8" height="36" rx="2" fill="#9c4a35"/><rect x="52" y="14" width="6" height="36" rx="2" fill="#a08356"/></svg>
+        <h3>八字</h3>
+        <p class="sys-oneliner">看命局的底子</p>
+        <p class="sys-tap-hint">點我看更多 ↓</p>
+        <div class="sys-detail">
+          用出生年月日時排出「四柱」，判斷五行旺弱、命局中缺什麼補什麼，是另一套獨立驗證人生格局的方法。
+        </div>
+      </div>
+
+      <div class="sys-card" onclick="toggleSys(this)">
+        <svg viewBox="0 0 64 64"><circle cx="20" cy="18" r="7" fill="none" stroke="#a08356" stroke-width="2.5"/><rect x="14" y="14" width="12" height="2.5" fill="#a08356"/><circle cx="44" cy="18" r="7" fill="none" stroke="#a08356" stroke-width="2.5"/><rect x="38" y="14" width="12" height="2.5" fill="#a08356"/><rect x="14" y="34" width="36" height="4" fill="#201d17" opacity="0.7"/><rect x="14" y="42" width="15" height="4" fill="#201d17" opacity="0.7"/><rect x="35" y="42" width="15" height="4" fill="#201d17" opacity="0.7"/><rect x="14" y="50" width="36" height="4" fill="#9c4a35"/></svg>
+        <h3>易經卜卦</h3>
+        <p class="sys-oneliner">看眼前這件事</p>
+        <p class="sys-tap-hint">點我看更多 ↓</p>
+        <div class="sys-detail">
+          心裡想一個具體問題，用「擲銅錢」的方式起卦，看<b>這件事此刻</b>的吉凶走向——比紫微、八字更聚焦在「當下」。
+        </div>
+      </div>
+
+      <div class="sys-card" onclick="toggleSys(this)">
+        <svg viewBox="0 0 64 64"><path d="M8 46 L22 22 L32 34 L42 16 L56 46 Z" fill="none" stroke="#5f7a5e" stroke-width="2.5" stroke-linejoin="round"/><path d="M8 46 Q32 40 56 46" fill="none" stroke="#87754f" stroke-width="2"/><circle cx="42" cy="16" r="3" fill="#9c4a35"/></svg>
+        <h3>陽宅風水</h3>
+        <p class="sys-oneliner">看住的方位</p>
+        <p class="sys-tap-hint">點我看更多 ↓</p>
+        <div class="sys-detail">
+          輸入家人身分跟居住方位，查詢對應的方位吉凶判斷，也收錄基礎堪輿理論可以查閱。
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 天人合一 -->
+  <section>
+    <h2><span class="dot">2</span>它的獨門功能：天人合一</h2>
+    <p class="lead">四套系統各看各的，還是放一起看？</p>
+    <div class="card">
+      <div class="merge-visual">
+        <svg viewBox="0 0 260 150">
+          <circle cx="80" cy="60" r="42" fill="#9c4a35" opacity="0.25"/>
+          <circle cx="140" cy="60" r="42" fill="#87754f" opacity="0.25"/>
+          <circle cx="110" cy="95" r="42" fill="#5f7a5e" opacity="0.25"/>
+          <text x="80" y="45" font-size="12" fill="#201d17" text-anchor="middle" font-weight="bold">紫微</text>
+          <text x="150" y="45" font-size="12" fill="#201d17" text-anchor="middle" font-weight="bold">八字</text>
+          <text x="110" y="118" font-size="12" fill="#201d17" text-anchor="middle" font-weight="bold">卦象</text>
+          <circle cx="110" cy="75" r="10" fill="#9c4a35"/>
+          <text x="110" y="80" font-size="11" fill="#efe9dc" text-anchor="middle" font-weight="bold">AI</text>
+        </svg>
+      </div>
+      <p style="text-align:center;font-size:13.5px;color:var(--ink-soft);margin:0;">
+        把不同系統的排盤結果放在一起，交給AI做<b style="color:var(--vermilion-deep);">跨系統整合分析</b>——
+        看是互相印證，還是各自透露不同層次的訊息。這是市面上少見的功能。
+      </p>
+    </div>
+  </section>
+
+  <!-- 卜卦互動DEMO -->
+  <section>
+    <h2><span class="dot">3</span>卜卦怎麼玩？試試看</h2>
+    <p class="lead">按「擲一爻」六次，看卦象怎麼疊出來的。</p>
+    <div class="card demo-box">
+      <div class="demo-coins" id="demoCoins">
+        <div class="demo-coin" id="dc1"></div>
+        <div class="demo-coin" id="dc2"></div>
+        <div class="demo-coin" id="dc3"></div>
+      </div>
+      <div class="hex-display" id="hexDisplay">
+        <div class="hex-line yang" data-i="0"><div class="seg"></div></div>
+        <div class="hex-line yang" data-i="1"><div class="seg"></div></div>
+        <div class="hex-line yang" data-i="2"><div class="seg"></div></div>
+        <div class="hex-line yang" data-i="3"><div class="seg"></div></div>
+        <div class="hex-line yang" data-i="4"><div class="seg"></div></div>
+        <div class="hex-line yang" data-i="5"><div class="seg"></div></div>
+      </div>
+      <button class="demo-btn" id="demoCastBtn" onclick="castLine()">擲一爻</button>
+      <div class="demo-status" id="demoStatus">還沒開始，按下去擲第一爻</div>
+      <button class="demo-reset" onclick="resetDemo()">重新開始</button>
+    </div>
+  </section>
+
+  <!-- 價值觀 -->
+  <section>
+    <h2><span class="dot">4</span>開發初衷</h2>
+    <div class="card">
+      <div class="value-row">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#5f7a5e" opacity="0.15"/><path d="M12 20l5 5 11-11" fill="none" stroke="#5f7a5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="value-text"><b>完全免費</b><span>沒有訂閱、沒有付費解鎖</span></div>
+      </div>
+      <div class="value-row">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#9c4a35" opacity="0.15"/><rect x="10" y="18" width="20" height="4" rx="2" fill="#9c4a35"/><path d="M27 12l6 6-6 6" fill="none" stroke="#9c4a35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="value-text"><b>永久無廣告</b><span>不靠廣告賺錢，也不打算賺</span></div>
+      </div>
+      <div class="value-row">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#87754f" opacity="0.15"/><rect x="12" y="14" width="16" height="16" rx="3" fill="none" stroke="#87754f" stroke-width="2.5"/><circle cx="20" cy="20" r="3" fill="#87754f"/></svg>
+        <div class="value-text"><b>資料只留在你手機</b><span>不用註冊、不上傳任何伺服器</span></div>
+      </div>
+      <div class="value-row">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#9c4a35" opacity="0.15"/><path d="M20 10c-5 0-9 4-9 9 0 6 9 12 9 12s9-6 9-12c0-5-4-9-9-9z" fill="#9c4a35"/></svg>
+        <div class="value-text"><b>利益眾生為初衷</b><span>分享命理知識，無意營利</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>命是天註定，運操之在我手中 · 三才App</footer>
+</div>
+
+<script>
+const hexState = [null,null,null,null,null,null]; // true=陽, false=陰
+let currentLine = 0;
+
+function castLine(){
+  if(currentLine >= 6) return;
+  const btn = document.getElementById('demoCastBtn');
+  const coins = ['dc1','dc2','dc3'].map(id=>document.getElementById(id));
+  btn.disabled = true;
+  coins.forEach(c=>c.classList.add('flip'));
+
+  setTimeout(()=>{
+    coins.forEach(c=>c.classList.remove('flip'));
+    // 隨機決定這一爻陰陽（示範用，不代表真實卜卦演算法）
+    const isYang = Math.random() > 0.45;
+    hexState[currentLine] = isYang;
+    const lineEl = document.querySelector(`.hex-line[data-i="${currentLine}"]`);
+    lineEl.className = 'hex-line filled ' + (isYang ? 'yang' : 'yin');
+    currentLine++;
+    const status = document.getElementById('demoStatus');
+    if(currentLine < 6){
+      status.textContent = `第 ${currentLine} 爻完成，還剩 ${6-currentLine} 爻`;
+      btn.disabled = false;
+    }else{
+      status.textContent = '六爻卦成！真正的App會告訴你這是哪一卦、吉凶如何';
+      btn.textContent = '卦已成';
+    }
+  }, 650);
+}
+
+function resetDemo(){
+  currentLine = 0;
+  hexState.fill(null);
+  document.querySelectorAll('.hex-line').forEach((el,i)=>{
+    el.className = 'hex-line yang';
+    el.dataset.i = i;
+  });
+  document.getElementById('demoCastBtn').disabled = false;
+  document.getElementById('demoCastBtn').textContent = '擲一爻';
+  document.getElementById('demoStatus').textContent = '還沒開始，按下去擲第一爻';
+}
+
+function toggleSys(card){
+  const wasOpen = card.classList.contains('open');
+  document.querySelectorAll('.sys-card').forEach(c=>c.classList.remove('open'));
+  if(!wasOpen) card.classList.add('open');
+}
+</script>
+</body>
+</html>
