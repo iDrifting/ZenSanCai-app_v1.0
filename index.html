@@ -321,23 +321,43 @@
     padding:18px 16px; font-size:13.5px; line-height:1.85; color:var(--ink);
   }
   #helpModal{
-    position:fixed; inset:0; z-index:8000; background:rgba(30,24,16,0.55);
+    position:fixed; inset:0; z-index:8000; background:rgba(24,20,14,0.6);
     display:flex; align-items:flex-end; justify-content:center;
   }
   #helpModal.hidden{ display:none; }
   .help-modal-inner{
-    background:#f0e8d8; width:100%; max-width:640px; max-height:82vh; overflow-y:auto;
-    border-radius:16px 16px 0 0; padding:28px 22px 36px; position:relative;
-    box-shadow:0 -4px 24px rgba(0,0,0,0.25);
+    background:#f3ece0; width:100%; max-width:640px; max-height:85vh; overflow-y:auto;
+    border-radius:2px 2px 0 0; padding:36px 28px 40px; position:relative;
+    box-shadow:0 -6px 30px rgba(0,0,0,0.22);
   }
   .obj-mode-btn.active{ background:var(--calm-jade,#5f7a5e) !important; color:#f2ecd9 !important; border-color:var(--calm-jade,#5f7a5e) !important; font-weight:700; }
   .help-close{
-    position:absolute; top:16px; right:18px; background:transparent; border:none;
-    font-size:18px; color:var(--brass); cursor:pointer; padding:4px 8px;
+    position:absolute; top:20px; right:22px; background:transparent; border:none;
+    font-size:16px; color:var(--brass); cursor:pointer; padding:4px 8px;
   }
-  .help-section{ margin-bottom:22px; }
-  .help-section h3{ font-family:'Noto Serif TC'; font-size:15px; color:var(--gold-bright); margin-bottom:8px; }
-  .help-section p{ font-size:13.5px; line-height:1.9; color:var(--ink); }
+  .help-modal-inner .help-kicker{
+    text-align:center; font-size:11px; letter-spacing:0.34em;
+    color:#a08356; text-transform:uppercase; margin:0 0 10px;
+    font-family:'Noto Sans TC';
+  }
+  .help-modal-inner > h2{
+    font-family:'Noto Serif TC',serif !important; font-size:22px !important; font-weight:700 !important;
+    text-align:center; letter-spacing:0.14em; color:#201d17; margin:0 0 6px !important;
+  }
+  .help-modal-inner > p.help-sub{
+    text-align:center; font-size:12px; color:#8a7a5f; margin:0 0 30px !important;
+    font-family:'Noto Serif TC'; font-style:italic;
+  }
+  .help-section{
+    margin-bottom:24px; padding-bottom:24px;
+    border-bottom:1px solid rgba(32,29,23,0.1);
+  }
+  .help-section:last-of-type{ border-bottom:none; margin-bottom:8px; padding-bottom:0; }
+  .help-section h3{
+    font-family:'Noto Serif TC'; font-size:16px; font-weight:700;
+    color:#7a3323; margin-bottom:6px; letter-spacing:0.03em;
+  }
+  .help-section p{ font-size:13.8px; line-height:1.95; color:#3a352b; font-weight:400; font-family:'Noto Sans TC'; }
 
   .card{
     background: rgba(237,229,204,0.55);
@@ -1311,26 +1331,27 @@
 <div id="helpModal" class="hidden">
   <div class="help-modal-inner">
     <button id="helpCloseBtn" class="help-close">✕</button>
-    <h2 style="font-family:'Noto Serif TC';font-size:20px;margin-bottom:4px;">使用說明</h2>
-    <p style="font-size:12px;color:var(--brass);margin-bottom:20px;">三才 — 紫微斗數・八字・卜卦・風水</p>
+    <p class="help-kicker">San Cai · 三才</p>
+    <h2>使用說明</h2>
+    <p class="help-sub">紫微斗數・八字・卜卦・風水</p>
 
     <div class="help-section">
-      <h3>🐉 紫微斗數 / 八字</h3>
+      <h3>紫微斗數 / 八字</h3>
       <p>輸入生辰即可排盤。紫微看十二宮格局與大限流年；八字看四柱十神與大運。兩者用同一組生辰輸入，可以互相切換查看，也可以「＋儲存目前為快捷」把常查的人（自己、家人）存起來，下次一鍵載入。</p>
     </div>
 
     <div class="help-section">
-      <h3>👥 卜卦</h3>
+      <h3>卜卦</h3>
       <p>心中想著問題，用「銅錢問卦」連續擲六次銅錢起卦；或用「小六壬」快速判斷單一問題。也收錄六神參考、六十四卦命卦查詢。問完卦會自動存進「天人合一」頁籤，方便之後整合分析。</p>
     </div>
 
     <div class="help-section">
-      <h3>⛰️ 風水</h3>
+      <h3>風水</h3>
       <p>輸入家庭成員身分與居住方位，查詢對應卦象解讀；也收錄堪輿學基礎理論可以查閱。</p>
     </div>
 
     <div class="help-section">
-      <h3>☯️ 天人合一（本工具特色）</h3>
+      <h3>天人合一（本工具特色）</h3>
       <p>把紫微流年／大限、八字命盤、卦象——這些不同命理系統的資料放在一起，交給AI交叉解讀，而不是各看各的。用法：</p>
       <ol style="padding-left:20px;line-height:1.9;margin-top:6px;font-size:13.5px;color:var(--ink);">
         <li>在紫微或八字排完盤後，按「➕ 加入跨系統整合分析」</li>
@@ -1342,35 +1363,35 @@
     </div>
 
     <div class="help-section">
-      <h3>🤖 AI解讀模式</h3>
+      <h3>AI解讀模式</h3>
       <p>頁首有個「AI解讀模式」切換：「獨立客觀分析」會在複製給AI的內容開頭加一句提醒，請AI不要參考你們過去聊過的其他事情、也不要用它對你的既有印象來分析，單純依這次提供的命理資料客觀判斷；「延續一般對話」則不加這個提醒，讓AI可以自然接續你們平常的對話脈絡。兩者都可以隨時切換，切換後之後所有「複製給AI」的按鈕都會套用新的設定。</p>
     </div>
 
     <div class="help-section">
-      <h3>⚙ API 設定</h3>
+      <h3>API 設定</h3>
       <p>如果想用「🤖 直接請AI分析」功能，需要先貼上你自己的Claude或Gemini API金鑰，只存在這支裝置的瀏覽器裡。設定一次之後就不用再管，這裡只是給你需要修改金鑰時使用的入口。</p>
       <button class="mystic" id="apiSettingsOpenBtn" style="width:100%;margin-top:8px;">前往設定 API 金鑰</button>
     </div>
 
     <div class="help-section">
-      <h3>🧭 這些功能是做什麼的？</h3>
+      <h3>這些功能是做什麼的？</h3>
       <p>還是分不清楚紫微斗數、卜卦、風水、天人合一該點哪個？<br>
       <button type="button" onclick="document.getElementById('gateStep1').classList.add('hidden');document.getElementById('gateStep2').classList.remove('hidden');document.getElementById('introGateModal').classList.add('show');" style="margin-top:8px;background:var(--vermilion);color:#f2e6cf;border:none;padding:8px 18px;border-radius:3px;font-family:'Noto Serif TC';font-weight:700;font-size:13.5px;cursor:pointer;">重新看一次功能導覽</button></p>
     </div>
 
     <div class="help-section">
-      <h3>📱 最佳瀏覽體驗</h3>
+      <h3>最佳瀏覽體驗</h3>
       <p>建議將 <b>Chrome</b> 設為手機的預設瀏覽器（設定 → 應用程式 → 預設應用程式 → 瀏覽器App）。如果預設瀏覽器是 Microsoft Edge，開啟本App時Edge會主動彈出「正在Microsoft Edge中執行」的提示——這是Edge自己的品牌揭露機制，並非本App異常，改用Chrome即可完全避免這個提示、也能獲得最完整流暢的體驗。</p>
     </div>
 
     <div class="help-section">
-      <h3>🔒 隱私與限制</h3>
+      <h3>隱私與限制</h3>
       <p>所有排盤紀錄、快捷設定只存在你這支手機的瀏覽器裡，不會上傳到任何地方。換手機或清除瀏覽器資料會遺失且無法復原。</p>
       <p style="margin-top:8px;">本工具核心排盤演算法已交叉驗證，惟命理解讀僅供參考反思之用，不構成醫療、法律或財務建議，人生的答案終究在你心中。</p>
     </div>
 
     <div class="help-section">
-      <h3>💾 資料備份（匯出／匯入）</h3>
+      <h3>資料備份（匯出／匯入）</h3>
       <p>換手機、換瀏覽器前，建議先匯出備份；到新裝置後再匯入，快捷、歷史紀錄、AI分析結果、API金鑰設定都能完整還原。匯出檔案是純文字JSON，<b>內含你的API金鑰，請自行妥善保存、不要公開分享這個備份檔</b>。</p>
       <div style="display:flex;gap:10px;margin-top:10px;">
         <button class="mystic" id="exportDataBtn" style="flex:1;">匯出備份</button>
