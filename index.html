@@ -59,6 +59,58 @@
     #introSplash{ display:none; }
   }
 
+  /* ============ 首次啟動免責聲明 ============ */
+  #disclaimerModal{
+    position:fixed; inset:0; z-index:9800;
+    background:rgba(24,20,14,0.68);
+    display:flex; align-items:center; justify-content:center;
+    padding:22px;
+    opacity:0; pointer-events:none;
+    transition:opacity .35s ease;
+  }
+  #disclaimerModal.show{ opacity:1; pointer-events:auto; }
+  .disclaimer-box{
+    background:#f0e8d8;
+    border:1px solid rgba(32,29,23,0.24);
+    border-radius:6px;
+    max-width:420px; width:100%; max-height:82vh;
+    overflow-y:auto;
+    padding:28px 24px 24px;
+    box-shadow:0 10px 34px rgba(38,34,26,0.35);
+    transform:scale(0.95) translateY(10px);
+    transition:transform .35s ease;
+  }
+  #disclaimerModal.show .disclaimer-box{ transform:scale(1) translateY(0); }
+  .disclaimer-seal{
+    width:38px;height:38px;margin:0 auto 14px;background:#9c4a35;
+    display:flex;align-items:center;justify-content:center;
+    color:#f2e6cf;font-family:'Noto Serif TC';font-weight:700;font-size:18px;
+    transform:rotate(-3deg);
+    clip-path: polygon(4% 0%, 96% 2%, 100% 96%, 2% 100%);
+  }
+  .disclaimer-box h3{
+    font-family:'Noto Serif TC',serif; font-size:18px; font-weight:800;
+    text-align:center; margin:0 0 18px; letter-spacing:0.06em; color:#201d17;
+  }
+  .disclaimer-box .d-item{
+    display:flex; gap:10px; margin-bottom:14px; align-items:flex-start;
+  }
+  .disclaimer-box .d-num{
+    flex-shrink:0; width:20px;height:20px;border-radius:50%;
+    background:#9c4a35; color:#f2e6cf;
+    font-family:'Noto Serif TC'; font-size:11.5px; font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .disclaimer-box .d-text{font-size:13.5px; line-height:1.85; color:#201d17; font-family:'Noto Sans TC';}
+  .disclaimer-box .d-text b{color:#7a3323;}
+  .disclaimer-agree-btn{
+    display:block; width:100%; margin-top:8px;
+    background:#9c4a35; color:#f2e6cf; border:none;
+    font-family:'Noto Serif TC'; font-weight:700; font-size:15px;
+    padding:13px 0; border-radius:3px; cursor:pointer; letter-spacing:0.06em;
+  }
+  .disclaimer-agree-btn:active{ transform:scale(0.97); }
+
 
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Sans+Mono:wght@400;500&display=swap');
 
@@ -263,6 +315,29 @@
 
   /* 方孔銅錢 */
   .coin-stage{display:flex; justify-content:center; gap:20px; margin:28px 0 22px; min-height:70px; align-items:center;}
+
+  /* 信仰寄託照片上傳 */
+  .faith-upload{
+    width:84px;height:84px;border-radius:50%;
+    border:2px dashed var(--line-strong);
+    margin:0 auto 10px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer; overflow:hidden; position:relative;
+    background:rgba(255,252,240,0.4);
+    transition:border-color .2s;
+  }
+  .faith-upload:hover{ border-color:var(--vermilion); }
+  .faith-upload img{ width:100%;height:100%;object-fit:cover; }
+  .faith-upload .faith-icon{ font-size:25px; opacity:0.55; }
+  .faith-upload-label{ font-size:12.1px; color:var(--brass); text-align:center; margin:0 0 6px; letter-spacing:0.04em; font-family:'Noto Sans TC'; }
+  .faith-upload-hint{ font-size:11.6px; color:var(--ink-faint); text-align:center; margin:0 0 12px; line-height:1.7; font-family:'Noto Sans TC'; }
+  .faith-remove-btn{ font-size:11.6px; color:var(--vermilion); background:none;border:none;text-decoration:underline;cursor:pointer;display:block;margin:0 auto 16px; font-family:'Noto Sans TC'; }
+  .faith-ritual-photo{
+    width:60px;height:60px;border-radius:50%;
+    object-fit:cover; margin:0 auto 14px; display:block;
+    box-shadow:0 2px 10px rgba(38,34,26,0.3);
+    border:2px solid var(--brass-bright,#a08356);
+  }
   .coin{
     width:56px;height:56px;border-radius:50%;
     position:relative;
@@ -1093,6 +1168,35 @@
   <div class="intro-skip" id="introSkip">輕觸跳過</div>
 </div>
 
+<div id="disclaimerModal">
+  <div class="disclaimer-box">
+    <div class="disclaimer-seal">三才</div>
+    <h3>使用須知</h3>
+
+    <div class="d-item">
+      <span class="d-num">1</span>
+      <span class="d-text"><b>僅供參考</b>，內容為傳統命理知識的整理與AI輔助解讀，不構成醫療、法律、財務或任何專業建議。人生重大決定，請諮詢相關領域的專業人士。</span>
+    </div>
+
+    <div class="d-item">
+      <span class="d-num">2</span>
+      <span class="d-text"><b>資料只留在你的裝置本機</b>，不會上傳到任何伺服器，也不需要註冊帳號。</span>
+    </div>
+
+    <div class="d-item">
+      <span class="d-num">3</span>
+      <span class="d-text">若你選擇使用AI解讀功能，輸入內容會<b>直接由你自己的裝置送往你所連接的AI服務商</b>（如Google、OpenAI、Anthropic），開發者不會經手或儲存這些內容。</span>
+    </div>
+
+    <div class="d-item">
+      <span class="d-num">4</span>
+      <span class="d-text">本App完全免費、無廣告，由開發者基於分享命理知識的初衷獨立製作，非商業產品。</span>
+    </div>
+
+    <button class="disclaimer-agree-btn" id="disclaimerAgreeBtn">我了解，開始使用</button>
+  </div>
+</div>
+
 <div id="helpModal" class="hidden">
   <div class="help-modal-inner">
     <button id="helpCloseBtn" class="help-close">✕</button>
@@ -1646,6 +1750,16 @@
           <option value="子">子女／健康／下屬／僧道（用神：子孫爻）</option>
         </select>
       </div>
+      <div class="field" style="max-width:340px;margin:0 auto 4px;">
+        <p class="faith-upload-label">信仰寄託（選填）</p>
+        <div class="faith-upload" id="faithUploadCircle">
+          <span class="faith-icon" id="faithUploadIcon">🙏</span>
+          <img id="faithUploadPreview" class="hidden" alt="信仰對象照片">
+        </div>
+        <p class="faith-upload-hint">可上傳你信仰的對象照片（神明、佛像、教堂等），<br>擲卦時陪伴在側，讓儀式更有寄託。照片僅用於本次畫面顯示，不會被儲存。</p>
+        <button type="button" class="faith-remove-btn hidden" id="faithRemoveBtn">移除照片</button>
+        <input type="file" accept="image/*" id="faithUploadInput" class="hidden">
+      </div>
       <button class="mystic" id="beginBtn">開始擲卦</button>
     </div>
   </div>
@@ -1653,6 +1767,7 @@
   <!-- 靜心過場：香煙裊裊 -->
   <div class="card hidden" id="ritualTransition">
     <div class="ritual-step" style="padding:30px 10px;">
+      <img id="faithRitualPhoto1" class="faith-ritual-photo hidden" alt="">
       <svg width="160" height="210" viewBox="0 0 200 260" style="display:block;margin:0 auto;">
         <defs>
           <radialGradient id="ritualGlow" cx="50%" cy="50%" r="50%">
@@ -1692,6 +1807,7 @@
   <div class="card hidden" id="step2">
     <div class="ritual-step">
       <p class="questiontext" id="questionEcho"></p>
+      <img id="faithRitualPhoto2" class="faith-ritual-photo hidden" alt="">
       <h2 id="castTitle">第一爻・專注於銅錢</h2>
       <div class="coin-stage" id="coinStage">
         <div class="coin" id="coin1"></div>
@@ -4131,6 +4247,63 @@ const step1 = document.getElementById('step1');
 const step2 = document.getElementById('step2');
 const step3 = document.getElementById('step3');
 
+/* ============ 信仰寄託照片上傳 ============ */
+let faithImageData = null;
+(function(){
+  const circle = document.getElementById('faithUploadCircle');
+  const input = document.getElementById('faithUploadInput');
+  const preview = document.getElementById('faithUploadPreview');
+  const icon = document.getElementById('faithUploadIcon');
+  const removeBtn = document.getElementById('faithRemoveBtn');
+  if(!circle) return;
+
+  function applyImage(dataUrl){
+    faithImageData = dataUrl;
+    preview.src = dataUrl;
+    preview.classList.remove('hidden');
+    icon.classList.add('hidden');
+    removeBtn.classList.remove('hidden');
+    document.querySelectorAll('.faith-ritual-photo').forEach(el=>{
+      el.src = dataUrl;
+      el.classList.remove('hidden');
+    });
+  }
+  function clearImage(){
+    faithImageData = null;
+    preview.src = '';
+    preview.classList.add('hidden');
+    icon.classList.remove('hidden');
+    removeBtn.classList.add('hidden');
+    input.value = '';
+    document.querySelectorAll('.faith-ritual-photo').forEach(el=>{
+      el.src = '';
+      el.classList.add('hidden');
+    });
+  }
+  circle.addEventListener('click', ()=> input.click());
+  removeBtn.addEventListener('click', (e)=>{ e.stopPropagation(); clearImage(); });
+  input.addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt)=>{
+      const img = new Image();
+      img.onload = ()=>{
+        const maxSize = 320;
+        let w = img.width, h = img.height;
+        if(w > h){ if(w > maxSize){ h = Math.round(h*maxSize/w); w = maxSize; } }
+        else{ if(h > maxSize){ w = Math.round(w*maxSize/h); h = maxSize; } }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        applyImage(canvas.toDataURL('image/jpeg', 0.78));
+      };
+      img.src = evt.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+})();
+
 document.getElementById('beginBtn').addEventListener('click', ()=>{
   questionText = document.getElementById('questionInput').value.trim();
   topicText = document.getElementById('topicSelect').value;
@@ -5004,10 +5177,34 @@ document.getElementById('allSearch').addEventListener('input', e=> renderAll(e.t
     if(dismissed) return;
     dismissed = true;
     splash.classList.add('fade-out');
-    setTimeout(()=> splash.classList.add('hidden-done'), 850);
+    setTimeout(()=>{
+      splash.classList.add('hidden-done');
+      showDisclaimerIfNeeded();
+    }, 850);
   }
   splash.addEventListener('click', dismiss);
   setTimeout(dismiss, 8400); // 動畫跑完自動淡出
+})();
+
+/* ===================== 首次啟動免責聲明 ===================== */
+const DISCLAIMER_KEY = 'sancai_disclaimer_agreed_v1';
+function showDisclaimerIfNeeded(){
+  const modal = document.getElementById('disclaimerModal');
+  const agreeBtn = document.getElementById('disclaimerAgreeBtn');
+  if(!modal || !agreeBtn) return;
+  let alreadyAgreed = false;
+  try{ alreadyAgreed = localStorage.getItem(DISCLAIMER_KEY) === '1'; }catch(e){}
+  if(alreadyAgreed) return;
+  modal.classList.add('show');
+}
+(function(){
+  const agreeBtn = document.getElementById('disclaimerAgreeBtn');
+  const modal = document.getElementById('disclaimerModal');
+  if(!agreeBtn) return;
+  agreeBtn.addEventListener('click', ()=>{
+    try{ localStorage.setItem(DISCLAIMER_KEY, '1'); }catch(e){}
+    modal.classList.remove('show');
+  });
 })();
 
 /* ===================== AI解讀模式（客觀分析／延續一般對話） ===================== */
