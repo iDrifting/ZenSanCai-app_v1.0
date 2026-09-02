@@ -162,6 +162,13 @@
     font-size:12.5px; line-height:1.8; color:#201d17;
     margin:14px 0 18px; font-family:'Noto Sans TC';
   }
+  .onboard-goto-btn{
+    display:inline-block; margin-top:8px;
+    background:transparent; color:#9c4a35; border:1.5px solid #9c4a35;
+    font-family:'Noto Sans TC'; font-weight:700; font-size:12px;
+    padding:6px 14px; border-radius:16px; cursor:pointer;
+  }
+  .onboard-goto-btn:active{ transform:scale(0.96); background:rgba(156,74,53,0.1); }
   .onboard-agree-btn{
     display:block; width:100%;
     background:#9c4a35; color:#f2e6cf; border:none;
@@ -1230,11 +1237,11 @@
       <span class="d-text">本App完全免費、無廣告，由開發者基於分享命理知識的初衷獨立製作，非商業產品。</span>
     </div>
 
-    <button class="disclaimer-agree-btn" id="gateNextBtn">下一步</button>
+    <button class="disclaimer-agree-btn" id="gateNextBtn">我了解，下一步</button>
   </div>
 
   <div class="onboard-box hidden" id="gateStep2">
-    <h3>四大功能，簡單說</h3>
+    <h3>功能一覽，簡單說</h3>
     <p class="onboard-sub">不知道要點哪個？看完這頁就懂了</p>
 
     <div class="onboard-row">
@@ -1242,7 +1249,18 @@
       <div class="onboard-text">
         <h4>紫微斗數</h4>
         <p>看你這一生的整體格局——事業、財富、婚姻、健康的長期走向。</p>
-        <span class="onboard-when">想了解自己整體命運方向時，點這個</span>
+        <span class="onboard-when">想了解自己整體命運方向時，點這個</span><br>
+        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('tianji','ziwei')">前往紫微斗數 →</button>
+      </div>
+    </div>
+
+    <div class="onboard-row">
+      <div class="onboard-icon">🀄</div>
+      <div class="onboard-text">
+        <h4>八字</h4>
+        <p>用四柱十神看命局的底子與大運走向，跟紫微用不同角度驗證同一件事。</p>
+        <span class="onboard-when">想從另一套系統交叉確認格局時，點這個</span><br>
+        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('tianji','bazi')">前往八字 →</button>
       </div>
     </div>
 
@@ -1251,7 +1269,8 @@
       <div class="onboard-text">
         <h4>卜卦</h4>
         <p>針對一件具體的事，擲銅錢問「這件事現在吉不吉利」。</p>
-        <span class="onboard-when">心裡有一個明確問題時，點這個</span>
+        <span class="onboard-when">心裡有一個明確問題時，點這個</span><br>
+        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('renjian')">前往卜卦 →</button>
       </div>
     </div>
 
@@ -1260,7 +1279,8 @@
       <div class="onboard-text">
         <h4>風水</h4>
         <p>輸入家人身分與居住方位，查詢這個方位好不好。</p>
-        <span class="onboard-when">想知道住的房子方位時，點這個</span>
+        <span class="onboard-when">想知道住的房子方位時，點這個</span><br>
+        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('dimai')">前往風水 →</button>
       </div>
     </div>
 
@@ -1269,7 +1289,8 @@
       <div class="onboard-text">
         <h4>天人合一</h4>
         <p>把前面幾個功能的結果放在一起，交給AI做整合分析。</p>
-        <span class="onboard-when">用過前面幾個、想看它們合起來怎麼說時，最後再來這裡</span>
+        <span class="onboard-when">用過前面幾個、想看它們合起來怎麼說時，最後再來這裡</span><br>
+        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('combine')">前往天人合一 →</button>
       </div>
     </div>
 
@@ -1326,7 +1347,7 @@
     </div>
 
     <div class="help-section">
-      <h3>🧭 四大功能是做什麼的？</h3>
+      <h3>🧭 這些功能是做什麼的？</h3>
       <p>還是分不清楚紫微斗數、卜卦、風水、天人合一該點哪個？<br>
       <button type="button" onclick="document.getElementById('gateStep1').classList.add('hidden');document.getElementById('gateStep2').classList.remove('hidden');document.getElementById('introGateModal').classList.add('show');" style="margin-top:8px;background:var(--vermilion);color:#f2e6cf;border:none;padding:8px 18px;border-radius:3px;font-family:'Noto Serif TC';font-weight:700;font-size:13.5px;cursor:pointer;">重新看一次功能導覽</button></p>
     </div>
@@ -5591,6 +5612,18 @@ function activateTianjiSub(key){
 Object.keys(tianjiSubs).forEach(key=>{
   tianjiSubs[key].tab.addEventListener('click', ()=> activateTianjiSub(key));
 });
+
+/* 從功能導覽卡片直接跳轉到對應畫面 */
+function goToOnboardSection(topKey, subKey){
+  try{
+    localStorage.setItem(DISCLAIMER_KEY, '1');
+    localStorage.setItem(ONBOARD_KEY, '1');
+  }catch(e){}
+  const gateModal = document.getElementById('introGateModal');
+  if(gateModal) gateModal.classList.remove('show');
+  activateTopTab(topKey);
+  if(topKey === 'tianji' && subKey) activateTianjiSub(subKey);
+}
 
 /* 天人合一 子頁籤 */
 const combineSubs = {
