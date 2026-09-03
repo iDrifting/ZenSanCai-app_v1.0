@@ -663,12 +663,14 @@
     transition:.15s;
   }
   button.primary{
-    background:linear-gradient(180deg,var(--gold-bright),var(--gold));
-    color:var(--ink);
+    background:transparent;
+    color:var(--vermilion-deep);
     font-weight:700;
-    border:none;
+    border:1px solid var(--vermilion-deep);
+    letter-spacing:0.08em;
+    transition: background .2s ease, color .2s ease;
   }
-  button.primary:hover{filter:brightness(1.08);}
+  button.primary:hover{background:var(--vermilion-deep); color:#f2e6cf; filter:none;}
   button.ghost:hover{border-color:var(--gold);color:var(--gold-bright);}
   .presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
   .presets button{font-size:13.2px;padding:7px 12px;color:var(--gold);border-color:var(--line);}
@@ -907,8 +909,8 @@
   .steps{counter-reset:step;}
   .steps li{list-style:none;position:relative;padding-left:34px;margin-bottom:14px;font-size:14.9px;line-height:1.9;}
   .steps li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:0;
-    width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--ink);
-    display:flex;align-items:center;justify-content:center;font-size:13.2px;font-weight:700;font-family:'Noto Serif TC';}
+    width:20px;height:20px;border-radius:50%;background:none;border:1px solid var(--vermilion-deep);color:var(--vermilion-deep);
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'Noto Serif TC';}
 
   .chart-quote{font-style:italic;color:var(--gold-bright);font-size:13.8px;margin:6px 0;line-height:1.8;}
 
@@ -952,12 +954,58 @@
   .steps{counter-reset:step;padding:0;margin:0;}
   .steps li{list-style:none;position:relative;padding-left:34px;margin-bottom:14px;font-size:14.9px;line-height:1.9;}
   .steps li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:0;
-    width:22px;height:22px;border-radius:50%;background:var(--gold);color:var(--ink);
-    display:flex;align-items:center;justify-content:center;font-size:13.2px;font-weight:700;font-family:'Noto Serif TC';}
+    width:20px;height:20px;border-radius:50%;background:none;border:1px solid var(--vermilion-deep);color:var(--vermilion-deep);
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'Noto Serif TC';}
 
   .case{border-left:2px solid var(--gold); padding:10px 14px;margin-bottom:12px; background:rgba(255,252,240,0.5);border-radius:0 4px 4px 0;}
   .case .ct{font-family:'Noto Serif TC';color:var(--gold-bright);font-size:17.6px;margin-bottom:6px;font-weight:700;}
   .case .cd{font-size:16px;color:var(--ink-soft);line-height:1.95;}
+
+  .book-entry-head{
+    width:100%; background:none; border:none; padding:0; margin:0;
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+    cursor:pointer; text-align:left;
+  }
+  .book-entry-head .ct{ margin-bottom:0; }
+  .book-entry-arrow{
+    flex-shrink:0; color:var(--brass); font-size:12px;
+    transition:transform .25s ease; margin-top:3px;
+  }
+  .book-entry.book-open .book-entry-arrow{ transform:rotate(180deg); }
+  .book-entry-body{
+    display:none; margin-top:8px;
+    padding-top:8px; border-top:1px dashed var(--line-strong);
+  }
+  .book-entry.book-open .book-entry-body{ display:block; }
+
+  .book-cat-row{ display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 18px; }
+  .book-cat-btn{
+    background:transparent; border:1px solid var(--line-strong);
+    color:var(--ink-soft); font-family:'Noto Sans TC'; font-size:12.5px;
+    padding:6px 14px; border-radius:14px; cursor:pointer;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .book-cat-btn.active{
+    background:var(--vermilion-deep); color:#f2e6cf; border-color:var(--vermilion-deep);
+    font-weight:700;
+  }
+
+  /* 進階參考（面相手相經絡對照等，與核心排盤流程無直接關聯的附錄內容） */
+  .adv-ref{
+    margin:28px 0 18px;
+    border-top:1px solid rgba(32,29,23,0.12);
+    padding-top:18px;
+  }
+  .adv-ref summary{
+    cursor:pointer; list-style:none;
+    font-family:'Noto Serif TC'; font-size:13.5px; color:var(--brass);
+    letter-spacing:0.06em; display:flex; align-items:center; gap:6px;
+  }
+  .adv-ref summary::-webkit-details-marker{ display:none; }
+  .adv-ref summary::before{ content:'▸'; font-size:11px; transition:transform .2s ease; }
+  .adv-ref[open] summary::before{ transform:rotate(90deg); }
+  .adv-ref summary:hover{ color:var(--vermilion); }
+  .adv-ref-body{ margin-top:16px; }
 
   .searchable-list .item{border-bottom:1px solid var(--line);padding:12px 4px;}
   .searchable-list .item:last-child{border-bottom:none;}
@@ -1201,6 +1249,13 @@
     border-bottom:2px solid transparent !important; box-shadow:none !important; font-size:12.1px !important; }
   .sub-tab.active{ color: var(--ink) !important; border-bottom:2px solid var(--part-accent, var(--calm-jade)) !important; }
 
+  #renjianSubTabs{
+    display:grid !important;
+    grid-template-columns: 1fr 1fr;
+    flex-wrap:unset;
+  }
+  #renjianSubTabs .sub-tab{ min-width:0; }
+
   .palace{ background: rgba(138,114,72,0.03) !important; border:1px solid var(--line) !important; }
   .palace:hover{ border-color: var(--brass) !important; background: rgba(138,114,72,0.08) !important; }
   .palace.is-ming{ box-shadow: 0 0 0 1.5px var(--vermilion) inset !important; }
@@ -1363,8 +1418,8 @@
     </div>
 
     <div class="help-section">
-      <h3>AI解讀模式</h3>
-      <p>頁首有個「AI解讀模式」切換：「獨立客觀分析」會在複製給AI的內容開頭加一句提醒，請AI不要參考你們過去聊過的其他事情、也不要用它對你的既有印象來分析，單純依這次提供的命理資料客觀判斷；「延續一般對話」則不加這個提醒，讓AI可以自然接續你們平常的對話脈絡。兩者都可以隨時切換，切換後之後所有「複製給AI」的按鈕都會套用新的設定。</p>
+      <h3>AI提詞模式</h3>
+      <p>頁首有個「AI提詞模式」切換，決定產生給AI的提詞內容怎麼寫：「獨立客觀分析」會在提詞開頭加一句提醒，請AI不要參考你們過去聊過的其他事情、也不要用它對你的既有印象來分析，單純依這次提供的命理資料客觀判斷；「延續一般對話」則不加這個提醒，讓AI可以自然接續你們平常的對話脈絡。兩者都可以隨時切換，切換後之後所有產生提詞的按鈕都會套用新的設定。</p>
     </div>
 
     <div class="help-section">
@@ -1458,7 +1513,7 @@
     <p id="taglineSecret" class="hidden" style="font-size:12px;color:var(--calm-jade,#5f7a5e);margin-top:12px;margin-bottom:6px;line-height:2;max-width:320px;">命局是相，是念頭生滅的背景；<br>操之在我的，是那顆「不住」的心。</p>
     <button id="helpOpenBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);margin-top:22px;cursor:pointer;">✦ 使用說明</button>
     <div id="objModeRow" style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--paper-dim);">
-      <span>AI解讀模式：</span>
+      <span>AI提詞模式：</span>
       <button type="button" class="obj-mode-btn" data-mode="continue" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">延續一般對話</button>
       <button type="button" class="obj-mode-btn active" data-mode="objective" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">獨立客觀分析</button>
     </div>
@@ -1659,13 +1714,30 @@
       <label>搜尋星曜／關鍵字</label>
       <input type="text" id="bookSearch" placeholder="例：擎羊、貪狼、化忌…">
     </div>
+    <div class="book-cat-row" id="bookCatRow">
+      <button type="button" class="book-cat-btn active" data-cat="all">全部</button>
+      <button type="button" class="book-cat-btn" data-cat="main">十四主星</button>
+      <button type="button" class="book-cat-btn" data-cat="mal">六煞星</button>
+      <button type="button" class="book-cat-btn" data-cat="aux">吉星輔曜</button>
+      <button type="button" class="book-cat-btn" data-cat="sihua">四化</button>
+    </div>
     <div id="bookList"></div>
   </section>
 
-  <section id="physioSec">
-    <h2><span class="num">11</span>面相・手相・經絡對照</h2>
+  <section id="historySec">
+    <h2><span class="num">11</span>紫微歷史命盤</h2>
     <p style="font-size:13.8px;color:var(--paper-dim);margin-top:-6px;">
-      傳統相學與紫微斗數可互為印證，用於補足命盤未盡之處，內容依傳統面相學、手相學及中醫子午流注理論重新整理撰寫。
+      每次排盤會自動記錄一筆，方便日後查詢曾經幫自己或家人排過的命盤。只存在這支手機的瀏覽器裡（localStorage），不會上傳到任何地方。
+    </p>
+    <button class="mystic" id="ziweiClearHistoryBtn" style="border-color:var(--vermilion);">清空所有命盤紀錄</button>
+    <div id="ziweiHistoryList" style="margin-top:14px;"></div>
+  </section>
+
+  <details class="adv-ref">
+    <summary>進階參考｜面相・手相・經絡對照</summary>
+    <div class="adv-ref-body">
+    <p style="font-size:13.8px;color:var(--paper-dim);margin-top:0;">
+      傳統相學與紫微斗數可互為印證，用於補足命盤未盡之處，內容依傳統面相學、手相學及中醫子午流注理論重新整理撰寫，與紫微排盤本身無直接關聯，僅供有興趣時延伸參考。
     </p>
     <div class="subsec">
       <h4>面相對照</h4>
@@ -1730,16 +1802,8 @@
         <tr><td>武曲</td><td>申</td></tr>
       </table>
     </div>
-  </section>
-
-  <section id="historySec">
-    <h2><span class="num">12</span>紫微歷史命盤</h2>
-    <p style="font-size:13.8px;color:var(--paper-dim);margin-top:-6px;">
-      每次排盤會自動記錄一筆，方便日後查詢曾經幫自己或家人排過的命盤。只存在這支手機的瀏覽器裡（localStorage），不會上傳到任何地方。
-    </p>
-    <button class="mystic" id="ziweiClearHistoryBtn" style="border-color:var(--vermilion);">清空所有命盤紀錄</button>
-    <div id="ziweiHistoryList" style="margin-top:14px;"></div>
-  </section>
+    </div>
+  </details>
 
   <footer>
     此工具依方外人飛星四化排盤法則、倪海廈中醫紫微對應框架與「消法」理論建構，供命理研究參考。<br>
@@ -1859,12 +1923,11 @@
         ✦ 紫微看格局，卦象看當下——到「歷史紀錄」把紫微流年／大限跟卦象整合，讓 AI 交叉判讀宏觀與微觀
       </p>
     </div>
-    <div class="sub-tabs">
+    <div class="sub-tabs" id="renjianSubTabs">
       <button class="sub-tab active" id="subTabCast">銅錢問卦</button>
       <button class="sub-tab" id="subTabLiuren">小六壬速斷</button>
       <button class="sub-tab" id="subTabLiushenRef">六神參考</button>
       <button class="sub-tab" id="subTabMingua">命卦查詢</button>
-      <button class="sub-tab" id="subTabCase">實戰案例</button>
     </div>
     <div id="castMode">
   <!-- Step 1: 提問與靜心 -->
@@ -2052,7 +2115,7 @@
       <label>搜尋六神或六親（例：青龍、白虎、官鬼、財爻）</label>
       <input type="text" id="comboSearch" placeholder="輸入關鍵字篩選">
     </div>
-    <table class="combo" id="comboTable"></table>
+    <div class="combo" id="comboTable" style="margin-top:8px;"></div>
   </section>
 <section>
     <h2><span class="num">5</span>六神旺相休囚與空亡</h2>
@@ -2074,17 +2137,6 @@
       <input type="text" id="hexSearch" placeholder="例：乾為天、水雷屯、婚事、求財">
     </div>
     <div class="hexlist" id="hexList"></div>
-  </section></div>
-    <div id="caseWrap" class="hidden"><section>
-    <h2><span class="num">7</span>實戰案例</h2>
-    <div class="case">
-      <div class="ct">案例一：老婦人怪病（山天大畜之山火賁）</div>
-      <div class="cd">占病得螣蛇臨世（官鬼甲寅木），斷為「精神恍惚、居住地風水不好、有怪異」。後續以初爻妻財臨勾陳（陳舊、勾連）判斷為多年前埋藏之物（符咒）所致，經確認為多年前鄰居（伯父）在其宅院埋鎮物所致，化解後老婦人恢復健康。此案例示範螣蛇臨官爻主怪異、勾陳臨財爻主陳年舊事的實際應用。</div>
-    </div>
-    <div class="case">
-      <div class="ct">案例二：頭風病與《天風姤》卦</div>
-      <div class="cd">占問上司病情得《天風姤》二爻動，卦屬乾宮金，得月建日辰生扶，卦氣旺，斷無生命危險，卦變六冲卦，近病逢冲很快痊癒。初爻臨玄武發動，主暗昧之事；結合卦辭「女壯，勿用取女」，斷為與風塵女子往來所致的頭風病，且該女子品行不端、涉及財務糾紛。後續證實其上司確與一按摩女郎同居多年，該女子曾盜財潛逃又被尋回。此案例示範玄武臨爻主暗昧隱私之事的判讀。</div>
-    </div>
   </section></div>
       </div>
 
@@ -3001,22 +3053,55 @@ const BOOK_DICT = {
   "化忌":{source:"紫微斗數全書・問化忌星所主若何", quote:"忌為多管之神。守身命一生不順，小限逢之一年不足，大限十年悔吝……文人不耐久，武人縱有官災口舌不妨。", summary:"四化中性質最需留意者，主糾結、阻滯、多管閒事引來的困擾；落於何宮即該領域最需主動調理之處。方外人消法框架主張：以對應性質的主動作為（如手術、破相）可提前釋放化忌能量，避免其被動應驗。"}
 };
 
-function renderBookList(filter){
+const BOOK_CATEGORY_KEYS = {
+  main: ["紫微","天機","太陽","武曲","天同","廉貞","天府","太陰","貪狼","巨門","天相","天梁","七殺","破軍"],
+  mal: ["擎羊","陀羅","火星","鈴星","地空","地劫"],
+  aux: ["祿存","天馬","天魁天鉞","文昌","文曲","左輔","右弼"],
+  sihua: ["化祿","化權","化科","化忌"]
+};
+let currentBookCat = 'all';
+
+function renderBookList(filter, cat){
+  if(cat !== undefined) currentBookCat = cat;
   const list = document.getElementById('bookList');
   if(!list) return;
-  const keys = Object.keys(BOOK_DICT).filter(k=> !filter || k.includes(filter) || BOOK_DICT[k].summary.includes(filter));
+  const hasFilter = !!filter;
+  const catKeys = currentBookCat === 'all' ? null : BOOK_CATEGORY_KEYS[currentBookCat];
+  const keys = Object.keys(BOOK_DICT).filter(k=>{
+    if(catKeys && !catKeys.includes(k)) return false;
+    return !filter || k.includes(filter) || BOOK_DICT[k].summary.includes(filter);
+  });
   list.innerHTML = keys.map(k=>`
-    <div class="case" id="book-${k}">
-      <div class="ct">${k}　<span style="color:var(--paper-dim);font-weight:400;font-size:12.1px;">出處：${BOOK_DICT[k].source}</span></div>
-      <div class="cd" style="font-style:italic;color:var(--gold-bright);margin-bottom:6px;font-size:16px;">「${BOOK_DICT[k].quote}」</div>
-      <div class="cd">${BOOK_DICT[k].summary}</div>
+    <div class="case book-entry${hasFilter ? ' book-open' : ''}" id="book-${k}">
+      <button type="button" class="book-entry-head" data-book-key="${k}">
+        <span class="ct" style="margin-bottom:0;">${k}<span style="color:var(--paper-dim);font-weight:400;font-size:12.1px;">　出處：${BOOK_DICT[k].source}</span></span>
+        <span class="book-entry-arrow">▾</span>
+      </button>
+      <div class="book-entry-body">
+        <div class="cd" style="font-style:italic;color:var(--gold-bright);margin-bottom:6px;font-size:16px;">「${BOOK_DICT[k].quote}」</div>
+        <div class="cd">${BOOK_DICT[k].summary}</div>
+      </div>
     </div>
   `).join('') || '<p style="color:var(--paper-dim);font-size:14.3px;">查無相符項目。</p>';
 }
 document.addEventListener('DOMContentLoaded', ()=>{
-  renderBookList('');
+  renderBookList('', 'all');
   const bs = document.getElementById('bookSearch');
   if(bs) bs.addEventListener('input', ()=> renderBookList(bs.value.trim()));
+  const bl = document.getElementById('bookList');
+  if(bl) bl.addEventListener('click', (e)=>{
+    const head = e.target.closest('.book-entry-head');
+    if(!head) return;
+    head.closest('.book-entry').classList.toggle('book-open');
+  });
+  const catRow = document.getElementById('bookCatRow');
+  if(catRow) catRow.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.book-cat-btn');
+    if(!btn) return;
+    catRow.querySelectorAll('.book-cat-btn').forEach(b=> b.classList.toggle('active', b===btn));
+    const bsEl = document.getElementById('bookSearch');
+    renderBookList(bsEl ? bsEl.value.trim() : '', btn.dataset.cat);
+  });
 });
 function jumpToBookEntry(starName){
   // 找出對應詞條 key（處理天魁天鉞合併詞條等）
@@ -3024,9 +3109,14 @@ function jumpToBookEntry(starName){
   if(starName==='天魁'||starName==='天鉞') key='天魁天鉞';
   if(!BOOK_DICT[key]) return;
   document.getElementById('bookSearch').value='';
-  renderBookList('');
+  const catRow = document.getElementById('bookCatRow');
+  if(catRow){
+    catRow.querySelectorAll('.book-cat-btn').forEach(b=> b.classList.toggle('active', b.dataset.cat==='all'));
+  }
+  renderBookList('', 'all');
   const el = document.getElementById('book-'+key);
   if(el){
+    el.classList.add('book-open');
     el.scrollIntoView({behavior:'smooth', block:'center'});
     el.style.borderColor='var(--gold-bright)';
     setTimeout(()=>{ el.style.borderColor=''; }, 2000);
@@ -5011,12 +5101,27 @@ const COMBO_DATA = [
 ];
 function renderCombo(filter){
   const tbl = document.getElementById('comboTable');
+  const hasFilter = !!filter;
   const rows = COMBO_DATA.filter(r => !filter || r[0].includes(filter) || r[1].includes(filter) || r[2].includes(filter));
-  tbl.innerHTML = '<tr><th style="width:60px;">六神</th><th style="width:70px;">六親</th><th>信息之象</th></tr>' +
-    rows.map(r=>`<tr><td style="color:var(--gold-bright);font-family:'Noto Serif TC';">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+  tbl.innerHTML = rows.map(r=>`
+    <div class="case book-entry${hasFilter?' book-open':''}">
+      <button type="button" class="book-entry-head">
+        <span class="ct" style="margin-bottom:0;">${r[0]}<span style="color:var(--paper-dim);font-weight:400;font-size:12.1px;">　${r[1]}</span></span>
+        <span class="book-entry-arrow">▾</span>
+      </button>
+      <div class="book-entry-body">
+        <div class="cd">${r[2]}</div>
+      </div>
+    </div>
+  `).join('') || '<p style="color:var(--paper-dim);font-size:14.3px;">查無相符項目。</p>';
 }
 renderCombo('');
 document.getElementById('comboSearch').addEventListener('input', e=> renderCombo(e.target.value.trim()));
+document.getElementById('comboTable').addEventListener('click', (e)=>{
+  const head = e.target.closest('.book-entry-head');
+  if(!head) return;
+  head.closest('.book-entry').classList.toggle('book-open');
+});
 
 const HEX_DATA = [
 ["1. 乾為天","生性剛健自強，志向高遠，天生具備領導特質，然剛極易折，需學習謙德以保長久。","青壯年運勢昂揚，宜把握時機發揮所長，惟居高位時更要戒慎恐懼，避免驕矜自滿。","行事宜剛健有為，然逢盛世更需謹言慎行，防物極必反。"],
@@ -5086,18 +5191,29 @@ const HEX_DATA = [
 ];
 function renderHex(filter){
   const list = document.getElementById('hexList');
+  const hasFilter = !!filter;
   const rows = HEX_DATA.filter(r => !filter || r.some(c=>c.includes(filter)));
-  list.innerHTML = rows.map(r=>`
-    <div class="hexcard">
-      <div class="hname">${r[0]}</div>
-      <div class="hrow"><b>先天卦</b>${r[1]}</div>
-      <div class="hrow"><b>後天卦</b>${r[2]}</div>
-      <div class="hrow"><b>流年卦</b>${r[3]}</div>
+  list.innerHTML = rows.map((r,i)=>`
+    <div class="hexcard book-entry${hasFilter?' book-open':''}">
+      <button type="button" class="book-entry-head">
+        <span class="hname" style="margin-bottom:0;">${r[0]}</span>
+        <span class="book-entry-arrow">▾</span>
+      </button>
+      <div class="book-entry-body">
+        <div class="hrow"><b>先天卦</b>${r[1]}</div>
+        <div class="hrow"><b>後天卦</b>${r[2]}</div>
+        <div class="hrow"><b>流年卦</b>${r[3]}</div>
+      </div>
     </div>
   `).join('') || '<p style="color:var(--paper-dim);font-size:14.3px;">查無相符項目，可能不在此精選範圍內。</p>';
 }
 renderHex('');
 document.getElementById('hexSearch').addEventListener('input', e=> renderHex(e.target.value.trim()));
+document.getElementById('hexList').addEventListener('click', (e)=>{
+  const head = e.target.closest('.book-entry-head');
+  if(!head) return;
+  head.closest('.book-entry').classList.toggle('book-open');
+});
 
 const FS_DATA = [
 ["乾為天","父居西北角臥房","父親安於本位，乾為天，性剛健自強，主導家中大局。此局為身分與方位相合之正格，父親的責任感與領導特質能充分發揮，處事有擔當、重然諾。"],
@@ -5168,16 +5284,27 @@ const FS_DATA = [
 
 function renderFs(filter){
   const list = document.getElementById('fsList');
+  const hasFilter = !!filter;
   const rows = FS_DATA.filter(r => !filter || r.some(c=>c.includes(filter)));
   list.innerHTML = rows.map(r=>`
-    <div class="hexcard">
-      <div class="hname">${r[0]}　<span style="color:var(--paper-dim);font-size:13.2px;font-family:'Noto Sans TC';">${r[1]}</span></div>
-      <div class="hrow" style="border-left:none;padding-left:0;">${r[2]}</div>
+    <div class="hexcard book-entry${hasFilter?' book-open':''}">
+      <button type="button" class="book-entry-head">
+        <span class="hname" style="margin-bottom:0;">${r[0]}　<span style="color:var(--paper-dim);font-size:13.2px;font-family:'Noto Sans TC';">${r[1]}</span></span>
+        <span class="book-entry-arrow">▾</span>
+      </button>
+      <div class="book-entry-body">
+        <div class="hrow" style="border-left:none;padding-left:0;">${r[2]}</div>
+      </div>
     </div>
   `).join('') || '<p style="color:var(--paper-dim);font-size:14.3px;">查無相符項目。</p>';
 }
 renderFs('');
 document.getElementById('fsSearch').addEventListener('input', e=> renderFs(e.target.value.trim()));
+document.getElementById('fsList').addEventListener('click', (e)=>{
+  const head = e.target.closest('.book-entry-head');
+  if(!head) return;
+  head.closest('.book-entry').classList.toggle('book-open');
+});
 
 const TERMS = [
   {name:"龍", desc:"堪輿學上將連綿起伏的山脈比喻為龍，山勢走向即為龍脈。傳統上分為來龍、去龍，以及生龍（氣勢飽滿）與死龍（氣勢衰敗）之別。"},
@@ -5303,7 +5430,7 @@ function showDisclaimerIfNeeded(){
   });
 })();
 
-/* ===================== AI解讀模式（客觀分析／延續一般對話） ===================== */
+/* ===================== AI提詞模式（客觀分析／延續一般對話） ===================== */
 const OBJ_MODE_KEY = 'ai_obj_mode_v1';
 function getObjMode(){
   try{ return localStorage.getItem(OBJ_MODE_KEY) || 'objective'; }catch(e){ return 'objective'; }
@@ -5674,8 +5801,7 @@ const renjianSubs = {
   cast: {tab: document.getElementById('subTabCast'), el: document.getElementById('castMode')},
   liuren: {tab: document.getElementById('subTabLiuren'), el: document.getElementById('liurenModeWrap')},
   liushenRef: {tab: document.getElementById('subTabLiushenRef'), el: document.getElementById('liushenRefWrap')},
-  mingua: {tab: document.getElementById('subTabMingua'), el: document.getElementById('minguaWrap')},
-  case: {tab: document.getElementById('subTabCase'), el: document.getElementById('caseWrap')}
+  mingua: {tab: document.getElementById('subTabMingua'), el: document.getElementById('minguaWrap')}
 };
 function activateRenjianSub(key){
   Object.keys(renjianSubs).forEach(k=>{
