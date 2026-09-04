@@ -520,7 +520,7 @@
   }
 
   /* ============ 自訂確認彈窗（取代瀏覽器原生 confirm，不顯示網址） ============ */
-  #appConfirmModal{
+  #appConfirmModal, #appNoticeModal{
     position:fixed; inset:0; z-index:9500;
     background:rgba(30,24,16,0.55);
     display:flex; align-items:center; justify-content:center;
@@ -528,7 +528,7 @@
     opacity:0; pointer-events:none;
     transition:opacity .2s ease;
   }
-  #appConfirmModal.show{ opacity:1; pointer-events:auto; }
+  #appConfirmModal.show, #appNoticeModal.show{ opacity:1; pointer-events:auto; }
   .app-confirm-box{
     background:var(--paper,#f0e8d8);
     border:1px solid var(--line-strong, rgba(32,29,23,0.24));
@@ -540,7 +540,7 @@
     transform:scale(0.94);
     transition:transform .2s ease;
   }
-  #appConfirmModal.show .app-confirm-box{ transform:scale(1); }
+  #appConfirmModal.show .app-confirm-box, #appNoticeModal.show .app-confirm-box{ transform:scale(1); }
   .app-confirm-msg{
     font-family:'Noto Sans TC',sans-serif;
     font-size:15px; line-height:1.85; color:var(--ink,#201d17);
@@ -2466,6 +2466,16 @@
   </div>
 </div>
 
+<!-- ============ 自訂通知彈窗（取代瀏覽器原生 alert） ============ -->
+<div id="appNoticeModal">
+  <div class="app-confirm-box">
+    <p class="app-confirm-msg" id="appNoticeMsg" style="white-space:pre-wrap;"></p>
+    <div class="app-confirm-row">
+      <button class="app-confirm-ok" id="appNoticeOkBtn" style="width:100%;">確定</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============ 自訂確認彈窗邏輯：appConfirm(message) 回傳 Promise<boolean> ============ */
 function appConfirm(message){
@@ -2486,6 +2496,23 @@ function appConfirm(message){
     function onCancel(){ cleanup(false); }
     okBtn.addEventListener('click', onOk);
     cancelBtn.addEventListener('click', onCancel);
+  });
+}
+
+/* ============ 自訂通知彈窗邏輯：appNotice(message) 回傳 Promise<void> ============ */
+function appNotice(message){
+  return new Promise((resolve)=>{
+    const modal = document.getElementById('appNoticeModal');
+    const msgEl = document.getElementById('appNoticeMsg');
+    const okBtn = document.getElementById('appNoticeOkBtn');
+    msgEl.textContent = message;
+    modal.classList.add('show');
+    function onOk(){
+      modal.classList.remove('show');
+      okBtn.removeEventListener('click', onOk);
+      resolve();
+    }
+    okBtn.addEventListener('click', onOk);
   });
 }
 </script>
@@ -3190,7 +3217,7 @@ function renderPresetButtons(){
 }
 document.getElementById('savePresetBtn').addEventListener('click', ()=>{
   const dateVal = document.getElementById('solarDate').value;
-  if(!dateVal){ alert('請先選擇日期'); return; }
+  if(!dateVal){ appNotice('請先選擇日期'); return; }
   const roleVal = document.getElementById('ziweiRoleInput').value.trim();
   const label = roleVal || prompt('幫這筆快捷取個名字（例如：我自己、老婆、女兒）：');
   if(!label) return;
@@ -3318,13 +3345,13 @@ function setDateFieldsFromISO(prefix, isoStr){
 
 document.getElementById('calcBtn').addEventListener('click', ()=>{
   const dateVal = document.getElementById('solarDate').value;
-  if(!dateVal){ alert('請選擇出生日期'); return; }
+  if(!dateVal){ appNotice('請選擇出生日期'); return; }
   const [y,m,d] = dateVal.split('-').map(Number);
   const [hourIdxStr, dayShiftStr] = document.getElementById('hourSel').value.split('-');
   const hourIdx = parseInt(hourIdxStr);
   const dayShift = parseInt(dayShiftStr);
   const gender = document.querySelector('#genderRow input:checked').value;
-  if(y<1900||y>2059){ alert('本工具農曆換算範圍為西元1900–2059年'); return; }
+  if(y<1900||y>2059){ appNotice('本工具農曆換算範圍為西元1900–2059年'); return; }
 
   CURRENT = calcChart(y,m,d,hourIdx,gender,dayShift);
   CURRENT.selectedDaxianOff = null;
@@ -3875,9 +3902,9 @@ ${buildDaxianPromptBlock(c, p, fly, selfHuaList)}
 
 
 document.getElementById('lnBtn').addEventListener('click', ()=>{
-  if(!CURRENT){ alert('請先排盤'); return; }
+  if(!CURRENT){ appNotice('請先排盤'); return; }
   const yearInput = parseInt(document.getElementById('lnYear').value);
-  if(!yearInput || yearInput<1900){ alert('請輸入正確西元年份'); return; }
+  if(!yearInput || yearInput<1900){ appNotice('請輸入正確西元年份'); return; }
   const cyl = yearInput-1864;
   const gIdx = ((cyl%10)+10)%10, zIdx=((cyl%12)+12)%12;
   const huaList = SIHUA[GAN[gIdx]];
@@ -4028,7 +4055,7 @@ function populateXfPalaceSelect(c){
   sel.innerHTML = c.palaces.map(p=>`<option value="${p.off}">${p.name}（${ZHI[p.idx]}）${p.isMing?' ・命宮':''}${p.isShen?' ・身宮':''}</option>`).join('');
 }
 document.getElementById('xfBtn').addEventListener('click', ()=>{
-  if(!CURRENT){ alert('請先排盤'); return; }
+  if(!CURRENT){ appNotice('請先排盤'); return; }
   const off = parseInt(document.getElementById('xfPalace').value);
   const event = document.getElementById('xfEvent').value.trim() || '（未填寫事件描述）';
   const p = CURRENT.palaces.find(x=>x.off===off);
@@ -5692,7 +5719,7 @@ function renderAiResults(){
   `).join('');
   el.querySelectorAll('.report-ai-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      alert('若這則AI生成的內容有令人不適、不當或有疑慮之處，歡迎透過本工具GitHub頁面的Issues功能回報給開發者，我們會盡快處理。\n\n（此為AI依你提供的命理資料即時生成的內容，非本工具預先撰寫）');
+      appNotice('若這則AI生成的內容有令人不適、不當或有疑慮之處，歡迎透過本工具GitHub頁面的Issues功能回報給開發者，我們會盡快處理。\n\n（此為AI依你提供的命理資料即時生成的內容，非本工具預先撰寫）');
     });
   });
   el.querySelectorAll('.hist-del').forEach(btn=>{
@@ -6350,11 +6377,11 @@ ${buildBaziPromptBlock(bz)}
 let CURRENT_BAZI = null;
 document.getElementById('baziCalcBtn').addEventListener('click', ()=>{
   const dateVal = document.getElementById('baziDate').value;
-  if(!dateVal){ alert('請選擇出生日期'); return; }
+  if(!dateVal){ appNotice('請選擇出生日期'); return; }
   const [y,m,d] = dateVal.split('-').map(Number);
   const hour = parseInt(document.getElementById('baziHourSel').value);
   const gender = document.querySelector('#baziGenderRow input:checked').value;
-  if(y<1900||y>2059){ alert('本工具運算範圍為西元1900–2059年'); return; }
+  if(y<1900||y>2059){ appNotice('本工具運算範圍為西元1900–2059年'); return; }
 
   CURRENT_BAZI = calcBaziFull(y,m,d,hour,0,gender);
   renderBaziResult(CURRENT_BAZI);
@@ -6420,7 +6447,7 @@ function renderBaziPresetButtons(){
 }
 document.getElementById('baziSavePresetBtn').addEventListener('click', ()=>{
   const dateVal = document.getElementById('baziDate').value;
-  if(!dateVal){ alert('請先選擇日期'); return; }
+  if(!dateVal){ appNotice('請先選擇日期'); return; }
   const roleVal = document.getElementById('baziRoleInput').value.trim();
   const label = roleVal || prompt('幫這筆快捷取個名字（例如：我自己、老婆、女兒）：');
   if(!label) return;
