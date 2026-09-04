@@ -546,6 +546,7 @@
     font-size:15px; line-height:1.85; color:var(--ink,#201d17);
     margin:0 0 22px; white-space:pre-wrap;
   }
+  .app-confirm-msg a{ color:var(--vermilion,#9c4a35); font-weight:700; text-decoration:underline; word-break:break-all; }
   .app-confirm-row{display:flex; gap:12px; justify-content:center;}
   .app-confirm-row button{
     flex:1; font-family:'Noto Serif TC',serif; font-weight:700; font-size:14.9px;
@@ -2505,7 +2506,7 @@ function appNotice(message){
     const modal = document.getElementById('appNoticeModal');
     const msgEl = document.getElementById('appNoticeMsg');
     const okBtn = document.getElementById('appNoticeOkBtn');
-    msgEl.textContent = message;
+    msgEl.innerHTML = message.replace(/\n/g, '<br>');
     modal.classList.add('show');
     function onOk(){
       modal.classList.remove('show');
@@ -5719,7 +5720,7 @@ function renderAiResults(){
   `).join('');
   el.querySelectorAll('.report-ai-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      appNotice('若這則AI生成的內容有令人不適、不當或有疑慮之處，歡迎透過本工具GitHub頁面的Issues功能回報給開發者，我們會盡快處理。\n\n（此為AI依你提供的命理資料即時生成的內容，非本工具預先撰寫）');
+      appNotice('若這則AI生成的內容有令人不適、不當或有疑慮之處，歡迎透過下方連結回報給開發者，我們會盡快處理：\n\n<a href="https://github.com/iDrifting/ZenSanCai-app_v1.0/issues" target="_blank" rel="noopener">github.com/iDrifting/ZenSanCai-app_v1.0/issues</a>\n\n（此為AI依你提供的命理資料即時生成的內容，非本工具預先撰寫）');
     });
   });
   el.querySelectorAll('.hist-del').forEach(btn=>{
