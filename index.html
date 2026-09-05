@@ -4449,7 +4449,23 @@ function analyzeYongshen(deploy, movingArr, topic, dayGZ, yueJianZhi){
     else if(HE_PAIRS[useZhi] === dayGZ.zhi) chongHe = "與日辰相合，為「合絆」（用神被牽制暫時難以顯現，需等待合絆解開之時）";
   }
 
-  return {yongLine, fuShen, useElem, useZhi, wsMonth, wsDay, chongHe, neededRel};
+  // 動爻對用神的生剋（日月為綱，動爻次之——卦中其他動爻對用神的直接影響）
+  let movingEffects = [];
+  if(useElem){
+    deploy.lines.forEach(l=>{
+      if(!movingArr[l.pos-1]) return;
+      if(yongLine && l.pos === yongLine.pos) return; // 排除用神自身的動爻，那屬於用神本身狀態而非外部生剋
+      let rel = null;
+      if(l.elem === useElem) rel = "比和";
+      else if(SHENG[l.elem] === useElem) rel = "生";
+      else if(KE[l.elem] === useElem) rel = "剋";
+      else if(SHENG[useElem] === l.elem) rel = "洩";
+      else if(KE[useElem] === l.elem) rel = "耗";
+      if(rel) movingEffects.push({pos:l.pos, gz:l.gz, relative:l.relative, elem:l.elem, rel});
+    });
+  }
+
+  return {yongLine, fuShen, useElem, useZhi, wsMonth, wsDay, chongHe, neededRel, movingEffects};
 }
 
 function renderYongshen(analysis, topic){
@@ -4468,6 +4484,23 @@ function renderYongshen(analysis, topic){
   }
   if(analysis.chongHe){
     html += `<p>${analysis.chongHe}</p>`;
+  }
+  if(analysis.useElem){
+    const MOVING_LABEL = {
+      "生":"生扶用神（有利，助其力量增強）",
+      "剋":"剋制用神（不利，削弱用神力量）",
+      "比和":"比和用神（略有助益，五行相同）",
+      "洩":"用神生它、洩用神之氣（略為不利）",
+      "耗":"用神剋它、反耗自身之力（較次要的不利因素）"
+    };
+    if(analysis.movingEffects && analysis.movingEffects.length){
+      const parts = analysis.movingEffects.map(m=>
+        `${LINE_ORDINAL[m.pos-1]}爻動（${m.relative}・${m.gz}）${MOVING_LABEL[m.rel]}`
+      );
+      html += `<p><b style="color:var(--gold-bright)">動爻對用神的影響</b>：${parts.join('；')}。傳統六爻理論主張「日月為綱，動爻次之」——這裡的動爻生剋，重要性通常還高於前面的日月旺衰判斷，若兩者結論不一致，宜以動爻生剋為主要參考。</p>`;
+    } else {
+      html += `<p><b style="color:var(--gold-bright)">動爻對用神的影響</b>：卦中除用神本身外，沒有其他動爻直接生剋用神，此時可單純依日月旺衰判斷用神力量強弱。</p>`;
+    }
   }
   el.innerHTML = html;
 }
@@ -4996,6 +5029,7 @@ ${buildNajiaLines(d)}
 用神五行對月建（${d.yueJianZhi}）：${d.analysis.wsMonth || '無'}
 用神五行對日辰（${d.dayGZ.gan}${d.dayGZ.zhi}）：${d.analysis.wsDay || '無'}
 沖合狀態：${d.analysis.chongHe || '無明顯沖合'}
+動爻對用神之生剋：${d.analysis.movingEffects && d.analysis.movingEffects.length ? d.analysis.movingEffects.map(m=>`${LINE_ORDINAL[m.pos-1]}爻動(${m.relative}・${m.gz})對用神為「${m.rel}」`).join('；') : '卦中無其他動爻直接生剋用神'}（提示：傳統六爻理論「日月為綱，動爻次之」，此項判斷重要性通常高於日月旺衰，若與日月旺衰結論衝突，請以動爻生剋為主要依據）
 
 【六神】（日干${d.dayGZ.gan}起）
 初爻${d.liushen[0]}　二爻${d.liushen[1]}　三爻${d.liushen[2]}　四爻${d.liushen[3]}　五爻${d.liushen[4]}　上爻${d.liushen[5]}`;
