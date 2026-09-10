@@ -750,6 +750,27 @@
   .hua-權{background:var(--blue);color:#fff;}
   .hua-科{background:var(--purple);color:#fff;}
   .hua-忌{background:var(--red);color:#fff;}
+  /* 流年四化：實心圓形徽章（形狀區分比邊框樣式在小尺寸下更易辨識） */
+  .huaTag-ln{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:14px; height:14px; padding:0; border-radius:50%;
+    font-size:9px; box-shadow:0 0 0 1.5px var(--paper);
+  }
+  .huaTag-ln.huaTag-祿{ background:var(--green); color:#0f1420; }
+  .huaTag-ln.huaTag-權{ background:var(--blue); color:#fff; }
+  .huaTag-ln.huaTag-科{ background:var(--purple); color:#fff; }
+  .huaTag-ln.huaTag-忌{ background:var(--red); color:#fff; }
+  /* 流月四化：實心菱形徽章，再與流年圓形區隔 */
+  .huaTag-ly{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:13px; height:13px; padding:0; border-radius:2px;
+    font-size:8.5px; transform:rotate(45deg); box-shadow:0 0 0 1.5px var(--paper);
+  }
+  .huaTag-ly span{ display:inline-block; transform:rotate(-45deg); }
+  .huaTag-ly.huaTag-祿{ background:var(--green); color:#0f1420; }
+  .huaTag-ly.huaTag-權{ background:var(--blue); color:#fff; }
+  .huaTag-ly.huaTag-科{ background:var(--purple); color:#fff; }
+  .huaTag-ly.huaTag-忌{ background:var(--red); color:#fff; }
   .center-info{
     grid-column:2 / span 2;
     grid-row:2 / span 2;
@@ -1560,6 +1581,11 @@
 
   <section>
     <h2><span class="num">1</span>輸入生辰</h2>
+    <div id="ziweiInputSummary" class="hidden" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:rgba(255,252,240,0.5);border:1px solid var(--line);border-radius:4px;margin-bottom:12px;">
+      <span id="ziweiInputSummaryText" style="font-size:13.5px;color:var(--ink);"></span>
+      <button type="button" id="ziweiInputEditBtn" class="ghostlink">修改</button>
+    </div>
+    <div id="ziweiInputBody">
     <div class="grid2">
       <div class="field">
         <label>國曆出生日期</label>
@@ -1614,6 +1640,7 @@
     <p style="font-size:11.6px;color:var(--paper-dim);margin-top:6px;">
       快捷只會存在你這支手機的瀏覽器裡（localStorage），不會出現在網頁原始碼中，即使這個網站是公開的，別人也看不到你儲存的任何資料。
     </p>
+    </div>
   </section>
 
   <section id="resultSec" style="display:none;">
@@ -1631,6 +1658,9 @@
     </div>
     <p style="font-size:11px;color:var(--paper-dim);margin-top:8px;">
       星曜旁小字為廟旺陷狀態：<span class="mwTag mw-廟">廟</span> <span class="mwTag mw-旺">旺</span> <span class="mwTag">得</span>得地　<span class="mwTag">利</span>利益　<span class="mwTag">平</span>和平　<span class="mwTag mw-budedi">不</span>不得地　<span class="mwTag mw-xian">陷</span>落陷（十四主星＋擎羊陀羅火星鈴星適用，資料出自《紫微斗數全書》；地空地劫依原典不分廟旺，六吉星與四化不適用故不顯示）
+    </p>
+    <p style="font-size:11px;color:var(--paper-dim);margin-top:8px;">
+      四化徽章分三層，查詢流年／流月後會同步標記在命盤星曜旁，以<b>形狀</b>區分層級：<span class="huaTag hua-忌">忌</span>生年四化（方形實色）　<span class="huaTag huaTag-ln huaTag-忌">忌</span>流年四化（圓形）　<span class="huaTag huaTag-ly huaTag-忌"><span>忌</span></span>流月四化（菱形）。三層疊在同一星曜上，即為重點觀察的引動時機（可觸碰徽章看完整標籤）。
     </p>
   </section>
 
@@ -1683,6 +1713,30 @@
     </div>
     <div id="lnResult"></div>
     <div id="lnPalaceList"></div>
+
+    <div id="lyMonthSection" class="hidden" style="margin-top:20px;padding-top:16px;border-top:1px dashed var(--line-strong);">
+      <h4 style="font-family:'Noto Serif TC';font-size:15px;color:var(--gold-bright);margin-bottom:6px;">流月分析</h4>
+      <p style="font-size:12.5px;color:var(--paper-dim);margin-top:0;margin-bottom:10px;">
+        流年四化整年固定不變，流月分析要看的是「農曆某月」的月命宮落在哪一宮，藉此判斷這個月疊到流年四化的哪一顆星。採「流年斗君」定位法，逐年斗君順推一宮、逐月順推一宮；閏月依通行慣例與前一個月同宮（此點非方外人文獻明確記載，屬通行慣例）。
+      </p>
+      <div class="lnrow">
+        <div class="field">
+          <label>農曆月份</label>
+          <select id="lyMonthSel">
+            <option value="1">正月</option><option value="2">二月</option><option value="3">三月</option>
+            <option value="4">四月</option><option value="5">五月</option><option value="6">六月</option>
+            <option value="7">七月</option><option value="8">八月</option><option value="9">九月</option>
+            <option value="10">十月</option><option value="11">十一月</option><option value="12">十二月（臘月）</option>
+          </select>
+        </div>
+        <button class="primary" id="lyBtn" style="height:42px;">查流月</button>
+      </div>
+      <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--paper-dim);margin:6px 0 0;">
+        <input type="checkbox" id="lyLeapChk" style="width:auto;"> 這是閏月
+      </label>
+      <p style="font-size:11.5px;color:var(--paper-dim);margin:4px 0 0;">已依現在的實際日期自動帶入當前農曆月份（23:00後依晚子時慣例算作隔日），可自行更改查詢其他月份。</p>
+      <div id="lyResult"></div>
+    </div>
   </section>
 
   <section id="xfSec" style="display:none;">
@@ -1821,6 +1875,11 @@
       </p>
 <section>
       <h2><span class="num">1</span>輸入生辰</h2>
+      <div id="baziInputSummary" class="hidden" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:rgba(255,252,240,0.5);border:1px solid var(--line);border-radius:4px;margin-bottom:12px;">
+        <span id="baziInputSummaryText" style="font-size:13.5px;color:var(--ink);"></span>
+        <button type="button" id="baziInputEditBtn" class="ghostlink">修改</button>
+      </div>
+      <div id="baziInputBody">
       <div class="field">
         <label>國曆出生日期</label>
         <div style="display:flex;gap:6px;align-items:center;">
@@ -1870,6 +1929,7 @@
       <p style="font-size:11.6px;color:var(--paper-dim);margin-top:6px;">
         與紫微斗數共用同一組快捷資料，不用重複輸入。
       </p>
+      </div>
     </section>
 
     <section id="baziResultSec" style="display:none;">
@@ -3357,6 +3417,9 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
   CURRENT = calcChart(y,m,d,hourIdx,gender,dayShift);
   CURRENT.selectedDaxianOff = null;
   CURRENT.selectedLiunianIdx = null;
+  currentLiunianTarget = null;
+  const lyMs = document.getElementById('lyMonthSection');
+  if(lyMs){ lyMs.classList.add('hidden'); document.getElementById('lyResult').innerHTML=''; }
   renderSummary(CURRENT, y,m,d);
   renderChart(CURRENT);
   renderOverview(CURRENT);
@@ -3386,6 +3449,17 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
   if(matchedDx) selectDaxian(CURRENT, matchedDx.off);
 
   saveZiweiHistory(CURRENT, y, m, d);
+
+  // 排盤成功後自動收合輸入表單，改顯示精簡摘要
+  const hourText = document.getElementById('hourSel').selectedOptions[0].textContent;
+  document.getElementById('ziweiInputSummaryText').textContent =
+    `${y}年${m}月${d}日　${hourText}　${gender==='M'?'男':'女'}`;
+  document.getElementById('ziweiInputBody').classList.add('hidden');
+  document.getElementById('ziweiInputSummary').classList.remove('hidden');
+});
+document.getElementById('ziweiInputEditBtn').addEventListener('click', ()=>{
+  document.getElementById('ziweiInputBody').classList.remove('hidden');
+  document.getElementById('ziweiInputSummary').classList.add('hidden');
 });
 
 document.getElementById('ziweiCopyBtn').addEventListener('click', async ()=>{
@@ -3477,7 +3551,7 @@ function renderChart(c){
       let mwHtml='';
       const mw = getMiaoWang(s.name, p.zhi);
       if(mw) mwHtml = `<span class="mwTag mw-${mw==='陷'?'xian':(mw==='不得地'?'budedi':mw)}">${mw==='不得地'?'不':mw[0]}</span>`;
-      return `<span class="star ${cls}">${s.name}${mwHtml}${huaHtml}</span>`;
+      return `<span class="star ${cls}" data-star="${s.name}">${s.name}${mwHtml}${huaHtml}</span>`;
     }).join(' ');
     div.innerHTML = `
       <div class="zhi"><span>${p.gan}${p.zhi}</span><span>${p.daxianStart}-${p.daxianEnd}歲</span></div>
@@ -3499,6 +3573,32 @@ function renderChart(c){
     <div class="csub">命宮 ${ZHI[c.mingIdx]}　身宮 ${ZHI[c.shenIdx]}<br>${c.gender==='M'?'男':'女'}命・${c.isYangMale?'順行大限':'逆行大限'}</div>
   `;
   grid.appendChild(center);
+}
+
+/* ============ 在命盤格子上標記流年／流月四化（與生年四化並列顯示，視覺上用外框區分） ============ */
+function clearFlowHuaBadges(badgeClass){
+  document.querySelectorAll('.'+badgeClass).forEach(el=>el.remove());
+}
+function applyFlowHuaBadges(c, huaList, badgeClass, labelPrefix){
+  clearFlowHuaBadges(badgeClass);
+  const tags=["祿","權","科","忌"];
+  huaList.forEach((star,i)=>{
+    const target = c.palaces.find(p=>p.stars.some(s=>s.name===star));
+    if(!target) return;
+    const starSpan = document.querySelector(`.palace[data-off="${target.off}"] .star[data-star="${star}"]`);
+    if(!starSpan) return;
+    const badge = document.createElement('span');
+    badge.className = `huaTag ${badgeClass} huaTag-${tags[i]}`;
+    badge.title = labelPrefix + tags[i]; // 觸碰/滑鼠停留可看完整標籤
+    if(badgeClass === 'huaTag-ly'){
+      const inner = document.createElement('span');
+      inner.textContent = tags[i];
+      badge.appendChild(inner);
+    } else {
+      badge.textContent = tags[i];
+    }
+    starSpan.appendChild(badge);
+  });
 }
 
 function showDetail(c,p){
@@ -3902,6 +4002,178 @@ ${buildDaxianPromptBlock(c, p, fly, selfHuaList)}
 }
 
 
+let currentLiunianTarget = null;
+
+/* 自動帶入「當下」實際所屬的農曆月份（套用晚子時23:00後換日慣例） */
+function presetCurrentLunarMonth(){
+  const sel = document.getElementById('lyMonthSel');
+  const chk = document.getElementById('lyLeapChk');
+  if(!sel || !chk) return;
+  const now = new Date();
+  let y = now.getFullYear(), m = now.getMonth()+1, d = now.getDate();
+  if(now.getHours() >= 23){
+    // 晚子時：命理慣例已跨入隔日
+    const shifted = new Date(now.getTime() + 24*3600*1000);
+    y = shifted.getFullYear(); m = shifted.getMonth()+1; d = shifted.getDate();
+  }
+  const todayLunar = solar2lunar(y,m,d);
+  sel.value = String(todayLunar.month);
+  chk.checked = !!todayLunar.isLeap;
+}
+
+/* ============ 流月分析（流年斗君法） ============ */
+function calcDouJun(c){
+  // 生年斗君：以生年地支所在宮起正月，逆數到出生月宮，再從該宮起子時，順數到出生時辰
+  // 本App慣例：off遞增＝逆時針(地支idx遞減)；off遞減＝順時針(地支idx遞增)
+  const yearZhiPalace = c.palaces.find(p=>p.idx===c.yearZhi);
+  const monthRefOff = ((yearZhiPalace.off + (c.lunar.month - 1)) % 12 + 12) % 12;
+  const birthDouJunOff = ((monthRefOff - c.hourIdx) % 12 + 12) % 12;
+  return birthDouJunOff;
+}
+function calcLiuyue(c, targetGIdx, targetZIdx, lunarMonthNum, isLeap){
+  const birthDouJunOff = calcDouJun(c);
+  // 逐年斗君：每年順推一宮（off遞減一）
+  const yearsSteps = ((targetZIdx - c.yearZhi) % 12 + 12) % 12;
+  const yearDouJunOff = ((birthDouJunOff - yearsSteps) % 12 + 12) % 12;
+  // 逐月：斗君宮為正月，之後每月順推一宮（off遞減一）；閏月與前一個月同宮
+  const effectiveMonthNum = isLeap ? lunarMonthNum : lunarMonthNum; // 閏N月與N月同宮，故步數相同
+  const monthOff = ((yearDouJunOff - (effectiveMonthNum - 1)) % 12 + 12) % 12;
+  const monthPalace = c.palaces.find(p=>p.off===monthOff);
+
+  // 流月干（採五虎遁：以流年年干定寅月起干，農曆月份1=寅、2=卯...12=丑，與本App紫微宮位命名慣例一致）
+  const monthZhiIdx = ((lunarMonthNum + 1) % 12 + 12) % 12;
+  const yinGanStart = WUHU[GAN[targetGIdx]];
+  const monthGanIdx = (yinGanStart + ((monthZhiIdx - 2) % 12 + 12) % 12) % 10;
+
+  return {monthPalace, monthZhiIdx, monthGanIdx, yearDouJunOff};
+}
+
+document.getElementById('lyBtn').addEventListener('click', ()=>{
+  if(!CURRENT || !currentLiunianTarget){ appNotice('請先查詢流年運勢'); return; }
+  const lunarMonthNum = parseInt(document.getElementById('lyMonthSel').value);
+  const isLeap = document.getElementById('lyLeapChk').checked;
+  const {yearInput, gIdx, zIdx} = currentLiunianTarget;
+
+  const ly = calcLiuyue(CURRENT, gIdx, zIdx, lunarMonthNum, isLeap);
+  const huaList = SIHUA[GAN[ly.monthGanIdx]];
+  const tags=["化祿","化權","化科","化忌"];
+  const monthLabel = (isLeap?'閏':'') + ["正","二","三","四","五","六","七","八","九","十","十一","十二"][lunarMonthNum-1] + "月";
+  applyFlowHuaBadges(CURRENT, huaList, 'huaTag-ly', '月');
+
+  let html = `<div class="summary" style="margin-bottom:14px;">
+    <div class="cell"><div class="k">流月</div><div class="v">${yearInput}年 農曆${monthLabel}</div></div>
+    <div class="cell"><div class="k">流月干支</div><div class="v">${GAN[ly.monthGanIdx]}${ZHI[ly.monthZhiIdx]}月</div></div>
+    <div class="cell"><div class="k">流月命宮</div><div class="v">${ly.monthPalace.name}（${ZHI[ly.monthPalace.idx]}）</div></div>
+  </div>`;
+
+  html += '<div style="border:1px solid var(--line);border-radius:5px;padding:4px 14px;">';
+  huaList.forEach((star,i)=>{
+    const target = CURRENT.palaces.find(p=>p.stars.some(s=>s.name===star));
+    const targetName = target ? `${target.name}（${ZHI[target.idx]}）` : '本命盤未排入（六吉煞外之星曜）';
+    const isMalefic = tags[i]==='化忌';
+    let overlapTxt='';
+    if(target){
+      const natalHua = target.stars.find(s=>s.name===star && s.hua);
+      if(natalHua) overlapTxt = `　<span style="color:var(--red-bright);font-size:12.1px;">（與生年化${natalHua.hua.join('・')}疊合）</span>`;
+      if(target.off===ly.monthPalace.off) overlapTxt += `　<span style="color:var(--red-bright);font-size:12.1px;">（與流月命宮同宮）</span>`;
+    }
+    html += `<div class="flypair">
+      <span class="from">流月${GAN[ly.monthGanIdx]}干　${star}　${tags[i]}</span>
+      <span class="to" style="${isMalefic?'color:var(--red-bright)':''}">→ 飛入 ${targetName}${overlapTxt}</span>
+    </div>`;
+  });
+  html += '</div>';
+
+  html += `<p style="font-size:12.5px;color:var(--paper-dim);margin-top:10px;">
+    提醒：這四顆流月化祿權科忌，跟流年整年固定的化祿權科忌是<b style="color:var(--gold-bright)">兩組不同的星</b>——流年四化整年不變，流月四化才會隨月份改變飛入的宮位。判讀時通常兩者一起參考：流年四化看整年基調，流月四化看當月更細緻的引動。
+  </p>`;
+
+  html += `
+    <button class="mystic" id="lyCopyBtn" style="width:100%;margin-top:14px;">❐ 複製此流月資料給 AI 深度解讀</button>
+    <button class="mystic secondary" id="lyCrossBtn" style="width:100%;margin-top:8px;">➕ 加入跨系統整合分析（可與卦象合併給AI）</button>
+    <p id="lyCrossStatus" style="text-align:center;font-size:11.5px;color:var(--brass);min-height:16px;margin:4px 0 0;"></p>
+    <p id="lyCopyStatus" style="text-align:center;font-size:12.7px;color:var(--brass);min-height:16px;margin:6px 0 0;"></p>
+    <textarea id="lyCopyOutput" class="hidden" readonly style="width:100%;min-height:180px;font-size:13.2px;line-height:1.7;background:rgba(255,252,240,0.5);border:1px solid var(--line-strong);border-radius:2px;padding:12px;color:var(--ink);font-family:'Noto Sans TC';margin-top:8px;"></textarea>
+  `;
+
+  document.getElementById('lyResult').innerHTML = html;
+
+  document.getElementById('lyCrossBtn').addEventListener('click', ()=>{
+    const statusEl = document.getElementById('lyCrossStatus');
+    const role = document.getElementById('ziweiRoleInput').value.trim();
+    saveHistoryRecord({
+      type:'紫微流月', role, timeText: formatCastTime(new Date()),
+      summary:`西元${yearInput}年 農曆${monthLabel}流月`,
+      full: { promptBlock: buildLiuyuePromptBlock(CURRENT, yearInput, monthLabel, ly, huaList) }
+    });
+    statusEl.textContent = '✓ 已加入「天人合一」頁籤的整合分析清單，可去那邊勾選合併';
+  });
+
+  document.getElementById('lyCopyBtn').addEventListener('click', async ()=>{
+    const statusEl = document.getElementById('lyCopyStatus');
+    const outputEl = document.getElementById('lyCopyOutput');
+    const text = buildLiuyuePrompt(CURRENT, yearInput, monthLabel, ly, huaList);
+    outputEl.classList.remove('hidden');
+    outputEl.value = text;
+    outputEl.focus();
+    outputEl.setSelectionRange(0, text.length);
+    let autoOk = false;
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext){
+        await navigator.clipboard.writeText(text);
+        autoOk = true;
+      } else if(document.execCommand){
+        autoOk = document.execCommand('copy');
+      }
+    } catch(err){ autoOk = false; }
+    statusEl.textContent = autoOk ? '✓ 已自動複製到剪貼簿，可直接貼到任何 AI 對話' : '自動複製未成功，內容已顯示在下方文字框，請長按選取「全選」→「複製」';
+    outputEl.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+});
+
+function buildLiuyuePromptBlock(c, yearInput, monthLabel, ly, huaList){
+  const tags=["化祿","化權","化科","化忌"];
+  const flyLines = huaList.map((star,i)=>{
+    const target = c.palaces.find(p=>p.stars.some(s=>s.name===star));
+    return `流月${tags[i]}：${star} → 飛入 ${target? target.name+'（'+ZHI[target.idx]+'）' : '本命盤未排入'}`;
+  }).join('\n');
+  const palaceLines = c.palaces.slice().sort((a,b)=>a.off-b.off).map(pp=>{
+    const starsTxt = pp.stars.map(s=> s.name + (s.hua? `(生年化${s.hua.join('・')})` : '')).join('、') || '空宮';
+    return `${pp.name}（${pp.gan}${pp.zhi}）：${starsTxt}`;
+  }).join('\n');
+  let lnNote = '';
+  if(currentLiunianTarget){
+    const {gIdx: lnGIdx, zIdx: lnZIdx} = currentLiunianTarget;
+    const lnHuaList = SIHUA[GAN[lnGIdx]];
+    lnNote = `【所屬流年】西元${yearInput}年　${GAN[lnGIdx]}${ZHI[lnZIdx]}年　流年四化：${lnHuaList.map((s,i)=>tags[i]+s).join('、')}`;
+  }
+  return `【紫微本命基本資料】
+命宮：${ZHI[c.mingIdx]}宮（${c.mingGanZhiStr}）　五行局：${JU_NAME[c.ju]}
+
+【本命十二宮】
+${palaceLines}
+
+${lnNote}
+
+【本次詢問的流月】
+西元${yearInput}年　農曆${monthLabel}　流月干支：${GAN[ly.monthGanIdx]}${ZHI[ly.monthZhiIdx]}月　流月命宮在本命${ly.monthPalace.name}（${ZHI[ly.monthPalace.idx]}）
+
+【流月四化飛佈】
+${flyLines}`;
+}
+function buildLiuyuePrompt(c, yearInput, monthLabel, ly, huaList){
+  return `${getObjModeInstruction()}你是一位精通紫微斗數飛星四化的命理顧問。請針對以下這個流月（西元${yearInput}年 農曆${monthLabel}），給我一段深度解讀。
+
+${buildLiuyuePromptBlock(c, yearInput, monthLabel, ly, huaList)}
+
+請你：
+1. 開頭用「一句話總結」（不超過40字，獨立成一行）點出這個月的核心運勢傾向。
+2. 說明流月四化飛入各宮對這個月的具體影響，特別留意流月化忌是否與本命煞星、生年化忌或流年化忌疊合。
+3. 若流年、流月四化落在同一宮或相關宮位，說明其加乘意義。
+4. 語氣溫和、有洞見，用連貫段落書寫，不要條列格式（一句話總結除外），繁體中文，約300-450字。
+5. 全文盡量使用白話文，避免堆砌命理專有名詞；若必須用到專業術語，請順手用一句白話簡單解釋是什麼意思，讓完全沒學過命理的人也能看懂你在說什麼。`;
+}
+
 document.getElementById('lnBtn').addEventListener('click', ()=>{
   if(!CURRENT){ appNotice('請先排盤'); return; }
   const yearInput = parseInt(document.getElementById('lnYear').value);
@@ -3910,6 +4182,13 @@ document.getElementById('lnBtn').addEventListener('click', ()=>{
   const gIdx = ((cyl%10)+10)%10, zIdx=((cyl%12)+12)%12;
   const huaList = SIHUA[GAN[gIdx]];
   const tags=["化祿","化權","化科","化忌"];
+
+  currentLiunianTarget = {yearInput, gIdx, zIdx};
+  document.getElementById('lyMonthSection').classList.remove('hidden');
+  document.getElementById('lyResult').innerHTML = '';
+  presetCurrentLunarMonth();
+  applyFlowHuaBadges(CURRENT, huaList, 'huaTag-ln', '流');
+  clearFlowHuaBadges('huaTag-ly'); // 換了新的流年，先清掉舊的流月標記，避免對應錯亂
 
   CURRENT.selectedLiunianIdx = zIdx;
   document.querySelectorAll('.palace').forEach(d=>d.classList.remove('is-liunian'));
@@ -4875,7 +5154,7 @@ function renderHistory(){
         <div class="hist-result">${r.result}</div>
         <div class="hist-detail">${r.reading||''}</div>
       `;
-    } else if(r.type === '紫微流年' || r.type === '紫微大限' || r.type === '紫微命盤'){
+    } else if(r.type === '紫微流年' || r.type === '紫微大限' || r.type === '紫微命盤' || r.type === '紫微流月'){
       body = `
         <div class="hist-q">${r.summary}</div>
         <div class="hist-detail">來自紫微斗數，可與卦象一起整合分析</div>
@@ -4891,7 +5170,7 @@ function renderHistory(){
         <div class="hist-detail">來自紫微消法比對，可與卦象、八字一起整合分析</div>
       `;
     }
-    const canCombine = (r.type === '銅錢問卦' || r.type === '紫微流年' || r.type === '紫微大限' || r.type === '紫微命盤' || r.type === '八字' || r.type === '消法比對') && r.full;
+    const canCombine = (r.type === '銅錢問卦' || r.type === '紫微流年' || r.type === '紫微大限' || r.type === '紫微命盤' || r.type === '紫微流月' || r.type === '八字' || r.type === '消法比對') && r.full;
     const roleBadge = r.role ? `<span class="hist-role">${r.role}</span>` : '';
     return `
       <div class="hist-item">
@@ -5052,7 +5331,7 @@ function buildCombinedPrompt(records){
   const blocks = records.map((r,i)=>{
     const roleTag = r.role ? `・對象：${r.role}` : '';
     const label = `第${i+1}項・${r.type}${roleTag}`;
-    if(r.type === '紫微流年' || r.type === '紫微大限' || r.type === '紫微命盤' || r.type === '八字' || r.type === '消法比對'){
+    if(r.type === '紫微流年' || r.type === '紫微大限' || r.type === '紫微命盤' || r.type === '紫微流月' || r.type === '八字' || r.type === '消法比對'){
       return `【${label}】\n${r.full.promptBlock}`;
     }
     return buildCastDataBlock(r.full, label);
@@ -6424,6 +6703,17 @@ document.getElementById('baziCalcBtn').addEventListener('click', ()=>{
   document.getElementById('baziCopyStatus').textContent='';
   document.getElementById('baziCrossStatus').textContent='';
   document.getElementById('baziResultSec').scrollIntoView({behavior:'smooth'});
+
+  // 排盤成功後自動收合輸入表單，改顯示精簡摘要
+  const baziHourText = document.getElementById('baziHourSel').selectedOptions[0].textContent;
+  document.getElementById('baziInputSummaryText').textContent =
+    `${y}年${m}月${d}日　${baziHourText}　${gender==='M'?'男':'女'}`;
+  document.getElementById('baziInputBody').classList.add('hidden');
+  document.getElementById('baziInputSummary').classList.remove('hidden');
+});
+document.getElementById('baziInputEditBtn').addEventListener('click', ()=>{
+  document.getElementById('baziInputBody').classList.remove('hidden');
+  document.getElementById('baziInputSummary').classList.add('hidden');
 });
 
 /* ============ 八字共用紫微的「我的快捷」資料 ============ */
