@@ -13,7 +13,7 @@
   /* ============ 開場動畫 ============ */
   #introSplash{
     position:fixed; inset:0; z-index:9999;
-    background:#f0e8d8;
+    background:var(--paper,#f0e8d8);
     display:flex; align-items:center; justify-content:center;
     flex-direction:column;
     transition: opacity .8s ease;
@@ -71,7 +71,7 @@
   #introGateModal.show{ opacity:1; pointer-events:auto; }
 
   .disclaimer-box, .onboard-box{
-    background:#f3ece0;
+    background:var(--paper,#f3ece0);
     border:none;
     border-radius:2px;
     max-width:400px; width:100%; max-height:84vh;
@@ -86,19 +86,19 @@
 
   .gate-kicker{
     text-align:center; font-size:11px; letter-spacing:0.34em;
-    color:#a08356; text-transform:uppercase; margin:0 0 10px;
+    color:var(--brass-bright,#a08356); text-transform:uppercase; margin:0 0 10px;
     font-family:'Noto Sans TC';
   }
   .disclaimer-box h3, .onboard-box h3{
     font-family:'Noto Serif TC',serif; font-size:21px; font-weight:700;
-    text-align:center; margin:0 0 6px; letter-spacing:0.14em; color:#201d17;
+    text-align:center; margin:0 0 6px; letter-spacing:0.14em; color:var(--ink,#201d17);
   }
   .gate-lead{
-    text-align:center; font-size:12.5px; color:#8a7a5f; margin:0 0 26px;
+    text-align:center; font-size:12.5px; color:var(--ink-soft,#8a7a5f); margin:0 0 26px;
     font-family:'Noto Serif TC'; font-style:italic; letter-spacing:0.02em;
   }
   .gate-hr{
-    width:26px; height:1px; background:#9c4a35; opacity:0.5;
+    width:26px; height:1px; background:var(--vermilion,#9c4a35); opacity:0.5;
     margin:0 auto 26px;
   }
 
@@ -107,26 +107,26 @@
   .lit-item:last-of-type{ margin-bottom:28px; }
   .lit-lead{
     font-family:'Noto Serif TC'; font-size:16.5px; font-weight:700;
-    color:#7a3323; margin:0 0 6px; letter-spacing:0.03em;
+    color:var(--vermilion-deep,#7a3323); margin:0 0 6px; letter-spacing:0.03em;
   }
   .lit-body{
     font-family:'Noto Sans TC'; font-size:14.8px; line-height:1.95;
-    color:#3a352b; margin:0; font-weight:400;
+    color:var(--ink,#3a352b); margin:0; font-weight:400;
   }
-  .lit-body b{ color:#201d17; font-weight:600; }
+  .lit-body b{ color:var(--ink,#201d17); font-weight:600; }
 
   .gate-btn{
     display:block; width:100%; margin-top:6px;
-    background:transparent; color:#7a3323; border:1px solid #9c4a35;
+    background:transparent; color:var(--vermilion-deep,#7a3323); border:1px solid var(--vermilion,#9c4a35);
     font-family:'Noto Serif TC'; font-weight:700; font-size:14.5px;
     padding:13px 0; border-radius:1px; cursor:pointer; letter-spacing:0.18em;
     transition: background .2s ease, color .2s ease;
   }
-  .gate-btn:active{ background:#9c4a35; color:#f2e6cf; }
+  .gate-btn:active{ background:var(--vermilion,#9c4a35); color:#f2e6cf; }
 
   /* 功能導覽 —— 細線時間軸 */
   .onboard-box .onboard-sub{
-    text-align:center; font-size:12px; color:#8a7a5f; margin:0 0 30px;
+    text-align:center; font-size:12px; color:var(--ink-soft,#8a7a5f); margin:0 0 30px;
     font-family:'Noto Serif TC'; font-style:italic;
   }
   .onboard-timeline{
@@ -147,14 +147,14 @@
   .onboard-icon{ display:none; }
   .onboard-row .onboard-text h4{
     font-family:'Noto Serif TC'; font-size:15.5px; font-weight:700;
-    margin:0 0 5px; color:#201d17; letter-spacing:0.04em;
+    margin:0 0 5px; color:var(--ink,#201d17); letter-spacing:0.04em;
   }
   .onboard-row .onboard-text p{
     font-size:12.8px; line-height:1.8; color:#4a4436; margin:0 0 6px;
     font-family:'Noto Sans TC'; font-weight:300;
   }
   .onboard-row .onboard-text .onboard-when{
-    font-size:11.5px; color:#8a7a5f; font-family:'Noto Serif TC';
+    font-size:11.5px; color:var(--ink-soft,#8a7a5f); font-family:'Noto Serif TC';
     font-style:italic; display:block; margin-bottom:8px;
   }
   .onboard-tip{
@@ -176,12 +176,12 @@
   .onboard-goto-btn:active{ opacity:0.6; }
   .onboard-agree-btn{
     display:block; width:100%; margin-top:8px;
-    background:transparent; color:#7a3323; border:1px solid #9c4a35;
+    background:transparent; color:var(--vermilion-deep,#7a3323); border:1px solid var(--vermilion,#9c4a35);
     font-family:'Noto Serif TC'; font-weight:700; font-size:14.5px;
     padding:13px 0; border-radius:1px; cursor:pointer; letter-spacing:0.18em;
     transition: background .2s ease, color .2s ease;
   }
-  .onboard-agree-btn:active{ background:#9c4a35; color:#f2e6cf; }
+  .onboard-agree-btn:active{ background:var(--vermilion,#9c4a35); color:#f2e6cf; }
 
 
   @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Sans+Mono:wght@400;500&display=swap');
@@ -326,7 +326,7 @@
   }
   #helpModal.hidden{ display:none; }
   .help-modal-inner{
-    background:#f3ece0; width:100%; max-width:640px; max-height:85vh; overflow-y:auto;
+    background:var(--paper,#f3ece0); width:100%; max-width:640px; max-height:85vh; overflow-y:auto;
     border-radius:2px 2px 0 0; padding:36px 28px 40px; position:relative;
     box-shadow:0 -6px 30px rgba(0,0,0,0.22);
   }
@@ -337,15 +337,15 @@
   }
   .help-modal-inner .help-kicker{
     text-align:center; font-size:11px; letter-spacing:0.34em;
-    color:#a08356; text-transform:uppercase; margin:0 0 10px;
+    color:var(--brass-bright,#a08356); text-transform:uppercase; margin:0 0 10px;
     font-family:'Noto Sans TC';
   }
   .help-modal-inner > h2{
     font-family:'Noto Serif TC',serif !important; font-size:22px !important; font-weight:700 !important;
-    text-align:center; letter-spacing:0.14em; color:#201d17; margin:0 0 6px !important;
+    text-align:center; letter-spacing:0.14em; color:var(--ink,#201d17); margin:0 0 6px !important;
   }
   .help-modal-inner > p.help-sub{
-    text-align:center; font-size:12px; color:#8a7a5f; margin:0 0 30px !important;
+    text-align:center; font-size:12px; color:var(--ink-soft,#8a7a5f); margin:0 0 30px !important;
     font-family:'Noto Serif TC'; font-style:italic;
   }
   .help-section{
@@ -355,9 +355,9 @@
   .help-section:last-of-type{ border-bottom:none; margin-bottom:8px; padding-bottom:0; }
   .help-section h3{
     font-family:'Noto Serif TC'; font-size:16px; font-weight:700;
-    color:#7a3323; margin-bottom:6px; letter-spacing:0.03em;
+    color:var(--vermilion-deep,#7a3323); margin-bottom:6px; letter-spacing:0.03em;
   }
-  .help-section p{ font-size:13.8px; line-height:1.95; color:#3a352b; font-weight:400; font-family:'Noto Sans TC'; }
+  .help-section p{ font-size:13.8px; line-height:1.95; color:var(--ink,#3a352b); font-weight:400; font-family:'Noto Sans TC'; }
 
   .card{
     background: rgba(237,229,204,0.55);
@@ -1029,6 +1029,28 @@
   .adv-ref summary:hover{ color:var(--vermilion); }
   .adv-ref-body{ margin-top:16px; }
 
+  /* 就地解釋（資訊圖示，點擊彈出簡短說明，不用翻使用說明） */
+  .info-tip{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:15px; height:15px; border-radius:50%;
+    border:1px solid var(--brass); color:var(--brass);
+    font-size:10px; font-family:'Noto Serif TC'; font-style:italic; font-weight:700;
+    cursor:pointer; vertical-align:2px; margin-left:3px;
+    position:relative; flex-shrink:0;
+  }
+  .info-tip-pop{
+    display:none;
+    position:absolute; z-index:200; top:22px; left:0;
+    width:230px; max-width:70vw;
+    background:var(--paper,#f3ece0); color:var(--ink);
+    border:1px solid var(--line-strong); border-radius:4px;
+    padding:10px 12px; font-size:12.5px; line-height:1.75;
+    font-family:'Noto Sans TC'; font-weight:400; font-style:normal;
+    box-shadow:0 4px 14px rgba(38,34,26,0.22);
+    text-align:left; white-space:normal;
+  }
+  .info-tip.open .info-tip-pop{ display:block; }
+
   .searchable-list .item{border-bottom:1px solid var(--line);padding:12px 4px;}
   .searchable-list .item:last-child{border-bottom:none;}
   .searchable-list .iname{font-family:'Noto Serif TC';font-size:16.5px;color:var(--gold-bright);margin-bottom:6px;}
@@ -1137,6 +1159,60 @@
   #backToTopBtn:active{ transform: scale(0.92); }
   #backToTopBtn.show{ display:flex; }
 
+  #globalSearchBtn:hover{ background:rgba(138,114,72,0.1); }
+
+  #globalSearchModal{
+    position:fixed; inset:0; z-index:9600;
+    background:rgba(24,20,14,0.6);
+    display:flex; align-items:flex-start; justify-content:center;
+    padding:0; opacity:0; pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  #globalSearchModal.show{ opacity:1; pointer-events:auto; }
+  .gs-box{
+    background:var(--paper); width:100%; max-width:640px; height:100%;
+    display:flex; flex-direction:column;
+  }
+  .gs-header{
+    display:flex; align-items:center; gap:10px;
+    padding:16px 16px calc(12px + env(safe-area-inset-top, 0px));
+    padding-top:calc(16px + env(safe-area-inset-top, 0px));
+    border-bottom:1px solid var(--line-strong);
+    flex-shrink:0;
+  }
+  .gs-header input{
+    flex:1; background:rgba(255,252,240,0.5); border:1px solid var(--line-strong);
+    color:var(--ink); padding:11px 14px; border-radius:4px; font-size:15.4px;
+    font-family:'Noto Sans TC';
+  }
+  .gs-header input:focus{ outline:none; border-color:var(--vermilion); }
+  .gs-header button{
+    background:none; border:none; color:var(--brass); font-size:20px;
+    cursor:pointer; padding:4px 8px; flex-shrink:0;
+  }
+  .gs-results{ flex:1; overflow-y:auto; padding:12px 16px calc(24px + env(safe-area-inset-bottom, 0px)); }
+  .gs-hint{ font-size:13.5px; color:var(--paper-dim); line-height:1.9; text-align:center; margin-top:30px; }
+  .gs-group{ margin-bottom:22px; }
+  .gs-group-title{
+    font-family:'Noto Serif TC'; font-size:12.5px; color:var(--brass);
+    letter-spacing:0.08em; margin-bottom:8px; padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .gs-item{
+    padding:10px 0; border-bottom:1px dashed var(--line);
+    display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+  }
+  .gs-item:last-child{ border-bottom:none; }
+  .gs-item-text{ flex:1; min-width:0; }
+  .gs-item-title{ font-family:'Noto Serif TC'; font-size:14.9px; color:var(--ink); font-weight:700; margin-bottom:3px; }
+  .gs-item-snippet{ font-size:12.5px; color:var(--ink-soft); line-height:1.7;
+    overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+  .gs-item-go{
+    flex-shrink:0; background:none; color:var(--vermilion-deep); border:none;
+    font-family:'Noto Sans TC'; font-weight:600; font-size:12.5px; cursor:pointer;
+    border-bottom:1px solid rgba(156,74,53,0.4); padding:0; margin-top:2px;
+  }
+
 
   /* ============================================================
      主題 G：為焦慮中的人設計（答案優先・溫暖安定・紅色只留給真警示）
@@ -1165,6 +1241,7 @@
     --purple: #7a6a8e;
     --blue: #5c7386;
     --calm-jade:#5f7a5e;
+    --paper-dim: var(--ink-soft); /* 修正：此變數原本從未定義，靠瀏覽器容錯繼承矇混，現正式定義以支援深色模式 */
   }
   body{
     background:
@@ -1533,7 +1610,13 @@
     <div class="brushline"></div>
     <p id="taglineText" style="cursor:pointer;margin-bottom:0;">命是天註定，運操之在我手中。</p>
     <p id="taglineSecret" class="hidden" style="font-size:12px;color:var(--calm-jade,#5f7a5e);margin-top:12px;margin-bottom:6px;line-height:2;max-width:320px;">命局是相，是念頭生滅的背景；<br>操之在我的，是那顆「不住」的心。</p>
-    <button id="helpOpenBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);margin-top:22px;cursor:pointer;">✦ 使用說明</button>
+    <div style="margin-top:22px;display:flex;gap:10px;justify-content:center;">
+      <button id="helpOpenBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);cursor:pointer;">✦ 使用說明</button>
+      <button id="globalSearchBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
+        <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="6"/><line x1="13.2" y1="13.2" x2="18" y2="18"/></svg>
+        搜尋
+      </button>
+    </div>
     <div id="objModeRow" style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--paper-dim);">
       <span>AI提詞模式：</span>
       <button type="button" class="obj-mode-btn" data-mode="continue" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">延續一般對話</button>
@@ -1644,7 +1727,7 @@
   </section>
 
   <section id="resultSec" style="display:none;">
-    <h2><span class="num">2</span>命盤總覽</h2>
+    <h2><span class="num">2</span>命盤總覽<span class="info-tip">i<span class="info-tip-pop">星曜旁的「廟旺陷」小字，是這顆星在這個宮位力量強弱的傳統分類：廟、旺最強，得、利次之，平和普通，不得地、陷最弱。完整對照表在下方圖例。</span></span></h2>
     <div id="ziweiHeadline" class="headline-card"></div>
     <div class="summary" id="summaryCells"></div>
     <div class="chartgrid" id="chartGrid"></div>
@@ -1691,7 +1774,7 @@
   </section>
 
   <section id="dxSec" style="display:none;">
-    <h2><span class="num">7</span>十年大限</h2>
+    <h2><span class="num">7</span>十年大限<span class="info-tip">i<span class="info-tip-pop">「大限」是紫微斗數把人生切成每10年一段來看的方式，每一段都會有不同的宮位當作那10年的「臨時命宮」，藉此觀察不同十年各自的運勢重點。點下方任一大限區塊即可查看詳情。</span></span></h2>
     <p style="font-size:13.8px;color:var(--paper-dim);margin-top:-6px;">
       點選任一大限，查看該限的命宮所在、大限四化飛佈（以大限宮干起四化，飛入本命各宮），並自動與本命四化、煞星疊合比對。
     </p>
@@ -1740,7 +1823,7 @@
   </section>
 
   <section id="xfSec" style="display:none;">
-    <h2><span class="num">9</span>消法比對 — 破相以延壽，刃動以消劫</h2>
+    <h2><span class="num">9</span>消法比對 — 破相以延壽，刃動以消劫<span class="info-tip">i<span class="info-tip-pop">「消法」是命盤中若有煞星、化忌等徵兆，可透過主動的手術、破相等方式提前釋放這股能量，避免它日後以更劇烈的方式被動應驗。輸入你曾發生過的人生事件，看是否對應到命盤中的煞星或化忌。</span></span></h2>
     <p style="font-size:13.8px;color:var(--paper-dim);margin-top:-6px;">
       主動的相應肢體行為（手術、破相、金屬植入等）可提前「消解」命盤煞星／化忌能量，避免其被動應驗。輸入事件與宮位，比對是否命中。
     </p>
@@ -2094,7 +2177,7 @@
     </div>
 
     <div class="reading-section">
-      <h3>用神分析</h3>
+      <h3>用神分析<span class="info-tip">i<span class="info-tip-pop">「用神」是六爻占卜裡代表「你問的這件事」的那一爻。問財運看財爻、問工作看官爻、問長輩看父母爻……先找到用神，再看它強不強、有沒有被沖剋，才能判斷這件事吉凶如何。</span></span></h3>
       <div id="yongshenBlock"></div>
     </div>
 
@@ -2105,7 +2188,7 @@
     </div>
 
     <div class="reading-section">
-      <h3>六神所示</h3>
+      <h3>六神所示<span class="info-tip">i<span class="info-tip-pop">「六神」（青龍、朱雀、勾陳、螣蛇、白虎、玄武）是附加在每一爻上的輔助訊息，代表這件事的「性質」或「氛圍」（比如青龍主和諧喜慶、白虎主驚險波折），本身不主吉凶，要搭配用神一起看。</span></span></h3>
       <table class="spirit-table" id="spiritTable"></table>
     </div>
 
@@ -2533,6 +2616,19 @@
     <p class="app-confirm-msg" id="appNoticeMsg" style="white-space:pre-wrap;"></p>
     <div class="app-confirm-row">
       <button class="app-confirm-ok" id="appNoticeOkBtn" style="width:100%;">確定</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 全App統一搜尋 ============ -->
+<div id="globalSearchModal">
+  <div class="gs-box">
+    <div class="gs-header">
+      <input type="text" id="gsInput" placeholder="搜尋星曜、卦名、堪輿詞彙、六神……">
+      <button id="gsCloseBtn" title="關閉">✕</button>
+    </div>
+    <div id="gsResults" class="gs-results">
+      <p class="gs-hint">輸入關鍵字，一次搜尋書本內容查詢、命卦查詢、六十四卦房位參考、堪輿詞彙、六神臨六親詳解，共五個資料庫。</p>
     </div>
   </div>
 </div>
@@ -6092,6 +6188,36 @@ topTabs.renjian.addEventListener('click', ()=> activateTopTab('renjian'));
 topTabs.dimai.addEventListener('click', ()=> activateTopTab('dimai'));
 topTabs.combine.addEventListener('click', ()=> activateTopTab('combine'));
 
+/* ============ 左右滑動切換分頁（App化手勢） ============ */
+(function(){
+  const TAB_ORDER = ['tianji','renjian','dimai','combine'];
+  function getCurrentTabKey(){
+    return TAB_ORDER.find(k => !topSections[k].classList.contains('hidden')) || 'tianji';
+  }
+  let touchStartX = 0, touchStartY = 0, touching = false;
+  const SWIPE_THRESHOLD = 70; // 至少滑動這麼多像素才觸發，避免誤觸
+  document.addEventListener('touchstart', (e)=>{
+    if(e.touches.length !== 1) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touching = true;
+  }, {passive:true});
+  document.addEventListener('touchend', (e)=>{
+    if(!touching) return;
+    touching = false;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if(Math.abs(dx) < SWIPE_THRESHOLD) return; // 距離不夠，忽略
+    if(Math.abs(dx) < Math.abs(dy) * 1.5) return; // 偏垂直方向（一般捲動），忽略
+    const idx = TAB_ORDER.indexOf(getCurrentTabKey());
+    if(dx < 0 && idx < TAB_ORDER.length - 1){
+      activateTopTab(TAB_ORDER[idx + 1]); // 向左滑：下一個分頁
+    } else if(dx > 0 && idx > 0){
+      activateTopTab(TAB_ORDER[idx - 1]); // 向右滑：上一個分頁
+    }
+  }, {passive:true});
+})();
+
 /* 紫微斗數／八字 子頁籤 */
 const tianjiSubs = {
   ziwei: {tab: document.getElementById('subTabZiwei'), el: document.getElementById('ziweiModeWrap')},
@@ -6170,6 +6296,104 @@ function activateDimaiSub(key){
 }
 Object.keys(dimaiSubs).forEach(key=>{
   dimaiSubs[key].tab.addEventListener('click', ()=> activateDimaiSub(key));
+});
+
+/* ============================================================
+   全App統一搜尋：跨書本內容查詢、命卦查詢、六十四卦房位參考、
+   堪輿詞彙、六神臨六親詳解，共五個現有資料庫
+   ============================================================ */
+function openGlobalSearch(){
+  document.getElementById('globalSearchModal').classList.add('show');
+  document.getElementById('gsInput').value = '';
+  document.getElementById('gsResults').innerHTML = '<p class="gs-hint">輸入關鍵字，一次搜尋書本內容查詢、命卦查詢、六十四卦房位參考、堪輿詞彙、六神臨六親詳解，共五個資料庫。</p>';
+  setTimeout(()=> document.getElementById('gsInput').focus(), 150);
+}
+function closeGlobalSearch(){
+  document.getElementById('globalSearchModal').classList.remove('show');
+}
+document.getElementById('globalSearchBtn').addEventListener('click', openGlobalSearch);
+document.getElementById('gsCloseBtn').addEventListener('click', closeGlobalSearch);
+document.getElementById('globalSearchModal').addEventListener('click', (e)=>{
+  if(e.target.id === 'globalSearchModal') closeGlobalSearch();
+});
+
+function gsRenderGroup(title, items){
+  if(!items.length) return '';
+  const rows = items.map(it => `
+    <div class="gs-item">
+      <div class="gs-item-text">
+        <div class="gs-item-title">${it.title}</div>
+        <div class="gs-item-snippet">${it.snippet}</div>
+      </div>
+      <button type="button" class="gs-item-go" data-gs-idx="${gsGoHandlers.length}">前往 →</button>
+    </div>
+  `).join('');
+  items.forEach(it => gsGoHandlers.push(it.go));
+  return `<div class="gs-group"><div class="gs-group-title">${title}</div>${rows}</div>`;
+}
+let gsGoHandlers = [];
+function doGlobalSearch(query){
+  const resultsEl = document.getElementById('gsResults');
+  const q = query.trim();
+  gsGoHandlers = [];
+  if(!q){
+    resultsEl.innerHTML = '<p class="gs-hint">輸入關鍵字，一次搜尋書本內容查詢、命卦查詢、六十四卦房位參考、堪輿詞彙、六神臨六親詳解，共五個資料庫。</p>';
+    return;
+  }
+
+  let html = '';
+
+  // 1. 書本內容查詢（紫微斗數星曜）
+  const bookKeys = Object.keys(BOOK_DICT).filter(k=> k.includes(q) || BOOK_DICT[k].summary.includes(q) || BOOK_DICT[k].quote.includes(q)).slice(0,8);
+  html += gsRenderGroup('書本內容查詢・紫微斗數', bookKeys.map(k=>({
+    title:k, snippet: BOOK_DICT[k].summary,
+    go: ()=>{ closeGlobalSearch(); activateTopTab('tianji'); activateTianjiSub('ziwei'); setTimeout(()=> jumpToBookEntry(k), 80); }
+  })));
+
+  // 2. 命卦查詢（卜卦）
+  const hexRows = HEX_DATA.filter(r=> r.some(c=>c.includes(q))).slice(0,8);
+  html += gsRenderGroup('命卦查詢・卜卦', hexRows.map(r=>({
+    title:r[0], snippet:`先天卦：${r[1]}`,
+    go: ()=>{ closeGlobalSearch(); activateTopTab('renjian'); activateRenjianSub('mingua'); setTimeout(()=>{
+      const bs=document.getElementById('hexSearch'); if(bs){ bs.value=r[0]; renderHex(r[0]); }
+    }, 80); }
+  })));
+
+  // 3. 六神臨六親詳解（卜卦）
+  const comboRows = COMBO_DATA.filter(r=> r[0].includes(q) || r[1].includes(q) || r[2].includes(q)).slice(0,8);
+  html += gsRenderGroup('六神臨六親詳解・卜卦', comboRows.map(r=>({
+    title:`${r[0]}・${r[1]}`, snippet:r[2],
+    go: ()=>{ closeGlobalSearch(); activateTopTab('renjian'); activateRenjianSub('liushenRef'); setTimeout(()=>{
+      const cs=document.getElementById('comboSearch'); if(cs){ cs.value=r[0]; renderCombo(r[0]); }
+    }, 80); }
+  })));
+
+  // 4. 六十四卦房位參考（風水）
+  const fsRows = FS_DATA.filter(r=> r.some(c=>c.includes(q))).slice(0,8);
+  html += gsRenderGroup('六十四卦房位參考・風水', fsRows.map(r=>({
+    title:r[0], snippet:`${r[1]}：${r[2]}`,
+    go: ()=>{ closeGlobalSearch(); activateTopTab('dimai'); activateDimaiSub('ref'); setTimeout(()=>{
+      const fs=document.getElementById('fsSearch'); if(fs){ fs.value=r[0]; renderFs(r[0]); }
+    }, 80); }
+  })));
+
+  // 5. 堪輿詞彙（風水）
+  const termRows = TERMS.filter(t=> t.name.includes(q) || t.desc.includes(q)).slice(0,8);
+  html += gsRenderGroup('堪輿詞彙・風水', termRows.map(t=>({
+    title:t.name, snippet:t.desc,
+    go: ()=>{ closeGlobalSearch(); activateTopTab('dimai'); activateDimaiSub('theory'); setTimeout(()=>{
+      const ts=document.getElementById('termSearch'); if(ts){ ts.value=t.name; renderTerms(t.name); }
+    }, 80); }
+  })));
+
+  resultsEl.innerHTML = html || '<p class="gs-hint">查無相符結果，換個關鍵字試試看。</p>';
+}
+document.getElementById('gsInput').addEventListener('input', (e)=> doGlobalSearch(e.target.value));
+document.getElementById('gsResults').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.gs-item-go');
+  if(!btn) return;
+  const idx = parseInt(btn.dataset.gsIdx);
+  if(gsGoHandlers[idx]) gsGoHandlers[idx]();
 });
 
 /* ============================================================
@@ -6820,6 +7044,26 @@ document.getElementById('baziCrossBtn').addEventListener('click', ()=>{
   });
   statusEl.textContent = '✓ 已加入「天人合一」頁籤的整合分析清單，可去那邊勾選合併';
 });
+
+/* ============ 就地解釋資訊圖示（點擊開關） ============ */
+document.addEventListener('click', (e)=>{
+  const tip = e.target.closest('.info-tip');
+  document.querySelectorAll('.info-tip.open').forEach(t=>{
+    if(t !== tip) t.classList.remove('open');
+  });
+  if(tip) tip.classList.toggle('open');
+});
+
+/* ============ 輕觸震動反饋（App化細節） ============ */
+// 針對主要動作按鈕（排盤、排出八字、送出、AI分析、複製等）給一個極輕的震動回饋
+// 導覽切換、展開收合等低風險互動不觸發，避免過度震動造成干擾
+// iOS Safari不支援navigator.vibrate，此為漸進增強，不支援的裝置靜默略過不影響功能
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button.primary, button.mystic');
+  if(!btn || btn.disabled) return;
+  if(btn.classList.contains('secondary')) return;
+  if(navigator.vibrate) navigator.vibrate(10);
+}, true);
 
 
 </script>
