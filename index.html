@@ -1028,6 +1028,52 @@
   .adv-ref[open] summary::before{ transform:rotate(90deg); }
   .adv-ref summary:hover{ color:var(--vermilion); }
   .adv-ref-body{ margin-top:16px; }
+  .ai-launch{ margin:8px 0 4px; text-align:center; font-family:'Noto Sans TC'; }
+  .ai-launch-steps{ display:flex; justify-content:center; flex-wrap:wrap; gap:4px 12px; font-size:11.5px; color:var(--ink-soft); margin-bottom:8px; }
+  .ai-launch-row{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; }
+  .ai-launch-row a{ padding:7px 16px; border:1px solid var(--vermilion); border-radius:16px; color:var(--vermilion-deep);
+    font-size:13.5px; text-decoration:none; font-weight:500; }
+  .ai-launch-row a:active{ background:var(--vermilion); color:#f2e6cf; }
+  .sample-link{ display:block; margin:10px auto 0; }
+
+  /* 我的本月看板 */
+  .my-month-card{
+    background:rgba(255,252,240,0.55); border:1px solid var(--line-strong);
+    border-left:3px solid var(--vermilion); border-radius:2px;
+    padding:16px 18px; margin:0 0 20px; font-family:'Noto Sans TC';
+  }
+  .my-month-card:empty{ display:none; }
+  .mm-eyebrow{ font-size:11.5px; color:var(--brass); letter-spacing:0.12em; margin-bottom:4px; }
+  .mm-title{ font-family:'Noto Serif TC'; font-size:17px; font-weight:700; color:var(--ink); margin-bottom:10px; }
+  .mm-row{ font-size:13.5px; line-height:1.9; color:var(--ink); }
+  .mm-row .k{ color:var(--ink-soft); margin-right:6px; }
+  .mm-hua{ display:grid; grid-template-columns:1fr 1fr; gap:4px 12px; margin:8px 0 10px; font-size:13px; }
+  .mm-hua span b{ font-family:'Noto Serif TC'; margin-right:3px; }
+  .mm-note{ font-size:13px; line-height:1.85; color:var(--ink); background:rgba(156,74,53,0.06);
+    border-radius:2px; padding:8px 10px; margin:6px 0 12px; }
+  .mm-act{ color:var(--vermilion-deep); }
+  .mm-note p{ margin:0 0 6px; } .mm-note p:last-child{ margin:0; }
+  .mm-sub{ font-family:'Noto Serif TC'; font-size:14.5px; font-weight:700; color:var(--ink); margin:4px 0 8px; }
+  .mm-ask{ border-top:1px dashed var(--line-strong); padding-top:12px; margin-top:4px; }
+  .mm-chip.active{ background:var(--vermilion); color:#f2e6cf; border-color:var(--vermilion); }
+  .mm-topic-box{ background:rgba(255,252,240,0.6); border:1px solid var(--line); border-radius:2px; padding:12px 12px 10px; margin:6px 0 4px; }
+  .mm-topic-box .mm-row{ font-size:13px; }
+  .mm-tl{ border-top:1px dashed var(--line-strong); margin:12px 0; padding-top:8px; }
+  .mm-tl summary{ cursor:pointer; font-family:'Noto Serif TC'; font-size:14.5px; font-weight:700; color:var(--ink); padding:4px 0; }
+  .mm-tl-head, .mm-tl-row{ display:grid; grid-template-columns:3.4em 1fr 1fr 4.2em; gap:6px; align-items:center; font-size:12.5px; padding:5px 0; }
+  .mm-tl-head{ color:var(--brass); font-size:11.5px; border-bottom:1px solid var(--line-strong); margin-top:6px; }
+  .mm-tl-row{ border-bottom:1px solid var(--line); }
+  .mm-tl-row.now{ background:rgba(156,74,53,0.06); }
+  .mm-tl-m{ font-family:'Noto Serif TC'; font-weight:700; }
+  .mm-tl-m small{ display:block; font-weight:400; font-size:10px; color:var(--brass); }
+  .mm-tl-lu{ color:var(--calm-jade,#5f7a5e); } .mm-tl-ji{ color:var(--vermilion-deep); }
+  .mm-tag{ font-style:normal; font-size:11px; padding:1px 6px; border-radius:8px; white-space:nowrap; }
+  .mm-tag.warn{ background:rgba(156,74,53,0.12); color:var(--vermilion-deep); }
+  .mm-tag.good{ background:rgba(95,122,94,0.15); color:var(--calm-jade,#5f7a5e); }
+  .mm-tl-foot{ font-size:11.5px; color:var(--ink-soft); line-height:1.7; margin:8px 0 0; }
+  .mm-actions{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  .mm-chip{ padding:5px 12px; font-size:12.5px; border-radius:12px; border:1px solid var(--line-strong);
+    background:transparent; color:var(--vermilion-deep); cursor:pointer; margin:0 6px 6px 0; }
 
   /* 就地解釋（資訊圖示，點擊彈出簡短說明，不用翻使用說明） */
   .info-tip{
@@ -1522,6 +1568,15 @@
     </div>
 
     <div class="help-section">
+      <h3>流年、流月四化取干</h3>
+      <p>各派對流年、流月四化用哪個天干看法不同。預設採<b>河洛派（方外人）</b>：以流年命宮、流月命宮在原命盤上的宮干飛化。也可改用三合通行的做法：流年用太歲天干、流月用當月月干。流月命宮的位置兩種都相同（斗君法）。切換後，命盤、我的本月、12個月走勢與AI提詞都會同步改用新的方式。</p>
+      <div class="radiorow" id="huaModeRow" style="margin-top:10px;">
+        <label data-m="palace"><input type="radio" name="huaMode" value="palace"><span>宮干（河洛・方外人）</span></label>
+        <label data-m="stem"><input type="radio" name="huaMode" value="stem"><span>年干／月干（三合）</span></label>
+      </div>
+    </div>
+
+    <div class="help-section">
       <h3>API 設定</h3>
       <p>如果想用「🤖 直接請AI分析」功能，需要先貼上你自己的Claude或Gemini API金鑰，只存在這支裝置的瀏覽器裡。設定一次之後就不用再管，這裡只是給你需要修改金鑰時使用的入口。</p>
       <button class="mystic" id="apiSettingsOpenBtn" style="width:100%;margin-top:8px;">前往設定 API 金鑰</button>
@@ -1650,6 +1705,8 @@
       <p>知命之學。輸入生辰，排出十二宮、四化、大限流年、四柱八字，全方位掌握天賦格局。</p>
     </div>
 
+    <div id="myMonthCard" class="my-month-card"></div>
+
     <div class="sub-tabs">
       <button class="sub-tab active" id="subTabZiwei">紫微斗數</button>
       <button class="sub-tab" id="subTabBazi">八字</button>
@@ -1715,6 +1772,7 @@
     <div class="btnrow">
       <button class="primary" id="calcBtn">排盤</button>
     </div>
+    <button type="button" class="ghostlink sample-link" id="sampleChartBtn">還沒準備好生辰？先看一張範例命盤</button>
     <div class="presets" id="presetRow">
       <span style="font-size:12.1px;color:var(--paper-dim);align-self:center;margin-right:2px;">我的快捷：</span>
       <span id="presetButtons"></span>
@@ -2551,6 +2609,10 @@
       <button class="sub-tab" id="subTabAiResults">AI分析結果</button>
     </div>
     <div id="combineDataWrap">
+    <div class="card" id="hepanSec">
+      <h2 style="font-size:16.5px;">兩人合盤<span class="info-tip">i<span class="info-tip-pop">把兩個人的紫微命盤放在一起，看彼此的生年四化各自飛入對方哪一宮，再交給 AI 分析相處模式、互補與摩擦點。適合夫妻、情侶、親子、合夥人。</span></span></h2>
+      <div id="hepanBody"></div>
+    </div>
     <div class="card">
       <div class="ritual-step">
         <h2>歷史紀錄</h2>
@@ -2634,6 +2696,23 @@
 </div>
 
 <script>
+/* ============ 複製提詞後，一鍵開啟 AI ============ */
+function showAiLaunch(statusEl){
+  if(!statusEl) return;
+  let box = statusEl.nextElementSibling;
+  if(!box || !box.classList.contains('ai-launch')){
+    box = document.createElement('div');
+    box.className = 'ai-launch';
+    statusEl.insertAdjacentElement('afterend', box);
+  }
+  box.innerHTML = `<div class="ai-launch-steps"><span>① 已複製</span><span>② 開啟 AI</span><span>③ 長按輸入框「貼上」送出</span></div>
+    <div class="ai-launch-row">
+      <a href="https://chatgpt.com/" target="_blank" rel="noopener">ChatGPT</a>
+      <a href="https://gemini.google.com/app" target="_blank" rel="noopener">Gemini</a>
+      <a href="https://claude.ai/new" target="_blank" rel="noopener">Claude</a>
+    </div>`;
+}
+
 /* ============ 自訂確認彈窗邏輯：appConfirm(message) 回傳 Promise<boolean> ============ */
 function appConfirm(message){
   return new Promise((resolve)=>{
@@ -3371,6 +3450,8 @@ function renderPresetButtons(){
     });
   });
   renderCastRoleQuick();
+  if(typeof renderMyMonthCard==='function' && document.getElementById('myMonthCard')) setTimeout(renderMyMonthCard,0);
+  if(typeof renderHepan==='function') setTimeout(renderHepan,0);
 }
 document.getElementById('savePresetBtn').addEventListener('click', ()=>{
   const dateVal = document.getElementById('solarDate').value;
@@ -3390,6 +3471,338 @@ document.getElementById('savePresetBtn').addEventListener('click', ()=>{
   renderBaziPresetButtons();
 });
 renderPresetButtons();
+
+/* ============ 我的本月看板：打開App直接看到「我」這個月的流年、流月 ============ */
+function myKey(){ return 'sancai_me_v1'; }
+function loadMe(){ try{ return JSON.parse(localStorage.getItem(myKey())); }catch(e){ return null; } }
+function saveMe(p){ try{ if(p) localStorage.setItem(myKey(), JSON.stringify(p)); else localStorage.removeItem(myKey()); }catch(e){} }
+const MM_PALACE_HINT = {"命宮":"自身狀態","兄弟宮":"手足同輩","夫妻宮":"感情伴侶","子女宮":"子女晚輩","財帛宮":"金錢收支","疾厄宮":"身體作息","遷移宮":"外出與對外互動","交友宮":"朋友人際","官祿宮":"工作事業","田宅宮":"家庭居所","福德宮":"心情與精神","父母宮":"長輩與文書"};
+/* 化忌入該宮時，可以具體做的事（務實、不恐嚇） */
+const MM_ACT_JI = {"命宮":"作息放慢，重要決定多想一晚再定","兄弟宮":"與手足同輩少有金錢往來，有話好好說","夫妻宮":"多傾聽少爭辯，重要約定先講清楚","子女宮":"多陪伴子女晚輩，留意其安全與情緒","財帛宮":"大額支出與投資先緩一緩，簽約多看一次條款","疾厄宮":"規律作息，身體有不適就及早檢查","遷移宮":"外出交通多留意，出遠門預留時間","交友宮":"借貸、作保先婉拒，合作條件寫清楚","官祿宮":"把工作細節與文件做紮實，避免衝動換跑道","田宅宮":"居家安全與修繕先處理，買賣房產再評估","福德宮":"給自己留空檔休息，少熬夜、少鑽牛角尖","父母宮":"多關心長輩，文件合約仔細核對"};
+/* 化祿入該宮時，適合把握的事 */
+const MM_ACT_LU = {"命宮":"適合主動爭取、展現自己","兄弟宮":"同輩合作與互助較順","夫妻宮":"適合經營感情、安排兩人時光","子女宮":"與子女晚輩互動佳，適合一起培養興趣","財帛宮":"適合規劃收入、爭取應得的報酬","疾厄宮":"適合開始養成運動、調養身體","遷移宮":"適合出差、旅行、拓展人脈","交友宮":"適合聯絡朋友、參加聚會","官祿宮":"適合推動專案、爭取表現","田宅宮":"適合整理居家、處理房產事務","福德宮":"心情較安穩，適合學習與沉澱","父母宮":"適合拜訪長輩、處理文書申請"};
+const MM_MONTHS = ["正","二","三","四","五","六","七","八","九","十","十一","十二"];
+/* 煩惱入口：每個主題看哪些宮位、卜卦預設用神 */
+const MM_TOPICS = {
+  "工作":{palaces:["官祿宮"], cast:()=>"官"},
+  "感情":{palaces:["夫妻宮"], cast:g=> g==='M'?"財":"官"},
+  "財運":{palaces:["財帛宮"], cast:()=>"財"},
+  "健康":{palaces:["疾厄宮"], cast:()=>"子"},
+  "家人":{palaces:["田宅宮","父母宮","子女宮"], cast:()=>"父"}
+};
+function mmTodayLunar(){
+  let now = new Date();
+  if(now.getHours() >= 23) now = new Date(now.getTime()+24*3600*1000); // 晚子時換日
+  return solar2lunar(now.getFullYear(), now.getMonth()+1, now.getDate());
+}
+function mmYearGZ(lyear){ const cyl = lyear-1864; return {gIdx:((cyl%10)+10)%10, zIdx:((cyl%12)+12)%12}; }
+function mmChartOf(me){
+  const [y,m,d] = me.date.split('-').map(Number);
+  const [h,sft] = me.hour.split('-').map(Number);
+  return calcChart(y,m,d,h,me.gender,sft);
+}
+function mmFindPal(c, star){ return c.palaces.find(p=>p.stars.some(s=>s.name===star)) || null; }
+/* 單一農曆月份：流年＋流月四化落宮 */
+function mmMonthInfo(c, lyear, lmonth, isLeap){
+  const {gIdx, zIdx} = mmYearGZ(lyear);
+  const ly = calcLiuyue(c, gIdx, zIdx, lmonth, isLeap);
+  const lnHua = flowYearHua(c, gIdx, zIdx).list.map(st=>({star:st, pal:mmFindPal(c,st)}));
+  const lyHua = flowMonthHua(c, ly).list.map(st=>({star:st, pal:mmFindPal(c,st)}));
+  const label = lyear + '年' + (isLeap?'閏':'') + MM_MONTHS[lmonth-1] + '月';
+  const short = (isLeap?'閏':'') + MM_MONTHS[lmonth-1] + '月';
+  const jiStack = lyHua[3].pal && lnHua[3].pal && lyHua[3].pal.off===lnHua[3].pal.off;
+  const luStack = lyHua[0].pal && lnHua[0].pal && lyHua[0].pal.off===lnHua[0].pal.off;
+  return {lyear, lmonth, isLeap, gIdx, zIdx, ly, lnHua, lyHua, label, short, jiStack, luStack,
+          lnPal:c.palaces.find(p=>p.idx===zIdx)};
+}
+/* 從本月起算未來12個月（閏月只出現在起始月，之後以正常月份推進） */
+function mmTwelve(c, lu){
+  const out = [];
+  let y = lu.year, m = lu.month;
+  for(let k=0;k<12;k++){
+    out.push(mmMonthInfo(c, y, m, k===0 ? !!lu.isLeap : false));
+    m++; if(m>12){ m=1; y++; }
+  }
+  return out;
+}
+function mmCopy(text, statusEl, outputEl){
+  const done = ok=>{
+    statusEl.textContent = ok ? '✓ 已自動複製到剪貼簿，可直接貼到任何 AI 對話' : '自動複製未成功，內容已顯示在下方文字框，請長按選取「全選」→「複製」';
+    if(!ok && outputEl){ outputEl.classList.remove('hidden'); outputEl.value = text; }
+    showAiLaunch(statusEl);
+  };
+  try{
+    if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(text).then(()=>done(true), ()=>done(false)); return; }
+  }catch(e){}
+  if(outputEl){ outputEl.classList.remove('hidden'); outputEl.value = text; outputEl.select(); }
+  let ok=false; try{ ok = document.execCommand('copy'); }catch(e){}
+  done(ok);
+}
+function mmChooserHtml(){
+  const list = loadPresets();
+  const chips = list.map((p,i)=>`<button type="button" class="mm-chip mm-pick" data-idx="${i}">${p.label}</button>`).join('');
+  return `<div class="mm-eyebrow">我的本月</div>
+    <div class="mm-title">設定「我」，每次打開就看到這個月的運勢</div>
+    <div class="mm-row" style="margin-bottom:10px;color:var(--ink-soft);">${list.length? '從你的快捷挑一位當作「我」：' : '先在下方輸入生辰並排盤，再按「用目前輸入的生辰設定」。'}</div>
+    <div>${chips}<button type="button" class="mm-chip" id="mmUseCurrent">用目前輸入的生辰設定</button></div>
+    ${loadMe()? '<div style="margin-top:6px;"><button type="button" class="ghostlink" id="mmCancel">取消</button></div>' : ''}`;
+}
+let mmChoosing = false;
+let mmState = null; // {me, c, lu, cur, twelve}
+function renderMyMonthCard(){
+  const el = document.getElementById('myMonthCard');
+  if(!el) return;
+  const me = loadMe();
+  if(!me || mmChoosing){
+    el.innerHTML = mmChooserHtml();
+    el.querySelectorAll('.mm-pick').forEach(b=> b.addEventListener('click', ()=>{
+      const p = loadPresets()[parseInt(b.dataset.idx)];
+      saveMe({label:p.label, date:p.date, hour:p.hour, gender:p.gender}); mmChoosing=false; renderMyMonthCard();
+    }));
+    const cur = document.getElementById('mmUseCurrent');
+    if(cur) cur.addEventListener('click', ()=>{
+      const date = document.getElementById('solarDate').value;
+      if(!date){ appNotice('請先在下方輸入出生日期'); return; }
+      const label = document.getElementById('ziweiRoleInput').value.trim() || '我';
+      saveMe({label, date, hour:document.getElementById('hourSel').value, gender:document.querySelector('#genderRow input:checked').value});
+      mmChoosing=false; renderMyMonthCard();
+    });
+    const cancel = document.getElementById('mmCancel');
+    if(cancel) cancel.addEventListener('click', ()=>{ mmChoosing=false; renderMyMonthCard(); });
+    return;
+  }
+  let c, lu, twelve;
+  try{ c = mmChartOf(me); lu = mmTodayLunar(); twelve = mmTwelve(c, lu); }catch(e){ el.innerHTML=''; return; }
+  const cur = twelve[0];
+  mmState = {me, c, lu, cur, twelve};
+  const tags = ["祿","權","科","忌"];
+  const colors = ["var(--calm-jade,#5f7a5e)","#4f6f8f","#7a6390","var(--vermilion-deep)"];
+  const huaCells = cur.lyHua.map((h,i)=>`<span><b style="color:${colors[i]}">月${tags[i]}</b>${h.star} → ${h.pal? h.pal.name : '未排入'}</span>`).join('');
+  const lyJi = cur.lyHua[3].pal, lyLu = cur.lyHua[0].pal;
+  let note = '';
+  if(lyJi){
+    note += cur.jiStack
+      ? `<p>流年、流月化忌同入<b>${lyJi.name}</b>，「${MM_PALACE_HINT[lyJi.name]}」這個月格外要留意。<br><span class="mm-act">建議：${MM_ACT_JI[lyJi.name]}。</span></p>`
+      : `<p>化忌入<b>${lyJi.name}</b>，「${MM_PALACE_HINT[lyJi.name]}」宜多留意。<br><span class="mm-act">建議：${MM_ACT_JI[lyJi.name]}。</span></p>`;
+  }
+  if(lyLu){
+    note += `<p>化祿入<b>${lyLu.name}</b>，「${MM_PALACE_HINT[lyLu.name]}」較有順勢。<br><span class="mm-act">可以把握：${MM_ACT_LU[lyLu.name]}。</span></p>`;
+  }
+  const rows = twelve.map((t,k)=>{
+    const ji = t.lyHua[3].pal, lu2 = t.lyHua[0].pal;
+    const tag = t.jiStack ? '<em class="mm-tag warn">宜留意</em>' : t.luStack ? '<em class="mm-tag good">好機會</em>' : '';
+    return `<div class="mm-tl-row${k===0?' now':''}">
+      <span class="mm-tl-m">${k===0?'本月':t.short}${t.lmonth===1&&k>0?`<small>${t.lyear}</small>`:''}</span>
+      <span class="mm-tl-lu">${lu2? MM_PALACE_HINT[lu2.name] : '—'}</span>
+      <span class="mm-tl-ji">${ji? MM_PALACE_HINT[ji.name] : '—'}</span>
+      <span class="mm-tl-tag">${tag}</span></div>`;
+  }).join('');
+  el.innerHTML = `<div class="mm-eyebrow">我的本月・${me.label}</div>
+    <div class="mm-title">${cur.lyear}年 ${GAN[cur.gIdx]}${ZHI[cur.zIdx]}年・農曆${cur.short}</div>
+    <div class="mm-row"><span class="k">流年命宮</span>${cur.lnPal.name}　<span class="k">本月流月命宮</span>${cur.ly.monthPalace.name}</div>
+    <div class="mm-hua">${huaCells}</div>
+    ${note? `<div class="mm-note">${note}</div>` : ''}
+
+    <div class="mm-ask">
+      <div class="mm-sub">你最近在煩惱什麼？</div>
+      <div>${Object.keys(MM_TOPICS).map(k=>`<button type="button" class="mm-chip mm-topic" data-t="${k}">${k}</button>`).join('')}</div>
+      <div id="mmTopicPanel"></div>
+    </div>
+
+    <details class="mm-tl">
+      <summary>未來 12 個月走勢</summary>
+      <div class="mm-tl-head"><span>月份</span><span>較順（化祿）</span><span>留意（化忌）</span><span></span></div>
+      ${rows}
+      <p class="mm-tl-foot">「宜留意」：流年與流月化忌疊在同一宮；「好機會」：流年與流月化祿疊在同一宮。走勢依流年斗君法推算，僅供參考。</p>
+    </details>
+
+    <div class="mm-actions">
+      <button type="button" class="mystic" id="mmOpenFull" style="padding:8px 18px;font-size:14px;">看完整命盤與本月分析</button>
+      <button type="button" class="ghostlink" id="mmChange">更換</button>
+    </div>`;
+  document.getElementById('mmChange').addEventListener('click', ()=>{ mmChoosing=true; renderMyMonthCard(); });
+  el.querySelectorAll('.mm-topic').forEach(b=> b.addEventListener('click', ()=>{
+    el.querySelectorAll('.mm-topic').forEach(x=>x.classList.toggle('active', x===b));
+    renderMmTopic(b.dataset.t);
+  }));
+  document.getElementById('mmOpenFull').addEventListener('click', ()=>{
+    setDateFieldsFromISO('solar', me.date);
+    document.getElementById('hourSel').value = me.hour;
+    setGender(me.gender);
+    document.getElementById('ziweiRoleInput').value = me.label;
+    document.getElementById('calcBtn').click();
+    document.getElementById('lnYear').value = cur.lyear;
+    document.getElementById('lnBtn').click();
+    document.getElementById('lyMonthSel').value = String(cur.lmonth);
+    document.getElementById('lyLeapChk').checked = !!cur.isLeap;
+    document.getElementById('lyBtn').click();
+    setTimeout(()=> document.getElementById('lyResult').scrollIntoView({behavior:'smooth', block:'start'}), 120);
+  });
+}
+
+/* ============ 煩惱入口：從問題出發，自動整理相關宮位、今年、本月與未來月份 ============ */
+function renderMmTopic(topic){
+  const panel = document.getElementById('mmTopicPanel');
+  if(!panel || !mmState) return;
+  const {me, c, cur, twelve} = mmState;
+  const T = MM_TOPICS[topic];
+  const inSet = p => p && T.palaces.includes(p.name);
+  const natal = T.palaces.map(n=>{
+    const p = c.palaces.find(x=>x.name===n);
+    const stars = p.stars.map(s=> s.name + (s.hua? `<small>(生年化${s.hua.join('・')})</small>` : '')).join('、') || '空宮';
+    return `<div class="mm-row"><span class="k">${n}</span>${stars}</div>`;
+  }).join('');
+  const tags = ["祿","權","科","忌"];
+  const lnHit = cur.lnHua.map((h,i)=> inSet(h.pal) ? `流年化${tags[i]}（${h.star}）入${h.pal.name}` : null).filter(Boolean);
+  const lyHit = cur.lyHua.map((h,i)=> inSet(h.pal) ? `本月化${tags[i]}（${h.star}）入${h.pal.name}` : null).filter(Boolean);
+  const ml = t=> (t.lyear!==cur.lyear? t.lyear+'年':'') + t.short;
+  const good = twelve.filter(t=> inSet(t.lyHua[0].pal)).map(t=>ml(t) + (t.luStack?'★':''));
+  const warn = twelve.filter(t=> inSet(t.lyHua[3].pal)).map(t=>ml(t) + (t.jiStack?'！':''));
+  const acts = [];
+  if(cur.lyHua[3].pal && inSet(cur.lyHua[3].pal)) acts.push('本月宜：' + MM_ACT_JI[cur.lyHua[3].pal.name]);
+  if(cur.lyHua[0].pal && inSet(cur.lyHua[0].pal)) acts.push('本月可把握：' + MM_ACT_LU[cur.lyHua[0].pal.name]);
+  if(!acts.length) acts.push('本月四化沒有直接落在這方面，屬平穩月份，照原本節奏進行即可。');
+  panel.innerHTML = `<div class="mm-topic-box">
+    <div class="mm-sub">關於「${topic}」</div>
+    ${natal}
+    <div class="mm-row"><span class="k">今年</span>${lnHit.length? lnHit.join('；') : '流年四化未直接落入'}</div>
+    <div class="mm-row"><span class="k">本月</span>${lyHit.length? lyHit.join('；') : '流月四化未直接落入'}</div>
+    <div class="mm-row"><span class="k">較順的月份</span>${good.length? good.join('、') : '未來一年沒有化祿直接落入'}</div>
+    <div class="mm-row"><span class="k">宜留意的月份</span>${warn.length? warn.join('、') : '未來一年沒有化忌直接落入'}</div>
+    <div class="mm-note" style="margin-top:8px;">${acts.join('<br>')}</div>
+    <textarea id="mmTopicQ" placeholder="（選填）具體想問什麼？例如：明年初適合換工作嗎？" style="min-height:56px;margin:4px 0 10px;"></textarea>
+    <div class="mm-actions">
+      <button type="button" class="mystic" id="mmTopicAi" style="padding:8px 16px;font-size:13.5px;">交給 AI 深入分析</button>
+      <button type="button" class="mm-chip" id="mmTopicCast" style="margin:0;">針對這件事起一卦</button>
+    </div>
+    <p id="mmTopicStatus" style="text-align:center;font-size:12.5px;color:var(--brass);min-height:16px;margin:8px 0 0;"></p>
+    <textarea id="mmTopicOut" class="hidden" readonly style="min-height:150px;font-size:12.5px;"></textarea>
+    <p style="font-size:11.5px;color:var(--ink-soft);margin:6px 0 0;">★＝流年流月化祿疊宮；！＝流年流月化忌疊宮</p>
+  </div>`;
+  document.getElementById('mmTopicAi').addEventListener('click', ()=>{
+    const q = document.getElementById('mmTopicQ').value.trim();
+    const monthsTxt = twelve.map(t=>`${t.label}：流月化祿入${t.lyHua[0].pal?t.lyHua[0].pal.name:'—'}、化忌入${t.lyHua[3].pal?t.lyHua[3].pal.name:'—'}${t.jiStack?'（與流年化忌疊宮）':''}${t.luStack?'（與流年化祿疊宮）':''}`).join('\n');
+    const text = `${getObjModeInstruction()}你是一位精通紫微斗數飛星四化的命理顧問。我想問的是「${topic}」方面${q?`，具體問題是：「${q}」`:''}。請針對這件事，根據以下命盤與今年、未來12個月的流年流月資料給我分析。
+
+${buildZiweiPromptBlock(c)}
+
+【今年流年】${cur.lyear}年 ${GAN[cur.gIdx]}${ZHI[cur.zIdx]}年，流年命宮在本命${cur.lnPal.name}
+流年四化：${cur.lnHua.map((h,i)=>`化${tags[i]}${h.star}入${h.pal?h.pal.name:'—'}`).join('、')}
+
+【四化取干方式】${huaModeText()}
+
+【未來12個月流月四化】
+${monthsTxt}
+
+【本題主要相關宮位】${T.palaces.join('、')}
+
+請你：
+1. 開頭用一句話（40字內，獨立一行）回答我最關心的事。
+2. 說明本命盤在這方面的先天傾向，以及今年、這幾個月的變化。
+3. 明確指出未來12個月中較適合行動、以及較需保守的月份，並說明原因。
+4. 給我3到5個具體、可執行的建議，不要只說吉凶。
+5. 語氣溫和誠實，不誇大、不恐嚇，用白話文書寫，專有名詞請順手解釋，繁體中文，約400-600字。`;
+    mmCopy(text, document.getElementById('mmTopicStatus'), document.getElementById('mmTopicOut'));
+  });
+  document.getElementById('mmTopicCast').addEventListener('click', ()=>{
+    const q = document.getElementById('mmTopicQ').value.trim();
+    activateTopTab('renjian');
+    activateRenjianSub('cast');
+    const qi = document.getElementById('questionInput');
+    if(qi) qi.value = q || `關於${topic}：`;
+    const ts = document.getElementById('topicSelect');
+    if(ts) ts.value = T.cast(me.gender);
+    const ri = document.getElementById('castRoleInput');
+    if(ri && !ri.value) ri.value = me.label;
+    setTimeout(()=>{ if(qi){ qi.scrollIntoView({behavior:'smooth', block:'center'}); qi.focus(); } }, 200);
+  });
+}
+setTimeout(renderMyMonthCard, 0);
+/* ============ 兩人合盤：選兩位快捷，整理雙方命盤與四化互飛，交給 AI 分析 ============ */
+function renderHepan(){
+  const body = document.getElementById('hepanBody');
+  if(!body) return;
+  const list = loadPresets();
+  if(list.length < 2){
+    body.innerHTML = `<p class="lead" style="font-size:13.5px;">至少需要兩位人選。請到「紫微斗數」輸入生辰排盤後，按「＋ 儲存目前為快捷」，存好兩個人（例如自己和伴侶）再回來。</p>`;
+    return;
+  }
+  const opts = sel => list.map((p,i)=>`<option value="${i}"${i===sel?' selected':''}>${p.label}</option>`).join('');
+  body.innerHTML = `
+    <div class="grid2">
+      <div class="field"><label>第一位</label><select id="hepanA">${opts(0)}</select></div>
+      <div class="field"><label>第二位</label><select id="hepanB">${opts(1)}</select></div>
+    </div>
+    <div class="field"><label>兩人關係</label>
+      <select id="hepanRel">
+        <option>夫妻／伴侶</option><option>交往中／曖昧</option><option>親子</option><option>合夥／同事</option><option>朋友／手足</option>
+      </select></div>
+    <div class="field"><label>想特別問的事（選填）</label>
+      <textarea id="hepanQ" placeholder="例如：我們最容易在哪些事上起衝突？怎麼相處比較好？" style="min-height:56px;"></textarea></div>
+    <div id="hepanPreview"></div>
+    <button class="mystic" id="hepanBtn" style="width:100%;margin-top:6px;">產生合盤提詞並複製給 AI</button>
+    <p id="hepanStatus" style="text-align:center;font-size:12.7px;color:var(--brass);min-height:16px;margin:6px 0 0;"></p>
+    <textarea id="hepanOut" class="hidden" readonly style="min-height:160px;font-size:12.5px;"></textarea>`;
+  const upd = ()=> renderHepanPreview();
+  ['hepanA','hepanB'].forEach(id=> document.getElementById(id).addEventListener('change', upd));
+  upd();
+  document.getElementById('hepanBtn').addEventListener('click', ()=>{
+    const r = hepanCompute();
+    if(!r) return;
+    const rel = document.getElementById('hepanRel').value;
+    const q = document.getElementById('hepanQ').value.trim();
+    const text = `${getObjModeInstruction()}你是一位精通紫微斗數飛星四化合盤的命理顧問。以下是兩個人的命盤，關係是「${rel}」${q?`，我想特別問：「${q}」`:''}。請做合盤分析。
+
+【第一位：${r.A.label}】
+${buildZiweiPromptBlock(r.ca)}
+
+【第二位：${r.B.label}】
+${buildZiweiPromptBlock(r.cb)}
+
+【生年四化互飛】（某人的生年四化星，落在對方命盤的哪一宮）
+${r.lines.join('\n')}
+
+請你：
+1. 開頭用一句話（40字內，獨立一行）總結這兩人的關係特質。
+2. 依四化互飛說明：誰對誰比較付出、誰容易在對方哪方面帶來壓力或牽掛。
+3. 指出兩人互補之處與最容易摩擦的地方，並針對「${rel}」這種關係說明。
+4. 給3到5個具體可行的相處建議。
+5. 語氣溫和誠實，不論斷好壞、不恐嚇，用白話文，專有名詞順手解釋，繁體中文，約500-700字。`;
+    mmCopy(text, document.getElementById('hepanStatus'), document.getElementById('hepanOut'));
+  });
+}
+function hepanCompute(){
+  const list = loadPresets();
+  const ia = parseInt(document.getElementById('hepanA').value), ib = parseInt(document.getElementById('hepanB').value);
+  if(ia===ib){ appNotice('請選擇兩位不同的人'); return null; }
+  const A = list[ia], B = list[ib];
+  const ca = mmChartOf(A), cb = mmChartOf(B);
+  const tags = ["祿","權","科","忌"];
+  const lines = [];
+  const rows = [];
+  [[A,ca,B,cb],[B,cb,A,ca]].forEach(([X,cx,Y,cy])=>{
+    cx.huaList.forEach((star,i)=>{
+      const p = mmFindPal(cy, star);
+      lines.push(`${X.label}的生年化${tags[i]}（${star}）落在${Y.label}的${p?p.name:'（未排入）'}`);
+      if(i===0 || i===3) rows.push({from:X.label, to:Y.label, tag:tags[i], star, pal:p});
+    });
+  });
+  return {A, B, ca, cb, lines, rows};
+}
+function renderHepanPreview(){
+  const box = document.getElementById('hepanPreview');
+  if(!box) return;
+  const ia = document.getElementById('hepanA').value, ib = document.getElementById('hepanB').value;
+  if(ia===ib){ box.innerHTML = '<p style="font-size:12.5px;color:var(--vermilion-deep);">請選擇兩位不同的人</p>'; return; }
+  let r; try{ r = hepanCompute(); }catch(e){ box.innerHTML=''; return; }
+  if(!r) return;
+  box.innerHTML = `<div class="mm-topic-box" style="margin:0 0 8px;">
+    <div class="mm-sub" style="font-size:13.5px;">四化互飛重點</div>
+    ${r.rows.map(x=>`<div class="mm-row" style="font-size:13px;"><span class="k">${x.from}→${x.to}</span>化${x.tag}（${x.star}）入<b>${x.pal?x.pal.name:'—'}</b>${x.pal?`<small style="color:var(--ink-soft);">・${x.tag==='祿'?'在對方「'+MM_PALACE_HINT[x.pal.name]+'」上多給予':'對對方「'+MM_PALACE_HINT[x.pal.name]+'」較牽掛或有壓力'}</small>`:''}</div>`).join('')}
+  </div>`;
+}
+setTimeout(renderHepan, 0);
+
 
 function setGender(g){
   document.querySelectorAll('#genderRow label').forEach(lb=>{
@@ -3544,7 +3957,7 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
   const matchedDx = CURRENT.palaces.find(p=> currentAge >= p.daxianStart && currentAge <= p.daxianEnd);
   if(matchedDx) selectDaxian(CURRENT, matchedDx.off);
 
-  saveZiweiHistory(CURRENT, y, m, d);
+  if(!window.__sampleMode) saveZiweiHistory(CURRENT, y, m, d);
 
   // 排盤成功後自動收合輸入表單，改顯示精簡摘要
   const hourText = document.getElementById('hourSel').selectedOptions[0].textContent;
@@ -3552,6 +3965,16 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
     `${y}年${m}月${d}日　${hourText}　${gender==='M'?'男':'女'}`;
   document.getElementById('ziweiInputBody').classList.add('hidden');
   document.getElementById('ziweiInputSummary').classList.remove('hidden');
+});
+document.getElementById('sampleChartBtn').addEventListener('click', ()=>{
+  // 範例命盤：不寫入歷史紀錄，不覆蓋使用者快捷
+  window.__sampleMode = true;
+  setDateFieldsFromISO('solar', '1990-06-15');
+  document.getElementById('hourSel').value = '6-0';
+  setGender('F');
+  document.getElementById('ziweiRoleInput').value = '範例';
+  try{ document.getElementById('calcBtn').click(); } finally { window.__sampleMode = false; }
+  document.getElementById('ziweiInputSummaryText').textContent = '範例命盤：1990年6月15日 午時 女　點「修改」輸入你自己的生辰';
 });
 document.getElementById('ziweiInputEditBtn').addEventListener('click', ()=>{
   document.getElementById('ziweiInputBody').classList.remove('hidden');
@@ -3586,6 +4009,7 @@ document.getElementById('ziweiCopyBtn').addEventListener('click', async ()=>{
   } else {
     statusEl.textContent = '自動複製未成功，內容已顯示在下方文字框，請長按框內文字選取「全選」→「複製」';
   }
+  showAiLaunch(statusEl);
   outputEl.scrollIntoView({behavior:'smooth', block:'center'});
 });
 
@@ -4056,6 +4480,7 @@ function selectDaxian(c, off){
       }
     } catch(err){ autoOk = false; }
     statusEl.textContent = autoOk ? '✓ 已自動複製到剪貼簿，可直接貼到任何 AI 對話' : '自動複製未成功，內容已顯示在下方文字框，請長按選取「全選」→「複製」';
+    showAiLaunch(statusEl);
     outputEl.scrollIntoView({behavior:'smooth', block:'center'});
   });
 }
@@ -4117,6 +4542,24 @@ function presetCurrentLunarMonth(){
   chk.checked = !!todayLunar.isLeap;
 }
 
+/* ============ 流年／流月四化取干方式（可在使用說明中切換） ============
+   palace：河洛派／方外人——以流年、流月命宮在原命盤的宮干飛化（預設）
+   stem  ：三合通行——流年用太歲天干，流月用月干（五虎遁） */
+function huaMode(){ try{ return localStorage.getItem('sancai_hua_mode') || 'palace'; }catch(e){ return 'palace'; } }
+function setHuaMode(m){ try{ localStorage.setItem('sancai_hua_mode', m); }catch(e){} }
+function flowYearHua(c, gIdx, zIdx){
+  const p = c.palaces.find(x=>x.idx===zIdx);
+  if(huaMode()==='palace') return {gan:p.gan, list:SIHUA[p.gan], label:`流年命宮${p.gan}干`, src:`流年命宮（${p.name}）宮干${p.gan}`};
+  return {gan:GAN[gIdx], list:SIHUA[GAN[gIdx]], label:`流${GAN[gIdx]}干`, src:`流年天干${GAN[gIdx]}`};
+}
+function flowMonthHua(c, ly){
+  const p = ly.monthPalace;
+  if(huaMode()==='palace') return {gan:p.gan, list:SIHUA[p.gan], label:`流月命宮${p.gan}干`, src:`流月命宮（${p.name}）宮干${p.gan}`};
+  const g = GAN[ly.monthGanIdx];
+  return {gan:g, list:SIHUA[g], label:`流月${g}干`, src:`流月月干${g}`};
+}
+function huaModeText(){ return huaMode()==='palace' ? '流年、流月四化以命宮宮干飛化（河洛派／方外人）' : '流年用太歲天干、流月用月干（三合通行）'; }
+
 /* ============ 流月分析（流年斗君法） ============ */
 function calcDouJun(c){
   // 生年斗君：以生年地支所在宮起正月，逆數到出生月宮，再從該宮起子時，順數到出生時辰
@@ -4151,7 +4594,8 @@ document.getElementById('lyBtn').addEventListener('click', ()=>{
   const {yearInput, gIdx, zIdx} = currentLiunianTarget;
 
   const ly = calcLiuyue(CURRENT, gIdx, zIdx, lunarMonthNum, isLeap);
-  const huaList = SIHUA[GAN[ly.monthGanIdx]];
+  const lyH = flowMonthHua(CURRENT, ly);
+  const huaList = lyH.list;
   const tags=["化祿","化權","化科","化忌"];
   const monthLabel = (isLeap?'閏':'') + ["正","二","三","四","五","六","七","八","九","十","十一","十二"][lunarMonthNum-1] + "月";
   applyFlowHuaBadges(CURRENT, huaList, 'huaTag-ly', '月');
@@ -4160,7 +4604,8 @@ document.getElementById('lyBtn').addEventListener('click', ()=>{
     <div class="cell"><div class="k">流月</div><div class="v">${yearInput}年 農曆${monthLabel}</div></div>
     <div class="cell"><div class="k">流月干支</div><div class="v">${GAN[ly.monthGanIdx]}${ZHI[ly.monthZhiIdx]}月</div></div>
     <div class="cell"><div class="k">流月命宮</div><div class="v">${ly.monthPalace.name}（${ZHI[ly.monthPalace.idx]}）</div></div>
-  </div>`;
+  </div>
+  <p style="font-size:11.8px;color:var(--paper-dim);margin:-6px 0 10px;">四化取干：${lyH.src}（${huaModeText()}，可在「使用說明」切換）</p>`;
 
   html += '<div style="border:1px solid var(--line);border-radius:5px;padding:4px 14px;">';
   huaList.forEach((star,i)=>{
@@ -4174,7 +4619,7 @@ document.getElementById('lyBtn').addEventListener('click', ()=>{
       if(target.off===ly.monthPalace.off) overlapTxt += `　<span style="color:var(--red-bright);font-size:12.1px;">（與流月命宮同宮）</span>`;
     }
     html += `<div class="flypair">
-      <span class="from">流月${GAN[ly.monthGanIdx]}干　${star}　${tags[i]}</span>
+      <span class="from">${lyH.label}　${star}　${tags[i]}</span>
       <span class="to" style="${isMalefic?'color:var(--red-bright)':''}">→ 飛入 ${targetName}${overlapTxt}</span>
     </div>`;
   });
@@ -4223,6 +4668,7 @@ document.getElementById('lyBtn').addEventListener('click', ()=>{
       }
     } catch(err){ autoOk = false; }
     statusEl.textContent = autoOk ? '✓ 已自動複製到剪貼簿，可直接貼到任何 AI 對話' : '自動複製未成功，內容已顯示在下方文字框，請長按選取「全選」→「複製」';
+    showAiLaunch(statusEl);
     outputEl.scrollIntoView({behavior:'smooth', block:'center'});
   });
 });
@@ -4240,8 +4686,8 @@ function buildLiuyuePromptBlock(c, yearInput, monthLabel, ly, huaList){
   let lnNote = '';
   if(currentLiunianTarget){
     const {gIdx: lnGIdx, zIdx: lnZIdx} = currentLiunianTarget;
-    const lnHuaList = SIHUA[GAN[lnGIdx]];
-    lnNote = `【所屬流年】西元${yearInput}年　${GAN[lnGIdx]}${ZHI[lnZIdx]}年　流年四化：${lnHuaList.map((s,i)=>tags[i]+s).join('、')}`;
+    const lnH = flowYearHua(c, lnGIdx, lnZIdx);
+    lnNote = `【所屬流年】西元${yearInput}年　${GAN[lnGIdx]}${ZHI[lnZIdx]}年　流年四化（${lnH.src}）：${lnH.list.map((s,i)=>tags[i]+s).join('、')}`;
   }
   return `【紫微本命基本資料】
 命宮：${ZHI[c.mingIdx]}宮（${c.mingGanZhiStr}）　五行局：${JU_NAME[c.ju]}
@@ -4253,6 +4699,7 @@ ${lnNote}
 
 【本次詢問的流月】
 西元${yearInput}年　農曆${monthLabel}　流月干支：${GAN[ly.monthGanIdx]}${ZHI[ly.monthZhiIdx]}月　流月命宮在本命${ly.monthPalace.name}（${ZHI[ly.monthPalace.idx]}）
+流月四化取干：${flowMonthHua(c, ly).src}
 
 【流月四化飛佈】
 ${flyLines}`;
@@ -4276,7 +4723,8 @@ document.getElementById('lnBtn').addEventListener('click', ()=>{
   if(!yearInput || yearInput<1900){ appNotice('請輸入正確西元年份'); return; }
   const cyl = yearInput-1864;
   const gIdx = ((cyl%10)+10)%10, zIdx=((cyl%12)+12)%12;
-  const huaList = SIHUA[GAN[gIdx]];
+  const lnH = flowYearHua(CURRENT, gIdx, zIdx);
+  const huaList = lnH.list;
   const tags=["化祿","化權","化科","化忌"];
 
   currentLiunianTarget = {yearInput, gIdx, zIdx};
@@ -4296,7 +4744,8 @@ document.getElementById('lnBtn').addEventListener('click', ()=>{
     <div class="cell"><div class="k">流年干支</div><div class="v">${GAN[gIdx]}${ZHI[zIdx]}年</div></div>
     <div class="cell"><div class="k">生肖</div><div class="v">${ANIMALS[zIdx]}</div></div>
     <div class="cell"><div class="k">流年命宮</div><div class="v">${lnMingPalace.name}(${ZHI[zIdx]})</div></div>
-  </div>`;
+  </div>
+  <p style="font-size:11.8px;color:var(--paper-dim);margin:-6px 0 10px;">四化取干：${lnH.src}（${huaModeText()}，可在「使用說明」切換）</p>`;
 
   html += '<div style="border:1px solid var(--line);border-radius:5px;padding:4px 14px;">';
   huaList.forEach((star,i)=>{
@@ -4311,7 +4760,7 @@ document.getElementById('lnBtn').addEventListener('click', ()=>{
       if(hasBad && isMalefic) overlapTxt += `　<span style="color:var(--red-bright);font-size:12.1px;">（與煞星同宮，消法觀察重點）</span>`;
     }
     html += `<div class="flypair">
-      <span class="from">流${GAN[gIdx]}干　${star}　${tags[i]}</span>
+      <span class="from">${lnH.label}　${star}　${tags[i]}</span>
       <span class="to" style="${isMalefic?'color:var(--red-bright)':''}">→ 飛入 ${targetName}${overlapTxt}</span>
     </div>`;
   });
@@ -4378,6 +4827,7 @@ document.getElementById('lnBtn').addEventListener('click', ()=>{
       }
     } catch(err){ autoOk = false; }
     statusEl.textContent = autoOk ? '✓ 已自動複製到剪貼簿，可直接貼到任何 AI 對話' : '自動複製未成功，內容已顯示在下方文字框，請長按選取「全選」→「複製」';
+    showAiLaunch(statusEl);
     outputEl.scrollIntoView({behavior:'smooth', block:'center'});
   });
 });
@@ -4406,6 +4856,7 @@ ${palaceLines}
 
 【本次詢問的流年】
 西元${yearInput}年　${GAN[gIdx]}${ZHI[zIdx]}年　流年命宮在本命${lnMingPalace.name}（${ZHI[zIdx]}）
+流年四化取干：${flowYearHua(c, gIdx, zIdx).src}
 
 【流年四化飛佈】
 ${flyLines}
@@ -5349,6 +5800,7 @@ document.getElementById('combineBtn').addEventListener('click', async ()=>{
     }
   } catch(err){ autoOk = false; }
   statusEl.textContent = autoOk ? '✓ 已自動複製到剪貼簿，可直接貼到任何 AI 對話' : '自動複製未成功，內容已顯示在下方文字框，請長按選取「全選」→「複製」';
+  showAiLaunch(statusEl);
   outputEl.scrollIntoView({behavior:'smooth', block:'center'});
 });
 document.getElementById('combineAiBtn').addEventListener('click', async ()=>{
@@ -5486,6 +5938,7 @@ document.getElementById('copyBtn').addEventListener('click', async ()=>{
   } else {
     statusEl.textContent = '自動複製未成功，內容已顯示在下方文字框，請長按框內文字選取「全選」→「複製」';
   }
+  showAiLaunch(statusEl);
   outputEl.scrollIntoView({behavior:'smooth', block:'center'});
 });
 
@@ -7030,6 +7483,7 @@ document.getElementById('baziCopyBtn').addEventListener('click', async ()=>{
     } else if(document.execCommand){ autoOk=document.execCommand('copy'); }
   } catch(err){ autoOk=false; }
   statusEl.textContent = autoOk? '✓ 已自動複製到剪貼簿，可直接貼到任何 AI 對話' : '自動複製未成功，內容已顯示在下方文字框，請長按選取「全選」→「複製」';
+  showAiLaunch(statusEl);
   outputEl.scrollIntoView({behavior:'smooth', block:'center'});
 });
 
@@ -7045,6 +7499,35 @@ document.getElementById('baziCrossBtn').addEventListener('click', ()=>{
   statusEl.textContent = '✓ 已加入「天人合一」頁籤的整合分析清單，可去那邊勾選合併';
 });
 
+
+/* ============ 四化取干派別切換 ============ */
+function syncHuaModeRow(){
+  const m = huaMode();
+  document.querySelectorAll('#huaModeRow label').forEach(lb=>{
+    lb.classList.toggle('active', lb.dataset.m===m);
+    lb.querySelector('input').checked = lb.dataset.m===m;
+  });
+}
+document.querySelectorAll('#huaModeRow label').forEach(lb=> lb.addEventListener('click', (e)=>{
+  e.preventDefault();
+  if(huaMode()===lb.dataset.m) return;
+  setHuaMode(lb.dataset.m);
+  syncHuaModeRow();
+  if(typeof renderMyMonthCard==='function') renderMyMonthCard();
+  // 已查過流年／流月的話，立即重算
+  if(CURRENT && currentLiunianTarget){
+    const lyShown = document.getElementById('lyResult').innerHTML.trim()!=='';
+    const m = document.getElementById('lyMonthSel').value, lp = document.getElementById('lyLeapChk').checked;
+    document.getElementById('lnYear').value = currentLiunianTarget.yearInput;
+    document.getElementById('lnBtn').click();
+    if(lyShown){
+      document.getElementById('lyMonthSel').value = m;
+      document.getElementById('lyLeapChk').checked = lp;
+      document.getElementById('lyBtn').click();
+    }
+  }
+}));
+syncHuaModeRow();
 /* ============ 就地解釋資訊圖示（點擊開關） ============ */
 document.addEventListener('click', (e)=>{
   const tip = e.target.closest('.info-tip');
