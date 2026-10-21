@@ -2,7 +2,10 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#f0e8d8">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
@@ -25,8 +28,8 @@
     font-size:26px; text-align:center; letter-spacing:0.08em; line-height:1.7;
     opacity:0;
   }
-  #introLine1{ animation: introFade 2.8s ease forwards; animation-delay:0.3s; font-size:26px; letter-spacing:0.12em; }
-  #introLine2{ animation: introFade 2.8s ease forwards; animation-delay:3.0s; font-size:24px; letter-spacing:0.08em; color:#a8433a; }
+  #introLine1{ animation: introFade 2.3s ease forwards; animation-delay:0.2s; font-size:26px; letter-spacing:0.12em; }
+  #introLine2{ animation: introFade 2.3s ease forwards; animation-delay:2.3s; font-size:24px; letter-spacing:0.08em; color:#a8433a; }
   @keyframes introFade{
     0%{ opacity:0; transform:translateY(8px); }
     20%{ opacity:1; transform:translateY(0); }
@@ -35,8 +38,8 @@
   }
   .intro-final{
     opacity:0; text-align:center;
-    animation: introFinalIn 1.2s ease forwards;
-    animation-delay:5.8s;
+    animation: introFinalIn 1s ease forwards;
+    animation-delay:4.4s;
   }
   @keyframes introFinalIn{
     from{ opacity:0; transform:scale(0.92); }
@@ -166,6 +169,18 @@
     margin:30px 0 26px; font-family:'Noto Sans TC'; font-weight:300;
   }
   .onboard-tip b{ color:#5f7a5e; font-weight:600; }
+  .ob-choices{ display:flex; flex-direction:column; gap:10px; margin:4px 0 6px; }
+  .ob-choice{ display:flex; align-items:center; gap:14px; width:100%; text-align:left; cursor:pointer;
+    background:rgba(255,252,240,0.6); border:1px solid var(--line-strong,#cdbf9f); border-radius:8px; padding:14px 14px; }
+  .ob-choice:active{ background:rgba(95,122,94,0.12); border-color:#5f7a5e; }
+  .ob-ic{ flex-shrink:0; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:'Noto Serif TC'; font-weight:900; font-size:18px; color:#f2ecd9; background:#5f7a5e; }
+  .ob-choice[data-ob="cast"] .ob-ic{ background:#9c4a35; }
+  .ob-choice[data-ob="celeb"] .ob-ic{ background:#8a7248; }
+  .ob-choice[data-ob="home"] .ob-ic{ background:transparent; color:#8a7248; border:1px solid #8a7248; }
+  .ob-tx{ display:flex; flex-direction:column; gap:3px; min-width:0; }
+  .ob-tx b{ font-family:'Noto Serif TC'; font-size:16px; color:var(--ink,#201d17); letter-spacing:0.04em; }
+  .ob-tx small{ font-size:12.3px; color:var(--ink-soft,#8a7a5f); line-height:1.6; }
   .onboard-goto-btn{
     display:inline-block; margin-top:0;
     background:none; color:#9c4a35; border:none;
@@ -184,7 +199,6 @@
   .onboard-agree-btn:active{ background:var(--vermilion,#9c4a35); color:#f2e6cf; }
 
 
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Sans+Mono:wght@400;500&display=swap');
 
   :root{
     --paper:#efe9dc;
@@ -1205,6 +1219,66 @@
   #backToTopBtn:active{ transform: scale(0.92); }
   #backToTopBtn.show{ display:flex; }
 
+
+  #celebModal{
+    position:fixed; inset:0; z-index:9600; background:rgba(24,20,14,0.6);
+    display:flex; align-items:flex-start; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .2s ease;
+  }
+  #celebModal.show{ opacity:1; pointer-events:auto; }
+  .cl-chips{ display:flex; gap:6px; flex-wrap:wrap; padding:10px 16px 0; flex-shrink:0; }
+  .cl-chip{ background:none; border:1px solid var(--line-strong); color:var(--ink-soft);
+    padding:5px 11px; border-radius:14px; font-size:12.5px; cursor:pointer; font-family:'Noto Sans TC'; }
+  .cl-chip.on{ background:var(--vermilion-deep); border-color:var(--vermilion-deep); color:#fff; }
+  .cl-std{ font-size:11.8px; color:var(--paper-dim); line-height:1.7; padding:8px 16px 0; flex-shrink:0; }
+  .cl-badge{ display:inline-block; font-size:10.5px; padding:0 5px; border-radius:3px; margin-left:6px;
+    border:1px solid var(--brass); color:var(--brass); font-family:'Noto Sans TC'; font-weight:600; vertical-align:2px; }
+  .celeb-note{ border:1px solid var(--line-strong); border-left:3px solid var(--brass); border-radius:5px;
+    padding:12px 14px; margin:12px 0; font-size:13px; line-height:1.85; color:var(--ink-soft);
+    background:rgba(255,252,240,0.45); }
+  .celeb-note b{ color:var(--ink); }
+  .celeb-note .cn-title{ font-family:'Noto Serif TC'; font-size:15.5px; color:var(--ink); font-weight:700; margin-bottom:4px; }
+  .celeb-note .cn-warn{ color:var(--vermilion-deep); }
+  .celeb-note .cn-quote{ font-family:'Noto Serif TC'; color:var(--ink); border-left:2px solid var(--line-strong); padding-left:10px; margin:6px 0; }
+  .celeb-note button{ margin-top:6px; }
+  .cm-item{ display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px dashed var(--line); }
+  .cm-item:last-child{ border-bottom:none; }
+  .cm-score{ flex-shrink:0; width:46px; height:46px; border-radius:50%; border:2px solid var(--brass);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:'Noto Serif TC';
+    color:var(--vermilion-deep); font-weight:700; font-size:15px; line-height:1; }
+  .cm-score small{ font-size:9.5px; color:var(--paper-dim); font-weight:400; margin-top:2px; }
+  .cm-body{ flex:1; min-width:0; }
+  .cm-name{ font-family:'Noto Serif TC'; font-weight:700; font-size:15px; color:var(--ink); }
+  .cm-name span{ font-family:'Noto Sans TC'; font-weight:400; font-size:12px; color:var(--paper-dim); margin-left:6px; }
+  .cm-tags{ display:flex; flex-wrap:wrap; gap:5px; margin:5px 0 4px; }
+  .cm-tag{ font-size:11.5px; padding:1px 7px; border-radius:10px; background:rgba(138,114,72,0.12); color:var(--ink-soft); }
+  .cm-tag.strong{ background:rgba(156,74,53,0.12); color:var(--vermilion-deep); }
+  .cm-go{ background:none; border:none; color:var(--vermilion-deep); font-weight:600; font-size:12.5px; cursor:pointer;
+    border-bottom:1px solid rgba(156,74,53,0.4); padding:0; font-family:'Noto Sans TC'; }
+  .cn-events{ display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 2px; }
+  .cn-ev{ background:rgba(255,252,240,0.8); border:1px solid var(--line-strong); border-radius:4px; padding:4px 8px;
+    font-size:12px; color:var(--ink); cursor:pointer; font-family:'Noto Sans TC'; }
+  .cn-ev b{ color:var(--vermilion-deep); margin-right:3px; }
+  .cn-ev.on{ border-color:var(--vermilion-deep); background:rgba(156,74,53,0.08); }
+  .cl-chips.stars .cl-chip{ padding:3px 9px; font-size:12px; }
+
+  /* 修正宮位、大限卡片點選時殘留舊深色主題（#26314c / #1b2740）的問題 */
+  .palace.selected, .palace.selected:hover{
+    border-color: var(--calm-jade) !important;
+    background: rgba(95,122,94,0.12) !important;
+    box-shadow: 0 0 0 1.5px var(--calm-jade) inset !important;
+  }
+  .dxcard.active, .dxcard.active:hover{
+    border-color: var(--calm-jade) !important;
+    background: rgba(95,122,94,0.12) !important;
+    box-shadow: 0 0 0 1px var(--calm-jade) inset !important;
+  }
+  /* App 觸感：去除點擊藍框、介面元件不被長按反白、停用下拉回彈 */
+  *{ -webkit-tap-highlight-color: transparent; }
+  body{ overscroll-behavior-y: none; }
+  button, .top-tab, .sub-tab, header.top, nav, .cl-chip, .cn-ev, .palace, .dxcard, label, .gs-group-title, .info-tip{
+    -webkit-user-select: none; user-select: none;
+  }
   #globalSearchBtn:hover{ background:rgba(138,114,72,0.1); }
 
   #globalSearchModal{
@@ -1424,6 +1498,140 @@
     section{ padding:20px 2px 4px !important; }
     .top-tab{ padding:11px 8px !important; font-size:12.7px !important; }
   }
+
+  /* =====================================================================
+     UX 升級（2026-10）：精簡 App 頂列、答案優先、結果頁導覽
+     ===================================================================== */
+  .wrap{ padding-top:0 !important; }
+  header.top.appbar{
+    position:sticky; top:0; z-index:70;
+    display:flex !important; align-items:center; justify-content:space-between; gap:10px;
+    margin:0 -18px 18px !important; padding:calc(10px + env(safe-area-inset-top,0px)) 14px 10px 18px !important;
+    text-align:left !important; border-bottom:1px solid var(--line) !important;
+    background:rgba(240,232,216,0.94) !important; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  }
+  .ab-brand{ display:flex; align-items:baseline; gap:10px; background:none; border:none; padding:4px 0; cursor:pointer; min-width:0; }
+  .ab-seal{ font-family:'Noto Serif TC'; font-weight:900; font-size:22px; letter-spacing:0.18em; color:var(--ink); }
+  .ab-sub{ font-family:'Noto Serif TC'; font-size:11.5px; color:var(--ink-soft); letter-spacing:0.06em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ab-actions{ display:flex; gap:4px; flex-shrink:0; }
+  .ab-btn{ display:flex; flex-direction:column; align-items:center; gap:1px; background:none; border:none; cursor:pointer;
+    color:var(--brass); padding:4px 8px; border-radius:8px; font-size:10.5px; font-family:'Noto Sans TC'; }
+  .ab-btn:active{ background:rgba(138,114,72,0.12); }
+  #taglineSecret{ text-align:center; font-size:12px; color:var(--calm-jade,#5f7a5e); margin:-8px auto 14px; line-height:2; max-width:320px; }
+  @media (max-width:360px){ .ab-sub{ display:none; } }
+
+  .part-intro{ text-align:left !important; margin:0 0 16px !important; max-width:none !important; }
+  .part-intro h2{ font-size:20px !important; margin:0 0 2px !important; letter-spacing:0.08em !important; }
+  .part-intro p{ font-size:13px !important; line-height:1.7 !important; margin:0 !important; }
+
+  /* --- 輸入表單 --- */
+  .clock-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:10px; font-size:13px; color:var(--ink-soft); }
+  .clock-row input[type=time]{ width:auto !important; min-width:130px; padding:8px 10px !important; }
+  .clock-hint{ color:var(--calm-jade); font-weight:600; }
+  #calcBtn, #baziCalcBtn{ width:100%; padding:14px 0 !important; font-size:16px !important; letter-spacing:0.3em;
+    background:var(--calm-jade) !important; border:1px solid var(--calm-jade) !important; color:#f2ecd9 !important; border-radius:6px !important; }
+  #ziweiModeWrap section > h2 .num{ display:none !important; }
+
+  /* --- 工具箱（古籍查詢、排盤紀錄）收合 --- */
+  .toolbox-sec{ padding-top:6px !important; }
+  .toolbox-sec::before{ display:none; }
+  details.toolbox{ border:1px solid var(--line); border-radius:8px; background:rgba(255,252,240,0.4); }
+  details.toolbox > summary{ list-style:none; cursor:pointer; padding:14px 16px; display:flex; flex-direction:column; gap:2px; position:relative; }
+  details.toolbox > summary::-webkit-details-marker{ display:none; }
+  details.toolbox > summary::after{ content:'＋'; position:absolute; right:16px; top:50%; transform:translateY(-50%); color:var(--brass); font-size:18px; }
+  details.toolbox[open] > summary::after{ content:'－'; }
+  details.toolbox[open]{ padding:0 14px 14px; }
+  details.toolbox[open] > summary{ padding-left:2px; padding-right:2px; }
+  .tb-t{ font-family:'Noto Serif TC'; font-weight:700; font-size:15.5px; color:var(--ink); }
+  .tb-s{ font-size:12px; color:var(--ink-soft); }
+  details.adv-inline{ margin-top:16px; border-top:1px dashed var(--line); padding-top:10px; }
+  details.adv-inline > summary{ cursor:pointer; color:var(--brass); font-size:13.5px; font-weight:600; }
+
+  /* --- 一眼看懂（人設卡） --- */
+  .persona-card:empty{ display:none; }
+  .persona-card{ margin:14px 0 16px; padding:18px 18px 14px; border-radius:10px;
+    background:linear-gradient(160deg, rgba(255,252,240,0.85), rgba(95,122,94,0.07)); border:1px solid var(--line-strong); }
+  .pc-eyebrow{ font-size:11.5px; letter-spacing:0.2em; color:var(--brass); }
+  .pc-title{ font-family:'Noto Serif TC'; font-weight:900; font-size:23px; color:var(--ink); margin:4px 0 8px; line-height:1.45; }
+  .pc-kws{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+  .pc-kws span{ font-size:12.5px; padding:2px 10px; border-radius:12px; background:rgba(95,122,94,0.14); color:var(--calm-jade); font-weight:600; }
+  .pc-gw p{ margin:0 0 6px; font-size:14px; line-height:1.85; color:var(--ink); }
+  .pc-gw b{ display:inline-block; font-size:11.5px; padding:0 7px; border-radius:3px; margin-right:7px; color:#fff; vertical-align:2px; }
+  .pc-gw b.g{ background:var(--calm-jade); } .pc-gw b.w{ background:#b07a3a; }
+  .pc-hua{ list-style:none; padding:0; margin:10px 0 6px; border-top:1px dashed var(--line); padding-top:10px; }
+  .pc-hua li{ font-size:13.6px; line-height:1.8; color:var(--ink); margin-bottom:4px; display:flex; gap:8px; align-items:flex-start; }
+  .pc-hua li small{ color:var(--ink-soft); font-size:12px; }
+  .pc-tag{ flex-shrink:0; width:22px; height:22px; border-radius:50%; color:#fff; font-size:12px; display:inline-flex; align-items:center; justify-content:center; margin-top:2px; font-family:'Noto Serif TC'; font-weight:700; }
+  .pc-tag.lu{ background:var(--calm-jade); } .pc-tag.ke{ background:#7a6390; } .pc-tag.ji{ background:var(--vermilion); }
+  .pc-now{ font-size:13.6px; line-height:1.8; color:var(--ink); margin:6px 0 0; padding:8px 12px; background:rgba(138,114,72,0.08); border-radius:6px; }
+  .pc-actions, .vc-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .pc-btn{ flex:1 1 auto; padding:10px 14px; border-radius:20px; border:1px solid var(--calm-jade); background:transparent; color:var(--calm-jade);
+    font-size:13.5px; font-weight:600; cursor:pointer; font-family:'Noto Sans TC'; white-space:nowrap; }
+  .pc-btn.primary{ background:var(--calm-jade); color:#f2ecd9; }
+  .pc-btn:active{ opacity:0.75; }
+  .pc-foot, .vc-foot{ font-size:11.5px; color:var(--paper-dim); margin:10px 0 0; line-height:1.6; }
+
+  /* --- 結果頁段落導覽 --- */
+  .result-nav{ position:sticky; top:calc(62px + env(safe-area-inset-top,0px)); z-index:60; display:flex; gap:6px; overflow-x:auto;
+    margin:0 -18px 10px; padding:8px 18px; background:rgba(240,232,216,0.94); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line); scrollbar-width:none; }
+  .result-nav::-webkit-scrollbar{ display:none; }
+  .result-nav.hidden{ display:none; }
+  .result-nav button{ flex-shrink:0; border:1px solid var(--line-strong); background:transparent; color:var(--ink-soft); border-radius:14px;
+    padding:5px 12px; font-size:12.5px; cursor:pointer; font-family:'Noto Sans TC'; }
+  .result-nav button.on{ background:var(--ink); color:#f2ecd9; border-color:var(--ink); }
+
+  /* --- 卜卦結論卡 --- */
+  .verdict-card:empty{ display:none; }
+  .verdict-card{ margin:6px 0 22px; padding:18px; border-radius:10px; background:rgba(255,252,240,0.8); border:1px solid var(--line-strong); text-align:left; }
+  .vc-q{ font-family:'Noto Serif TC'; font-size:16px; color:var(--ink); line-height:1.6; }
+  .vc-q span{ display:inline-block; margin-left:8px; font-family:'Noto Sans TC'; font-size:11.5px; color:var(--brass); border:1px solid var(--line-strong); border-radius:10px; padding:0 8px; vertical-align:2px; }
+  .vc-hex{ font-size:13px; color:var(--ink-soft); margin:4px 0 10px; } .vc-hex em{ font-style:normal; color:var(--brass); }
+  .vc-main{ display:flex; align-items:center; gap:14px; }
+  .vc-main b{ font-family:'Noto Serif TC'; font-weight:900; font-size:30px; letter-spacing:0.1em; }
+  .vc-main.lv5 b, .vc-main.lv4 b{ color:var(--calm-jade); } .vc-main.lv3 b{ color:var(--brass); } .vc-main.lv2 b, .vc-main.lv1 b{ color:var(--vermilion); }
+  .vc-meter{ display:flex; gap:4px; } .vc-meter i{ width:22px; height:8px; border-radius:4px; background:rgba(138,114,72,0.18); }
+  .vc-meter i.on.lv5, .vc-meter i.on.lv4{ background:var(--calm-jade); } .vc-meter i.on.lv3{ background:var(--brass); } .vc-meter i.on.lv2, .vc-meter i.on.lv1{ background:var(--vermilion); }
+  .vc-desc{ font-size:15px; color:var(--ink); margin:8px 0 10px; line-height:1.8; }
+  .vc-why{ list-style:none; padding:0; margin:0; border-top:1px dashed var(--line); padding-top:8px; }
+  .vc-why li{ font-size:13.4px; line-height:1.8; color:var(--ink-soft); padding-left:20px; position:relative; }
+  .vc-why li::before{ content:'・'; position:absolute; left:4px; color:var(--brass); }
+  .vc-why li.up::before{ content:'＋'; color:var(--calm-jade); left:2px; } .vc-why li.down::before{ content:'－'; color:var(--vermilion); left:2px; }
+  .vc-when{ font-size:13px; color:var(--ink); background:rgba(138,114,72,0.08); border-radius:6px; padding:8px 12px; margin:10px 0 0; line-height:1.75; }
+  details.cast-pro{ margin:18px 0 6px; border:1px solid var(--line); border-radius:8px; padding:0 14px; }
+  details.cast-pro > summary{ cursor:pointer; padding:12px 0; color:var(--brass); font-size:13.5px; font-weight:600; }
+  details.cast-pro[open]{ padding-bottom:10px; }
+
+  /* --- 評分邀請、圖卡預覽 --- */
+  #rateSheet{ position:fixed; left:12px; right:12px; bottom:calc(84px + env(safe-area-inset-bottom,0px)); z-index:9000; max-width:520px; margin:0 auto;
+    background:var(--paper); border:1px solid var(--line-strong); border-radius:12px; box-shadow:0 10px 30px rgba(38,34,26,0.25);
+    padding:16px 16px 12px; transform:translateY(30px); opacity:0; pointer-events:none; transition:all .3s ease; }
+  #rateSheet.show{ transform:none; opacity:1; pointer-events:auto; }
+  .rs-t{ font-family:'Noto Serif TC'; font-weight:700; font-size:16px; margin:0 0 4px; color:var(--ink); }
+  .rs-s{ font-size:13px; color:var(--ink-soft); line-height:1.7; margin:0 0 10px; }
+  .rs-row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .rs-never{ background:none; border:none; color:var(--paper-dim); font-size:12px; cursor:pointer; margin-left:auto; }
+  #cardPreviewModal{ position:fixed; inset:0; z-index:9700; background:rgba(24,20,14,0.75); display:flex; align-items:center; justify-content:center;
+    padding:20px; opacity:0; pointer-events:none; transition:opacity .2s ease; }
+  #cardPreviewModal.show{ opacity:1; pointer-events:auto; }
+  .cp-box{ max-width:420px; width:100%; text-align:center; }
+  .cp-box img{ width:100%; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.35); -webkit-user-select:auto; user-select:auto; -webkit-touch-callout:default; }
+  .cp-tip{ color:#f2ecd9; font-size:13px; margin:10px 0; }
+  .cp-row{ display:flex; gap:10px; justify-content:center; }
+  .cp-btn{ padding:10px 22px; border-radius:20px; border:1px solid #f2ecd9; color:#f2ecd9; background:transparent; font-size:14px; text-decoration:none; cursor:pointer; }
+  .cp-btn.primary{ background:#f2ecd9; color:var(--ink); }
+
+  .combine-empty{ text-align:left !important; }
+  .ce-t{ font-family:'Noto Serif TC'; font-weight:700; font-size:17px; color:var(--ink); margin:0 0 10px; }
+  .ce-steps{ padding-left:20px; margin:0; }
+  .ce-steps li{ font-size:13.8px; line-height:1.85; color:var(--ink); margin-bottom:10px; }
+  .ce-steps li .pc-btn{ display:inline-block; flex:none; margin-left:8px; padding:4px 12px; font-size:12.5px; }
+  .ce-s{ font-size:12.5px; color:var(--ink-soft); margin:6px 0 0; }
+
+  #baziGenderRow{ display:flex; gap:10px; }
+  #baziGenderRow label{ flex:1; text-align:center; padding:10px 0; border:1px solid var(--line-strong); border-radius:4px; cursor:pointer; color:var(--ink); position:relative; }
+  #baziGenderRow input{ position:absolute; opacity:0; pointer-events:none; }
+  #baziGenderRow label:has(input:checked){ background:var(--brass); border-color:var(--brass); color:#fff; font-weight:700; }
 </style>
 
 </head>
@@ -1442,27 +1650,22 @@
   <div class="disclaimer-box" id="gateStep1">
     <p class="gate-kicker">San Cai · 三才</p>
     <h3>開始之前</h3>
-    <p class="gate-lead">先說幾句話，再帶你認路</p>
+    <p class="gate-lead">三件事，十秒看完</p>
     <div class="gate-hr"></div>
 
     <div class="lit-item">
       <p class="lit-lead">僅供參考</p>
-      <p class="lit-body">內容為<b>傳統命理知識的整理與AI輔助解讀</b>，不構成醫療、法律、財務或任何專業建議。人生的重大決定，仍請諮詢相關領域的專業人士。</p>
+      <p class="lit-body">內容是<b>傳統命理知識整理與 AI 輔助解讀</b>，不構成醫療、法律、財務建議，重大決定請諮詢專業人士。</p>
     </div>
 
     <div class="lit-item">
-      <p class="lit-lead">資料留在你手中</p>
-      <p class="lit-body">所有排盤與紀錄<b>只存在你的裝置本機</b>，不會上傳到任何伺服器，也不需要註冊帳號。</p>
+      <p class="lit-lead">資料只在你的手機</p>
+      <p class="lit-body">排盤與紀錄<b>只存在這支裝置</b>，不上傳、不需註冊。用 AI 解讀時，內容由你自己貼給 AI 或用你自己的金鑰，開發者不經手。</p>
     </div>
 
     <div class="lit-item">
-      <p class="lit-lead">AI解讀怎麼運作</p>
-      <p class="lit-body">AI解讀有兩種方式：<b>手動複製</b>——App幫你整理好內容，由你自己貼到ChatGPT、Claude、Gemini等對話框；或<b>自行設定API金鑰</b>——由你的裝置直接連接你所連接的AI服務商。無論哪一種，開發者都不會經手或儲存這些內容。</p>
-    </div>
-
-    <div class="lit-item">
-      <p class="lit-lead">關於這個App</p>
-      <p class="lit-body">完全免費、永久無廣告，由開發者基於<b>分享命理知識的初衷</b>獨立製作，非商業產品。</p>
+      <p class="lit-lead">免費、無廣告</p>
+      <p class="lit-body">個人基於分享命理知識的初衷製作，非商業產品。完整說明隨時可在右上角「說明」查看。</p>
     </div>
 
     <button class="gate-btn" id="gateNextBtn">我了解，下一步</button>
@@ -1470,61 +1673,29 @@
 
   <div class="onboard-box hidden" id="gateStep2">
     <p class="gate-kicker">San Cai · 三才</p>
-    <h3>功能一覽</h3>
-    <p class="onboard-sub">不知道要點哪個？看完這頁就懂了</p>
+    <h3>你想先做什麼？</h3>
+    <p class="onboard-sub">選一個開始，其他功能隨時在下方選單</p>
 
-    <div class="onboard-timeline">
-    <div class="onboard-row">
-      <div class="onboard-text">
-        <h4>紫微斗數</h4>
-        <p>看你這一生的整體格局——事業、財富、婚姻、健康的長期走向。</p>
-        <span class="onboard-when">想了解自己整體命運方向時，點這個</span>
-        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('tianji','ziwei')">前往紫微斗數 →</button>
-      </div>
+    <div class="ob-choices">
+      <button type="button" class="ob-choice" data-ob="ziwei">
+        <span class="ob-ic">命</span>
+        <span class="ob-tx"><b>看我的命盤</b><small>輸入生日，看一生格局與今年運勢</small></span>
+      </button>
+      <button type="button" class="ob-choice" data-ob="cast">
+        <span class="ob-ic">卦</span>
+        <span class="ob-tx"><b>心裡有個問題</b><small>擲銅錢問一件事，看現在的走向</small></span>
+      </button>
+      <button type="button" class="ob-choice" data-ob="celeb">
+        <span class="ob-ic">名</span>
+        <span class="ob-tx"><b>看名人的命盤</b><small>賈伯斯、愛因斯坦、孔子……153 張可查證命盤</small></span>
+      </button>
+      <button type="button" class="ob-choice" data-ob="home">
+        <span class="ob-ic">逛</span>
+        <span class="ob-tx"><b>先隨便看看</b><small>八字、風水、天人合一整合分析都在下方選單</small></span>
+      </button>
     </div>
 
-    <div class="onboard-row">
-      <div class="onboard-text">
-        <h4>八字</h4>
-        <p>用四柱十神看命局的底子與大運走向，跟紫微用不同角度驗證同一件事。</p>
-        <span class="onboard-when">想從另一套系統交叉確認格局時，點這個</span>
-        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('tianji','bazi')">前往八字 →</button>
-      </div>
-    </div>
-
-    <div class="onboard-row">
-      <div class="onboard-text">
-        <h4>卜卦</h4>
-        <p>針對一件具體的事，擲銅錢問「這件事現在吉不吉利」。</p>
-        <span class="onboard-when">心裡有一個明確問題時，點這個</span>
-        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('renjian')">前往卜卦 →</button>
-      </div>
-    </div>
-
-    <div class="onboard-row">
-      <div class="onboard-text">
-        <h4>風水</h4>
-        <p>輸入家人身分與居住方位，查詢這個方位好不好。</p>
-        <span class="onboard-when">想知道住的房子方位時，點這個</span>
-        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('dimai')">前往風水 →</button>
-      </div>
-    </div>
-
-    <div class="onboard-row">
-      <div class="onboard-text">
-        <h4>天人合一</h4>
-        <p>把前面幾個功能的結果放在一起，交給AI做整合分析。</p>
-        <span class="onboard-when">用過前面幾個、想看它們合起來怎麼說時，最後再來這裡</span>
-        <button type="button" class="onboard-goto-btn" onclick="goToOnboardSection('combine')">前往天人合一 →</button>
-      </div>
-    </div>
-    </div>
-
-    <div class="onboard-tip">
-      <b>新手建議</b>　第一次使用，先點「紫微斗數」排一張自己的命盤看看，其他功能之後再慢慢摸索也沒關係。
-    </div>
-
-    <button class="onboard-agree-btn" id="gateFinishBtn">知道了，開始探索</button>
+    <button class="onboard-agree-btn hidden" id="gateFinishBtn">知道了，開始探索</button>
   </div>
 </div>
 
@@ -1532,8 +1703,17 @@
   <div class="help-modal-inner">
     <button id="helpCloseBtn" class="help-close">✕</button>
     <p class="help-kicker">San Cai · 三才</p>
-    <h2>使用說明</h2>
+    <h2>說明與設定</h2>
     <p class="help-sub">紫微斗數・八字・卜卦・風水</p>
+
+    <div class="help-section help-love">
+      <h3>喜歡三才嗎？</h3>
+      <p>三才免費、無廣告，沒有行銷預算。一則評分、一次分享，就是對它最大的支持。</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+        <button type="button" class="pc-btn primary" id="helpRateBtn">到 Google Play 評分</button>
+        <button type="button" class="pc-btn" id="helpShareAppBtn">分享給朋友</button>
+      </div>
+    </div>
 
     <div class="help-section">
       <h3>紫微斗數 / 八字</h3>
@@ -1564,7 +1744,12 @@
 
     <div class="help-section">
       <h3>AI提詞模式</h3>
-      <p>頁首有個「AI提詞模式」切換，決定產生給AI的提詞內容怎麼寫：「獨立客觀分析」會在提詞開頭加一句提醒，請AI不要參考你們過去聊過的其他事情、也不要用它對你的既有印象來分析，單純依這次提供的命理資料客觀判斷；「延續一般對話」則不加這個提醒，讓AI可以自然接續你們平常的對話脈絡。兩者都可以隨時切換，切換後之後所有產生提詞的按鈕都會套用新的設定。</p>
+      <p>這個切換決定產生給AI的提詞內容怎麼寫：「獨立客觀分析」會在提詞開頭加一句提醒，請AI不要參考你們過去聊過的其他事情、也不要用它對你的既有印象來分析，單純依這次提供的命理資料客觀判斷；「延續一般對話」則不加這個提醒，讓AI可以自然接續你們平常的對話脈絡。兩者都可以隨時切換，切換後之後所有產生提詞的按鈕都會套用新的設定。</p>
+      <div id="objModeRow" style="margin-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12px;color:var(--paper-dim);">
+      <span>AI提詞模式：</span>
+      <button type="button" class="obj-mode-btn" data-mode="continue" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">延續一般對話</button>
+      <button type="button" class="obj-mode-btn active" data-mode="objective" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">獨立客觀分析</button>
+    </div>
     </div>
 
     <div class="help-section">
@@ -1659,25 +1844,23 @@
 <div class="vignette"></div>
 <button id="backToTopBtn" title="回到頂部">↑</button>
 <div class="wrap">
-  <header class="top">
-    <div class="eyebrow">San Cai</div>
-    <h1>三 才</h1>
-    <div class="brushline"></div>
-    <p id="taglineText" style="cursor:pointer;margin-bottom:0;">命是天註定，運操之在我手中。</p>
-    <p id="taglineSecret" class="hidden" style="font-size:12px;color:var(--calm-jade,#5f7a5e);margin-top:12px;margin-bottom:6px;line-height:2;max-width:320px;">命局是相，是念頭生滅的背景；<br>操之在我的，是那顆「不住」的心。</p>
-    <div style="margin-top:22px;display:flex;gap:10px;justify-content:center;">
-      <button id="helpOpenBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);cursor:pointer;">✦ 使用說明</button>
-      <button id="globalSearchBtn" style="background:transparent;border:1px solid var(--line-strong);border-radius:12px;padding:5px 16px;font-size:12px;color:var(--brass);cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
-        <svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="6"/><line x1="13.2" y1="13.2" x2="18" y2="18"/></svg>
-        搜尋
+  <header class="top appbar">
+    <button type="button" class="ab-brand" id="taglineText" aria-label="三才">
+      <span class="ab-seal">三才</span>
+      <span class="ab-sub">命是天註定，運操之在我</span>
+    </button>
+    <div class="ab-actions">
+      <button id="globalSearchBtn" class="ab-btn" aria-label="搜尋">
+        <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="6"/><line x1="13.2" y1="13.2" x2="18" y2="18"/></svg>
+        <span>搜尋</span>
+      </button>
+      <button id="helpOpenBtn" class="ab-btn" aria-label="說明與設定">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>說明・設定</span>
       </button>
     </div>
-    <div id="objModeRow" style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--paper-dim);">
-      <span>AI提詞模式：</span>
-      <button type="button" class="obj-mode-btn" data-mode="continue" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">延續一般對話</button>
-      <button type="button" class="obj-mode-btn active" data-mode="objective" style="padding:4px 10px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;cursor:pointer;font-size:11px;">獨立客觀分析</button>
-    </div>
   </header>
+  <p id="taglineSecret" class="hidden">命局是相，是念頭生滅的背景；<br>操之在我的，是那顆「不住」的心。</p>
 
   <div class="top-tabs">
     <button class="top-tab active" id="topTabTianji">
@@ -1702,7 +1885,7 @@
   <div id="tianjiSection">
     <div class="part-intro">
       <h2>紫微斗數</h2>
-      <p>知命之學。輸入生辰，排出十二宮、四化、大限流年、四柱八字，全方位掌握天賦格局。</p>
+      <p>輸入生日，看一生格局、十年大限與今年運勢。</p>
     </div>
 
     <div id="myMonthCard" class="my-month-card"></div>
@@ -1713,9 +1896,7 @@
     </div>
 
     <div id="ziweiModeWrap">
-    <p style="font-size:12.5px;color:var(--calm-jade,#5f7a5e);margin:0 0 16px;padding:8px 14px;border:1px dashed var(--line-strong);border-radius:2px;display:inline-block;">
-      ✦ 查完大限或流年後，可以「加入跨系統整合分析」，跟卜卦的卦象一起交給 AI 交叉判讀
-    </p>
+
 
   
 
@@ -1723,7 +1904,7 @@
     <h2><span class="num">1</span>輸入生辰</h2>
     <div id="ziweiInputSummary" class="hidden" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:rgba(255,252,240,0.5);border:1px solid var(--line);border-radius:4px;margin-bottom:12px;">
       <span id="ziweiInputSummaryText" style="font-size:13.5px;color:var(--ink);"></span>
-      <button type="button" id="ziweiInputEditBtn" class="ghostlink">修改</button>
+      <span style="display:flex;gap:14px;flex-shrink:0;"><button type="button" id="ziweiCelebBtn2" class="ghostlink">名人庫</button><button type="button" id="ziweiInputEditBtn" class="ghostlink">修改</button></span>
     </div>
     <div id="ziweiInputBody">
     <div class="grid2">
@@ -1741,9 +1922,10 @@
       <div class="field">
         <label>出生時辰</label>
         <select id="hourSel">
+          <option value="" disabled selected>請選擇出生時辰</option>
           <option value="0-0">早子時（00:00–00:59）</option>
           <option value="1-0">丑時（01:00–02:59）</option>
-          <option value="2-0" selected>寅時（03:00–04:59）</option>
+          <option value="2-0">寅時（03:00–04:59）</option>
           <option value="3-0">卯時（05:00–06:59）</option>
           <option value="4-0">辰時（07:00–08:59）</option>
           <option value="5-0">巳時（09:00–10:59）</option>
@@ -1755,7 +1937,12 @@
           <option value="11-0">亥時（21:00–22:59）</option>
           <option value="0-1">晚子時（23:00–23:59）</option>
         </select>
-        <p style="font-size:12.1px;color:var(--paper-dim);margin:6px 0 0;">早子時／晚子時皆屬「子」時辰，差別在於晚子時（23:00後）依命理慣例已跨入隔日，換算農曆日期會自動往後推一天。</p>
+        <div class="clock-row">
+          <span>只知道幾點幾分？</span>
+          <input type="time" id="birthClock" aria-label="出生時間">
+          <span id="birthClockHint" class="clock-hint"></span>
+        </div>
+        <p style="font-size:12.1px;color:var(--paper-dim);margin:6px 0 0;">晚子時（23:00 後）依命理慣例算隔日，農曆日期會自動往後推一天。台灣出生證明上通常有記載出生時間。</p>
       </div>
     </div>
     <div class="field">
@@ -1766,13 +1953,14 @@
       </div>
     </div>
     <div class="field">
-      <label>角色／對象（選填）</label>
-      <input type="text" id="ziweiRoleInput" placeholder="例：我自己、老婆、女兒——加入整合分析時會標註在紀錄上">
+      <label>這是誰的命盤？（選填）</label>
+      <input type="text" id="ziweiRoleInput" placeholder="例：我、老婆、女兒">
     </div>
     <div class="btnrow">
       <button class="primary" id="calcBtn">排盤</button>
     </div>
     <button type="button" class="ghostlink sample-link" id="sampleChartBtn">還沒準備好生辰？先看一張範例命盤</button>
+    <button type="button" class="ghostlink sample-link" id="celebLibBtn">名人命盤庫：賈伯斯、愛因斯坦、孔子、楊貴妃……153 張可查證命盤</button>
     <div class="presets" id="presetRow">
       <span style="font-size:12.1px;color:var(--paper-dim);align-self:center;margin-right:2px;">我的快捷：</span>
       <span id="presetButtons"></span>
@@ -1784,9 +1972,21 @@
     </div>
   </section>
 
+  <nav id="resultNav" class="result-nav hidden" aria-label="命盤段落">
+    <button data-go="resultSec">命盤</button>
+    <button data-go="overviewSec">總論</button>
+    <button data-go="domainSec">事業財運感情</button>
+    <button data-go="aiCopySec">問 AI</button>
+    <button data-go="dxSec">十年大限</button>
+    <button data-go="lnSec">流年流月</button>
+    <button data-go="celebMatchSec">相似名人</button>
+    <button data-go="xfSec">消法</button>
+  </nav>
   <section id="resultSec" style="display:none;">
     <h2><span class="num">2</span>命盤總覽<span class="info-tip">i<span class="info-tip-pop">星曜旁的「廟旺陷」小字，是這顆星在這個宮位力量強弱的傳統分類：廟、旺最強，得、利次之，平和普通，不得地、陷最弱。完整對照表在下方圖例。</span></span></h2>
     <div id="ziweiHeadline" class="headline-card"></div>
+    <div id="celebNote" class="celeb-note hidden"></div>
+    <div id="ziweiPersona" class="persona-card"></div>
     <div class="summary" id="summaryCells"></div>
     <div class="chartgrid" id="chartGrid"></div>
     <p style="font-size:12.1px;color:var(--paper-dim);margin-top:10px;">
@@ -1815,6 +2015,7 @@
     <p style="font-size:13.2px;color:var(--brass);margin-top:-6px;">依官祿宮、財帛宮、夫妻宮、疾厄宮的星曜組合與四化自動生成，屬結構性解讀，細節仍需搭配大限流年綜合判斷。</p>
     <div id="domainText"></div>
   </section>
+
 
   <section id="aiCopySec" style="display:none;">
     <h2><span class="num">5</span>複製命盤給 AI 深度解讀</h2>
@@ -1880,6 +2081,12 @@
     </div>
   </section>
 
+  <section id="celebMatchSec" style="display:none;">
+    <h2 id="celebMatchTitle">命格相近的名人</h2>
+    <p style="font-size:13.2px;color:var(--brass);margin-top:-6px;">比對 153 張可查證命盤：命宮主星、整體星盤結構、生年四化、身宮落點與格局。命盤相近不代表人生相同，適合拿來對照「同樣的星，走出不同的路」。</p>
+    <div id="celebMatchList"></div>
+  </section>
+
   <section id="xfSec" style="display:none;">
     <h2><span class="num">9</span>消法比對 — 破相以延壽，刃動以消劫<span class="info-tip">i<span class="info-tip-pop">「消法」是命盤中若有煞星、化忌等徵兆，可透過主動的手術、破相等方式提前釋放這股能量，避免它日後以更劇烈的方式被動應驗。輸入你曾發生過的人生事件，看是否對應到命盤中的煞星或化忌。</span></span></h2>
     <p style="font-size:13.8px;color:var(--paper-dim);margin-top:-6px;">
@@ -1901,8 +2108,9 @@
     <div id="xfResult"></div>
   </section>
 
-  <section id="bookSec">
-    <h2><span class="num">10</span>書本內容查詢</h2>
+  <section id="bookSec" class="toolbox-sec">
+    <details id="bookDetails" class="toolbox">
+    <summary><span class="tb-t">古籍星曜查詢</span><span class="tb-s">《紫微斗數全書》《深谷老人紫微星訣》原文</span></summary>
     <p style="font-size:13.8px;color:var(--paper-dim);margin-top:-6px;">
       彙整自《紫微斗數全書》與《深谷老人紫微星訣》原典，涵蓋十四主星、六吉六煞、祿存天馬、四化總論。可直接搜尋，或從上方「宮位詳析」星曜列表點擊「查原典」直接跳轉對照。
     </p>
@@ -1918,15 +2126,18 @@
       <button type="button" class="book-cat-btn" data-cat="sihua">四化</button>
     </div>
     <div id="bookList"></div>
+    </details>
   </section>
 
-  <section id="historySec">
-    <h2><span class="num">11</span>紫微歷史命盤</h2>
+  <section id="historySec" class="toolbox-sec">
+    <details id="historyDetails" class="toolbox">
+    <summary><span class="tb-t">我的排盤紀錄<span id="historyCount"></span></span><span class="tb-s">每次排盤自動記錄，只存在這支手機</span></summary>
     <p style="font-size:13.8px;color:var(--paper-dim);margin-top:-6px;">
       每次排盤會自動記錄一筆，方便日後查詢曾經幫自己或家人排過的命盤。只存在這支手機的瀏覽器裡（localStorage），不會上傳到任何地方。
     </p>
     <button class="mystic" id="ziweiClearHistoryBtn" style="border-color:var(--vermilion);">清空所有命盤紀錄</button>
     <div id="ziweiHistoryList" style="margin-top:14px;"></div>
+    </details>
   </section>
 
   <details class="adv-ref">
@@ -2011,9 +2222,6 @@
     </div>
 
     <div id="baziModeWrap" class="hidden">
-<p style="font-size:12.5px;color:var(--calm-jade,#5f7a5e);margin-top:10px;padding:8px 14px;border:1px dashed var(--line-strong);border-radius:2px;display:inline-block;">
-        ✦ 可與紫微、卦象一起加入跨系統整合分析，三方交叉給 AI 深度解讀
-      </p>
 <section>
       <h2><span class="num">1</span>輸入生辰</h2>
       <div id="baziInputSummary" class="hidden" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:rgba(255,252,240,0.5);border:1px solid var(--line);border-radius:4px;margin-bottom:12px;">
@@ -2058,8 +2266,8 @@
         </div>
       </div>
       <div class="field">
-        <label>角色／對象（選填）</label>
-        <input type="text" id="baziRoleInput" placeholder="例：我自己、老婆、女兒——加入整合分析時會標註在紀錄上">
+        <label>這是誰的命盤？（選填）</label>
+        <input type="text" id="baziRoleInput" placeholder="例：我、老婆、女兒">
       </div>
       <button class="mystic" id="baziCalcBtn" style="width:100%;">排出八字</button>
       <div class="presets" id="baziPresetRow" style="margin-top:12px;">
@@ -2120,10 +2328,7 @@
   <div id="renjianSection" class="hidden">
     <div class="part-intro">
       <h2>卜卦</h2>
-      <p>易經六爻占卜。銅錢起卦、小六壬速斷、六神參考、六十四卦命卦查詢，一應俱全。</p>
-      <p style="font-size:12.5px;color:var(--calm-jade,#5f7a5e);margin-top:10px;padding:8px 14px;border:1px dashed var(--line-strong);border-radius:2px;display:inline-block;">
-        ✦ 紫微看格局，卦象看當下——到「歷史紀錄」把紫微流年／大限跟卦象整合，讓 AI 交叉判讀宏觀與微觀
-      </p>
+      <p>心裡有個具體問題時，擲銅錢起卦，看這件事現在的走向。</p>
     </div>
     <div class="sub-tabs" id="renjianSubTabs">
       <button class="sub-tab active" id="subTabCast">銅錢問卦</button>
@@ -2139,18 +2344,20 @@
       <p>在心中默念一個此刻最想釐清的問題，<br>愈誠懇專注，卦象愈能映照真實。</p>
       <textarea id="questionInput" placeholder="（選填）在此輸入你的問題……例如：這個月工作運如何？"></textarea>
       <div class="field" style="text-align:left;max-width:340px;margin:0 auto 14px;">
-        <label style="text-align:center;color:var(--gold-dim);">角色／對象（選填）</label>
-        <input type="text" id="castRoleInput" placeholder="例：我自己、老婆、女兒——加入整合分析時會標註在紀錄上">
+        <label style="text-align:center;color:var(--gold-dim);">幫誰問？（選填）</label>
+        <input type="text" id="castRoleInput" placeholder="例：我、老婆、女兒">
         <div id="castRoleQuick" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;justify-content:center;"></div>
       </div>
       <div class="field" style="text-align:left;max-width:340px;margin:0 auto 20px;">
-        <label style="text-align:center;color:var(--gold-dim);">問題性質（決定「用神」）</label>
+        <label style="text-align:center;color:var(--gold-dim);">問的是哪一類事？</label>
         <select id="topicSelect">
-          <option value="財">財運／投資／買賣（用神：妻財爻）</option>
-          <option value="官">事業／官司／考試／職位（用神：官鬼爻）</option>
-          <option value="父">文書／長輩／房產／合約（用神：父母爻）</option>
-          <option value="兄">合夥／朋友／競爭對手（用神：兄弟爻）</option>
-          <option value="子">子女／健康／下屬／僧道（用神：子孫爻）</option>
+          <option value="財">財運・投資・買賣（看妻財爻）</option>
+          <option value="官">工作・考試・升遷・官司（看官鬼爻）</option>
+          <option value="財">感情・婚姻：男生問女方（看妻財爻）</option>
+          <option value="官">感情・婚姻：女生問男方（看官鬼爻）</option>
+          <option value="父">合約・文書・房屋・長輩（看父母爻）</option>
+          <option value="兄">合夥・朋友・競爭對手（看兄弟爻）</option>
+          <option value="子">子女・健康・下屬・寵物（看子孫爻）</option>
         </select>
       </div>
       <button class="mystic" id="beginBtn">開始擲卦</button>
@@ -2208,12 +2415,14 @@
       <div class="progress-dots" id="progressDots"></div>
       <div class="cast-status" id="castStatus">由下而上，共擲六次，建立你的卦象</div>
       <button class="mystic" id="tossBtn">擲下銅錢</button>
+      <button type="button" class="ghostlink" id="autoTossBtn" style="display:block;margin:14px auto 0;font-size:12.5px;">一次擲完剩下的爻</button>
     </div>
   </div>
 
   <!-- Step 3: 結果 -->
   <div class="card hidden" id="step3">
     <p class="cast-time" id="castTimeDisplay"></p>
+    <div id="castVerdict" class="verdict-card"></div>
     <div class="hexagram-display" id="hexDisplay"></div>
     <div class="hexname-block">
       <div class="hname" id="hexName"></div>
@@ -2229,10 +2438,6 @@
       </div>
     </div>
 
-    <div class="reading-section">
-      <h3>裝卦・六親世應</h3>
-      <table class="spirit-table" id="najiaTable"></table>
-    </div>
 
     <div class="reading-section">
       <h3>用神分析<span class="info-tip">i<span class="info-tip-pop">「用神」是六爻占卜裡代表「你問的這件事」的那一爻。問財運看財爻、問工作看官爻、問長輩看父母爻……先找到用神，再看它強不強、有沒有被沖剋，才能判斷這件事吉凶如何。</span></span></h3>
@@ -2245,14 +2450,22 @@
       <div id="readingCurated"></div>
     </div>
 
-    <div class="reading-section">
-      <h3>六神所示<span class="info-tip">i<span class="info-tip-pop">「六神」（青龍、朱雀、勾陳、螣蛇、白虎、玄武）是附加在每一爻上的輔助訊息，代表這件事的「性質」或「氛圍」（比如青龍主和諧喜慶、白虎主驚險波折），本身不主吉凶，要搭配用神一起看。</span></span></h3>
-      <table class="spirit-table" id="spiritTable"></table>
-    </div>
 
     <div class="synth-box">
       <p id="synthText"></p>
     </div>
+
+    <details class="cast-pro" id="castProDetails">
+      <summary>專業排盤：裝卦・六親世應・六神</summary>
+    <div class="reading-section">
+      <h3>裝卦・六親世應</h3>
+      <table class="spirit-table" id="najiaTable"></table>
+    </div>
+    <div class="reading-section">
+      <h3>六神所示<span class="info-tip">i<span class="info-tip-pop">「六神」（青龍、朱雀、勾陳、螣蛇、白虎、玄武）是附加在每一爻上的輔助訊息，代表這件事的「性質」或「氛圍」（比如青龍主和諧喜慶、白虎主驚險波折），本身不主吉凶，要搭配用神一起看。</span></span></h3>
+      <table class="spirit-table" id="spiritTable"></table>
+    </div>
+    </details>
 
     <div class="reading-section" id="aiSection">
       <h3>AI 深度解卦</h3>
@@ -2346,7 +2559,7 @@
   <div id="dimaiSection" class="hidden">
     <div class="part-intro">
       <h2>風水</h2>
-      <p>知運之學。陽宅方位查詢（身分＋方位算卦）、六十四卦房位參考、堪輿理論。</p>
+      <p>依家人身分與臥房方位，查這個方位合不合適。</p>
     </div>
     <div class="sub-tabs">
       <button class="sub-tab active" id="subTabFengshuiQuery">陽宅方位查詢</button>
@@ -2599,21 +2812,26 @@
 <div id="combineSection" class="hidden">
     <div class="part-intro">
       <h2>天人合一</h2>
-      <p>天（紫微、八字）與人（卦象）本是一體。把不同命理系統的資料放在一起，交給 AI 交叉判讀，讓宏觀格局與微觀當下合而為一，是本工具的核心特色。</p>
-      <p style="font-size:12.5px;color:var(--calm-jade,#5f7a5e);margin-top:10px;padding:8px 14px;border:1px dashed var(--line-strong);border-radius:2px;display:inline-block;">
-        ✦ 紫微看格局，卦象看當下，八字看氣勢——宏觀到微觀，一次交叉解讀
-      </p>
+      <p>紫微看格局、八字看氣勢、卦象看當下——放在一起交給 AI 交叉解讀。</p>
     </div>
     <div class="sub-tabs">
       <button class="sub-tab active" id="subTabCombineData">整合分析</button>
       <button class="sub-tab" id="subTabAiResults">AI分析結果</button>
     </div>
     <div id="combineDataWrap">
+    <div class="card combine-empty hidden" id="combineEmpty">
+      <p class="ce-t">三步驟，讓 AI 一次看懂你的命與運</p>
+      <ol class="ce-steps">
+        <li><b>排一張紫微命盤</b>，查完大限或流年後按「加入跨系統整合分析」<button type="button" class="pc-btn" data-ce="ziwei">去排命盤</button></li>
+        <li><b>針對一件事問一卦</b>，問完會自動加進來<button type="button" class="pc-btn" data-ce="cast">去問一卦</button></li>
+        <li><b>回到這裡勾選兩項以上</b>，產生整合腳本貼給 AI，或用你的 API 金鑰直接分析</li>
+      </ol>
+    </div>
     <div class="card" id="hepanSec">
       <h2 style="font-size:16.5px;">兩人合盤<span class="info-tip">i<span class="info-tip-pop">把兩個人的紫微命盤放在一起，看彼此的生年四化各自飛入對方哪一宮，再交給 AI 分析相處模式、互補與摩擦點。適合夫妻、情侶、親子、合夥人。</span></span></h2>
       <div id="hepanBody"></div>
     </div>
-    <div class="card">
+    <div class="card" id="histCard">
       <div class="ritual-step">
         <h2>歷史紀錄</h2>
         <p>只存在這支手機的瀏覽器裡（localStorage），不會上傳到任何地方，換手機或清除瀏覽器資料會遺失。</p>
@@ -2628,7 +2846,7 @@
       </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="combineCard">
       <div class="ritual-step">
         <h2 style="font-size:16.5px;">整合多項資料給 AI 綜合分析</h2>
         <p style="font-size:13.8px;">如果同一件事分開問了好幾卦，或想把紫微斗數的流年／大限跟卦象放在一起看，勾選下面2項以上的紀錄（銅錢問卦、或從「紫微斗數」加入的流年／大限），可以生成一份合併的分析腳本，讓 AI 把不同命理系統的資料放在一起交叉解讀，而不是各看各的。</p>
@@ -2657,7 +2875,7 @@
 
 
   <footer style="text-align:center;">
-    人生的答案終究在你心中——完整說明與免責聲明請見頁首「✦ 使用說明」。
+    人生的答案終究在你心中——完整說明與免責聲明請見右上角「說明・設定」。
   </footer>
 </div>
 
@@ -2683,6 +2901,37 @@
 </div>
 
 <!-- ============ 全App統一搜尋 ============ -->
+<div id="rateSheet" role="dialog" aria-label="評分邀請">
+  <p class="rs-t">三才對你有幫助嗎？</p>
+  <p class="rs-s">到 Google Play 留個評分，能讓更多需要的人找到它。這是免費、無廣告 App 唯一的推廣方式。</p>
+  <div class="rs-row">
+    <button type="button" class="pc-btn primary" onclick="closeRateSheet('rate')">去評分</button>
+    <button type="button" class="pc-btn" onclick="closeRateSheet('later')">以後再說</button>
+    <button type="button" class="rs-never" onclick="closeRateSheet('never')">不要再問</button>
+  </div>
+</div>
+<div id="cardPreviewModal">
+  <div class="cp-box">
+    <img id="cardPreviewImg" alt="命盤圖卡">
+    <p class="cp-tip">長按圖片可以儲存或分享</p>
+    <div class="cp-row">
+      <a id="cardPreviewDl" download="sancai-ziwei.png" class="cp-btn primary">下載圖卡</a>
+      <button type="button" id="cardPreviewClose" class="cp-btn">關閉</button>
+    </div>
+  </div>
+</div>
+<div id="celebModal">
+  <div class="gs-box">
+    <div class="gs-header">
+      <input type="text" id="clInput" placeholder="搜尋人名、職業、主星，如：紫微">
+      <button id="clCloseBtn" title="關閉">✕</button>
+    </div>
+    <div class="cl-chips" id="clChips"></div>
+    <div class="cl-chips stars" id="clStarChips"></div>
+    <p class="cl-std">收錄標準：國際名人只收 Rodden 評級 AA（出生證明／官方紀錄）或 A（本人或家屬口述）；時辰依出生地經度與均時差換算為<b>真太陽時</b>。古籍命例取自《紫微斗數全書》原載，命宮、身宮、五行局已逐一與書中核對一致。</p>
+    <div id="clResults" class="gs-results"></div>
+  </div>
+</div>
 <div id="globalSearchModal">
   <div class="gs-box">
     <div class="gs-header">
@@ -2933,7 +3182,14 @@ function calcChart(y,m,d,hourIdx,gender,dayShift){
   const sy=baseDate.getUTCFullYear(), sm=baseDate.getUTCMonth()+1, sd=baseDate.getUTCDate();
   const lunar = solar2lunar(sy,sm,sd);
   const yg = yearGanZhi(lunar.year);
-  const yearGan = yg.ganIdx, yearZhi = yg.zhiIdx;
+  return calcChartCore(lunar, yg.ganIdx, yg.zhiIdx, hourIdx, gender);
+}
+/* 以農曆直接排盤：供 1900 年以前人物與典籍古人命例使用（年份只需干支） */
+function calcChartLunar(yearGanIdx, yearZhiIdx, lunarMonth, lunarDay, hourIdx, gender, isLeap, lunarYear){
+  const lunar = {year: lunarYear || null, month: lunarMonth, day: lunarDay, isLeap: !!isLeap};
+  return calcChartCore(lunar, yearGanIdx, yearZhiIdx, hourIdx, gender);
+}
+function calcChartCore(lunar, yearGan, yearZhi, hourIdx, gender){
 
   // 命宮 / 身宮
   const monthPalace = ((lunar.month+1)%12+12)%12; // 從寅起正月順數到生月
@@ -3371,6 +3627,7 @@ function jumpToBookEntry(starName){
   let key = starName;
   if(starName==='天魁'||starName==='天鉞') key='天魁天鉞';
   if(!BOOK_DICT[key]) return;
+  const bd = document.getElementById('bookDetails'); if(bd) bd.open = true;
   document.getElementById('bookSearch').value='';
   const catRow = document.getElementById('bookCatRow');
   if(catRow){
@@ -3411,7 +3668,7 @@ function renderCastRoleQuick(){
   if(!wrap) return;
   const list = loadPresets();
   if(!list.length){ wrap.innerHTML = ''; return; }
-  wrap.innerHTML = list.map((p,i)=>`<button type="button" data-idx="${i}" class="cast-role-quick" style="padding:5px 12px;font-size:12px;border-radius:12px;border:1px solid var(--line-strong);background:transparent;color:var(--brass);cursor:pointer;">${p.label}</button>`).join('');
+  wrap.innerHTML = list.map((p,i)=>`<button type="button" data-idx="${i}" class="cast-role-quick" style="padding:5px 12px;font-size:12px;border-radius:12px;border:1px solid var(--line-strong);background:transparent;color:var(--brass);cursor:pointer;">${escapeHtml(p.label)}</button>`).join('');
   wrap.querySelectorAll('.cast-role-quick').forEach(b=>{
     b.addEventListener('click', ()=>{
       document.getElementById('castRoleInput').value = list[parseInt(b.dataset.idx)].label;
@@ -3423,7 +3680,7 @@ function renderPresetButtons(){
   if(!wrap) return;
   const list = loadPresets();
   wrap.innerHTML = list.map((p,i)=>`
-    <button data-idx="${i}" class="preset-load">${p.label}</button
+    <button data-idx="${i}" class="preset-load">${escapeHtml(p.label)}</button
     ><button data-idx="${i}" class="preset-del" title="刪除" style="padding:7px 9px;color:var(--red-bright);">✕</button>
   `).join('');
   wrap.querySelectorAll('.preset-load').forEach(b=>{
@@ -3456,9 +3713,13 @@ function renderPresetButtons(){
 document.getElementById('savePresetBtn').addEventListener('click', ()=>{
   const dateVal = document.getElementById('solarDate').value;
   if(!dateVal){ appNotice('請先選擇日期'); return; }
-  const roleVal = document.getElementById('ziweiRoleInput').value.trim();
-  const label = roleVal || prompt('幫這筆快捷取個名字（例如：我自己、老婆、女兒）：');
-  if(!label) return;
+  if(!document.getElementById('hourSel').value){ appNotice('請先選擇出生時辰'); return; }
+  const roleInputEl = document.getElementById('ziweiRoleInput');
+  const label = roleInputEl.value.trim();
+  if(!label){
+    appNotice('請先在上方「這是誰的命盤？」欄位填個名稱（例如：我、老婆、女兒），再按儲存快捷。').then(()=> roleInputEl.focus());
+    return;
+  }
   const list = loadPresets();
   list.push({
     label: label,
@@ -3540,7 +3801,7 @@ function mmCopy(text, statusEl, outputEl){
 }
 function mmChooserHtml(){
   const list = loadPresets();
-  const chips = list.map((p,i)=>`<button type="button" class="mm-chip mm-pick" data-idx="${i}">${p.label}</button>`).join('');
+  const chips = list.map((p,i)=>`<button type="button" class="mm-chip mm-pick" data-idx="${i}">${escapeHtml(p.label)}</button>`).join('');
   return `<div class="mm-eyebrow">我的本月</div>
     <div class="mm-title">設定「我」，每次打開就看到這個月的運勢</div>
     <div class="mm-row" style="margin-bottom:10px;color:var(--ink-soft);">${list.length? '從你的快捷挑一位當作「我」：' : '先在下方輸入生辰並排盤，再按「用目前輸入的生辰設定」。'}</div>
@@ -3553,6 +3814,12 @@ function renderMyMonthCard(){
   const el = document.getElementById('myMonthCard');
   if(!el) return;
   const me = loadMe();
+  if(!me && !mmChoosing && !loadPresets().length){
+    // 還沒有任何命盤：先不顯示設定卡，排完盤後在結果頁提示「設為我」
+    el.innerHTML = ''; el.style.display = 'none';
+    return;
+  }
+  el.style.display = '';
   if(!me || mmChoosing){
     el.innerHTML = mmChooserHtml();
     el.querySelectorAll('.mm-pick').forEach(b=> b.addEventListener('click', ()=>{
@@ -3563,6 +3830,7 @@ function renderMyMonthCard(){
     if(cur) cur.addEventListener('click', ()=>{
       const date = document.getElementById('solarDate').value;
       if(!date){ appNotice('請先在下方輸入出生日期'); return; }
+      if(!document.getElementById('hourSel').value){ appNotice('請先在下方選擇出生時辰'); return; }
       const label = document.getElementById('ziweiRoleInput').value.trim() || '我';
       saveMe({label, date, hour:document.getElementById('hourSel').value, gender:document.querySelector('#genderRow input:checked').value});
       mmChoosing=false; renderMyMonthCard();
@@ -3597,7 +3865,7 @@ function renderMyMonthCard(){
       <span class="mm-tl-ji">${ji? MM_PALACE_HINT[ji.name] : '—'}</span>
       <span class="mm-tl-tag">${tag}</span></div>`;
   }).join('');
-  el.innerHTML = `<div class="mm-eyebrow">我的本月・${me.label}</div>
+  el.innerHTML = `<div class="mm-eyebrow">我的本月・${escapeHtml(me.label)}</div>
     <div class="mm-title">${cur.lyear}年 ${GAN[cur.gIdx]}${ZHI[cur.zIdx]}年・農曆${cur.short}</div>
     <div class="mm-row"><span class="k">流年命宮</span>${cur.lnPal.name}　<span class="k">本月流月命宮</span>${cur.ly.monthPalace.name}</div>
     <div class="mm-hua">${huaCells}</div>
@@ -3727,7 +3995,7 @@ function renderHepan(){
     body.innerHTML = `<p class="lead" style="font-size:13.5px;">至少需要兩位人選。請到「紫微斗數」輸入生辰排盤後，按「＋ 儲存目前為快捷」，存好兩個人（例如自己和伴侶）再回來。</p>`;
     return;
   }
-  const opts = sel => list.map((p,i)=>`<option value="${i}"${i===sel?' selected':''}>${p.label}</option>`).join('');
+  const opts = sel => list.map((p,i)=>`<option value="${i}"${i===sel?' selected':''}>${escapeHtml(p.label)}</option>`).join('');
   body.innerHTML = `
     <div class="grid2">
       <div class="field"><label>第一位</label><select id="hepanA">${opts(0)}</select></div>
@@ -3846,6 +4114,9 @@ function renderZiweiHistory(){
   const list = loadZiweiHistory();
   const el = document.getElementById('ziweiHistoryList');
   if(!el) return;
+  const cnt = document.getElementById('historyCount'); if(cnt) cnt.textContent = list.length ? `（${list.length}）` : '';
+  const sec = document.getElementById('historySec'); if(sec) sec.style.display = list.length ? '' : 'none';
+  const clr = document.getElementById('ziweiClearHistoryBtn'); if(clr) clr.style.display = list.length ? '' : 'none';
   if(!list.length){
     el.innerHTML = '<p class="hist-empty">還沒有任何排盤紀錄。</p>';
     return;
@@ -3917,6 +4188,10 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
   const dateVal = document.getElementById('solarDate').value;
   if(!dateVal){ appNotice('請選擇出生日期'); return; }
   const [y,m,d] = dateVal.split('-').map(Number);
+  if(!document.getElementById('hourSel').value){
+    appNotice('請選擇出生時辰。\n只知道幾點幾分的話，可以直接填在下方「只知道幾點幾分？」，會自動換算成時辰。').then(()=> document.getElementById('hourSel').focus());
+    return;
+  }
   const [hourIdxStr, dayShiftStr] = document.getElementById('hourSel').value.split('-');
   const hourIdx = parseInt(hourIdxStr);
   const dayShift = parseInt(dayShiftStr);
@@ -3924,12 +4199,274 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
   if(y<1900||y>2059){ appNotice('本工具農曆換算範圍為西元1900–2059年'); return; }
 
   CURRENT = calcChart(y,m,d,hourIdx,gender,dayShift);
+  const hourText = document.getElementById('hourSel').selectedOptions[0].textContent;
+  hideCelebNote();
+  const myOpts = {birthYear:y, save:!window.__sampleMode, isSample:!!window.__sampleMode, y, m, d,
+    summaryText:`${y}年${m}月${d}日　${hourText}　${gender==='M'?'男':'女'}`};
+  if(!window.__sampleMode) window.__myChart = {c: CURRENT, opts: Object.assign({}, myOpts, {save:false}),
+    role: document.getElementById('ziweiRoleInput').value.trim() || '我'};
+  showZiweiResult(myOpts);
+});
+
+/* ============ 一眼看懂：主星人設（依紫微斗數傳統星性整理成白話） ============ */
+const STAR_PERSONA = {
+  "紫微":{t:"天生的領導者", k:["有主見","重面子","格局大"], g:"能統籌全局、帶領團隊，越有舞台越能發揮。", w:"耳根子軟又好面子，身邊需要敢說真話的人。"},
+  "天機":{t:"腦筋最快的軍師", k:["聰明","善謀劃","心思多"], g:"反應快、點子多，適合需要分析與策劃的工作。", w:"想太多容易焦慮、反覆不定，給自己訂下做決定的期限。"},
+  "太陽":{t:"發光發熱的付出者", k:["熱情","大方","重名聲"], g:"樂於助人、有公眾魅力，越付出越有名望。", w:"容易忙到透支，記得照顧眼睛與心血管，別只顧別人。"},
+  "武曲":{t:"務實的財務實踐家", k:["果斷","重效率","對錢敏銳"], g:"執行力強、有理財頭腦，適合財務、技術與管理。", w:"個性剛直、說話直接，感情與人際上多一點柔軟。"},
+  "天同":{t:"隨遇而安的福星", k:["溫和","人緣好","懂享受"], g:"脾氣好、能化解衝突，人生越往後越有福。", w:"容易安於現狀、缺乏衝勁，重要目標要推自己一把。"},
+  "廉貞":{t:"外冷內熱的多面手", k:["有魅力","企圖心","原則強"], g:"能文能武、交際手腕好，適合公關、法政、技術領域。", w:"情緒與慾望起伏大，守住分寸與界線最重要。"},
+  "天府":{t:"穩重的守財者", k:["穩健","包容","會理財"], g:"踏實保守、善於守成與管理資源，是團隊的定心丸。", w:"太求穩容易錯過時機，偶爾也要勇於開創。"},
+  "太陰":{t:"細膩溫柔的思考者", k:["細心","重家庭","善積累"], g:"感受力強，擅長規劃、累積財富與房產。", w:"容易多愁善感、悶在心裡，說出來會輕鬆很多。"},
+  "貪狼":{t:"多才多藝的交際家", k:["多才藝","人緣旺","慾望強"], g:"興趣廣、學得快，交際與才藝都是你的資源。", w:"想要的太多容易分心，專注在一兩件事上成就最大。"},
+  "巨門":{t:"思辨敏銳的說服者", k:["口才好","愛鑽研","重是非"], g:"分析力與表達力強，適合教學、法律、研究、業務。", w:"說話直容易招口舌，先聽完再回應能少很多誤會。"},
+  "天相":{t:"公正可靠的協調者", k:["正直","重形象","善輔佐"], g:"做事有分寸、人緣好，是最好的合作夥伴與幕僚。", w:"太在意別人眼光、容易被環境左右，練習替自己做決定。"},
+  "天梁":{t:"照顧人的長者型人物", k:["有原則","愛照顧人","逢凶化吉"], g:"有正義感、肯擔當，遇到困難常有貴人相助。", w:"愛管事、好說教，給別人一點空間反而更受敬重。"},
+  "七殺":{t:"勇往直前的開創者", k:["果決","獨立","敢衝"], g:"有魄力、不怕挑戰，適合開疆闢土、獨當一面。", w:"衝太快容易孤軍奮戰，重大決定多聽一個意見。"},
+  "破軍":{t:"打破舊局的改革者", k:["敢變","不怕苦","先破後立"], g:"勇於改變與重來，是開創新局、推動轉型的人。", w:"變動太頻繁會耗損，錢與感情都要留餘地。"}
+};
+function personaOf(c){
+  const mp = c.palaces.find(p=>p.isMing);
+  let mains = mp.stars.filter(s=>s.type==='main').map(s=>s.name);
+  let borrowed = false;
+  if(!mains.length){
+    const opp = c.palaces.find(p=>p.idx===(c.mingIdx+6)%12);
+    mains = opp.stars.filter(s=>s.type==='main').map(s=>s.name); borrowed = true;
+  }
+  const ps = mains.map(n=>STAR_PERSONA[n]).filter(Boolean);
+  if(!ps.length) return null;
+  const title = ps.length===1 ? ps[0].t : `${ps[0].t}，也是${ps[1].t}`;
+  const kws = [...new Set(ps.flatMap(p=>p.k))].slice(0, ps.length>1?5:3);
+  return {mains, borrowed, title, kws, good: ps.map(p=>p.g), warn: ps.map(p=>p.w)};
+}
+function lunarYearNow(){
+  const n = new Date(); const l = solar2lunar(n.getFullYear(), n.getMonth()+1, n.getDate());
+  return l.year;
+}
+function renderPersona(c, o){
+  const el = document.getElementById('ziweiPersona');
+  if(!el) return;
+  const P = personaOf(c);
+  if(!P){ el.innerHTML=''; return; }
+  const hint = n => MM_PALACE_HINT[n] || n;
+  const pal = star => findStarPalace(c, star);
+  const lu = pal(c.huaList[0]), ji = pal(c.huaList[3]), ke = pal(c.huaList[2]);
+  let lines = '';
+  if(lu) lines += `<li><span class="pc-tag lu">福</span><span>天生的福氣落在<b>${hint(lu.name)}</b><small>（${lu.name}・${c.huaList[0]}化祿）</small></span></li>`;
+  if(ke) lines += `<li><span class="pc-tag ke">貴</span><span>名聲與貴人在<b>${hint(ke.name)}</b><small>（${ke.name}・${c.huaList[2]}化科）</small></span></li>`;
+  if(ji) lines += `<li><span class="pc-tag ji">課</span><span>一生要用心的功課在<b>${hint(ji.name)}</b><small>（${ji.name}・${c.huaList[3]}化忌）</small></span></li>`;
+  // 目前大限、今年流年（僅限有出生年份且仍在世）
+  let nowHtml = '';
+  if(o && o.birthYear && o.autoDaxian!==false){
+    const age = new Date().getFullYear() - o.birthYear + 1;
+    const dx = c.palaces.find(p=> age>=p.daxianStart && age<=p.daxianEnd);
+    if(dx){
+      const dxJi = pal(SIHUA[dx.gan][3]);
+      nowHtml += `<p class="pc-now"><b>這十年（${dx.daxianStart}–${dx.daxianEnd} 歲）</b>走${dx.name}大限，重心在「${hint(dx.name)}」${dxJi?`；大限化忌入${dxJi.name}，「${hint(dxJi.name)}」要多費心`:''}。</p>`;
+    }
+    try{
+      const ly = lunarYearNow(); const cyl = ly-1864;
+      const g=((cyl%10)+10)%10, z=((cyl%12)+12)%12;
+      const fh = flowYearHua(c, g, z);
+      const yJi = pal(fh.list[3]), yLu = pal(fh.list[0]);
+      if(yJi || yLu) nowHtml += `<p class="pc-now"><b>今年（${GAN[g]}${ZHI[z]}年）</b>${yLu?`順勢在「${hint(yLu.name)}」`:''}${yLu&&yJi?'，':''}${yJi?`留意「${hint(yJi.name)}」`:''}。</p>`;
+    }catch(e){}
+  }
+  const canSetMe = !CURRENT.celebName && !(typeof loadMe==='function' && loadMe()) && o && o.birthYear && !o.isSample;
+  el.innerHTML = `
+    <div class="pc-eyebrow">一眼看懂${P.borrowed?'（命宮無主星，借對宮論）':''}</div>
+    <div class="pc-title">${P.title}</div>
+    <div class="pc-kws">${P.kws.map(k=>`<span>${k}</span>`).join('')}</div>
+    <div class="pc-gw">
+      <p><b class="g">長處</b>${P.good.join('')}</p>
+      <p><b class="w">提醒</b>${P.warn.join('')}</p>
+    </div>
+    <ul class="pc-hua">${lines}</ul>
+    ${nowHtml}
+    <div class="pc-actions">
+      <button type="button" class="pc-btn primary" id="pcShareBtn">分享命盤圖卡</button>
+      <button type="button" class="pc-btn" id="pcAiBtn">問 AI 深入解讀</button>
+      ${canSetMe?`<button type="button" class="pc-btn" id="pcSetMeBtn">設為「我」・每月看運勢</button>`:''}
+    </div>
+    <p class="pc-foot">依命宮主星與生年四化的傳統星性整理成白話，細節請看下方命盤與分析。</p>`;
+  document.getElementById('pcShareBtn').addEventListener('click', ()=> shareChartCard(c));
+  document.getElementById('pcAiBtn').addEventListener('click', ()=> document.getElementById('aiCopySec').scrollIntoView({behavior:'smooth'}));
+  const sm = document.getElementById('pcSetMeBtn');
+  if(sm) sm.addEventListener('click', ()=>{
+    const date = document.getElementById('solarDate').value, hour = document.getElementById('hourSel').value;
+    if(!date || !hour) return;
+    const label = document.getElementById('ziweiRoleInput').value.trim() || '我';
+    saveMe({label, date, hour, gender: document.querySelector('#genderRow input:checked').value});
+    if(typeof renderMyMonthCard==='function') renderMyMonthCard();
+    sm.remove();
+    appNotice('設定好了。之後打開紫微頁，最上方就會顯示「我的本月」運勢與 12 個月走勢。');
+  });
+}
+
+/* ============ 使用回饋：用過幾次後，溫和地邀請到 Google Play 評分 ============ */
+const ENGAGE_KEY = 'sancai_engage_v1';
+const PLAY_URL = 'https://play.google.com/store/apps/details?id=io.github.idrifting.twa';
+function loadEngage(){ try{ return JSON.parse(localStorage.getItem(ENGAGE_KEY)) || {}; }catch(e){ return {}; } }
+function saveEngage(o){ try{ localStorage.setItem(ENGAGE_KEY, JSON.stringify(o)); }catch(e){} }
+function bumpEngage(kind){
+  const e = loadEngage(); const now = Date.now();
+  if(!e.first) e.first = now;
+  e.n = (e.n||0) + 1;
+  e[kind] = (e[kind]||0) + 1;
+  saveEngage(e);
+  const days = (now - e.first) / 86400000;
+  if(!e.done && e.n >= 4 && days >= 1 && (!e.snooze || now > e.snooze)){
+    setTimeout(showRateSheet, 2500);
+  }
+}
+function showRateSheet(){
+  const el = document.getElementById('rateSheet');
+  if(!el || el.classList.contains('show')) return;
+  if(document.querySelector('#celebModal.show, #globalSearchModal.show, #appNoticeModal.show, #appConfirmModal.show')) return;
+  el.classList.add('show');
+}
+function closeRateSheet(action){
+  const el = document.getElementById('rateSheet'); el.classList.remove('show');
+  const e = loadEngage();
+  if(action==='rate' || action==='never') e.done = 1;
+  else e.snooze = Date.now() + 14*86400000;
+  saveEngage(e);
+  if(action==='rate') window.open(PLAY_URL, '_blank');
+}
+
+/* ============ 分享命盤圖卡（不含生日，只含命盤結構） ============ */
+function drawChartCard(c){
+  const W=1080, H=1350, cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  const x=cv.getContext('2d');
+  const SERIF='"Noto Serif TC","Songti TC","PMingLiU",serif', SANS='"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif';
+  const INK='#201d17', SOFT='#6f624b', BRASS='#8a7248', VER='#9c4a35', JADE='#5f7a5e', LINE='#cdbf9f';
+  x.fillStyle='#f0e8d8'; x.fillRect(0,0,W,H);
+  x.strokeStyle=LINE; x.lineWidth=2; x.strokeRect(34,34,W-68,H-68);
+  x.textAlign='center'; x.textBaseline='alphabetic';
+  const P = personaOf(c) || {mains:[], title:'', kws:[]};
+  const who = c.celebName || (document.getElementById('ziweiRoleInput').value.trim()) || '我';
+  x.fillStyle=BRASS; x.font=`500 26px ${SANS}`; x.fillText('三 才 ・ 紫 微 命 盤', W/2, 98);
+  x.fillStyle=SOFT; x.font=`500 32px ${SERIF}`; x.fillText(`${who}的命宮`, W/2, 158);
+  x.fillStyle=INK; x.font=`900 74px ${SERIF}`;
+  x.fillText(P.mains.length ? `${P.mains.join('・')}${P.borrowed?'（借）':''}坐命` : '命宮空宮', W/2, 248);
+  x.fillStyle=VER; x.font=`700 38px ${SERIF}`; x.fillText(P.title, W/2, 310);
+  // 關鍵字
+  x.font=`500 26px ${SANS}`;
+  const kw = P.kws.slice(0,4), pad=22, gap=14;
+  const widths = kw.map(k=> x.measureText(k).width + pad*2);
+  let kx = W/2 - (widths.reduce((a,b)=>a+b,0) + gap*(kw.length-1))/2;
+  kw.forEach((k,i)=>{
+    x.fillStyle='rgba(95,122,94,0.14)'; roundRect(x, kx, 338, widths[i], 46, 23); x.fill();
+    x.fillStyle=JADE; x.textAlign='left'; x.fillText(k, kx+pad, 370); kx += widths[i]+gap;
+  });
+  x.textAlign='center';
+  // 十二宮
+  const gx=60, gy=416, cw=240, ch=180;
+  const HUA_COL={'祿':JADE,'權':'#4f6f8f','科':'#7a6390','忌':VER};
+  c.palaces.forEach(p=>{
+    const pos = GRID_POS[p.idx]; const px = gx+(pos.col-1)*cw, py = gy+(pos.row-1)*ch;
+    x.fillStyle = p.isMing ? 'rgba(156,74,53,0.07)' : 'rgba(255,252,240,0.55)'; x.fillRect(px+3,py+3,cw-6,ch-6);
+    x.strokeStyle = p.isMing ? VER : LINE; x.lineWidth = p.isMing ? 3 : 1.5; x.strokeRect(px+3,py+3,cw-6,ch-6);
+    x.textAlign='left'; x.fillStyle = p.isMing ? VER : BRASS; x.font=`700 25px ${SERIF}`; x.fillText(p.name, px+16, py+40);
+    x.textAlign='right'; x.fillStyle=SOFT; x.font=`400 19px ${SANS}`; x.fillText(p.gan+p.zhi+(p.isShen?' 身':''), px+cw-14, py+38);
+    const mains = p.stars.filter(s=>s.type==='main');
+    x.textAlign='left';
+    if(!mains.length){ x.fillStyle='#a3967c'; x.font=`400 22px ${SANS}`; x.fillText('（空宮）', px+16, py+96); }
+    mains.slice(0,2).forEach((s,k)=>{
+      const yy = py+92+k*44;
+      x.fillStyle=INK; x.font=`700 31px ${SERIF}`; x.fillText(s.name, px+16, yy);
+      if(s.hua){ let hx = px+16+x.measureText(s.name).width+8;
+        s.hua.forEach(h=>{ x.fillStyle=HUA_COL[h]||VER; roundRect(x,hx,yy-25,30,30,6); x.fill(); x.fillStyle='#fff'; x.font=`700 20px ${SANS}`; x.fillText(h,hx+5,yy-3); hx+=36; x.font=`700 31px ${SERIF}`; }); }
+    });
+    const aux = p.stars.filter(s=>s.type!=='main' && s.hua).map(s=>s.name+'化'+s.hua.join(''));
+    if(aux.length){ x.fillStyle=SOFT; x.font=`400 19px ${SANS}`; x.fillText(aux.join(' '), px+16, py+ch-20); }
+  });
+  // 中宮
+  const cx0=gx+cw, cy0=gy+ch; x.fillStyle='rgba(138,114,72,0.06)'; x.fillRect(cx0+3,cy0+3,cw*2-6,ch*2-6);
+  x.strokeStyle=LINE; x.lineWidth=1.5; x.strokeRect(cx0+3,cy0+3,cw*2-6,ch*2-6);
+  x.textAlign='center'; x.fillStyle=BRASS; x.font=`700 34px ${SERIF}`;
+  x.fillText(`${GAN[c.yearGan]}${ZHI[c.yearZhi]}年　${JU_NAME[c.ju]}`, W/2, cy0+92);
+  x.fillStyle=INK; x.font=`500 26px ${SERIF}`;
+  x.fillText(`命宮 ${ZHI[c.mingIdx]}　身宮 ${ZHI[c.shenIdx]}`, W/2, cy0+146);
+  x.font=`500 25px ${SANS}`;
+  const tg=['祿','權','科','忌']; let tx = W/2 - 2*104 + 8;
+  c.huaList.forEach((st,i)=>{ x.fillStyle=HUA_COL[tg[i]]; roundRect(x,tx,cy0+186,30,30,6); x.fill(); x.fillStyle='#fff'; x.font=`700 20px ${SANS}`; x.textAlign='left'; x.fillText(tg[i],tx+5,cy0+208); x.fillStyle=INK; x.font=`500 24px ${SANS}`; x.fillText(st,tx+36,cy0+210); tx+=104; });
+  x.textAlign='center'; x.fillStyle=SOFT; x.font=`400 21px ${SANS}`; x.fillText('生年四化', W/2, cy0+262);
+  // 底部白話
+  const pal = st => findStarPalace(c, st); const lu=pal(c.huaList[0]), ji=pal(c.huaList[3]);
+  x.fillStyle=INK; x.font=`500 29px ${SERIF}`;
+  const line = `${lu?`福氣在「${MM_PALACE_HINT[lu.name]}」`:''}${lu&&ji?'　':''}${ji?`功課在「${MM_PALACE_HINT[ji.name]}」`:''}`;
+  x.fillText(line, W/2, 1204);
+  x.fillStyle=BRASS; x.font=`400 22px ${SANS}`; x.fillText('用「三才」App 排的紫微命盤・Google Play 搜尋「三才 紫微」', W/2, 1282);
+  return cv;
+}
+function roundRect(x, X, Y, w, h, r){ x.beginPath(); x.moveTo(X+r,Y); x.arcTo(X+w,Y,X+w,Y+h,r); x.arcTo(X+w,Y+h,X,Y+h,r); x.arcTo(X,Y+h,X,Y,r); x.arcTo(X,Y,X+w,Y,r); x.closePath(); }
+async function shareChartCard(c){
+  try{ if(document.fonts && document.fonts.load){ await Promise.race([Promise.all([document.fonts.load('900 74px "Noto Serif TC"'), document.fonts.load('500 26px "Noto Sans TC"')]), new Promise(r=>setTimeout(r,1500))]); } }catch(e){}
+  const cv = drawChartCard(c);
+  const P = personaOf(c);
+  const text = P ? `我的命宮是${P.mains.join('・')}——「${P.title}」。用「三才」App 排的紫微命盤。` : '用「三才」App 排的紫微命盤。';
+  let blob = null;
+  try{ blob = await new Promise(r=> cv.toBlob(r, 'image/png')); }catch(e){}
+  if(blob && navigator.canShare){
+    const file = new File([blob], 'sancai-ziwei.png', {type:'image/png'});
+    if(navigator.canShare({files:[file]})){
+      try{ await navigator.share({files:[file], title:'我的紫微命盤', text}); bumpEngage('share'); return; }
+      catch(e){ if(e && e.name==='AbortError') return; }
+    }
+  }
+  const m = document.getElementById('cardPreviewModal');
+  const url = cv.toDataURL('image/png');
+  document.getElementById('cardPreviewImg').src = url;
+  const dl = document.getElementById('cardPreviewDl'); dl.href = url;
+  m.classList.add('show');
+  bumpEngage('share');
+}
+
+/* 結果頁段落快速跳轉 */
+(function(){
+  const nav = document.getElementById('resultNav');
+  if(!nav) return;
+  nav.addEventListener('click', e=>{
+    const b = e.target.closest('button[data-go]'); if(!b) return;
+    const t = document.getElementById(b.dataset.go);
+    if(!t || t.style.display==='none') return;
+    const y = t.getBoundingClientRect().top + window.scrollY - nav.getBoundingClientRect().height - 64;
+    window.scrollTo({top:y, behavior:'smooth'});
+  });
+  let ticking = false;
+  window.addEventListener('scroll', ()=>{
+    if(ticking || nav.classList.contains('hidden')) return; ticking = true;
+    requestAnimationFrame(()=>{
+      ticking = false;
+      const btns = [...nav.querySelectorAll('button[data-go]')];
+      let cur = null;
+      let best = -Infinity;
+      btns.forEach(b=>{ const t=document.getElementById(b.dataset.go); if(!t || t.style.display==='none') return; const top=t.getBoundingClientRect().top; if(top < 170 && top > best){ best = top; cur = b; } });
+      btns.forEach(b=> b.classList.toggle('on', b===cur));
+      if(cur){ const r=cur.getBoundingClientRect(), nr=nav.getBoundingClientRect(); if(r.left<nr.left||r.right>nr.right) nav.scrollTo({left: cur.offsetLeft-16, behavior:'smooth'}); }
+    });
+  }, {passive:true});
+})();
+function syncResultNav(){
+  const nav = document.getElementById('resultNav'); if(!nav) return;
+  nav.classList.remove('hidden');
+  nav.querySelectorAll('button[data-go]').forEach(b=>{
+    const t = document.getElementById(b.dataset.go);
+    b.style.display = (t && t.style.display!=='none') ? '' : 'none';
+  });
+}
+
+/* 排盤後的共用顯示流程：一般排盤、範例盤、名人命盤庫皆走這裡 */
+function showZiweiResult(o){
+  const y=o.y, m=o.m, d=o.d;
   CURRENT.selectedDaxianOff = null;
   CURRENT.selectedLiunianIdx = null;
   currentLiunianTarget = null;
   const lyMs = document.getElementById('lyMonthSection');
   if(lyMs){ lyMs.classList.add('hidden'); document.getElementById('lyResult').innerHTML=''; }
   renderSummary(CURRENT, y,m,d);
+  renderPersona(CURRENT, o);
   renderChart(CURRENT);
   renderOverview(CURRENT);
   renderDomainAnalysis(CURRENT);
@@ -3949,22 +4486,239 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
   document.getElementById('ziweiCopyOutput').classList.add('hidden');
   document.getElementById('ziweiCopyStatus').textContent = '';
   document.getElementById('lnYear').value = new Date().getFullYear();
-  document.getElementById('resultSec').scrollIntoView({behavior:'smooth'});
+  document.getElementById(o.scrollTo||'resultSec').scrollIntoView({behavior:'smooth'});
   document.getElementById('lnBtn').click();
 
   // 自動選取目前年齡對應的大限，跟流年一樣自動高亮，不用使用者自己點
-  const currentAge = new Date().getFullYear() - y + 1; // 虛歲概算
-  const matchedDx = CURRENT.palaces.find(p=> currentAge >= p.daxianStart && currentAge <= p.daxianEnd);
-  if(matchedDx) selectDaxian(CURRENT, matchedDx.off);
+  if(o.birthYear && o.autoDaxian!==false){
+    const currentAge = new Date().getFullYear() - o.birthYear + 1; // 虛歲概算
+    const matchedDx = CURRENT.palaces.find(p=> currentAge >= p.daxianStart && currentAge <= p.daxianEnd);
+    if(matchedDx) selectDaxian(CURRENT, matchedDx.off);
+  }
 
-  if(!window.__sampleMode) saveZiweiHistory(CURRENT, y, m, d);
+  if(o.save) saveZiweiHistory(CURRENT, y, m, d);
+  if(!o.isSample) bumpEngage(CURRENT.celebName ? 'celeb' : 'chart');
 
   // 排盤成功後自動收合輸入表單，改顯示精簡摘要
-  const hourText = document.getElementById('hourSel').selectedOptions[0].textContent;
-  document.getElementById('ziweiInputSummaryText').textContent =
-    `${y}年${m}月${d}日　${hourText}　${gender==='M'?'男':'女'}`;
+  document.getElementById('ziweiInputSummaryText').textContent = o.summaryText;
+  if(typeof renderCelebMatch==='function') renderCelebMatch();
+  syncResultNav();
   document.getElementById('ziweiInputBody').classList.add('hidden');
   document.getElementById('ziweiInputSummary').classList.remove('hidden');
+}
+const CELEB_DATA = [{"k":"i","n":"史蒂夫・賈伯斯","e":"Steve Jobs","c":"企業家","d":"1955-02-24","t":"19:15","pl":"San Francisco, CA, US","r":"AA","src":"birth certificate or birth record (Lois Rodden)","tz":"PST UTC-8","tst":"18:51","td":"1955-02-24","h":"酉","ch":"戌","b":9,"g":"M","alive":false,"L":[1955,"乙","未",2,3,0],"CL":[1955,"乙","未",2,3,0],"ms":"午(壬午) 廉貞、天相","bio":"Apple 共同創辦人","ev":[[1976,"創立 Apple"],[1985,"被逐出 Apple"],[1997,"重返 Apple"],[2007,"發表 iPhone"],[2011,"病逝"]]},{"k":"i","n":"唐納・川普","e":"Donald Trump","c":"政治","d":"1946-06-14","t":"10:54","pl":"Jamaica, Queens, NY, US","r":"AA","src":"birth certificate or birth record","tz":"EDT UTC-4","tst":"09:58","td":"1946-06-14","h":"巳","ch":"巳","b":58,"g":"M","alive":true,"L":[1946,"丙","戌",5,15,0],"CL":[1946,"丙","戌",5,15,0],"ms":"丑(辛丑) 太陽、太陰","bio":"美國第45、47任總統、地產商","ev":[[1971,"接掌家族地產事業"],[2016,"當選總統"],[2020,"連任失利"],[2024,"再度當選總統"]]},{"k":"i","n":"艾曼紐・馬克宏","e":"Emmanuel Macron","c":"政治","d":"1977-12-21","t":"10:40","pl":"Amiens, France","r":"AA","src":"birth certificate or birth record","tz":"CET UTC+1","tst":"09:50","td":"1977-12-21","h":"巳","ch":"巳","b":50,"g":"M","alive":true,"L":[1977,"丁","巳",11,11,0],"CL":[1977,"丁","巳",11,11,0],"ms":"未(丁未) 空宮借天同、巨門","bio":"法國總統","ev":[[2007,"與布莉姬結婚"],[2017,"39歲當選總統"],[2022,"連任"]]},{"k":"i","n":"愛因斯坦","e":"Albert Einstein","c":"科學","d":"1879-03-14","t":"11:30","pl":"Ulm, Germany","r":"AA","src":"birth certificate or birth record","tz":"地方平時(LMT)","tst":"11:20","td":"1879-03-14","h":"午","ch":"午","b":20,"g":"M","alive":false,"L":[1879,"己","卯",2,22,0],"CL":[1879,"己","卯",2,22,0],"ms":"酉(癸酉) 紫微、貪狼","bio":"物理學家，相對論","ev":[[1905,"奇蹟年，發表狹義相對論"],[1915,"廣義相對論"],[1921,"獲諾貝爾物理獎"],[1933,"流亡美國"],[1955,"逝世"]]},{"k":"i","n":"黛安娜王妃","e":"Diana, Princess of Wales","c":"皇室","d":"1961-07-01","t":"19:45","pl":"Sandringham, UK","r":"A","src":"From memory or autobiography","tz":"BST UTC+1","tst":"18:43","td":"1961-07-01","h":"酉","ch":"戌","b":17,"g":"F","alive":false,"L":[1961,"辛","丑",5,19,0],"CL":[1961,"辛","丑",5,19,0],"ms":"酉(丁酉) 太陽、天梁","bio":"英國王妃","ev":[[1981,"與查爾斯王子結婚"],[1992,"與王子分居"],[1996,"正式離婚"],[1997,"巴黎車禍身亡"]]},{"k":"i","n":"麥可・傑克森","e":"Michael Jackson","c":"藝人","d":"1958-08-29","t":"19:33","pl":"Gary, IN, US","r":"A","src":"From memory or autobiography","tz":"CDT UTC-5","tst":"18:43","td":"1958-08-29","h":"酉","ch":"戌","b":17,"g":"M","alive":false,"L":[1958,"戊","戌",7,15,0],"CL":[1958,"戊","戌",7,15,0],"ms":"亥(癸亥) 巨門","bio":"流行音樂之王","ev":[[1982,"專輯《Thriller》"],[1993,"首次被控性侵兒童"],[2005,"審判獲判無罪"],[2009,"猝逝"]]},{"k":"i","n":"瑪丹娜","e":"Madonna","c":"藝人","d":"1958-08-16","t":"07:05","pl":"Bay City, MI, US","r":"AA","src":"birth certificate or birth record","tz":"EST UTC-5","tst":"06:25","td":"1958-08-16","h":"卯","ch":"辰","b":35,"g":"F","alive":true,"L":[1958,"戊","戌",7,2,0],"CL":[1958,"戊","戌",7,2,0],"ms":"巳(丁巳) 天府","bio":"流行天后","ev":[[1984,"《Like a Virgin》爆紅"],[1985,"與西恩潘結婚"],[2000,"與蓋瑞奇結婚"]]},{"k":"i","n":"安潔莉娜・裘莉","e":"Angelina Jolie","c":"藝人","d":"1975-06-04","t":"09:09","pl":"Los Angeles, CA, US","r":"AA","src":"birth certificate or birth record","tz":"PDT UTC-7","tst":"08:17","td":"1975-06-04","h":"辰","ch":"巳","b":43,"g":"F","alive":true,"L":[1975,"乙","卯",4,25,0],"CL":[1975,"乙","卯",4,25,0],"ms":"丑(己丑) 紫微、破軍","bio":"好萊塢演員、聯合國親善大使","ev":[[2000,"獲奧斯卡最佳女配角"],[2013,"公開預防性乳房切除"],[2014,"與布萊德彼特結婚"],[2016,"訴請離婚"]]},{"k":"i","n":"布萊德・彼特","e":"Brad Pitt","c":"藝人","d":"1963-12-18","t":"06:31","pl":"Shawnee, OK, US","r":"A","src":"From memory or autobiography","tz":"CST UTC-6","tst":"06:05","td":"1963-12-18","h":"卯","ch":"卯","b":55,"g":"M","alive":true,"L":[1963,"癸","卯",11,3,0],"CL":[1963,"癸","卯",11,3,0],"ms":"酉(辛酉) 天同","bio":"好萊塢演員、製片","ev":[[2000,"與珍妮佛安妮斯頓結婚"],[2005,"離婚"],[2014,"與裘莉結婚"],[2016,"裘莉訴請離婚"],[2020,"獲奧斯卡最佳男配角"]]},{"k":"i","n":"瑪麗蓮・夢露","e":"Marilyn Monroe","c":"藝人","d":"1926-06-01","t":"09:30","pl":"Los Angeles, CA, US","r":"AA","src":"birth certificate or birth record","tz":"PST UTC-8","tst":"09:39","td":"1926-06-01","h":"巳","ch":"巳","b":39,"g":"F","alive":false,"L":[1926,"丙","寅",4,21,0],"CL":[1926,"丙","寅",4,21,0],"ms":"子(庚子) 七殺","bio":"好萊塢傳奇女星","ev":[[1953,"《紳士愛美人》走紅"],[1954,"與棒球明星狄馬喬結婚"],[1956,"與劇作家亞瑟米勒結婚"],[1962,"驟逝"]]},{"k":"i","n":"保羅・麥卡尼","e":"Paul McCartney","c":"藝人","d":"1942-06-18","t":"14:00","pl":"Liverpool, UK","r":"A","src":"From memory or autobiography","tz":"BDST UTC+2","tst":"11:47","td":"1942-06-18","h":"午","ch":"未","b":47,"g":"M","alive":true,"L":[1942,"壬","午",5,5,0],"CL":[1942,"壬","午",5,5,0],"ms":"子(壬子) 破軍","bio":"披頭四成員","ev":[[1962,"披頭四出道"],[1970,"披頭四解散"],[1997,"受封爵士"],[1998,"妻子琳達病逝"]]},{"k":"i","n":"阿道夫・希特勒","e":"Adolf Hitler","c":"政治","d":"1889-04-20","t":"18:30","pl":"Braunau, Austria","r":"AA","src":"birth certificate or birth record","tz":"地方平時(LMT)","tst":"18:30","td":"1889-04-20","h":"酉","ch":"酉","b":30,"g":"M","alive":false,"L":[1889,"己","丑",3,21,0],"CL":[1889,"己","丑",3,21,0],"ms":"未(辛未) 太陽、太陰","bio":"納粹德國元首","ev":[[1933,"出任德國總理"],[1939,"入侵波蘭，二戰爆發"],[1945,"自殺"]]},{"k":"i","n":"C羅","e":"Cristiano Ronaldo","c":"運動","d":"1985-02-05","t":"05:25","pl":"Funchal, Madeira, Portugal","r":"AA","src":"birth certificate or birth record","tz":"WET UTC+0","tst":"04:03","td":"1985-02-05","h":"寅","ch":"卯","b":57,"g":"M","alive":true,"L":[1984,"甲","子",12,16,0],"CL":[1984,"甲","子",12,16,0],"ms":"亥(乙亥) 太陰","bio":"足球員","ev":[[2003,"加盟曼聯"],[2008,"首座金球獎"],[2009,"轉會皇馬"],[2016,"率葡萄牙奪歐洲盃"]]},{"k":"i","n":"席琳・狄翁","e":"Celine Dion","c":"藝人","d":"1968-03-30","t":"12:15","pl":"Charlemagne, Quebec, Canada","r":"A","src":"From memory or autobiography","tz":"EST UTC-5","tst":"12:16","td":"1968-03-30","h":"午","ch":"午","b":44,"g":"F","alive":true,"L":[1968,"戊","申",3,2,0],"CL":[1968,"戊","申",3,2,0],"ms":"戌(壬戌) 武曲","bio":"歌手","ev":[[1994,"與經紀人René Angélil結婚"],[1997,"《My Heart Will Go On》"],[2016,"丈夫病逝"],[2022,"公開罹患罕見神經疾病"]]},{"k":"i","n":"妮可・基嫚","e":"Nicole Kidman","c":"藝人","d":"1967-06-20","t":"15:15","pl":"Honolulu, HI, US","r":"A","src":"From memory or autobiography","tz":"HST UTC-10","tst":"14:42","td":"1967-06-20","h":"未","ch":"申","b":18,"g":"F","alive":true,"L":[1967,"丁","未",5,13,0],"CL":[1967,"丁","未",5,13,0],"ms":"亥(辛亥) 太陽","bio":"演員","ev":[[1990,"與湯姆克魯斯結婚"],[2001,"離婚"],[2003,"獲奧斯卡最佳女主角"],[2006,"與凱斯厄本結婚"]]},{"k":"i","n":"茱莉亞・羅勃茲","e":"Julia Roberts","c":"藝人","d":"1967-10-28","t":"00:16","pl":"Atlanta, GA, US","r":"AA","src":"birth certificate or birth record","tz":"EDT UTC-4","tst":"22:54","td":"1967-10-27","h":"亥","ch":"子","b":6,"g":"F","alive":true,"L":[1967,"丁","未",9,24,0],"CL":[1967,"丁","未",9,25,0],"ms":"亥(辛亥) 廉貞、貪狼","bio":"演員","ev":[[1990,"《麻雀變鳳凰》爆紅"],[1993,"與萊爾洛維特結婚"],[2001,"獲奧斯卡最佳女主角"],[2002,"與丹尼摩德結婚"]]},{"k":"i","n":"強尼・戴普","e":"Johnny Depp","c":"藝人","d":"1963-06-09","t":"08:44","pl":"Owensboro, KY, US","r":"AA","src":"birth certificate or birth record","tz":"CDT UTC-5","tst":"07:56","td":"1963-06-09","h":"辰","ch":"辰","b":56,"g":"M","alive":true,"L":[1963,"癸","卯",4,18,1],"CL":[1963,"癸","卯",4,18,1],"ms":"丑(乙丑) 天梁","bio":"演員","ev":[[2003,"《神鬼奇航》"],[2015,"與安柏赫德結婚"],[2016,"妻子訴請離婚"],[2022,"美國誹謗官司勝訴"]]},{"k":"i","n":"巴拉克・歐巴馬","e":"Barack Obama","c":"政治","d":"1961-08-04","t":"19:24","pl":"Honolulu, HI, US","r":"AA","src":"birth certificate or birth record","tz":"HST UTC-10","tst":"18:46","td":"1961-08-04","h":"酉","ch":"戌","b":14,"g":"M","alive":true,"L":[1961,"辛","丑",6,23,0],"CL":[1961,"辛","丑",6,23,0],"ms":"戌(戊戌) 貪狼","bio":"美國第44任總統","ev":[[1992,"與蜜雪兒結婚"],[2004,"當選聯邦參議員"],[2008,"當選總統"],[2009,"獲諾貝爾和平獎"],[2012,"連任"]]},{"k":"i","n":"比爾・蓋茲","e":"Bill Gates","c":"企業家","d":"1955-10-28","t":"22:00","pl":"Seattle, WA, US","r":"A","src":"From memory or autobiography (Rodden)","tz":"PST UTC-8","tst":"22:07","td":"1955-10-28","h":"亥","ch":"亥","b":53,"g":"M","alive":true,"L":[1955,"乙","未",9,13,0],"CL":[1955,"乙","未",9,13,0],"ms":"亥(丁亥) 太陰","bio":"微軟共同創辦人","ev":[[1975,"創立微軟"],[1994,"與梅琳達結婚"],[2000,"卸任CEO、成立基金會"],[2021,"離婚"]]},{"k":"i","n":"李小龍","e":"Bruce Lee","c":"藝人","d":"1940-11-27","t":"07:12","pl":"San Francisco, CA, US","r":"AA","src":"birth certificate or birth record","tz":"PST UTC-8","tst":"07:13","td":"1940-11-27","h":"辰","ch":"辰","b":13,"g":"M","alive":false,"L":[1940,"庚","辰",10,28,0],"CL":[1940,"庚","辰",10,28,0],"ms":"未(癸未) 天相","bio":"武術家、功夫巨星","ev":[[1964,"與琳達結婚"],[1971,"《唐山大兄》"],[1972,"《精武門》"],[1973,"猝逝"]]},{"k":"i","n":"伊莉莎白二世","e":"Elizabeth II","c":"皇室","d":"1926-04-21","t":"02:40","pl":"Mayfair, London, UK","r":"AA","src":"birth certificate or birth record","tz":"BST UTC+1","tst":"01:40","td":"1926-04-21","h":"丑","ch":"丑","b":40,"g":"F","alive":false,"L":[1926,"丙","寅",3,10,0],"CL":[1926,"丙","寅",3,10,0],"ms":"卯(辛卯) 武曲、七殺","bio":"英國女王","ev":[[1947,"與菲利普親王結婚"],[1952,"即位"],[1992,"自稱「多災之年」"],[2022,"逝世"]]},{"k":"i","n":"溫斯頓・邱吉爾","e":"Winston Churchill","c":"政治","d":"1874-11-30","t":"01:30","pl":"Woodstock, UK","r":"A","src":"From memory or autobiography","tz":"地方平時(LMT)","tst":"01:40","td":"1874-11-30","h":"丑","ch":"丑","b":40,"g":"M","alive":false,"L":[1874,"甲","戌",10,22,0],"CL":[1874,"甲","戌",10,22,0],"ms":"戌(甲戌) 太陰","bio":"英國首相","ev":[[1908,"結婚"],[1940,"出任首相"],[1945,"大選落敗下台"],[1953,"獲諾貝爾文學獎"],[1965,"逝世"]]},{"k":"i","n":"貓王","e":"Elvis Presley","c":"藝人","d":"1935-01-08","t":"04:35","pl":"Tupelo, MS, US","r":"AA","src":"birth certificate or birth record","tz":"CST UTC-6","tst":"04:33","td":"1935-01-08","h":"寅","ch":"寅","b":27,"g":"M","alive":false,"L":[1934,"甲","戌",12,4,0],"CL":[1934,"甲","戌",12,4,0],"ms":"亥(乙亥) 天同","bio":"搖滾貓王","ev":[[1956,"〈Heartbreak Hotel〉爆紅"],[1958,"入伍、母親病逝"],[1967,"結婚"],[1977,"猝逝"]]},{"k":"i","n":"查爾斯三世","e":"Charles III","c":"皇室","d":"1948-11-14","t":"21:14","pl":"London, UK","r":"A","src":"News report","tz":"GMT UTC+0","tst":"21:28","td":"1948-11-14","h":"亥","ch":"亥","b":28,"g":"M","alive":true,"L":[1948,"戊","子",10,14,0],"CL":[1948,"戊","子",10,14,0],"ms":"子(甲子) 巨門","bio":"英國國王","ev":[[1981,"與黛安娜結婚"],[1996,"離婚"],[2005,"與卡蜜拉結婚"],[2022,"即位"]]},{"k":"i","n":"約翰・甘迺迪","e":"John F. Kennedy","c":"政治","d":"1917-05-29","t":"15:00","pl":"Brookline, MA, US","r":"A","src":"(Focus page rating A)","tz":"EST UTC-5","tst":"15:18","td":"1917-05-29","h":"申","ch":"申","b":18,"g":"M","alive":false,"L":[1917,"丁","巳",4,9,0],"CL":[1917,"丁","巳",4,9,0],"ms":"酉(己酉) 天同","bio":"美國第35任總統","ev":[[1953,"與賈桂琳結婚"],[1960,"當選總統"],[1962,"古巴飛彈危機"],[1963,"遇刺身亡"]]},{"k":"i","n":"畢卡索","e":"Pablo Picasso","c":"藝術","d":"1881-10-25","t":"23:15","pl":"Malaga, Spain","r":"AA","src":"birth certificate or birth record","tz":"地方平時(LMT)","tst":"23:31","td":"1881-10-25","h":"子","ch":"子","b":31,"g":"M","alive":false,"L":[1881,"辛","巳",9,4,0],"CL":[1881,"辛","巳",9,4,0],"ms":"戌(戊戌) 空宮借天機、天梁","bio":"畫家，立體派","ev":[[1907,"《亞維農的少女》"],[1918,"首次結婚"],[1937,"《格爾尼卡》"],[1973,"逝世"]]},{"k":"i","n":"莫札特","e":"Wolfgang Amadeus Mozart","c":"藝術","d":"1756-01-27","t":"20:00","pl":"Salzburg, Austria","r":"AA","src":"birth certificate or birth record","tz":"地方平時(LMT)","tst":"19:47","td":"1756-01-27","h":"戌","ch":"戌","b":47,"g":"M","alive":false,"L":[1755,"乙","亥",12,26,0],"CL":[1755,"乙","亥",12,26,0],"ms":"卯(己卯) 廉貞、破軍","bio":"作曲家","ev":[[1782,"結婚"],[1786,"《費加洛婚禮》"],[1787,"父親逝世"],[1791,"《魔笛》、病逝"]]},{"k":"i","n":"老虎伍茲","e":"Tiger Woods","c":"運動","d":"1975-12-30","t":"22:50","pl":"Long Beach, CA, US","r":"AA","src":"birth certificate or birth record","tz":"PST UTC-8","tst":"22:54","td":"1975-12-30","h":"亥","ch":"亥","b":6,"g":"M","alive":true,"L":[1975,"乙","卯",11,28,0],"CL":[1975,"乙","卯",11,28,0],"ms":"丑(己丑) 天梁","bio":"高爾夫球員","ev":[[1997,"首座名人賽冠軍"],[2004,"結婚"],[2009,"醜聞爆發"],[2010,"離婚"],[2019,"再奪名人賽"],[2021,"重大車禍"]]},{"k":"i","n":"李奧納多・狄卡皮歐","e":"Leonardo DiCaprio","c":"藝人","d":"1974-11-11","t":"02:47","pl":"Los Angeles, CA, US","r":"AA","src":"birth certificate or birth record","tz":"PST UTC-8","tst":"03:09","td":"1974-11-11","h":"寅","ch":"丑","b":9,"g":"M","alive":true,"L":[1974,"甲","寅",9,28,0],"CL":[1974,"甲","寅",9,28,0],"ms":"申(壬申) 紫微、天府","bio":"演員","ev":[[1997,"《鐵達尼號》"],[2016,"獲奧斯卡最佳男主角"]]},{"k":"i","n":"華特・迪士尼","e":"Walt Disney","c":"企業家","d":"1901-12-05","t":"00:35","pl":"Chicago, IL, US","r":"A","src":"From memory or autobiography","tz":"CST UTC-6","tst":"00:52","td":"1901-12-05","h":"子","ch":"子","b":8,"g":"M","alive":false,"L":[1901,"辛","丑",10,25,0],"CL":[1901,"辛","丑",10,25,0],"ms":"亥(己亥) 天機","bio":"迪士尼創辦人","ev":[[1923,"創立迪士尼兄弟工作室"],[1928,"米老鼠誕生"],[1937,"《白雪公主》"],[1955,"迪士尼樂園開幕"],[1966,"逝世"]]},{"k":"i","n":"柴契爾夫人","e":"Margaret Thatcher","c":"政治","d":"1925-10-13","t":"09:00","pl":"Grantham, UK","r":"A","src":"From memory or autobiography","tz":"GMT UTC+0","tst":"09:12","td":"1925-10-13","h":"巳","ch":"巳","b":12,"g":"F","alive":false,"L":[1925,"乙","丑",8,26,0],"CL":[1925,"乙","丑",8,26,0],"ms":"辰(庚辰) 破軍","bio":"英國首相，鐵娘子","ev":[[1951,"結婚"],[1979,"出任首相"],[1982,"福克蘭戰爭"],[1990,"辭職下台"],[2013,"逝世"]]},{"k":"i","n":"佛洛伊德","e":"Sigmund Freud","c":"科學","d":"1856-05-06","t":"18:30","pl":"Pribor, Czech Republic","r":"AA","src":"birth certificate or birth record","tz":"地方平時(LMT)","tst":"18:33","td":"1856-05-06","h":"酉","ch":"酉","b":27,"g":"M","alive":false,"L":[1856,"丙","辰",4,3,0],"CL":[1856,"丙","辰",4,3,0],"ms":"申(丙申) 太陽、巨門","bio":"精神分析學創始人","ev":[[1886,"結婚、開業"],[1900,"《夢的解析》"],[1938,"流亡倫敦"],[1939,"逝世"]]},{"k":"i","n":"梵谷","e":"Vincent van Gogh","c":"藝術","d":"1853-03-30","t":"11:00","pl":"Zundert, Netherlands","r":"AA","src":"birth certificate or birth record","tz":"地方平時(LMT)","tst":"10:55","td":"1853-03-30","h":"巳","ch":"午","b":5,"g":"M","alive":false,"L":[1853,"癸","丑",2,21,0],"CL":[1853,"癸","丑",2,21,0],"ms":"戌(壬戌) 天機、天梁","bio":"畫家","ev":[[1886,"移居巴黎"],[1888,"割耳事件"],[1889,"《星夜》"],[1890,"逝世"]]},{"k":"i","n":"華倫・巴菲特","e":"Warren Buffett","c":"企業家","d":"1930-08-30","t":"15:00","pl":"Omaha, NE, US","r":"A","src":"From memory or autobiography","tz":"CDT UTC-5","tst":"13:36","td":"1930-08-30","h":"未","ch":"申","b":36,"g":"M","alive":true,"L":[1930,"庚","午",7,7,0],"CL":[1930,"庚","午",7,7,0],"ms":"丑(己丑) 空宮借太陽、太陰","bio":"投資家","ev":[[1952,"結婚"],[1965,"取得波克夏控制權"],[2006,"宣布捐出大部分財產"]]},{"k":"i","n":"賀錦麗","e":"Kamala Harris","c":"政治","d":"1964-10-20","t":"21:28","pl":"Oakland, CA, US","r":"AA","src":"birth certificate or birth record","tz":"PDT UTC-7","tst":"20:34","td":"1964-10-20","h":"戌","ch":"亥","b":26,"g":"F","alive":true,"L":[1964,"甲","辰",9,15,0],"CL":[1964,"甲","辰",9,15,0],"ms":"子(丙子) 廉貞、天相","bio":"美國副總統","ev":[[2016,"當選聯邦參議員"],[2020,"當選副總統"],[2024,"代表民主黨競選總統落敗"]]},{"k":"i","n":"小羅斯福","e":"Franklin D. Roosevelt","c":"政治","d":"1882-01-30","t":"20:45","pl":"Hyde Park, NY, US","r":"AA","src":"birth certificate or birth record","tz":"地方平時(LMT)","tst":"20:31","td":"1882-01-30","h":"戌","ch":"戌","b":29,"g":"M","alive":false,"L":[1881,"辛","巳",12,11,0],"CL":[1881,"辛","巳",12,11,0],"ms":"卯(辛卯) 天機、巨門","bio":"美國第32任總統","ev":[[1905,"結婚"],[1921,"罹患小兒麻痺"],[1932,"當選總統"],[1941,"珍珠港事件"],[1945,"任內逝世"]]},{"k":"i","n":"歌德","e":"Johann Wolfgang von Goethe","c":"藝術","d":"1749-08-28","t":"12:30","pl":"Frankfurt am Main, Germany","r":"AA","src":"birth certificate or birth record","tz":"地方平時(LMT)","tst":"12:29","td":"1749-08-28","h":"午","ch":"午","b":31,"g":"M","alive":false,"L":[1749,"己","巳",7,16,0],"CL":[1749,"己","巳",7,16,0],"ms":"寅(丙寅) 武曲、天相","bio":"德國文豪","ev":[[1774,"《少年維特的煩惱》"],[1806,"結婚"],[1808,"《浮士德》第一部"],[1832,"逝世"]]},{"k":"i","n":"瑪麗・安東尼","e":"Marie Antoinette","c":"皇室","d":"1755-11-02","t":"19:30","pl":"Vienna, Austria","r":"A","src":"From memory or autobiography","tz":"地方平時(LMT)","tst":"19:46","td":"1755-11-02","h":"戌","ch":"戌","b":46,"g":"F","alive":false,"L":[1755,"乙","亥",9,28,0],"CL":[1755,"乙","亥",9,28,0],"ms":"子(戊子) 廉貞、天相","bio":"法國王后","ev":[[1770,"嫁入法國王室"],[1774,"成為王后"],[1789,"法國大革命"],[1793,"上斷頭台"]]},{"k":"i","n":"理查・尼克森","e":"Richard Nixon","c":"政治","d":"1913-01-09","t":"21:35","pl":"Yorba Linda, CA, US","r":"AA","src":"birth certificate or birth record","tz":"PST UTC-8","tst":"21:36","td":"1913-01-09","h":"亥","ch":"亥","b":36,"g":"M","alive":false,"L":[1912,"壬","子",12,3,0],"CL":[1912,"壬","子",12,3,0],"ms":"寅(壬寅) 空宮借天同、天梁","bio":"美國第37任總統","ev":[[1940,"結婚"],[1968,"當選總統"],[1972,"訪問中國"],[1974,"水門案辭職"]]},{"k":"i","n":"喬・拜登","e":"Joe Biden","c":"政治","d":"1942-11-20","t":"08:30","pl":"Scranton, PA, US","r":"A","src":"From memory or autobiography","tz":"EWT UTC-4","tst":"07:40","td":"1942-11-20","h":"辰","ch":"辰","b":40,"g":"M","alive":true,"L":[1942,"壬","午",10,13,0],"CL":[1942,"壬","午",10,13,0],"ms":"未(丁未) 紫微、破軍","bio":"美國第46任總統","ev":[[1972,"當選參議員，同年妻女車禍身亡"],[2008,"當選副總統"],[2015,"長子病逝"],[2020,"當選總統"]]},{"k":"i","n":"歐普拉","e":"Oprah Winfrey","c":"藝人","d":"1954-01-29","t":"04:30","pl":"Kosciusko, MS, US","r":"A","src":"From memory or autobiography","tz":"CST UTC-6","tst":"04:18","td":"1954-01-29","h":"寅","ch":"寅","b":42,"g":"F","alive":true,"L":[1953,"癸","巳",12,25,0],"CL":[1953,"癸","巳",12,25,0],"ms":"亥(癸亥) 空宮借廉貞、貪狼","bio":"脫口秀女王、媒體企業家","ev":[[1986,"《歐普拉秀》全國播出"],[2011,"節目完結、開播OWN電視台"]]},{"k":"i","n":"比爾・柯林頓","e":"Bill Clinton","c":"政治","d":"1946-08-19","t":"08:51","pl":"Hope, AR, US","r":"A","src":"From memory or autobiography","tz":"CDT UTC-5","tst":"07:33","td":"1946-08-19","h":"辰","ch":"辰","b":33,"g":"M","alive":true,"L":[1946,"丙","戌",7,23,0],"CL":[1946,"丙","戌",7,23,0],"ms":"辰(壬辰) 廉貞、天府","bio":"美國第42任總統","ev":[[1975,"與希拉蕊結婚"],[1992,"當選總統"],[1998,"陸文斯基案遭彈劾"]]},{"k":"i","n":"馬丁・路德・金恩","e":"Martin Luther King Jr.","c":"政治","d":"1929-01-15","t":"12:00","pl":"Atlanta, GA, US","r":"A","src":"From memory or autobiography","tz":"EST UTC-5","tst":"11:13","td":"1929-01-15","h":"午","ch":"午","b":13,"g":"M","alive":false,"L":[1928,"戊","辰",12,5,0],"CL":[1928,"戊","辰",12,5,0],"ms":"未(己未) 天相","bio":"民權運動領袖","ev":[[1953,"結婚"],[1963,"《我有一個夢》演說"],[1964,"獲諾貝爾和平獎"],[1968,"遇刺身亡"]]},{"k":"c","n":"孔仲尼","c":"古籍命例","g":"M","h":"子","L":[null,"庚","戌",11,1,0],"note":"化祿子午遷移位 夫子文章蓋世","death":"壬戌年七十三歲四月初二故","book":"命子・身子・火六局","ms":"子(戊子) 天梁"},{"k":"c","n":"子路","c":"古籍命例","g":"M","h":"寅","L":[null,"癸","丑",9,9,0],"note":"此為府相朝垣格 且紫微諸吉星拱合 所以為賢士 但命宮廉真將軍主勇猛 更對垣貪狼忌拱命 故主凶亡 果死於孔悝之難","death":"甲申年三十二歲三月初三故","book":"命申・身子・木三局","ms":"申(庚申) 廉貞"},{"k":"c","n":"顏亞聖","c":"古籍命例","g":"M","h":"卯","L":[null,"辛","酉",4,20,0],"note":"命逢魁鉞身權祿 昌曲限於天殤不能發達","death":"壬辰年三十二歲六月初四故","book":"命寅・身申・木三局","ms":"寅(庚寅) 天同、天梁"},{"k":"c","n":"孟軻","c":"古籍命例","g":"M","h":"子","L":[null,"庚","申",3,1,0],"note":"雙祿拱照昌曲重逢 戌有機梁文章冠世 文曲單坐身命主人口舌能辯","death":"甲寅年五十五歲七月初五故","book":"命辰・身辰・金四局","ms":"辰(庚辰) 空宮借天機、天梁"},{"k":"c","n":"端木賜","c":"古籍命例","g":"M","h":"丑","L":[null,"乙","卯",3,11,0],"note":"祿存坐命 官逢雙祿 為富貴之諭","death":"乙未年四十一歲十一月初八故","book":"命卯・身巳・土五局","ms":"卯(己卯) 天同"},{"k":"c","n":"子羔","c":"古籍命例","g":"M","h":"戌","L":[null,"壬","子",12,22,0],"note":"此為府相朝垣格 食祿千鍾 富貴雙全","death":"丙申年四十五歲三月初七故","book":"命卯・身亥・金四局","ms":"卯(癸卯) 空宮借紫微、貪狼"},{"k":"c","n":"冉求","c":"古籍命例","g":"M","h":"子","L":[null,"乙","卯",2,6,0],"note":"祿存守垣 紫微加會 終身福厚","death":"乙未年六十五歲四月初九故","book":"命卯・身卯・土五局","ms":"卯(己卯) 武曲、七殺"},{"k":"c","n":"子產","c":"古籍命例","g":"M","h":"戌","L":[null,"癸","丑",9,28,0],"note":"紫府朝垣 左輔文昌加會 一生富貴聲名顯揚","death":"丙辰年六十歲三月初五故","book":"命子・身申・金四局","ms":"子(甲子) 廉貞、天相"},{"k":"c","n":"蘇丞相","c":"古籍命例","g":"M","h":"寅","L":[null,"辛","未",2,21,0],"note":"權祿日月聚會丑未宮定是方伯公 左右加會 名譽聲揚 只嫌劫空沖守福不全美","death":"甲辰年三十四歲四月初五故","book":"命丑・身巳・土五局","ms":"丑(辛丑) 空宮借太陽、太陰"},{"k":"c","n":"晏平仲","c":"古籍命例","g":"M","h":"午","L":[null,"庚","申",9,24,0],"note":"此為丹墀貴格 秋月生者是真格 且太陽守命垣 日月爭耀 科權祿會合 為武雙全","death":"壬寅年四十三歲十一月初五故","book":"命辰・身辰・金四局","ms":"辰(庚辰) 太陽"},{"k":"c","n":"孫臏","c":"古籍命例","g":"M","h":"寅","L":[null,"甲","辰",9,5,0],"note":"此為紫府朝垣格 左右拱照科權祿三方會合 文昌武曲守命 兼資文武 終身富貴","death":"戊午年七十五歲五月十二日故","book":"命申・身子・金四局","ms":"申(壬申) 武曲、天相"},{"k":"c","n":"龐涓","c":"古籍命例","g":"M","h":"酉","L":[null,"甲","辰",9,16,0],"note":"紫府科權祿昌曲魁鉞坐守身命 左右夾垣為富貴之論 廉真七殺又為積富之人","death":"庚辰年三十七歲九月十三故","book":"命丑・身未・水二局","ms":"丑(丁丑) 廉貞、七殺"},{"k":"c","n":"明輔","c":"古籍命例","g":"M","h":"辰","L":[null,"己","酉",3,18,0],"note":"權祿生逢 左右昌曲加會 七殺手命垣壯年崢嶸 為戰國明輔","death":"己未年七十一歲九月十三故","book":"命子・身申・水二局","ms":"子(丙子) 七殺"},{"k":"c","n":"蕭何","c":"古籍命例","g":"M","h":"辰","L":[null,"己","酉",3,22,0],"note":"紫府朝垣格紫府左右權祿加會又兼昌曲六合 乃坐貴向貴富貴雙全入相之命","death":"戊申年六十歲十月初七故","book":"命子・身申・水二局","ms":"子(丙子) 紫微"},{"k":"c","n":"陳平","c":"古籍命例","g":"M","h":"辰","L":[null,"庚","戌",3,18,0],"note":"權祿科逢天府武曲守命垣 左右昌曲加會 勃然入相之命","death":"乙丑年七十二歲五月初三故","book":"命子・身申・火六局","ms":"子(戊子) 武曲、天府"},{"k":"c","n":"耿弇","c":"古籍命例","g":"M","h":"辰","L":[null,"癸","丑",3,4,0],"note":"破軍若在子午官資清顯至三公 又兼左右昌曲加會 文武雙全富貴之命","death":"戊午年六十六歲五月初午故","book":"命子・身申・金四局","ms":"子(甲子) 破軍"},{"k":"c","n":"蒯文通","c":"古籍命例","g":"M","h":"寅","L":[null,"辛","巳",4,27,0],"note":"雙祿朝垣又兼巨機對宮相會 最善談兵 日月左右未宮加會最為奇也","death":"乙巳年二十五歲二月初五故","book":"命卯・身未・木三局","ms":"卯(辛卯) 空宮借天機、巨門"},{"k":"c","n":"項羽","c":"古籍命例","g":"M","h":"卯","L":[null,"丁","卯",8,12,0],"note":"權祿加會當至極富貴 祿存守命垣被對宮忌星沖破為吉中藏凶","death":"己未年三十二歲十二月初六故","book":"命午・身子・水二局","ms":"午(丙午) 天機"},{"k":"c","n":"張子房","c":"古籍命例","g":"M","h":"辰","L":[null,"甲","午",5,6,0],"note":"此為雙祿朝垣 左右昌曲加會 又兼紫府同宮 作極富貴之命","death":"己酉年七十六歲三月初七故","book":"命寅・身戌・火六局","ms":"寅(丙寅) 紫微、天府"},{"k":"c","n":"韓信","c":"古籍命例","g":"M","h":"午","L":[null,"甲","戌",11,5,0],"note":"紫府拱照左右加會祿合科權 出將入相之命","death":"乙巳年三十二歲二月初四故","book":"命午・身午・土五局","ms":"午(庚午) 廉貞、天相"},{"k":"c","n":"趙高","c":"古籍命例","g":"M","h":"戌","L":[null,"癸","卯",1,21,0],"note":"此為祿合左右相會 一生爵祿甚豐盈 富貴雙全 命有紫破辰戌不忠 故有指鹿為馬之事","death":"甲午年五十二歲四月初八故","book":"命辰・身子・土五局","ms":"辰(丙辰) 破軍"},{"k":"c","n":"李斯","c":"古籍命例","g":"M","h":"戌","L":[null,"丙","申",10,11,0],"note":"左右同宮 日巳月酉並明 權祿加會 為富貴之命","death":"癸巳年五十八歲六月初三故","book":"命丑・身酉・土五局","ms":"丑(辛丑) 天梁"},{"k":"c","n":"曹參","c":"古籍命例","g":"M","h":"午","L":[null,"己","酉",11,25,0],"note":"紫微居午無殺湊 左右權祿子寅二宮加會 官資清顯至三公","death":"辛亥年六十三歲七月初九故","book":"命午・身午・土五局","ms":"午(庚午) 紫微"},{"k":"c","n":"酈生","c":"古籍命例","g":"M","h":"巳","L":[null,"癸","巳",9,4,0],"note":"科權夾貴之格本為美命 只嫌空劫夾垣 昌曲不宜與貪狼廉真同位 一生奔波勞碌","death":"戊辰年三十六歲正月十一故","book":"命巳・身卯・土五局","ms":"巳(丁巳) 廉貞、貪狼"},{"k":"c","n":"慶忌","c":"古籍命例","g":"M","h":"卯","L":[null,"丙","辰",8,3,0],"note":"馬頭帶劍非夭折即刑傷 早年限行吉地作事崢嶸 手能提飛鳥","death":"戊辰年二十三歲三月初五故","book":"命午・身子・金四局","ms":"午(甲午) 巨門"},{"k":"c","n":"百里奚","c":"古籍命例","g":"M","h":"辰","L":[null,"庚","戌",5,20,0],"note":"巨日同宮 祿合守照 左右昌曲加會 少年不順 因限步行羊玲地劫虛絕之地 三十五歲乃得遂志","death":"庚申年七十一歲五月初二故","book":"命寅・身戌・土五局","ms":"寅(戊寅) 太陽、巨門"},{"k":"c","n":"廉頗","c":"古籍命例","g":"M","h":"戌","L":[null,"己","丑",3,15,0],"note":"七殺朝斗富貴榮華 祿合拱會 文武才能","death":"辛丑年七十三歲七月初八故","book":"命午・身寅・土五局","ms":"午(庚午) 七殺"},{"k":"c","n":"蘭相如","c":"古籍命例","g":"M","h":"寅","L":[null,"戊","子",2,14,0],"note":"左右加會以為吉 科祿紫府最為良 且兼限行美地一生名利得安康","death":"丙申年六十九歲五月初二故","book":"命丑・身巳・金四局","ms":"丑(乙丑) 天相"},{"k":"c","n":"劉伶","c":"古籍命例","g":"M","h":"戌","L":[null,"甲","辰",10,4,0],"note":"雖有左右朝垣 坐貴向貴之局 生處帶空 猶如半天折翅 且身宮地劫並無正曜","death":"乙亥年三十二歲二月初七故","book":"命丑・身酉・水二局","ms":"丑(丁丑) 天府"},{"k":"c","n":"韓通","c":"古籍命例","g":"M","h":"寅","L":[null,"戊","午",3,15,0],"note":"七殺朝斗 富貴榮華 紫府朝垣 終身福厚 左右昌曲加會 尊居八位","death":"戊戌年四十一歲三月初八故","book":"命寅・身午・水二局","ms":"寅(甲寅) 七殺"},{"k":"c","n":"宋璟","c":"古籍命例","g":"M","h":"寅","L":[null,"戊","辰",2,1,0],"note":"府相左右科祿朝垣 祿合格局明白 貴人守命垣 因論富貴終身 只是劫空在命 故壽不長","death":"丁巳年五十歲十月初八故","book":"命丑・身巳・金四局","ms":"丑(乙丑) 空宮借武曲、貪狼"},{"k":"c","n":"賈誼","c":"古籍命例","g":"M","h":"卯","L":[null,"癸","卯",3,10,0],"note":"文星暗拱 年少登科 天機天鉞正曜以為吉兆","death":"庚午年二十八歲四月初八故","book":"命丑・身未・金四局","ms":"丑(乙丑) 天同、巨門"},{"k":"c","n":"馬周","c":"古籍命例","g":"M","h":"未","L":[null,"己","卯",9,18,0],"note":"巨機卯位至公卿 限步逆行以為美兆","death":"丁卯年四十九歲四月初九故","book":"命卯・身巳・火六局","ms":"卯(丁卯) 天機、巨門"},{"k":"c","n":"傅毅","c":"古籍命例","g":"M","h":"戌","L":[null,"甲","子",12,24,0],"note":"權祿加會擎羊逢力士 不得十分富貴亦終身福厚之論 命垣喜坐火位皆為吉兆","death":"甲戌年七十一歲四月初九故","book":"命卯・身亥・火六局","ms":"卯(丁卯) 天相"},{"k":"c","n":"魏豹","c":"古籍命例","g":"M","h":"巳","L":[null,"庚","申",7,25,0],"note":"科祿相逢遇太陽天梁同位最高強 運限順行俱為吉","death":"丙申年三十七歲九月初五故","book":"命卯・身丑・土五局","ms":"卯(己卯) 太陽、天梁"},{"k":"c","n":"劉都衛","c":"古籍命例","g":"M","h":"未","L":[null,"甲","午",9,3,0],"note":"貞破卯酉作公卿 權祿雖生逢落於陷地不能發達 不過公門充軒昂而已","death":"戊子年五十五歲十月十三故","book":"命卯・身巳・火六局","ms":"卯(丁卯) 廉貞、破軍"},{"k":"c","n":"姜恒","c":"古籍命例","g":"M","h":"戌","L":[null,"丙","子",10,5,0],"note":"雙祿加會無不富貴 左右同宮終身福厚 身命空劫壽年難長","death":"丙寅年五十一歲八月初五故","book":"命丑・身酉・土五局","ms":"丑(辛丑) 天機"},{"k":"c","n":"周勃","c":"古籍命例","g":"M","h":"寅","L":[null,"丁","巳",1,12,0],"note":"太陰天同居子守命丙丁人富貴忠良 權祿生逢出將入相之命","death":"乙丑年六十九歲十二月初五故","book":"命子・身辰・木三局","ms":"子(壬子) 天同、太陰"},{"k":"c","n":"樂毅","c":"古籍命例","g":"M","h":"戌","L":[null,"己","酉",10,8,0],"note":"貪武同行 左右同宮 權祿生逢俱吉 奈遇三方四正俱見羊陀劫空 進退聲名","death":"","book":"命丑・身酉・水二局","ms":"丑(丁丑) 武曲、貪狼"},{"k":"c","n":"趙奢","c":"古籍命例","g":"M","h":"辰","L":[null,"戊","午",4,3,0],"note":"科祿拱照富貴聲揚 左右拱朝終身福厚","death":"庚子年四十三歲二月初七故","book":"命丑・身酉・金四局","ms":"丑(乙丑) 紫微、破軍"},{"k":"c","n":"陸賈","c":"古籍命例","g":"M","h":"寅","L":[null,"丙","戌",2,7,0],"note":"命垣左右巨日拱照 只嫌劫空 祿主纏於弱地因此發不住財","death":"己巳年四十四歲五月初四故","book":"命丑・身巳・土五局","ms":"丑(辛丑) 空宮借天同、巨門"},{"k":"c","n":"楊孔目","c":"古籍命例","g":"M","h":"子","L":[null,"丙","申",1,8,0],"note":"機月同梁作吏人 命垣坐寅地科祿加會 若無羊刃火鈴合照乃主正路功名顯貴","death":"戊申年七十三歲七月初三故","book":"命寅・身寅・木三局","ms":"寅(庚寅) 天機、太陰"},{"k":"c","n":"郭恪","c":"古籍命例","g":"M","h":"寅","L":[null,"癸","丑",3,7,0],"note":"廉貞七殺寅申宮主人流蕩天涯 左右昌曲雖加會拱照 只嫌命垣貪狼化忌 因而商賈在外","death":"丙午年五十四歲五月初三故","book":"命寅・身午・水二局","ms":"寅(甲寅) 貪狼"},{"k":"c","n":"葉英","c":"古籍命例","g":"M","h":"子","L":[null,"丙","辰",3,22,0],"note":"紫相昌曲相逢加會本作美論 奈嫌昌曲不宜見廉貞化忌 秘云文昌文曲逢廉貞喪命夭壽之人","death":"丁丑年二十二歲五月初五故","book":"命辰・身辰・水二局","ms":"辰(壬辰) 廉貞、天府"},{"k":"c","n":"王欽若","c":"古籍命例","g":"M","h":"辰","L":[null,"辛","酉",7,5,0],"note":"科祿權拱文學聲揚 左輔右弼尊居八位 富貴雙全之命","death":"壬子年五十三歲正月十一故","book":"命辰・身子・水二局","ms":"辰(壬辰) 巨門"},{"k":"c","n":"楊國忠","c":"古籍命例","g":"M","h":"子","L":[null,"戊","戌",4,6,0],"note":"真正府相朝垣格 食祿千鍾 雖然作得祿合格局 又忌廉貪二星空劫沖破 不得富貴綿遠","death":"丙申年五十九歲二月初五故","book":"命巳・身巳・土五局","ms":"巳(丁巳) 空宮借廉貞、貪狼"},{"k":"c","n":"安慶禮","c":"古籍命例","g":"M","h":"戌","L":[null,"壬","申",2,13,0],"note":"科祿加會左右扶持 皆得遂意富貴全美","death":"壬戌年五十一歲四月初八故","book":"命巳・身丑・火六局","ms":"巳(乙巳) 天府"},{"k":"c","n":"嚴子陵","c":"古籍命例","g":"M","h":"辰","L":[null,"己","亥",9,28,0],"note":"太陽居午無殺湊 左右扶持福不輕 因有文昌同科祿 富貴雙全","death":"辛亥年七十三歲五月初八故","book":"命午・身寅・土五局","ms":"午(庚午) 太陽"},{"k":"c","n":"漢光武","c":"古籍命例","g":"M","h":"丑","L":[null,"丙","辰",6,1,0],"note":"馬頭帶劍衛鎮邊疆 權祿生逢財官雙美","death":"丁巳年六十一歲二月初十故","book":"命午・身申・金四局","ms":"午(甲午) 天同、太陰"},{"k":"c","n":"王莽","c":"古籍命例","g":"M","h":"子","L":[null,"甲","申",3,9,0],"note":"科權祿拱名譽聲揚 紫破辰戌為臣不忠 篡漢之位是也","death":"癸未年六十歲九月十二故","book":"命辰・身辰・木三局","ms":"辰(戊辰) 紫微、天相"},{"k":"c","n":"楊貴妃","c":"古籍命例","g":"F","h":"未","L":[null,"甲","子",1,7,0],"note":"坐貴向貴得貴人寵愛 文昌文曲加會女命不宜見之 經云楊妃好色三合文昌文曲","death":"癸卯年四十一歲九月初九故","book":"命未・身酉・土五局","ms":"未(辛未) 天同、巨門"},{"k":"c","n":"淫殀女","c":"古籍命例","g":"F","h":"子","L":[null,"辛","酉",9,10,0],"note":"太陰雖在廟鄉 但女命嫌文昌同度 況羊鈴忌星併集 雖三方吉拱何益 訣云文昌擎羊火鈴忌 若不為娼終夭折","death":"","book":"命戌・身戌・木三局","ms":"戌(戊戌) 太陰"},{"k":"c","n":"娼婦","c":"古籍命例","g":"F","h":"卯","L":[null,"癸","亥",4,26,0],"note":"七殺臨身終不美 天空地劫在無良 雖有紫府守命垣 而夫君子息二宮甚混雜且姚忌居於福德 其賤無疑矣","death":"","book":"命寅・身申・水二局","ms":"寅(甲寅) 紫微、天府"},{"k":"c","n":"張侍郎","c":"古籍命例","g":"M","h":"子","L":[null,"癸","巳",11,14,0],"note":"權會巨門威揚果作諫臣 太陰文昌於妻宮 蟾宮折桂 太陽文曲於官祿皇殿朝班 癸生人巨門為石中隱玉格 信此驗矣 只兄 弟落陷果是否不如人矣","death":"","book":"命子・身子・金四局","ms":"子(甲子) 巨門"},{"k":"c","n":"孔允夫","c":"古籍命例","g":"M","h":"辰","L":[null,"丁","巳",9,18,0],"note":"權祿夾命之格 左右加會 財官雙美 無不富貴","death":"戊申年三十二歲五月初五故","book":"命午・身寅・水二局","ms":"午(丙午) 武曲、天府"},{"k":"c","n":"郭子儀","c":"古籍命例","g":"M","h":"戌","L":[null,"丁","酉",3,22,0],"note":"權祿夾命之格 又兼昌曲加會 無不富貴之論","death":"辛酉年八十五歲三月初五故","book":"命午・身寅・水二局","ms":"午(丙午) 貪狼"},{"k":"c","n":"王珪","c":"古籍命例","g":"M","h":"寅","L":[null,"丁","巳",7,4,0],"note":"梁星午位官資清顯 命垣文曲位至公卿","death":"庚子年四十四歲三月初八故","book":"命午・身戌・水二局","ms":"午(丙午) 天梁"},{"k":"c","n":"李太白","c":"古籍命例","g":"M","h":"午","L":[null,"丙","辰",10,10,0],"note":"天鉞天魁世稱李白文華 權祿生逢 欣然入相 左右加會富貴終身 只奈劫空在命垣壽不長","death":"戊戌年四十三歲四月初七故","book":"命巳・身巳・水二局","ms":"巳(癸巳) 天機"},{"k":"c","n":"吳秉直","c":"古籍命例","g":"M","h":"辰","L":[null,"庚","辰",11,12,0],"note":"巨日拱照 日辰月戌並爭榮 祿科俱會左右拱照 終身富貴","death":"乙未年四十六歲七月初九故","book":"命申・身辰・水二局","ms":"申(甲申) 空宮借天同、天梁"},{"k":"c","n":"燕哲","c":"古籍命例","g":"M","h":"寅","L":[null,"甲","戌",9,26,0],"note":"權祿加會左右拱照 終身福厚之論","death":"乙亥年三十二歲七月十二故","book":"命申・身子・金四局","ms":"申(壬申) 貪狼"},{"k":"c","n":"顧孟錫","c":"古籍命例","g":"M","h":"辰","L":[null,"庚","申",11,20,0],"note":"巨日同宮 雙祿守垣 左右拱照為富貴矣","death":"壬子年五十三歲九月初三故","book":"命申・身辰・水二局","ms":"申(甲申) 太陽、巨門"},{"k":"c","n":"馬直節","c":"古籍命例","g":"M","h":"申","L":[null,"庚","午",3,28,0],"note":"巨日拱照 明祿暗祿 允為富貴","death":"丙辰年四十七歲正月初七故","book":"命申・身子・水二局","ms":"申(甲申) 空宮借天機、太陰"},{"k":"c","n":"鄢王","c":"古籍命例","g":"M","h":"辰","L":[null,"甲","申",7,21,0],"note":"貪武同行 左右對守 本為吉命 一生坐享富貴","death":"庚寅年六十七歲三月初十故","book":"命辰・身子・木三局","ms":"辰(戊辰) 武曲"},{"k":"c","n":"寧萃","c":"古籍命例","g":"M","h":"寅","L":[null,"庚","寅",9,1,0],"note":"機月同梁之格 一生名譽爭榮","death":"辛巳年五十二歲三月初七故","book":"命申・身子・水二局","ms":"申(甲申) 天同、天梁"},{"k":"c","n":"李嗣源","c":"古籍命例","g":"M","h":"寅","L":[null,"丁","亥",9,5,0],"note":"七殺朝斗 一生爵祿榮昌 紫府朝垣左右拱照 終身福厚","death":"癸巳年六十七歲十一月初七故","book":"命申・身子・土五局","ms":"申(戊申) 七殺"},{"k":"c","n":"白起","c":"古籍命例","g":"M","h":"辰","L":[null,"己","丑",10,30,0],"note":"","death":"癸巳年七十五歲正月十四故","book":"命未・身卯・土五局","ms":"未(辛未) 紫微、破軍"},{"k":"c","n":"馬援","c":"古籍命例","g":"M","h":"子","L":[null,"甲","辰",9,14,0],"note":"","death":"己酉年六十六歲正月初八故","book":"命戌・身戌・火六局","ms":"戌(甲戌) 貪狼"},{"k":"c","n":"趙普","c":"古籍命例","g":"M","h":"亥","L":[null,"癸","巳",5,14,0],"note":"","death":"己酉年七十八歲四月十一故","book":"命未・身巳・火六局","ms":"未(己未) 天機"},{"k":"c","n":"皇雨安","c":"古籍命例","g":"M","h":"戌","L":[null,"乙","未",4,24,0],"note":"","death":"己卯年四十五歲四月十一故","book":"命未・身卯・木三局","ms":"未(癸未) 天府"},{"k":"c","n":"白居易","c":"古籍命例","g":"M","h":"酉","L":[null,"乙","亥",3,27,0],"note":"","death":"丙寅年五十二歲二月初五故","book":"命未・身丑・木三局","ms":"未(癸未) 太陽、太陰"},{"k":"c","n":"司馬弼","c":"古籍命例","g":"M","h":"戌","L":[null,"壬","寅",4,20,0],"note":"","death":"丁卯年二十六歲二月十二故","book":"命未・身卯・水二局","ms":"未(丁未) 武曲、貪狼"},{"k":"c","n":"殷倫","c":"古籍命例","g":"M","h":"丑","L":[null,"丙","申",9,12,0],"note":"","death":"戊子年五十三歲三月十八故","book":"命酉・身亥・火六局","ms":"酉(丁酉) 空宮借紫微、貪狼"},{"k":"c","n":"項濟川","c":"古籍命例","g":"M","h":"丑","L":[null,"辛","卯",9,23,0],"note":"","death":"辛卯年六十一歲九月初七故","book":"命酉・身亥・火六局","ms":"酉(丁酉) 空宮借天機、巨門"},{"k":"c","n":"呂蒙正","c":"古籍命例","g":"M","h":"寅","L":[null,"壬","申",10,12,0],"note":"","death":"甲寅年四十三歲十一月初六故","book":"命酉・身丑・土五局","ms":"酉(己酉) 武曲、七殺"},{"k":"c","n":"張溫","c":"古籍命例","g":"M","h":"辰","L":[null,"癸","丑",7,4,0],"note":"","death":"癸未年三十一歲正月十一故","book":"命辰・身子・土五局","ms":"辰(丙辰) 太陰"},{"k":"c","n":"杭寬","c":"古籍命例","g":"M","h":"戌","L":[null,"乙","酉",6,3,0],"note":"","death":"乙亥年五十一歲六月十一故","book":"命酉・身巳・水二局","ms":"酉(乙酉) 天同"},{"k":"c","n":"石崇富豪","c":"古籍命例","g":"M","h":"寅","L":[null,"甲","午",5,3,0],"note":"","death":"丁丑年四十四歲十一月初五故","book":"命辰・身申・木三局","ms":"辰(戊辰) 貪狼"},{"k":"c","n":"范丹貧","c":"古籍命例","g":"M","h":"卯","L":[null,"甲","午",2,4,0],"note":"","death":"甲子年七十七歲七月初五故","book":"命子・身午・水二局","ms":"子(丙子) 太陽"},{"k":"c","n":"車明貧","c":"古籍命例","g":"M","h":"酉","L":[null,"戊","午",8,24,0],"note":"","death":"庚申年六十三歲五月初三故","book":"命子・身午・金四局","ms":"子(甲子) 巨門"},{"k":"c","n":"和尚","c":"古籍命例","g":"M","h":"丑","L":[null,"乙","酉",9,18,0],"note":"","death":"乙亥年五十一歲四月初十故","book":"命酉・身亥・水二局","ms":"酉(乙酉) 天機、巨門"},{"k":"c","n":"和尚","c":"古籍命例","g":"M","h":"午","L":[null,"己","巳",2,22,0],"note":"","death":"辛亥年四十三歲三月初三故","book":"命酉・身酉・金四局","ms":"酉(癸酉) 紫微、貪狼"},{"k":"c","n":"楊道人","c":"古籍命例","g":"M","h":"亥","L":[null,"壬","子",1,8,0],"note":"","death":"壬寅年五十一歲十一月初五故","book":"命卯・身丑・金四局","ms":"卯(癸卯) 紫微、貪狼"},{"k":"c","n":"古峰僧","c":"古籍命例","g":"M","h":"子","L":[null,"辛","亥",2,25,0],"note":"","death":"丙申年四十六歲四月初三故","book":"命卯・身卯・木三局","ms":"卯(辛卯) 空宮借太陽、天梁"},{"k":"c","n":"寶壇僧","c":"古籍命例","g":"M","h":"辰","L":[null,"壬","申",10,4,0],"note":"","death":"壬戌年五十一歲十月十一故","book":"命未・身卯・水二局","ms":"未(丁未) 廉貞、七殺"},{"k":"c","n":"嚴介溪","c":"古籍命例","g":"M","h":"酉","L":[null,"庚","子",1,22,0],"note":"","death":"癸亥年八十四歲五月初九故","book":"命巳・身亥・金四局","ms":"巳(辛巳) 武曲、破軍"},{"k":"c","n":"萬兩溪","c":"古籍命例","g":"M","h":"寅","L":[null,"乙","亥",8,21,0],"note":"","death":"庚寅年七十六歲八月初四故","book":"命未・身亥・木三局","ms":"未(癸未) 天機"},{"k":"c","n":"鄧鍊","c":"古籍命例","g":"M","h":"辰","L":[null,"壬","子",10,2,0],"note":"","death":"庚子年四十九歲正月初九故","book":"命未・身卯・水二局","ms":"未(丁未) 天梁"},{"k":"c","n":"譚二華","c":"古籍命例","g":"M","h":"午","L":[null,"庚","辰",7,21,0],"note":"","death":"甲申年六十五歲十月十五故","book":"命寅・身寅・土五局","ms":"寅(戊寅) 廉貞"},{"k":"c","n":"李宗師","c":"古籍命例","g":"M","h":"申","L":[null,"戊","辰",1,26,0],"note":"","death":"乙酉年七十八歲十月初二故","book":"命午・身戌・火六局","ms":"午(戊午) 武曲、天府"},{"k":"c","n":"斐應章","c":"古籍命例","g":"M","h":"亥","L":[null,"丁","酉",4,29,0],"note":"","death":"","book":"命午・身辰・水二局","ms":"午(丙午) 天梁"},{"k":"c","n":"狀元","c":"古籍命例","g":"M","h":"申","L":[null,"己","巳",8,23,0],"note":"","death":"","book":"命丑・身巳・水二局","ms":"丑(丁丑) 空宮借天同、巨門"},{"k":"c","n":"唐狀元","c":"古籍命例","g":"M","h":"辰","L":[null,"乙","酉",4,5,0],"note":"","death":"","book":"命丑・身酉・火六局","ms":"丑(己丑) 紫微、破軍"},{"k":"c","n":"常國公","c":"古籍命例","g":"M","h":"未","L":[null,"辛","卯",2,12,0],"note":"","death":"","book":"命申・身戌・火六局","ms":"申(丙申) 空宮借天機、太陰"},{"k":"c","n":"暨太監","c":"古籍命例","g":"M","h":"亥","L":[null,"丙","子",1,6,0],"note":"","death":"","book":"命卯・身丑・木三局","ms":"卯(辛卯) 紫微、貪狼"},{"k":"c","n":"督都","c":"古籍命例","g":"M","h":"寅","L":[null,"乙","亥",9,18,0],"note":"","death":"","book":"命申・身子・水二局","ms":"申(甲申) 貪狼"},{"k":"c","n":"胡總制","c":"古籍命例","g":"M","h":"寅","L":[null,"壬","申",9,27,0],"note":"","death":"","book":"命申・身子・土五局","ms":"申(戊申) 廉貞"},{"k":"c","n":"進士","c":"古籍命例","g":"M","h":"卯","L":[null,"丁","亥",1,21,0],"note":"","death":"","book":"命亥・身巳・金四局","ms":"亥(辛亥) 天同"},{"k":"c","n":"舉人","c":"古籍命例","g":"M","h":"戌","L":[null,"庚","寅",10,5,0],"note":"","death":"","book":"命丑・身酉・火六局","ms":"丑(己丑) 紫微、破軍"},{"k":"c","n":"進士","c":"古籍命例","g":"M","h":"亥","L":[null,"丙","申",12,10,0],"note":"","death":"","book":"命寅・身子・木三局","ms":"寅(庚寅) 天同、天梁"},{"k":"c","n":"納栗","c":"古籍命例","g":"M","h":"巳","L":[null,"甲","申",8,18,0],"note":"","death":"","book":"命辰・身寅・木三局","ms":"辰(戊辰) 太陽"},{"k":"c","n":"廩生","c":"古籍命例","g":"M","h":"子","L":[null,"甲","午",4,20,0],"note":"此命無正曜多庶母所生 得府相朝垣 廉祿拱沖 福德宮吉集 但壽終不得長 以劫空沖命文昌限於天傷故也","death":"","book":"命巳・身巳・木三局","ms":"巳(己巳) 空宮借廉貞、貪狼"},{"k":"c","n":"富商","c":"古籍命例","g":"M","h":"寅","L":[null,"壬","申",11,26,0],"note":"此科權迭身命 只嫌陀羅破局是以不貴 喜天府武曲居財帛 但破軍居遷移不免勞力耳","death":"","book":"命戌・身寅・金四局","ms":"戌(庚戌) 紫微、天相"},{"k":"c","n":"秀才","c":"古籍命例","g":"M","h":"寅","L":[null,"庚","申",9,10,0],"note":"此破軍守命 其星喜祿存而解其狂 主人文武雙全","death":"","book":"命申・身子・水二局","ms":"申(甲申) 破軍"},{"k":"c","n":"孤殀","c":"古籍命例","g":"M","h":"丑","L":[null,"丙","子",11,18,0],"note":"此命貪狼廉貞二星俱陷 又逢化忌 雖有天魁貴人坐長生亦無用也","death":"","book":"命亥・身丑・木三局","ms":"亥(己亥) 廉貞、貪狼"},{"k":"c","n":"呂太后","c":"古籍命例","g":"F","h":"寅","L":[null,"甲","寅",3,7,0],"note":"雙祿守垣兼之左右昌曲加會 經云呂后專權 兩重天祿天馬","death":"辛巳年六十八歲九月初一故","book":"命寅・身午・火六局","ms":"寅(丙寅) 廉貞"},{"k":"c","n":"貂蟬","c":"古籍命例","g":"F","h":"寅","L":[null,"壬","戌",8,23,0],"note":"雖有左右加會 巨門天同俱不得地 火鈴沖照亦主淫慾 殺臨三位配三夫而心不為足 天刑子息全無","death":"己丑年二十八歲八月初五故","book":"命未・身亥・水二局","ms":"未(丁未) 天同、巨門"},{"k":"c","n":"孔明","c":"古籍命例","g":"M","h":"戌","L":[null,"辛","酉",4,10,0],"note":"左右同宮 日卯月亥 為明珠兩照 一生富貴 多才多能","death":"甲寅年五十四歲八月二十五故","book":"命未・身卯・金四局","ms":"未(乙未) 空宮借天同、巨門"},{"k":"c","n":"林御史","c":"古籍命例","g":"M","h":"戌","L":[null,"甲","子",5,28,0],"note":"紫府同宮 科祿加會 兼昌曲俱拱為合格局 又云左輔文昌尊居八位","death":"甲寅年五十一歲三月初五故","book":"命申・身辰・金四局","ms":"申(壬申) 紫微、天府"},{"k":"c","n":"齊味道","c":"古籍命例","g":"M","h":"丑","L":[null,"丁","未",2,24,0],"note":"秘經云 科祿權拱來相會 左右扶持福不輕 昌曲加會富貴之論 命垣同梁得純陽中正之心","death":"己亥年五十三歲三月初七故","book":"命寅・身辰・金四局","ms":"寅(壬寅) 天同、天梁"},{"k":"c","n":"安祿山","c":"古籍命例","g":"M","h":"戌","L":[null,"己","未",7,7,0],"note":"紫府加會雙祿朝垣 左右拱照 無不富貴 只嫌紫破居於辰戌 寅方見忌 為臣不忠 批命 紫微守命坐寅方，天府同宮最妙，左右昌曲合加會兩相幫，七殺朝拱掌握威揚，寅午戌合星斗明朗，再詳命主某星循 良，壽元乘旺福壽無疆，台輔暗拱景星鳳凰，天門月照聲價琳瑯，斗牛普照四方身，星坐某福履康莊，五行無剋籃玉生 光，注人瑰瑋，邦家柱梁佳人，破軍重卜坤裳，四官坐貴，三杰傳芳，茲行某眾吉星之鄉，名登仕籍，日出扶桑，崢嶸 頭角，烏帽錦裳，雙南溢笥，九栗豐倉，維皇眷德，福壽陵崗，蟾從燭後，愈暢輝光，來春某月，左輔文昌化科得令， 政績著揚，某年某星，夜雨瀟湘，財丁損仰，骨肉參商，朔朔終吉，視履考詳，喬遷某限，彩鳳翱翔，出司郡","death":"丁酉年三十九歲正月十九故","book":"命戌・身午・火六局","ms":"戌(甲戌) 紫微、天相"}];
+/* ============ 名人命盤庫 ============ */
+const CL_CATS = ['全部','國際名人','古籍命例','政治','企業家','藝人','皇室','科學','藝術','運動'];
+const CL_STARS = ['紫微','天機','太陽','武曲','天同','廉貞','天府','太陰','貪狼','巨門','天相','天梁','七殺','破軍','空宮'];
+let clCat = '全部', clStar = '', clSortMine = false;
+/* ===== 命盤相似度比對 ===== */
+const __celebChartCache = {};
+function celebChart(i){
+  if(__celebChartCache[i]) return __celebChartCache[i];
+  const p = CELEB_DATA[i], L = p.L;
+  return (__celebChartCache[i] = calcChartLunar(GAN.indexOf(L[1]), ZHI.indexOf(L[2]), L[3], L[4], ZHI.indexOf(p.h), p.g||'M', !!L[5], L[0]));
+}
+function chartFeat(c){
+  const mp = c.palaces.find(p=>p.isMing);
+  const mains = mp.stars.filter(s=>s.type==='main').map(s=>s.name).sort();
+  let pats=[]; try{ pats = detectPatterns(c).map(p=>p.name); }catch(e){}
+  const shenP = c.palaces.find(p=>p.idx===c.shenIdx);
+  return { struct: ((c.ziweiIdx - c.mingIdx)%12+12)%12, ming:c.mingIdx, mains:mains.join('、'),
+    yearGan:c.yearGan, ju:c.ju, shen:shenP?shenP.name:'', pats };
+}
+function chartSimilarity(a, b){
+  const A = a.__feat || (a.__feat = chartFeat(a)), B = b.__feat || (b.__feat = chartFeat(b));
+  let score = 0; const why = [];
+  if(A.struct===B.struct){
+    score += 45; why.push({t:'十二宮主星配置相同', s:1});
+    if(A.ming===B.ming){ score += 10; why.push({t:`命宮同在${ZHI[A.ming]}`, s:1}); }
+  } else if(A.mains===B.mains){
+    score += 30; why.push({t:`命宮同為${A.mains||'空宮'}`, s:1});
+  } else if(A.mains && B.mains && A.mains.split('、').some(x=>B.mains.split('、').includes(x))){
+    const common = A.mains.split('、').filter(x=>B.mains.split('、').includes(x));
+    score += 12; why.push({t:`命宮同有${common.join('、')}`, s:0});
+  }
+  if(A.yearGan===B.yearGan){ score += 20; why.push({t:`生年四化相同（${GAN[A.yearGan]}干：${SIHUA[GAN[A.yearGan]].join('')}）`, s:1}); }
+  if(A.shen && A.shen===B.shen){ score += 8; why.push({t:`身宮同在${A.shen}`, s:0}); }
+  if(A.ju===B.ju){ score += 4; why.push({t:`同為${JU_NAME[A.ju]}`, s:0}); }
+  const cp = A.pats.filter(x=>B.pats.includes(x)).slice(0,3);
+  cp.forEach(x=>{ score += 5; why.push({t:`同有${x}`, s:0}); });
+  return {score: Math.min(score, 99), why};
+}
+function celebMatches(c, excludeIdx, limit){
+  return CELEB_DATA.map((p,i)=>({i, ...chartSimilarity(c, celebChart(i))}))
+    .filter(x=>x.i!==excludeIdx && x.score>0)
+    .sort((x,y)=> y.score-x.score || (CELEB_DATA[x.i].k==='i'?-1:1))
+    .slice(0, limit||6);
+}
+function renderCelebMatch(){
+  const sec = document.getElementById('celebMatchSec');
+  if(!sec || !CURRENT) return;
+  const self = (typeof CURRENT.celebIdx==='number') ? CURRENT.celebIdx : -1;
+  const list = celebMatches(CURRENT, self, 6);
+  document.getElementById('celebMatchTitle').textContent = CURRENT.celebName ? `與${CURRENT.celebName}命格相近的人物` : '與你命格相近的名人';
+  const el = document.getElementById('celebMatchList');
+  if(!list.length){ el.innerHTML = '<p style="font-size:13px;color:var(--paper-dim)">目前資料庫中沒有明顯相近的命盤。</p>'; }
+  else el.innerHTML = list.map(x=>{
+    const p = CELEB_DATA[x.i];
+    const sub = p.k==='i' ? `${p.bio}・${p.r}` : `《紫微斗數全書》古人命例`;
+    return `<div class="cm-item"><div class="cm-score">${x.score}<small>相似</small></div><div class="cm-body">
+      <div class="cm-name">${escapeHtml(p.n)}<span>${escapeHtml(sub)}</span></div>
+      <div class="cm-tags">${x.why.map(w=>`<span class="cm-tag${w.s?' strong':''}">${escapeHtml(w.t)}</span>`).join('')}</div>
+      <button class="cm-go" data-cm="${x.i}">看命盤 →</button></div></div>`;
+  }).join('');
+  el.querySelectorAll('[data-cm]').forEach(b=> b.addEventListener('click', ()=> loadCeleb(parseInt(b.dataset.cm), false)));
+  sec.style.display='block';
+}
+const CL_RATING = {AA:'AA 出生證明／官方紀錄', A:'A 本人或家屬口述'};
+function hideCelebNote(){ const el=document.getElementById('celebNote'); if(el){ el.classList.add('hidden'); el.innerHTML=''; } }
+function clMatch(p, q){
+  if(clCat==='國際名人' && p.k!=='i') return false;
+  if(clCat==='古籍命例' && p.k!=='c') return false;
+  if(!['全部','國際名人','古籍命例'].includes(clCat) && p.c!==clCat) return false;
+  if(clStar){
+    const mainPart = p.ms.split(' ').slice(1).join(' ');
+    if(clStar==='空宮'){ if(!mainPart.startsWith('空宮')) return false; }
+    else if(mainPart.startsWith('空宮') || !mainPart.includes(clStar)) return false;
+  }
+  if(!q) return true;
+  return [p.n,p.e||'',p.c,p.ms,p.note||'',p.bio||''].join(' ').toLowerCase().includes(q.toLowerCase());
+}
+function renderCelebList(){
+  const q = document.getElementById('clInput').value.trim();
+  let list = CELEB_DATA.map((p,i)=>({p,i})).filter(x=>clMatch(x.p,q));
+  const me = window.__myChart && window.__myChart.c;
+  if(me && clSortMine){ list.forEach(x=> x.sim = chartSimilarity(me, celebChart(x.i)).score); list.sort((a,b)=> b.sim-a.sim); }
+  const el = document.getElementById('clResults');
+  if(!list.length){ el.innerHTML='<p class="gs-hint">找不到符合的人物，換個關鍵字試試。</p>'; return; }
+  el.innerHTML = list.map(({p,i})=>{
+    const sub = p.k==='i'
+      ? `${escapeHtml(p.bio)}｜${p.d} ${p.t}　${p.pl}<br>真太陽時 ${p.tst}・${p.h}時｜命宮 ${p.ms}`
+      : `《紫微斗數全書》｜${p.L[1]}${p.L[2]}年 ${p.L[5]?'閏':''}${p.L[3]}月${p.L[4]}日 ${p.h}時｜命宮 ${p.ms}${p.note?'<br>'+escapeHtml(p.note):''}`;
+    return `<div class="gs-item"><div class="gs-item-text">
+      <div class="gs-item-title">${escapeHtml(p.n)}${p.e?` <span style="font-weight:400;font-size:12px;color:var(--paper-dim)">${escapeHtml(p.e)}</span>`:''}<span class="cl-badge">${p.k==='i'?p.r:'古籍'}</span>${(me&&clSortMine)?`<span class="cl-badge" style="border-color:var(--vermilion-deep);color:var(--vermilion-deep)">與我相似 ${chartSimilarity(me, celebChart(i)).score}</span>`:''}</div>
+      <div class="gs-item-snippet" style="-webkit-line-clamp:3">${sub}</div></div>
+      <button class="gs-item-go" data-cl="${i}">看命盤</button></div>`;
+  }).join('');
+  el.querySelectorAll('[data-cl]').forEach(b=> b.addEventListener('click', ()=>{ closeCelebLib(); loadCeleb(parseInt(b.dataset.cl), false); }));
+}
+function escapeHtml(t){ return String(t==null?'':t).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function openCelebLib(){
+  const chips = document.getElementById('clChips');
+  chips.innerHTML = CL_CATS.map(c=>`<button class="cl-chip${c===clCat?' on':''}" data-c="${c}">${c}</button>`).join('');
+  chips.querySelectorAll('.cl-chip').forEach(b=> b.addEventListener('click', ()=>{ clCat=b.dataset.c; openCelebLib(); }));
+  const sc = document.getElementById('clStarChips');
+  const mine = window.__myChart ? `<button class="cl-chip${clSortMine?' on':''}" data-mine="1">★ 和我最像</button>` : '';
+  sc.innerHTML = mine + '<span style="font-size:12px;color:var(--paper-dim);align-self:center">命宮主星：</span>' +
+    CL_STARS.map(x=>`<button class="cl-chip${x===clStar?' on':''}" data-s="${x}">${x}</button>`).join('');
+  sc.querySelectorAll('[data-s]').forEach(b=> b.addEventListener('click', ()=>{ clStar = (clStar===b.dataset.s?'':b.dataset.s); openCelebLib(); }));
+  const mb = sc.querySelector('[data-mine]'); if(mb) mb.addEventListener('click', ()=>{ clSortMine=!clSortMine; openCelebLib(); });
+  renderCelebList();
+  document.getElementById('celebModal').classList.add('show');
+}
+function closeCelebLib(){ document.getElementById('celebModal').classList.remove('show'); }
+function loadCeleb(i, useClock){
+  const p = CELEB_DATA[i];
+  const L = (p.k==='i' && useClock) ? p.CL : p.L;
+  const hz = (p.k==='i' && useClock) ? p.ch : p.h;
+  const g = p.g || 'M';
+  setGender(g);
+  document.getElementById('ziweiRoleInput').value = p.n;
+  CURRENT = calcChartLunar(GAN.indexOf(L[1]), ZHI.indexOf(L[2]), L[3], L[4], ZHI.indexOf(hz), g, !!L[5], L[0]);
+  CURRENT.celebName = p.n;
+  CURRENT.celebIdx = i;
+  const by = p.k==='i' ? parseInt(p.d) : null;
+  const sumText = p.k==='i'
+    ? `名人命盤｜${p.n}　${useClock?p.d+' '+p.t+'（鐘錶）':p.td+' '+p.tst+'（真太陽時）'}　${hz}時　${g==='M'?'男':'女'}`
+    : `古籍命例｜${p.n}　${L[1]}${L[2]}年${L[5]?'閏':''}${L[3]}月${L[4]}日　${hz}時　${g==='M'?'男':'女'}`;
+  showZiweiResult({birthYear:by, autoDaxian: p.k==='i' && p.alive, save:false, y:by, m:null, d:null, summaryText:sumText});
+  renderCelebNote(i, useClock);
+}
+function renderCelebNote(i, useClock){
+  const p = CELEB_DATA[i];
+  const el = document.getElementById('celebNote');
+  let h = `<div class="cn-title">${escapeHtml(p.n)}${p.e?'　'+escapeHtml(p.e):''}</div>`;
+  if(p.k==='i'){
+    h += `<div style="color:var(--ink);margin-bottom:4px">${escapeHtml(p.bio)}</div>`;
+    if(p.ev && p.ev.length){
+      h += `<div style="font-size:12.5px">人生大事 — 點年份直接看當年流年：</div><div class="cn-events">` +
+        p.ev.map(([yr,t])=>`<button class="cn-ev" data-yr="${yr}"><b>${yr}</b>${escapeHtml(t)}</button>`).join('') + `</div>`;
+    }
+    h += `出生紀錄：<b>${p.d} ${p.t}</b>　${escapeHtml(p.pl)}（${p.tz}）<br>`;
+    h += `可信度：<b>${CL_RATING[p.r]||p.r}</b>　來源：${escapeHtml(p.src)}<br>`;
+    h += `換算真太陽時：<b>${p.td} ${p.tst}</b> → <b>${p.h}時</b>`;
+    if(p.ch!==p.h) h += `　<span class="cn-warn">（若直接用鐘錶時間則為${p.ch}時，兩者命盤不同）</span>`;
+    if(p.b<=15) h += `<br><span class="cn-warn">⚠ 距時辰交界僅 ${p.b} 分鐘，記錄若有幾分鐘誤差就可能落在相鄰時辰，判讀請保留彈性。</span>`;
+    h += `<br>目前顯示：<b>${useClock?'鐘錶時間':'真太陽時'}</b>排盤`;
+    if(p.ch!==p.h) h += `<br><button class="secondary" id="clToggle">改用${useClock?'真太陽時':'鐘錶時間'}排盤比較</button>`;
+    if(!p.alive) h += `<br><span style="font-size:12px;color:var(--paper-dim)">已故人物：大限不自動選取目前年齡，可自行點選大限、輸入流年對照其生平大事。</span>`;
+  } else {
+    h += `出處：《紫微斗數全書》古人命例　書載：<b>${p.book}</b>（與本App排盤一致）<br>`;
+    if(p.note) h += `<div class="cn-quote">${escapeHtml(p.note)}</div>`;
+    if(p.death) h += `書載：${escapeHtml(p.death)}<br>`;
+    h += `<span style="font-size:12px;color:var(--paper-dim)">古籍命例只載年干支，無西元年份，流年可輸入任一同干支年份對照。</span>`;
+  }
+  h += `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px"><button class="secondary" id="clBack">← 換一位名人</button>${window.__myChart?`<button class="secondary" id="clMine">回到${escapeHtml(window.__myChart.role)}的命盤</button>`:''}</div>`;
+  el.innerHTML = h; el.classList.remove('hidden');
+  const t = document.getElementById('clToggle');
+  document.getElementById('clBack').addEventListener('click', openCelebLib);
+  const mineBtn = document.getElementById('clMine'); if(mineBtn) mineBtn.addEventListener('click', backToMyChart);
+  el.querySelectorAll('.cn-ev').forEach(b=> b.addEventListener('click', ()=>{
+    el.querySelectorAll('.cn-ev').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    document.getElementById('lnYear').value = b.dataset.yr;
+    document.getElementById('lnBtn').click();
+    const age = parseInt(b.dataset.yr) - parseInt(p.d) + 1;
+    const dx = CURRENT.palaces.find(q=> age>=q.daxianStart && age<=q.daxianEnd);
+    if(dx) selectDaxian(CURRENT, dx.off);
+    setTimeout(()=> document.getElementById('chartGrid').scrollIntoView({behavior:'smooth', block:'center'}), 60);
+  }));
+  if(t) t.addEventListener('click', ()=> loadCeleb(i, !useClock));
+}
+document.getElementById('celebLibBtn').addEventListener('click', openCelebLib);
+document.getElementById('helpRateBtn').addEventListener('click', ()=>{ const e=loadEngage(); e.done=1; saveEngage(e); window.open(PLAY_URL, '_blank'); });
+document.getElementById('helpShareAppBtn').addEventListener('click', async ()=>{
+  const data = {title:'三才：紫微斗數・八字・卜卦・風水', text:'推薦一個免費、無廣告的命理 App：紫微看格局、卦象看當下，還能整理給 AI 解讀。', url: PLAY_URL};
+  try{ if(navigator.share){ await navigator.share(data); return; } }catch(e){ if(e && e.name==='AbortError') return; }
+  try{ await navigator.clipboard.writeText(`${data.text}\n${data.url}`); appNotice('已複製推薦文字與下載連結，可以貼給朋友。'); }catch(e){ appNotice(`${data.text}\n${data.url}`); }
+});
+document.querySelectorAll('[data-ce]').forEach(b=> b.addEventListener('click', ()=>{
+  if(b.dataset.ce==='ziwei'){ activateTopTab('tianji'); activateTianjiSub('ziwei'); }
+  else { activateTopTab('renjian'); if(typeof activateRenjianSub==='function') activateRenjianSub('cast'); }
+}));
+document.getElementById('cardPreviewClose').addEventListener('click', ()=> document.getElementById('cardPreviewModal').classList.remove('show'));
+document.getElementById('cardPreviewModal').addEventListener('click', e=>{ if(e.target.id==='cardPreviewModal') e.currentTarget.classList.remove('show'); });
+document.getElementById('ziweiCelebBtn2').addEventListener('click', openCelebLib);
+function backToMyChart(){
+  const m = window.__myChart; if(!m) return;
+  CURRENT = m.c; delete CURRENT.celebName; delete CURRENT.celebIdx;
+  document.getElementById('ziweiRoleInput').value = m.role==='我'?'':m.role;
+  setGender(CURRENT.gender);
+  hideCelebNote();
+  showZiweiResult(m.opts);
+}
+document.getElementById('clCloseBtn').addEventListener('click', closeCelebLib);
+document.getElementById('celebModal').addEventListener('click', e=>{ if(e.target.id==='celebModal') closeCelebLib(); });
+document.getElementById('clInput').addEventListener('input', renderCelebList);
+/* 只知道幾點幾分：自動換算時辰（23:00 後為晚子時，日期往後推一天） */
+function clockToHourSel(hhmm){
+  if(!hhmm) return '';
+  const hh = parseInt(hhmm.split(':')[0]);
+  if(isNaN(hh)) return '';
+  if(hh === 23) return '0-1';
+  return `${Math.floor((hh+1)/2)}-0`;
+}
+document.getElementById('birthClock').addEventListener('change', e=>{
+  const v = clockToHourSel(e.target.value);
+  const hint = document.getElementById('birthClockHint');
+  if(!v){ hint.textContent=''; return; }
+  const sel = document.getElementById('hourSel');
+  sel.value = v;
+  const name = sel.selectedOptions[0].textContent.replace(/（.*$/,'');
+  hint.textContent = `→ ${name}`;
+});
+document.getElementById('hourSel').addEventListener('change', ()=>{
+  const c = document.getElementById('birthClock'); const h = document.getElementById('birthClockHint');
+  if(c && clockToHourSel(c.value) !== document.getElementById('hourSel').value){ c.value=''; h.textContent=''; }
 });
 document.getElementById('sampleChartBtn').addEventListener('click', ()=>{
   // 範例命盤：不寫入歷史紀錄，不覆蓋使用者快捷
@@ -4030,9 +4784,11 @@ document.getElementById('ziweiCrossBtn').addEventListener('click', ()=>{
 function renderSummary(c,y,m,d){
   const mingP = c.palaces.find(p=>p.isMing);
   const mainNames = mingP.stars.filter(s=>s.type==='main').map(s=>s.name);
-  const headlineStars = mainNames.length ? mainNames.join('・') : '空宮（借對宮星曜論）';
+  const oppP = c.palaces.find(p=>p.idx===(c.mingIdx+6)%12);
+  const oppNames = oppP ? oppP.stars.filter(s=>s.type==='main').map(s=>s.name) : [];
+  const headlineStars = mainNames.length ? mainNames.join('・') : `空宮<span style="display:block;font-size:14px;font-weight:400;color:var(--ink-soft);margin-top:4px;">借對宮${oppNames.length?'：'+oppNames.join('・'):''}論</span>`;
   document.getElementById('ziweiHeadline').innerHTML = `
-    <div class="hl-label">你的命宮</div>
+    <div class="hl-label">${c.celebName?escapeHtml(c.celebName)+'的命宮':(()=>{ const r=(document.getElementById('ziweiRoleInput').value||'').trim(); return (r && !['我','自己','我自己'].includes(r)) ? escapeHtml(r)+'的命宮' : '你的命宮'; })()}</div>
     <div class="hl-main">${ZHI[c.mingIdx]}宮　${headlineStars}</div>
     <div class="hl-sub">${JU_NAME[c.ju]}・${c.gender==='M'?'男':'女'}命・大限${c.isYangMale?'順行':'逆行'}</div>
   `;
@@ -4230,7 +4986,9 @@ function renderOverview(c){
     <p>生年四化：化祿在 <b>${c.huaList[0]}</b>（${findStarPalace(c,c.huaList[0])?findStarPalace(c,c.huaList[0]).name:'—'}）、化權在 <b>${c.huaList[1]}</b>（${findStarPalace(c,c.huaList[1])?findStarPalace(c,c.huaList[1]).name:'—'}）、化科在 <b>${c.huaList[2]}</b>（${findStarPalace(c,c.huaList[2])?findStarPalace(c,c.huaList[2]).name:'—'}）、化忌在 <b>${c.huaList[3]}</b>（${findStarPalace(c,c.huaList[3])?findStarPalace(c,c.huaList[3]).name:'—'}）。</p>
     ${patterns.length?`<div class="patterns">${patterns.map(p=>`<span>${p}</span>`).join('')}</div>`:''}
     ${selfHua.length? `
-    <div class="subsec" style="margin-top:18px;">
+    <details class="adv-inline">
+      <summary>進階：自化偵測（${selfHua.length} 組）</summary>
+    <div class="subsec" style="margin-top:8px;">
       <h4>自化偵測（離心自化：本宮干飛出；向心自化：對宮干飛入）</h4>
       <ul>
         ${selfHua.map(s=>{
@@ -4246,15 +5004,19 @@ function renderOverview(c){
         }).join('')}
       </ul>
       <p style="font-size:12.1px;color:var(--paper-dim);">自化為飛星紫微概念：離心自化（↓）為本宮宮干四化剛好落於本宮之內；向心自化（↑）為對宮宮干四化剛好落於本宮之內（即從對宮化入）。符號標記方式參考坊間常見紫微排盤軟體慣例。</p>
-    </div>` : `<p style="font-size:13.2px;color:var(--paper-dim);margin-top:10px;">本命盤未偵測到自化組合。</p>`}
+    </div>
+    </details>` : `<p style="font-size:13.2px;color:var(--paper-dim);margin-top:10px;">本命盤未偵測到自化組合。</p>`}
     ${detected.length? `
-    <div class="subsec" style="margin-top:18px;">
+    <details class="adv-inline" open>
+      <summary>格局：${detected.map(p=>p.name).join('、')}</summary>
+    <div class="subsec" style="margin-top:8px;">
       <h4>特殊格局偵測（依紫微斗數傳統格局命名整理）</h4>
       <ul>
         ${detected.map(p=>`<li><b style="color:var(--gold-bright)">${p.name}</b>　—　${p.note}</li>`).join('')}
       </ul>
       <p style="font-size:12.1px;color:var(--paper-dim);">部分格局傳統上要求星曜「入廟」或「旺」方能完全成立，本工具目前僅比對星曜位置組合，廟旺陷之精確判斷請自行對照原典核實，不宜單憑此處判讀就下定論。</p>
-    </div>` : `<p style="font-size:13.2px;color:var(--paper-dim);margin-top:10px;">本次排盤未偵測到工具目前收錄的特殊格局組合。</p>`}
+    </div>
+    </details>` : `<p style="font-size:13.2px;color:var(--paper-dim);margin-top:10px;">本次排盤未偵測到工具目前收錄的特殊格局組合。</p>`}
   `;
   document.getElementById('overviewText').innerHTML = overviewHtml;
 }
@@ -4605,7 +5367,7 @@ document.getElementById('lyBtn').addEventListener('click', ()=>{
     <div class="cell"><div class="k">流月干支</div><div class="v">${GAN[ly.monthGanIdx]}${ZHI[ly.monthZhiIdx]}月</div></div>
     <div class="cell"><div class="k">流月命宮</div><div class="v">${ly.monthPalace.name}（${ZHI[ly.monthPalace.idx]}）</div></div>
   </div>
-  <p style="font-size:11.8px;color:var(--paper-dim);margin:-6px 0 10px;">四化取干：${lyH.src}（${huaModeText()}，可在「使用說明」切換）</p>`;
+  <p style="font-size:11.8px;color:var(--paper-dim);margin:-6px 0 10px;">四化取干：${lyH.src}（${huaModeText()}，可在右上角「說明・設定」切換）</p>`;
 
   html += '<div style="border:1px solid var(--line);border-radius:5px;padding:4px 14px;">';
   huaList.forEach((star,i)=>{
@@ -4745,7 +5507,7 @@ document.getElementById('lnBtn').addEventListener('click', ()=>{
     <div class="cell"><div class="k">生肖</div><div class="v">${ANIMALS[zIdx]}</div></div>
     <div class="cell"><div class="k">流年命宮</div><div class="v">${lnMingPalace.name}(${ZHI[zIdx]})</div></div>
   </div>
-  <p style="font-size:11.8px;color:var(--paper-dim);margin:-6px 0 10px;">四化取干：${lnH.src}（${huaModeText()}，可在「使用說明」切換）</p>`;
+  <p style="font-size:11.8px;color:var(--paper-dim);margin:-6px 0 10px;">四化取干：${lnH.src}（${huaModeText()}，可在右上角「說明・設定」切換）</p>`;
 
   html += '<div style="border:1px solid var(--line);border-radius:5px;padding:4px 14px;">';
   huaList.forEach((star,i)=>{
@@ -5330,6 +6092,57 @@ function renderYongshen(analysis, topic){
   }
   el.innerHTML = html;
 }
+/* ============ 卦象傾向（依用神旺衰、動爻生剋、日辰沖合的傳統判讀，整理成白話結論） ============ */
+const ELEM_SEASON = {"木":"寅卯月（約國曆 2～4 月）","火":"巳午月（約國曆 5～7 月）","土":"辰戌丑未月（每季最後一個月）","金":"申酉月（約國曆 8～10 月）","水":"亥子月（約國曆 11 月～隔年 1 月）"};
+function castVerdict(a, movingArr){
+  if(!a || !a.useElem) return null;
+  const WS = {'旺':1.2,'相':1,'休':-0.3,'平':0,'囚':-0.7,'死':-1};
+  let score = 0; const why = [];
+  if(!a.yongLine && a.fuShen){ score -= 1; why.push({t:'代表這件事的爻沒有出現在卦面上（伏神）：事情還「藏著」，時機未到', s:-1}); }
+  const m = WS[a.wsMonth]||0, d = WS[a.wsDay]||0;
+  score += m + d;
+  why.push({t: m>0 ? `這個月的時令幫它（月建${a.wsMonth}）` : m<0 ? `這個月的時令壓它（月建${a.wsMonth}）` : `這個月的時令不幫也不壓（月建${a.wsMonth}）`, s:m});
+  why.push({t: d>0 ? `今天的日辰扶它（日辰${a.wsDay}）` : d<0 ? `今天的日辰剋洩它（日辰${a.wsDay}）` : `今天的日辰影響不大（日辰${a.wsDay}）`, s:d});
+  (a.movingEffects||[]).forEach(e=>{
+    const v = {'生':1.5,'比和':0.5,'剋':-1.5,'洩':-0.5,'耗':-0.3}[e.rel]||0;
+    score += v;
+    if(e.rel==='生') why.push({t:`有動爻（${e.relative}）在生它：有外力相助`, s:1});
+    else if(e.rel==='剋') why.push({t:`有動爻（${e.relative}）在剋它：有阻力或競爭`, s:-1});
+    else if(e.rel==='比和') why.push({t:`有動爻（${e.relative}）與它同氣：略有助力`, s:0.5});
+    else if(e.rel==='洩') why.push({t:`有動爻（${e.relative}）洩它的氣：要付出比預期多`, s:-0.5});
+  });
+  if(a.chongHe.includes('合絆')){ score -= 0.5; why.push({t:'被今天的日辰「合住」：暫時卡著，要等時機鬆開', s:-0.5}); }
+  else if(a.chongHe.includes('沖散')){ score -= 0.5; why.push({t:'發動又逢日辰沖：過程容易反覆', s:-0.5}); }
+  else if(a.chongHe.includes('暗動')){ why.push({t:'逢日辰沖而暗動：表面平靜，其實已在暗中變化', s:0}); }
+  if(a.yongLine && movingArr[a.yongLine.pos-1]) why.push({t:'這件事本身正在動：近期會有動靜', s:0});
+  let lv;
+  if(score >= 1.6) lv = {k:5, label:'偏順', desc:'整體條件對你有利，可以積極推進。'};
+  else if(score >= 0.3) lv = {k:4, label:'小順', desc:'有一定助力，按部就班可成，細節要顧好。'};
+  else if(score > -1.2) lv = {k:3, label:'持平', desc:'吉凶參半，關鍵在後續的變化與你的做法。'};
+  else if(score > -2.3) lv = {k:2, label:'小阻', desc:'目前阻力稍多，宜放慢腳步、補足準備，不急著定案。'};
+  else lv = {k:1, label:'阻力大', desc:'現在時機不利，建議先觀望，或調整方向再說。'};
+  const when = (lv.k<=3 && ELEM_SEASON[a.useElem]) ? `代表這件事的爻屬「${a.useElem}」，傳統上等到${ELEM_SEASON[a.useElem]}，「${a.useElem}」當令時比較容易有轉機。` : '';
+  return {score, lv, why, when};
+}
+function renderCastVerdict(v, origName, chgName){
+  const el = document.getElementById('castVerdict');
+  if(!el) return;
+  if(!v){ el.innerHTML=''; return; }
+  const q = questionText ? `「${escapeHtml(questionText)}」` : '你心中的問題';
+  const topic = document.getElementById('topicSelect').selectedOptions[0].textContent.replace(/（.*$/,'');
+  const meter = [1,2,3,4,5].map(i=>`<i class="${i<=v.lv.k?'on':''} lv${v.lv.k}"></i>`).join('');
+  el.innerHTML = `
+    <div class="vc-q">${q}<span>${topic}</span></div>
+    <div class="vc-hex">${origName}${chgName?` <em>→</em> ${chgName}`:''}</div>
+    <div class="vc-main lv${v.lv.k}"><b>${v.lv.label}</b><span class="vc-meter">${meter}</span></div>
+    <p class="vc-desc">${v.lv.desc}</p>
+    <ul class="vc-why">${v.why.slice(0,5).map(w=>`<li class="${w.s>0?'up':w.s<0?'down':''}">${w.t}</li>`).join('')}</ul>
+    ${v.when?`<p class="vc-when">${v.when}</p>`:''}
+    <div class="vc-actions"><button type="button" class="pc-btn primary" id="vcAiBtn">問 AI 深入解卦</button><button type="button" class="pc-btn" id="vcMoreBtn">看完整卦象分析</button></div>
+    <p class="vc-foot">依六爻「用神旺衰、動爻生剋、日辰沖合」的傳統判讀整理，僅供參考。</p>`;
+  document.getElementById('vcAiBtn').addEventListener('click', ()=> document.getElementById('aiSection').scrollIntoView({behavior:'smooth'}));
+  document.getElementById('vcMoreBtn').addEventListener('click', ()=> document.getElementById('yongshenBlock').scrollIntoView({behavior:'smooth', block:'center'}));
+}
 function wangShuaiExplain(wsM, wsD){
   const good = (wsM==='旺'||wsM==='相') && (wsD==='旺'||wsD==='相');
   const bad = (wsM==='囚'||wsM==='死') && (wsD==='囚'||wsD==='死');
@@ -5353,6 +6166,7 @@ const step3 = document.getElementById('step3');
 document.getElementById('beginBtn').addEventListener('click', ()=>{
   questionText = document.getElementById('questionInput').value.trim();
   topicText = document.getElementById('topicSelect').value;
+  const atb = document.getElementById('autoTossBtn'); if(atb) atb.style.visibility = '';
   document.getElementById('questionEcho').textContent = questionText ? '「' + questionText + '」' : '靜觀其變，隨緣映照';
   step1.classList.add('hidden');
   const ritual = document.getElementById('ritualTransition');
@@ -5424,8 +6238,20 @@ document.getElementById('tossBtn').addEventListener('click', ()=>{
     } else {
       btn.textContent = '顯示卦象';
       btn.onclick = showResult;
+      const at = document.getElementById('autoTossBtn'); if(at) at.style.visibility = 'hidden';
     }
   }, 950);
+});
+
+document.getElementById('autoTossBtn').addEventListener('click', ()=>{
+  const btn = document.getElementById('tossBtn');
+  const auto = document.getElementById('autoTossBtn');
+  auto.style.visibility = 'hidden';
+  (function next(){
+    if(currentLineIdx >= 6) return;
+    if(!btn.disabled) btn.click();
+    setTimeout(next, 1100);
+  })();
 });
 
 function buildHexKey(lineVals){
@@ -5504,6 +6330,8 @@ function showResult(){
   const yueJianZhi = getYueJianZhi(castTime);
   const analysis = analyzeYongshen(deploy, movingArr, topicText, dayGZ, yueJianZhi);
   renderYongshen(analysis, topicText);
+  const verdict = castVerdict(analysis, movingArr);
+  renderCastVerdict(verdict, document.getElementById('hexName').textContent, hasMoving ? document.getElementById('hexName2').textContent : '');
 
   // 卦德本義
   document.getElementById('readingStructure').textContent =
@@ -5542,7 +6370,8 @@ function showResult(){
     changedHexName: hasMoving ? document.getElementById('hexName2').textContent : null,
     movingPositions: movingArr.map((m,i)=> m ? LINE_ORDINAL[i]+'爻' : null).filter(x=>x),
     deploy, analysis, dayGZ, yueJianZhi,
-    liushen: Array.from({length:6}, (_,i)=> LIUSHEN_NAMES[(startIdx+i)%6])
+    liushen: Array.from({length:6}, (_,i)=> LIUSHEN_NAMES[(startIdx+i)%6]),
+    verdict: verdict ? {label: verdict.lv.label, desc: verdict.lv.desc} : null
   };
   saveHistoryRecord({
     type:'銅錢問卦', role: document.getElementById('castRoleInput').value.trim(), timeText: lastCastData.castTimeText,
@@ -5555,6 +6384,7 @@ function showResult(){
   document.getElementById('copyStatus').textContent = '';
 
   step3.scrollIntoView({behavior:'smooth'});
+  bumpEngage('cast');
 }
 
 document.getElementById('againBtn').addEventListener('click', ()=>{
@@ -5668,19 +6498,11 @@ function renderHistory(){
   selectedHistoryIdx.clear();
   updateCombineUI();
   renderRoleDeleteControl(list);
+  const ce = document.getElementById('combineEmpty');
+  if(ce) ce.classList.toggle('hidden', list.length > 0);
+  ['histCard','combineCard'].forEach(id=>{ const c=document.getElementById(id); if(c) c.style.display = list.length ? '' : 'none'; });
   if(!list.length){
-    el.innerHTML = `
-      <div class="hist-empty-guide">
-        <p style="font-weight:700;color:var(--gold-bright);margin-bottom:10px;">還沒有任何可整合的資料</p>
-        <p style="margin-bottom:8px;">想用「天人合一」交叉分析，要先去以下任一個地方，把結果加進來：</p>
-        <ul style="padding-left:20px;line-height:2;">
-          <li><b>紫微斗數</b>：排完盤後，在「複製命盤給AI」或查完大限／流年，按下「➕ 加入跨系統整合分析」</li>
-          <li><b>八字</b>：排完盤後，按下「➕ 加入跨系統整合分析」</li>
-          <li><b>卜卦</b>：用銅錢起卦問完之後，結果會自動出現在這裡，不用另外按什麼</li>
-        </ul>
-        <p style="margin-top:8px;">加過之後，回到這裡勾選2項以上，就能生成整合分析腳本了。</p>
-      </div>
-    `;
+    el.innerHTML = '';
     return;
   }
   el.innerHTML = list.map((r,i)=>{
@@ -5718,7 +6540,7 @@ function renderHistory(){
       `;
     }
     const canCombine = (r.type === '銅錢問卦' || r.type === '紫微流年' || r.type === '紫微大限' || r.type === '紫微命盤' || r.type === '紫微流月' || r.type === '八字' || r.type === '消法比對') && r.full;
-    const roleBadge = r.role ? `<span class="hist-role">${r.role}</span>` : '';
+    const roleBadge = r.role ? `<span class="hist-role">${escapeHtml(r.role)}</span>` : '';
     return `
       <div class="hist-item">
         ${canCombine ? `<label style="position:absolute;top:12px;left:14px;display:flex;align-items:center;gap:4px;font-size:12.1px;color:var(--brass);cursor:pointer;">
@@ -6269,7 +7091,16 @@ document.getElementById('allSearch').addEventListener('input', e=> renderAll(e.t
     }, 850);
   }
   splash.addEventListener('click', dismiss);
-  setTimeout(dismiss, 8400); // 動畫跑完自動淡出
+  // 開場動畫只在第一次開啟時完整播放；之後開啟直接進入（App 本身已有啟動畫面）
+  let launched = false;
+  try{ launched = localStorage.getItem('sancai_launched_v1') === '1'; localStorage.setItem('sancai_launched_v1','1'); }catch(e){}
+  if(launched){
+    dismissed = true;
+    splash.classList.add('hidden-done');
+    showDisclaimerIfNeeded();
+    return;
+  }
+  setTimeout(dismiss, 6200); // 動畫跑完自動淡出
 })();
 
 /* ===================== 首次啟動導覽（免責聲明 + 功能導覽，同一彈窗兩步驟） ===================== */
@@ -6318,6 +7149,21 @@ function showDisclaimerIfNeeded(){
     try{ localStorage.setItem(ONBOARD_KEY, '1'); }catch(e){}
     modal.classList.remove('show');
   });
+  document.querySelectorAll('.ob-choice').forEach(b=> b.addEventListener('click', ()=>{
+    const k = b.dataset.ob;
+    if(k==='ziwei'){
+      goToOnboardSection('tianji','ziwei');
+      setTimeout(()=>{ const y=document.getElementById('solarYear'); if(y){ y.scrollIntoView({behavior:'smooth', block:'center'}); y.focus({preventScroll:true}); } }, 350);
+    } else if(k==='cast'){
+      goToOnboardSection('renjian');
+      setTimeout(()=>{ const q=document.getElementById('questionInput'); if(q) q.scrollIntoView({behavior:'smooth', block:'center'}); }, 350);
+    } else if(k==='celeb'){
+      goToOnboardSection('tianji','ziwei');
+      setTimeout(()=>{ if(typeof openCelebLib==='function') openCelebLib(); }, 350);
+    } else {
+      goToOnboardSection('tianji','ziwei');
+    }
+  }));
 })();
 
 /* ===================== AI提詞模式（客觀分析／延續一般對話） ===================== */
@@ -6539,13 +7385,13 @@ async function callAI(promptText, provider){
   const s = loadApiSettings();
   const useProvider = provider || s.defaultProvider || 'claude';
   if(useProvider === 'claude'){
-    if(!s.claudeKey) throw new Error('尚未設定 Claude API Key，請先到「✦ 使用說明」裡的「⚙ API 設定」輸入。');
+    if(!s.claudeKey) throw new Error('尚未設定 Claude API Key，請先到右上角「說明・設定」裡的「API 設定」輸入。');
     return { provider:'claude', model:CLAUDE_MODEL, text: await callClaudeAPI(promptText, s.claudeKey) };
   } else if(useProvider === 'gemini'){
-    if(!s.geminiKey) throw new Error('尚未設定 Gemini API Key，請先到「✦ 使用說明」裡的「⚙ API 設定」輸入。');
+    if(!s.geminiKey) throw new Error('尚未設定 Gemini API Key，請先到右上角「說明・設定」裡的「API 設定」輸入。');
     return { provider:'gemini', model:GEMINI_MODEL, text: await callGeminiAPI(promptText, s.geminiKey) };
   } else {
-    if(!s.chatgptKey) throw new Error('尚未設定 ChatGPT API Key，請先到「✦ 使用說明」裡的「⚙ API 設定」輸入。');
+    if(!s.chatgptKey) throw new Error('尚未設定 ChatGPT API Key，請先到右上角「說明・設定」裡的「API 設定」輸入。');
     return { provider:'chatgpt', model:CHATGPT_MODEL, text: await callChatGPTAPI(promptText, s.chatgptKey) };
   }
 }
@@ -6572,7 +7418,7 @@ function renderAiResults(){
       <button class="hist-del" data-idx="${i}" title="刪除">✕</button>
       <div class="hist-time">
         <span class="hist-type" style="background:var(--blue,#3a5a8c);">${r.provider==='claude'?'Claude':(r.provider==='gemini'?'Gemini':'ChatGPT')}</span>
-        ${r.role? `<span class="hist-role">${r.role}</span>` : ''}
+        ${r.role? `<span class="hist-role">${escapeHtml(r.role)}</span>` : ''}
         ${r.timeText}
       </div>
       <div class="hist-q">${r.sourceLabel || ''}</div>
@@ -6758,7 +7604,7 @@ Object.keys(dimaiSubs).forEach(key=>{
 function openGlobalSearch(){
   document.getElementById('globalSearchModal').classList.add('show');
   document.getElementById('gsInput').value = '';
-  document.getElementById('gsResults').innerHTML = '<p class="gs-hint">輸入關鍵字，一次搜尋書本內容查詢、命卦查詢、六十四卦房位參考、堪輿詞彙、六神臨六親詳解，共五個資料庫。</p>';
+  document.getElementById('gsResults').innerHTML = '<p class="gs-hint">輸入關鍵字，一次搜尋書本內容查詢、命卦查詢、六十四卦房位參考、堪輿詞彙、六神臨六親詳解，共六個資料庫（含名人命盤庫）。</p>';
   setTimeout(()=> document.getElementById('gsInput').focus(), 150);
 }
 function closeGlobalSearch(){
@@ -6790,7 +7636,7 @@ function doGlobalSearch(query){
   const q = query.trim();
   gsGoHandlers = [];
   if(!q){
-    resultsEl.innerHTML = '<p class="gs-hint">輸入關鍵字，一次搜尋書本內容查詢、命卦查詢、六十四卦房位參考、堪輿詞彙、六神臨六親詳解，共五個資料庫。</p>';
+    resultsEl.innerHTML = '<p class="gs-hint">輸入關鍵字，一次搜尋書本內容查詢、命卦查詢、六十四卦房位參考、堪輿詞彙、六神臨六親詳解，共六個資料庫（含名人命盤庫）。</p>';
     return;
   }
 
@@ -6837,6 +7683,13 @@ function doGlobalSearch(query){
     go: ()=>{ closeGlobalSearch(); activateTopTab('dimai'); activateDimaiSub('theory'); setTimeout(()=>{
       const ts=document.getElementById('termSearch'); if(ts){ ts.value=t.name; renderTerms(t.name); }
     }, 80); }
+  })));
+
+  // 6. 名人命盤庫
+  const celebRows = CELEB_DATA.map((p,i)=>({p,i})).filter(({p})=> [p.n,p.e||'',p.bio||'',p.ms].join(' ').toLowerCase().includes(q.toLowerCase())).slice(0,8);
+  html += gsRenderGroup('名人命盤庫・紫微斗數', celebRows.map(({p,i})=>({
+    title:p.n, snippet: (p.k==='i'? p.bio+'｜' : '古籍命例｜') + '命宮 ' + p.ms,
+    go: ()=>{ closeGlobalSearch(); activateTopTab('tianji'); activateTianjiSub('ziwei'); setTimeout(()=> loadCeleb(i,false), 80); }
   })));
 
   resultsEl.innerHTML = html || '<p class="gs-hint">查無相符結果，換個關鍵字試試看。</p>';
@@ -7419,7 +8272,7 @@ function renderBaziPresetButtons(){
   if(!wrap) return;
   const list = loadPresets();
   wrap.innerHTML = list.map((p,i)=>`
-    <button data-idx="${i}" class="preset-load">${p.label}</button
+    <button data-idx="${i}" class="preset-load">${escapeHtml(p.label)}</button
     ><button data-idx="${i}" class="preset-del" title="刪除" style="padding:7px 9px;color:var(--red-bright);">✕</button>
   `).join('');
   wrap.querySelectorAll('.preset-load').forEach(b=>{
@@ -7450,9 +8303,12 @@ function renderBaziPresetButtons(){
 document.getElementById('baziSavePresetBtn').addEventListener('click', ()=>{
   const dateVal = document.getElementById('baziDate').value;
   if(!dateVal){ appNotice('請先選擇日期'); return; }
-  const roleVal = document.getElementById('baziRoleInput').value.trim();
-  const label = roleVal || prompt('幫這筆快捷取個名字（例如：我自己、老婆、女兒）：');
-  if(!label) return;
+  const roleInputEl = document.getElementById('baziRoleInput');
+  const label = roleInputEl.value.trim();
+  if(!label){
+    appNotice('請先在上方「這是誰的命盤？」欄位填個名稱（例如：我、老婆、女兒），再按儲存快捷。').then(()=> roleInputEl.focus());
+    return;
+  }
   const hourVal = parseInt(document.getElementById('baziHourSel').value);
   const list = loadPresets();
   list.push({
@@ -7557,6 +8413,47 @@ if('serviceWorker' in navigator){
     navigator.serviceWorker.register('sw.js').catch(()=>{});
   });
 }
+</script>
+
+<script>
+/* ============ Android 返回鍵：先關彈窗、再回首頁籤，最後才離開 App ============ */
+(function(){
+  const LAYERS = [
+    {id:'appConfirmModal', open:el=>el.classList.contains('show'), close:'appConfirmCancelBtn'},
+    {id:'appNoticeModal', open:el=>el.classList.contains('show'), close:'appNoticeOkBtn'},
+    {id:'apiSettingsModal', open:el=>!el.classList.contains('hidden'), close:'apiSettingsCloseBtn'},
+    {id:'helpModal', open:el=>!el.classList.contains('hidden'), close:'helpCloseBtn'},
+    {id:'globalSearchModal', open:el=>el.classList.contains('show'), close:'gsCloseBtn'},
+    {id:'celebModal', open:el=>el.classList.contains('show'), close:'clCloseBtn'},
+    {id:'cardPreviewModal', open:el=>el.classList.contains('show'), close:'cardPreviewClose'}
+  ];
+  const home = document.getElementById('tianjiSection');
+  let ignorePop = false, pending = false;
+  const openLayers = ()=> LAYERS.filter(l=>{ const el=document.getElementById(l.id); return el && l.open(el); });
+  const needGuard = ()=> openLayers().length>0 || (home && home.classList.contains('hidden'));
+  const hasGuard = ()=> !!(history.state && history.state.sancaiGuard);
+  function sync(){
+    pending = false;
+    if(needGuard()){ if(!hasGuard()) history.pushState({sancaiGuard:true}, ''); }
+    else if(hasGuard()){ ignorePop = true; history.back(); }   // 用畫面按鈕關掉了，收回多推的那一筆
+  }
+  function schedule(){ if(!pending){ pending = true; setTimeout(sync, 0); } }
+  const mo = new MutationObserver(schedule);
+  LAYERS.forEach(l=>{ const el=document.getElementById(l.id); if(el) mo.observe(el, {attributes:true, attributeFilter:['class']}); });
+  if(home) mo.observe(home, {attributes:true, attributeFilter:['class']});
+  window.addEventListener('popstate', ()=>{
+    if(ignorePop){ ignorePop = false; return; }
+    const open = openLayers();
+    if(open.length){
+      const top = open[0];   // 依優先順序：確認框 > 通知 > 設定 > 說明 > 搜尋 > 名人庫
+      const btn = document.getElementById(top.close);
+      if(btn) btn.click();
+    } else if(home && home.classList.contains('hidden') && typeof activateTopTab==='function'){
+      activateTopTab('tianji');
+    }
+    schedule();
+  });
+})();
 </script>
 </body>
 </html>
