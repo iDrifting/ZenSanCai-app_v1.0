@@ -1,9 +1,13 @@
-const CACHE_NAME = 'sancai-app-v4';
+const CACHE_NAME = 'sancai-app-v6';
 const ASSETS = [
   './index.html',
   './manifest.json',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './icon-maskable-192.png',
+  './icon-maskable-512.png',
+  './favicon-32.png',
+  './apple-touch-icon.png'
 ];
 
 self.addEventListener('install', (event) => {
