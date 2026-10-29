@@ -7626,7 +7626,7 @@ document.getElementById('allSearch').addEventListener('input', e=> renderAll(e.t
   if(launched){
     dismissed = true;
     splash.classList.add('hidden-done');
-    showDisclaimerIfNeeded();
+    setTimeout(showDisclaimerIfNeeded, 0); // 等整份程式載入完（DISCLAIMER_KEY 等常數已初始化）再判斷
     return;
   }
   setTimeout(dismiss, 7400); // 動畫跑完（圓相、三、落印）自動淡出
@@ -7643,8 +7643,8 @@ function showDisclaimerIfNeeded(){
   if(!modal || !step1 || !step2) return;
   let disclaimerAgreed = false, onboardSeen = false;
   try{
-    disclaimerAgreed = localStorage.getItem(DISCLAIMER_KEY) === '1';
-    onboardSeen = localStorage.getItem(ONBOARD_KEY) === '1';
+    disclaimerAgreed = localStorage.getItem('sancai_disclaimer_agreed_v1') === '1';
+    onboardSeen = localStorage.getItem('sancai_onboard_seen_v1') === '1';
   }catch(e){}
   if(disclaimerAgreed && onboardSeen) return; // 兩個都看過了，不再打擾
 
