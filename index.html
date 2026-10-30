@@ -2232,6 +2232,29 @@
   .vc-neutral p{ font-size:13.8px; line-height:1.85; color:var(--ink); margin:6px 0 0; }
   .vc-care-t{ font-size:12.5px; color:var(--brass); margin:10px 0 2px; letter-spacing:.1em; }
   .vc-care li::before{ content:'・' !important; }
+  .hub-sort-bar{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin:-2px 0 2px; min-height:30px; }
+  .hub-sort-bar span{ font-size:12px; color:var(--ink-soft); line-height:1.5; }
+  .hub-sort-btn{ display:inline-flex; align-items:center; gap:4px; border:none; background:none; padding:4px 2px; color:var(--celadon-deep,#4f7068); font-weight:600; font-size:13px; cursor:pointer; font-family:inherit; flex-shrink:0; }
+  .hub-sort-btn svg{ width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .hub-sort-btn.done{ background:var(--celadon-deep,#4f7068); color:#f2ecd9; border-radius:14px; padding:5px 16px; }
+  .hub-sort-list{ display:flex; flex-direction:column; gap:8px; }
+  .hub-p.pinned{ opacity:.75; }
+  .hub-pin{ font-size:11px; color:var(--paper-dim,#9a8f7a); flex-shrink:0; }
+  .sort-acts{ display:flex; align-items:center; gap:4px; flex-shrink:0; }
+  .sort-acts button{ width:32px; height:32px; border-radius:50%; border:1px solid var(--line-strong); background:transparent; color:var(--ink); font-size:15px; cursor:pointer; font-family:inherit; padding:0; }
+  .sort-acts button:disabled{ opacity:.3; }
+  .sort-acts .grip{ width:38px; height:40px; display:inline-flex; align-items:center; justify-content:center; font-size:22px; color:var(--ink-soft); cursor:grab; touch-action:none; user-select:none; -webkit-user-select:none; }
+  .hub-p.sortable{ transition:box-shadow .15s ease; }
+  .hub-p.dragging{ position:relative; z-index:5; box-shadow:0 10px 24px rgba(32,29,23,.22); background:#fffdf6; transition:none; }
+  .hub-p.dragging .grip{ cursor:grabbing; color:var(--celadon-deep,#4f7068); }
+  .vc-rhythm{ font-size:13.6px; line-height:1.85; color:var(--ink); background:rgba(201,164,92,.1); border-radius:8px; padding:8px 10px; margin:4px 0 0; }
+  .vc-hexcare li{ font-size:13.2px !important; }
+  .vc-hexcare li b{ color:var(--ink); font-family:'Noto Serif TC'; }
+  .vc-small{ font-size:11.5px; color:var(--paper-dim); line-height:1.7; margin:4px 0 0; }
+  details.vc-trad{ margin:10px 0 0; border:1px dashed var(--line-strong); border-radius:10px; padding:4px 12px 8px; background:rgba(255,252,240,.5); }
+  details.vc-trad > summary{ cursor:pointer; font-size:12.5px; color:var(--celadon-deep,#4f7068); font-weight:600; padding:6px 0; }
+  details.vc-trad ul{ margin:4px 0; padding-left:18px; } details.vc-trad li{ font-size:12.5px; line-height:1.75; color:var(--ink); }
+  details.vc-trad p{ font-size:11.5px; color:var(--ink-soft); line-height:1.7; margin:4px 0 0; }
 </style>
 
 </head>
@@ -8292,7 +8315,7 @@ topTabs.combine.addEventListener('click', ()=> activateTopTab('combine'));
   const SWIPE_THRESHOLD = 70; // 至少滑動這麼多像素才觸發，避免誤觸
   document.addEventListener('touchstart', (e)=>{
     if(e.touches.length !== 1) return;
-    if(e.target.closest && e.target.closest('.dx-tl,.home-fam,.people-chips,.result-nav,#sheetLayer,.heat,.chartgrid,table,input,textarea,select')){ touching = false; return; }
+    if(e.target.closest && e.target.closest('.dx-tl,.home-fam,.people-chips,.hub-sort-list,.result-nav,#sheetLayer,.heat,.chartgrid,table,input,textarea,select')){ touching = false; return; }
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
     touching = true;
@@ -10846,7 +10869,31 @@ const LY_MU  = {金:'丑',木:'未',水:'辰',土:'辰',火:'戌'};
 const LY_JUE = {金:'寅',木:'申',水:'巳',土:'巳',火:'亥'};
 const LY_SANHE = [['申','子','辰','水'],['亥','卯','未','木'],['寅','午','戌','火'],['巳','酉','丑','金']];
 const LY_STRONG = w => w==='旺' || w==='相';
-const LY_HEALTH_RE = /生病|病情|病況|疾病|病痛|流感|感冒|發燒|發炎|咳嗽|醫生|醫師|就醫|醫院|看診|回診|住院|開刀|手術|吃藥|用藥|藥物|健康|身體|疼痛|康復|症狀|檢查報告|癌|腫瘤|化療|復健/;
+const LY_HEALTH_RE = /痛|不舒服|過敏|失眠|頭暈|暈眩|血壓|血糖|懷孕|產檢|生產|看醫生|生病|病情|病況|疾病|病痛|流感|感冒|發燒|發炎|咳嗽|醫生|醫師|就醫|醫院|看診|回診|住院|開刀|手術|吃藥|用藥|藥物|健康|身體|疼痛|康復|症狀|檢查報告|癌|腫瘤|化療|復健/;
+const LY_FAMILY_RE = /女兒|兒子|孩子|小孩|寶寶|小朋友|爸|媽|父親|母親|老婆|太太|先生|老公|家人|阿公|阿嬤|爺爺|奶奶|外公|外婆|哥哥|姐姐|姊姊|弟弟|妹妹|公公|婆婆|岳父|岳母|長輩|親人|朋友|寵物|狗|貓/;
+/* 內外卦的照顧提示：內卦主內（你與家裡），外卦主外（醫療、行程、他人）——取卦德本義 */
+const LY_TRI_CARE = {
+  乾:['健','要有人出來拿主意、做決定'], 坤:['順','多配合、多包容，照醫囑走'], 震:['動','該動就動，掛號、詢問這些事主動安排'],
+  巽:['入','細心溝通，把資訊問清楚'], 坎:['陷','多一分小心，別勉強、別冒險'], 離:['麗','把狀況看清楚，記錄、整理資訊'],
+  艮:['止','該停就停，先休息、少排行程'], 兌:['悅','保持輕鬆，多陪伴、多說說話']
+};
+function lyHexCare(name){
+  if(!name) return null;
+  const kv = Object.entries(HEX_NAMES).find(([k,v])=> v===name); if(!kv) return null;
+  const [up, lo] = kv[0].split('-');
+  return {name, up, lo, inT:LY_TRI_CARE[lo], outT:LY_TRI_CARE[up]};
+}
+function lyCareRhythm(sh){
+  if(!sh) return '';
+  const sM = LY_STRONG(sh.ws), sD = LY_STRONG(sh.wsD);
+  const weak = sh.po || (!sM && !sD) || (sh.kong && !sh.moving && !sM);
+  let t;
+  if(!weak && sM && sD) t = `代表你的世爻（${sh.gz}）得月令也得日辰：你這段時間心力還夠，照顧可以照原本的步調，但別一個人全扛。`;
+  else if(!weak) t = `代表你的世爻（${sh.gz}）力量中等：照顧排個輪班，比較走得長。`;
+  else t = `代表你的世爻（${sh.gz}）偏弱${sh.po ? '（逢月破）' : sh.kong ? '（逢旬空）' : ''}：照顧的人自己也要休息，能請家人分擔就分擔，別硬撐。`;
+  if(sh.moving) t += '世爻在動，近期你這邊的安排（行程、分工）可能會調整。';
+  return t;
+}
 const LY_LIFE_RE = /壽命|活到|活多久|還能活|陽壽|死期|過世|離世|撐過|撐得過|病危/;
 const LY_CHOICE_RE = /還是|或者|或是|抑或/;
 
@@ -10871,6 +10918,11 @@ function castExtra(a, deploy, movingArr, chgGz, dayGZ, yueJianZhi, castTime){
   a.mode = LY_HEALTH_RE.test(qq) ? 'health' : LY_LIFE_RE.test(qq) ? 'life' : null;
   a.lifeToo = a.mode==='health' && LY_LIFE_RE.test(qq);
   a.castMs = castTime ? castTime.getTime() : Date.now();
+  a.family = LY_FAMILY_RE.test(qq) || ['子','父','兄'].includes(typeof topicText==='string' ? topicText : '');
+  { const mE0 = ZHI_ELEM[yueJianZhi], dE0 = ZHI_ELEM[dayGZ.zhi]; const kong0 = lyXunKong(dayGZ);
+    const sl = deploy.lines.find(l=> l.isShi);
+    a.shi = sl ? {pos:sl.pos, gz:sl.gz, zhi:sl.zhi, elem:sl.elem, ws:wangShuai(sl.elem, mE0), wsD:wangShuai(sl.elem, dE0), moving:!!movingArr[sl.pos-1], kong:kong0.includes(sl.zhi), po:CHONG_PAIRS[sl.zhi]===yueJianZhi} : null;
+    a.ziSun = deploy.lines.filter(l=> l.relative==='子孫').map(l=> ({pos:l.pos, gz:l.gz, moving:!!movingArr[l.pos-1], ws:wangShuai(l.elem, mE0)})); }
   a.kong = lyXunKong(dayGZ); lastCastKong = a.kong;
   a.ziHour = castTime && castTime.getHours()>=23;
   a.chg = chgGz ? chgGz.slice() : null;
@@ -10886,6 +10938,9 @@ function castExtra(a, deploy, movingArr, chgGz, dayGZ, yueJianZhi, castTime){
   a.riState = null;
   if(dayCh) a.riState = moving ? (LY_STRONG(a.wsMonth) ? '沖起' : '沖散') : (LY_STRONG(a.wsMonth) ? '暗動' : '日破');
   else if(dayHe) a.riState = moving ? '合絆' : '合起';
+  const RI_TXT = {'暗動':'逢日辰沖而本身旺相，為「暗動」（看似平靜，實則暗中已在起變化）', '日破':'逢日辰沖而本身休囚，為「日破」（當下受到衝擊，力量被沖散）',
+    '沖散':'發動又逢日辰沖，且本身不旺，為「沖散」（事有變動反覆）', '沖起':'發動逢日辰沖而本身旺相，為「沖起」（動得更快）', '合起':'靜而與日辰相合，為「合起」（有人或有事牽動它）'};
+  if(RI_TXT[a.riState]) a.chongHe = RI_TXT[a.riState];
   // 用神動化
   a.hua = null;
   if(moving && chgGz){
@@ -11013,7 +11068,13 @@ castVerdict = function(a, movingArr){
   if(a.ziHour) notes.push(`23 時後屬子時，日辰以隔日「${a.dayZhi}」日計。`);
   if(a.mode){
     const N = LY_NEUTRAL[a.mode];
-    return {score, neutral:a.mode, lv:{k:0, label:'不論好壞', desc:N.d + (a.lifeToo ? '生死與時間點，三才也一律不從命理推斷。' : '')}, title:N.t, care:N.care, why:[], when:'', notes: notes.filter(n=> !n.startsWith('一卦只答'))};
+    const rhythm = (a.mode==='health' && a.family && !(a.yongLine && a.yongLine.isShi)) ? lyCareRhythm(a.shi) : '';
+    const pro = a.mode==='health' ? [
+      `用神：${a.neededRel}爻${a.yongLine ? '（'+LINE_ORDINAL[a.yongLine.pos-1]+'爻 '+a.yongLine.gz+'）' : '（伏神）'}，月建${a.wsMonth}、日辰${a.wsDay}${a.yMoving ? '，發動' : ''}${a.hua ? '，'+a.hua.t : ''}${a.inKong ? '，旬空' : ''}${a.yuePo ? '，月破' : ''}`,
+      `官鬼爻（傳統上代表病）：${(a.gui||[]).map(g=> `${LINE_ORDINAL[g.pos-1]}爻 ${g.gz}${g.moving?' 動':' 靜'}・月${g.ws}`).join('、') || '卦中不現'}`,
+      `子孫爻（傳統上代表醫藥）：${(a.ziSun||[]).map(g=> `${LINE_ORDINAL[g.pos-1]}爻 ${g.gz}${g.moving?' 動':' 靜'}・月${g.ws}`).join('、') || '卦中不現'}`
+    ] : [];
+    return {score, neutral:a.mode, lv:{k:0, label:'不論好壞', desc:N.d + (a.lifeToo ? '生死與時間點，三才也一律不從命理推斷。' : '')}, title:N.t, care:N.care, rhythm, pro, why:[], when:'', notes: notes.filter(n=> !n.startsWith('一卦只答'))};
   }
   return {score, lv, why, when, notes};
 };
@@ -11029,8 +11090,15 @@ renderCastVerdict = function(v, origName, chgName){
     <div class="vc-q">${q}<span>${topic}</span></div>
     <div class="vc-hex">${origName}${chgName?` <em>→</em> ${chgName}`:''}</div>
     <div class="vc-neutral"><b>${v.title}</b><p>${v.lv.desc}</p></div>
+    ${v.rhythm ? `<p class="vc-care-t">照顧的人</p><p class="vc-rhythm">${v.rhythm}</p>` : ''}
+    ${(()=>{ const o = lyHexCare(origName), c = chgName ? lyHexCare(chgName) : null; if(!o) return '';
+      const line = (h, when)=> h.up===h.lo
+        ? `<li><b>${when}「${h.name}」</b>內外都是${h.lo}（${h.inT[0]}）——你和家裡、對外（醫療、行程、他人）都一樣：${h.inT[1]}。</li>`
+        : `<li><b>${when}「${h.name}」</b>內卦${h.lo}（${h.inT[0]}）——你和家裡：${h.inT[1]}；外卦${h.up}（${h.outT[0]}）——對外（醫療、行程、他人）：${h.outT[1]}。</li>`;
+      return `<p class="vc-care-t">這一卦的本義</p><ul class="vc-why vc-care vc-hexcare">${line(o, '現在')}${c ? line(c, '接下來') : ''}</ul><p class="vc-small">取卦德本義（內卦主內、外卦主外），只用來參考照顧的分工與節奏，不代表病情好壞。</p>`; })()}
     <p class="vc-care-t">現在可以做的</p>
     <ul class="vc-why vc-care">${v.care.map(c=>`<li>${c}</li>`).join('')}</ul>
+    ${v.pro && v.pro.length ? `<details class="vc-trad bz-pro" open><summary>傳統占病的原始資料（專業模式）</summary><ul>${v.pro.map(x=>`<li>${x}</li>`).join('')}</ul><p>依《增刪卜易》，占病以用神旺衰、官鬼（病）與子孫（醫藥）動靜為綱。三才只列資料，不據此判斷病情好壞或時間。</p></details>` : ''}
     ${(v.notes||[]).map(n=>`<p class="vc-note">${n}</p>`).join('')}
     <div class="vc-actions"><button type="button" class="pc-btn primary" id="vcAiBtn">問 AI 怎麼安排照顧</button><button type="button" class="pc-btn" id="vcMoreBtn">看卦象資料</button></div>
     <p class="vc-foot">三才解讀守則：健康、病情與壽命的好壞，不從命理判斷。</p>`;
@@ -11156,13 +11224,13 @@ function sancaiBlocked(text){ if(text===SANCAI_BLOCK){ sancaiCare('l1'); return 
 
 /* ---------- v3.4 定版提示詞 ---------- */
 const SANCAI_V34_HEAD = "你是一位同時精通紫微斗數、八字命理與中國傳統易經六爻占卜（納甲裝卦法）的命理顧問。使用者針對同一件現實處境，準備了以下{資料項數}項命理資料，請你綜合這些資料，給一段有溫度、有見地、但誠實不誇大的整合分析。\n\n三才的宗旨是助人：解讀的目的，是讓使用者更有方向、更有力量面對現實，而不是讓他更害怕或更依賴命盤。當解讀與使用者的安全、身心狀態衝突時，一律以人為先。遇到下列守則沒寫到的狀況，也請依這個宗旨判斷。\n\n這幾項資料可能同時包含<b>紫微斗數</b>（命盤結構、大限流年）、<b>八字</b>（四柱十神、大運）與<b>易經六爻</b>（針對具體問題起卦），是不同的命理系統。紫微、八字看的是「格局與運勢趨勢」（八字更重五行氣勢與十神心理特質），六爻看的是「具體事情當下的吉凶與應期」，請你特別說明這些系統對照起來是否互相印證、或呈現出不同時間尺度／不同層次的訊息。\n\n";
-const SANCAI_V34_TAIL = "\n\n【最優先：安全守則】（本段優先於下方所有格式要求）\n\nA. 開始解讀前，先讀使用者寫的問題文字與任何附註。若出現以下任一訊號，請不要做命理解讀，也不要套用「一句話總結」與其他格式要求，直接改用 B 的「關心模式」回應：\n　・提到想死、不想活、想消失、撐不下去、活著沒意義、想解脫、想結束一切\n　・帶著痛苦或絕望，問自己何時會死、是不是命中注定過不去\n　・覺得自己是別人的負擔、沒有自己大家會比較好；希望睡著就不要醒來\n　・說要把東西送人、想跟大家道別或交代事情，卻沒有明確的搬家、出國等理由\n　・整體語氣流露強烈的絕望或無助\n　依意思判斷，不只看字面：錯字或隱晦的說法（例如「輕身」）也算。反過來，「解脫」「撐不下去」若明確指工作或某件事（例如想換工作、專案太累），照常解讀，不要進入關心模式。\n\nB. 關心模式（簡短為主，一般人的口吻，溫和、直接、不說教；危機當下話太長，對方反而讀不下去）：\n　1. 說明你先不談命盤。\n　2. 說出你從他的話裡感受到的擔心。可以引用他話裡痛苦的部分，讓他知道自己被聽見；但不要複述「命中注定」這類宿命說法。\n　3. 直接問：最近是否有不想活下去、或想結束自己生命的念頭。\n　4. 告訴他不用一個人扛，並提供：1925安心專線（24小時、免付費）、1995生命線、1980張老師；若有立即危險，請撥119或到最近的急診。\n　5. 結尾邀請他說說發生了什麼（可以直接回覆，也可以說給信任的人或專線聽），並表示等他想看命盤時再一起看。\n　不要把命盤當成他痛苦的原因或證據。全文避免任何帶「死」字的慣用語（例如「死撐」，改用「硬撐」）。\n　不要替對方說出絕望的結論（例如「讓人覺得除了離開別無他法」），即使是想表達理解也不行；可以說「這陣子一定很辛苦」。\n\nC. 任何情況下，都不從命盤推論自傷傾向、壽命長短或死亡時間，不論對象是使用者本人或其他人。\n　・若只是語氣平穩地好奇壽命，溫和說明命理不做這類推斷，改談現階段能照顧、能安排的事。\n　・若問家人病情，只談使用者自己照顧與陪伴的節奏，並一律提醒以醫師判斷為準。\n　・健康與病情「好壞都不說」：不從命盤判斷任何人身體的實際狀況或病情走向。不說「底子厚實」「元氣虛弱」，也不說「醫療有發揮作用」「有生機」「有轉圜空間」。病情、治療或體力恢復，都不給時間窗口或特定日子。\n　・若無法判斷屬於 A 還是 C，以 C 處理，並在最後附上 E 的那句話。\n\nD. 用字原則：不使用「大凶、劫數、血光、壽元、死期、在劫難逃、命中注定、逃不開」等宿命或恐嚇字眼。用「節奏」取代「吉凶」：\n　・順的時期：說適合推進，但提醒別衝太滿。\n　・低潮時期：說是蓄力期，適合放慢、少做大決定、照顧身體與睡眠，並至少給一件使用者今天就做得到的小事。\n\nE. 若整體解讀偏向低潮、壓力或卡關，在全文最後（財務提醒之後）原文附上這一句，不要改寫、不要改成針對個人的暗示：\n「這段時間如果心裡特別沉，找信任的人聊聊，或撥1925安心專線，都是很好的選擇。」\n　・「偏向低潮」指的是使用者本人的身心、工作、家庭或人際處境，不是單一投資標的的漲跌或目標價能否達成。\n　・純投資、財務標的的問題（例如股價、買賣時機），一律不附這一句；除非使用者的問題文字本身流露出明顯的壓力或焦慮。\n　・解讀的結論偏正向、轉機在即時，不附。\n　・不確定盤面算不算低潮時，不附（C 條「無法判斷屬於 A 還是 C」的情況例外，仍要附）。這句話是給真正處在低潮的人的，出現太頻繁反而會讓人覺得煩、失去意義。\n\n【一般解讀要求】（安全守則 A 未觸發時適用）\n\n請你：\n1. 開頭用「一句話總結」（約30字，一句話講完核心判斷，不放建議、不放解釋，獨立成一行，格式為「一句話總結：……」）點出把這些資料放在一起看，對使用者現實處境最核心的整體判斷。\n2. 先分別簡要說明每一項資料各自的意義（不要重複列出原始資料，直接講解讀）。若有重複的資料，直接說明是同一份，不要重複解讀；若缺少某個系統（例如沒有八字），簡單帶過，不要硬套。\n3. 接著是重點：這幾項資料「合在一起看」透露出什麼原本單看一項看不出來的訊息？彼此之間是互相印證、互相矛盾、還是一個是因一個是果？\n4. 若問題涉及時機，依傳統象數邏輯給出合理時間範圍推估，並在給時間推估的那一段，原文附上這句：「這是傳統象數推估，非精確預測。」時間推估只用於事件，不用於生死與病情。若資料有附節氣或國曆日期，換算一律以資料為準，不要自行計算。\n5. 若問題涉及財務決策，只談節奏與心態，不給買賣、停利、停損、分批、加減碼、目標價等任何操作建議，一句話總結裡也不行。「今天做得到的小事」也必須是非交易性質，例如寫下當初投資的理由、設定一段不看盤的時間。解讀最後提醒這只是傳統占卜的參考視角，不構成財務建議。若涉及健康，提醒以醫師判斷為準。\n6. 誠實不誇大：命理是參考視角，不是證據。不使用「證明、精準、絕對、不偏不倚、完全吻合、高度印證、非常明確、清楚顯示、終將、一定會、必然」等過度肯定的字眼，改用「傾向、可能、比較像」來表達。\n7. 資料沒寫的，不說成事實：\n　・推測使用者的現實處境時，一律用「可能是……」的語氣（例如「可能來自上層決策或跨部門的拉扯」，而不是「你的上司政策反覆」）。\n　・描述使用者當下的身心狀態或生活重心也一樣（例如「這段時間可能已經很累了」，而不是「你的身心負荷已經來到臨界點」）。一句話總結也適用這條。\n　・不揣測使用者為什麼會問這個問題，不替他分析心理或潛意識，也不從單一事件推論他的性格。\n　・只依資料中明列的星曜、宮位、四化與爻象推論；資料沒有列出的格局名稱或宮位對應（例如流年十二宮的位置），不要自行推算或補上。\n8. 語氣溫和、有洞見，像一位真正懂命理的長者朋友在對話，不要用制式的條列格式（一句話總結那行除外），用連貫的段落書寫，繁體中文，稱呼使用者一律用「你」。\n9. 篇幅不設固定字數，依資料組合調整：資料項數越多、系統之間能交叉對照的地方越多，篇幅就應該越長；資料少時明顯短一些，例如兩項資料的解讀，篇幅大約是五項資料的一半左右。不要為了湊字數而重複，也不要為了精簡而省略該說的交叉解讀。觸發 C 條的回答，說清楚即可，不必拉長。\n10. 全文盡量使用白話文，避免堆砌命理專有名詞；若必須用到專業術語（包括卦象、五行、格局名稱），請順手用一句白話簡單解釋是什麼意思，讓完全沒學過命理的人也能看懂你在說什麼。\n";
+const SANCAI_V34_TAIL = "\n\n【最優先：安全守則】（本段優先於下方所有格式要求）\n\nA. 開始解讀前，先讀使用者寫的問題文字與任何附註。若出現以下任一訊號，請不要做命理解讀，也不要套用「一句話總結」與其他格式要求，直接改用 B 的「關心模式」回應：\n　・提到想死、不想活、想消失、撐不下去、活著沒意義、想解脫、想結束一切\n　・帶著痛苦或絕望，問自己何時會死、是不是命中注定過不去\n　・覺得自己是別人的負擔、沒有自己大家會比較好；希望睡著就不要醒來\n　・說要把東西送人、想跟大家道別或交代事情，卻沒有明確的搬家、出國等理由\n　・整體語氣流露強烈的絕望或無助\n　依意思判斷，不只看字面：錯字或隱晦的說法（例如「輕身」）也算。反過來，「解脫」「撐不下去」若明確指工作或某件事（例如想換工作、專案太累），照常解讀，不要進入關心模式。\n\nB. 關心模式（簡短為主，一般人的口吻，溫和、直接、不說教；危機當下話太長，對方反而讀不下去）：\n　1. 說明你先不談命盤。\n　2. 說出你從他的話裡感受到的擔心。可以引用他話裡痛苦的部分，讓他知道自己被聽見；但不要複述「命中注定」這類宿命說法。\n　3. 直接問：最近是否有不想活下去、或想結束自己生命的念頭。\n　4. 告訴他不用一個人扛，並提供：1925安心專線（24小時、免付費）、1995生命線、1980張老師；若有立即危險，請撥119或到最近的急診。\n　5. 結尾邀請他說說發生了什麼（可以直接回覆，也可以說給信任的人或專線聽），並表示等他想看命盤時再一起看。\n　不要把命盤當成他痛苦的原因或證據。全文避免任何帶「死」字的慣用語（例如「死撐」，改用「硬撐」）。\n　不要替對方說出絕望的結論（例如「讓人覺得除了離開別無他法」），即使是想表達理解也不行；可以說「這陣子一定很辛苦」。\n\nC. 任何情況下，都不從命盤推論自傷傾向、壽命長短或死亡時間，不論對象是使用者本人或其他人。\n　・若只是語氣平穩地好奇壽命，溫和說明命理不做這類推斷，改談現階段能照顧、能安排的事。\n　・若問家人病情，只談使用者自己照顧與陪伴的節奏，並一律提醒以醫師判斷為準。\n　・健康與病情「好壞都不說」：不從命盤判斷任何人身體的實際狀況或病情走向。不說「底子厚實」「元氣虛弱」，也不說「醫療有發揮作用」「有生機」「有轉圜空間」。病情、治療或體力恢復，都不給時間窗口或特定日子。\n　・可以談的部分：卦辭或卦德的本義，以及使用者自己（照顧者）的照顧與陪伴節奏——看世爻，用語保持「可能」，不說「透支、臨界、到了邊緣」這類身心斷語。\n　・代表病人的那一爻（用神）以及官鬼、子孫的旺衰、沖破、生剋，紫微裡疾厄、父母等宮位的四化，都只能說明術語是什麼意思，不可用來描述病人的狀況、壓力或醫療成效。例如不可說「日破反映他正承受衝擊」「能量正在被消耗」「化科代表有醫療資源協助」。\n　・若無法判斷屬於 A 還是 C，以 C 處理，並在最後附上 E 的那句話。\n\nD. 用字原則：不使用「大凶、劫數、血光、壽元、死期、在劫難逃、命中注定、逃不開」等宿命或恐嚇字眼。用「節奏」取代「吉凶」：\n　・順的時期：說適合推進，但提醒別衝太滿。\n　・低潮時期：說是蓄力期，適合放慢、少做大決定、照顧身體與睡眠，並至少給一件使用者今天就做得到的小事。\n\nE. 若整體解讀偏向低潮、壓力或卡關，在全文最後（財務提醒之後）原文附上這一句，不要改寫、不要改成針對個人的暗示：\n「這段時間如果心裡特別沉，找信任的人聊聊，或撥1925安心專線，都是很好的選擇。」\n　・「偏向低潮」指的是使用者本人的身心、工作、家庭或人際處境，不是單一投資標的的漲跌或目標價能否達成。\n　・純投資、財務標的的問題（例如股價、買賣時機），一律不附這一句；除非使用者的問題文字本身流露出明顯的壓力或焦慮。\n　・解讀的結論偏正向、轉機在即時，不附。\n　・不確定盤面算不算低潮時，不附（C 條「無法判斷屬於 A 還是 C」的情況例外，仍要附）。這句話是給真正處在低潮的人的，出現太頻繁反而會讓人覺得煩、失去意義。\n\n【一般解讀要求】（安全守則 A 未觸發時適用）\n\n請你：\n1. 開頭用「一句話總結」（約30字、不超過40字，一句話講完核心判斷，不放建議、提醒或解釋，獨立成一行，格式為「一句話總結：……」）點出把這些資料放在一起看，對使用者現實處境最核心的整體判斷。\n2. 先分別簡要說明每一項資料各自的意義（不要重複列出原始資料，直接講解讀）。若有重複的資料，直接說明是同一份，不要重複解讀；若缺少某個系統（例如沒有八字），簡單帶過，不要硬套。\n3. 接著是重點：這幾項資料「合在一起看」透露出什麼原本單看一項看不出來的訊息？彼此之間是互相印證、互相矛盾、還是一個是因一個是果？\n4. 若問題涉及時機，依傳統象數邏輯給出合理時間範圍推估，並在給時間推估的那一段，原文附上這句：「這是傳統象數推估，非精確預測。」時間推估只用於事件，不用於生死與病情。若資料有附節氣或國曆日期，換算一律以資料為準，不要自行計算。\n5. 若問題涉及財務決策，只談節奏與心態，不給買賣、停利、停損、分批、加減碼、目標價等任何操作建議，一句話總結裡也不行。「今天做得到的小事」也必須是非交易性質，例如寫下當初投資的理由、設定一段不看盤的時間。解讀最後提醒這只是傳統占卜的參考視角，不構成財務建議。若涉及健康，提醒以醫師判斷為準。\n6. 誠實不誇大：命理是參考視角，不是證據。不使用「證明、精準、絕對、不偏不倚、完全吻合、高度印證、非常明確、清楚顯示、清晰顯示、精準捕捉、非常貼切、終將、一定會、必然」等過度肯定的字眼，改用「傾向、可能、比較像」來表達。\n7. 資料沒寫的，不說成事實：\n　・推測使用者的現實處境時，一律用「可能是……」的語氣（例如「可能來自上層決策或跨部門的拉扯」，而不是「你的上司政策反覆」）。\n　・描述使用者當下的身心狀態或生活重心也一樣（例如「這段時間可能已經很累了」，而不是「你的身心負荷已經來到臨界點」）。一句話總結也適用這條。\n　・不揣測使用者為什麼會問這個問題，不替他分析心理或潛意識，也不從單一事件推論他的性格。\n　・只依資料中明列的星曜、宮位、四化與爻象推論；資料沒有列出的格局名稱或宮位對應（例如流年十二宮的位置），不要自行推算或補上。\n8. 語氣溫和、有洞見，像一位真正懂命理的長者朋友在對話，不要用制式的條列格式（一句話總結那行除外），用連貫的段落書寫，繁體中文，稱呼使用者一律用「你」。\n9. 篇幅不設固定字數，依資料組合調整：資料項數越多、系統之間能交叉對照的地方越多，篇幅就應該越長；資料少時明顯短一些，例如兩項資料的解讀，篇幅大約是五項資料的一半左右。不要為了湊字數而重複，也不要為了精簡而省略該說的交叉解讀。觸發 C 條的回答，說清楚即可，不必拉長。\n10. 全文盡量使用白話文，避免堆砌命理專有名詞；若必須用到專業術語（包括卦象、五行、格局名稱），請順手用一句白話簡單解釋是什麼意思，讓完全沒學過命理的人也能看懂你在說什麼。\n";
 const SANCAI_PURPOSE = "三才的宗旨是助人：解讀的目的，是讓使用者更有方向、更有力量面對現實，而不是讓他更害怕或更依賴命盤。當解讀與使用者的安全、身心狀態衝突時，一律以人為先。遇到下列守則沒寫到的狀況，也請依這個宗旨判斷。";
-const SANCAI_SAFETY = "【最優先：安全守則】（本段優先於下方所有格式要求）\n\nA. 開始解讀前，先讀使用者寫的問題文字與任何附註。若出現以下任一訊號，請不要做命理解讀，也不要套用「一句話總結」與其他格式要求，直接改用 B 的「關心模式」回應：\n　・提到想死、不想活、想消失、撐不下去、活著沒意義、想解脫、想結束一切\n　・帶著痛苦或絕望，問自己何時會死、是不是命中注定過不去\n　・覺得自己是別人的負擔、沒有自己大家會比較好；希望睡著就不要醒來\n　・說要把東西送人、想跟大家道別或交代事情，卻沒有明確的搬家、出國等理由\n　・整體語氣流露強烈的絕望或無助\n　依意思判斷，不只看字面：錯字或隱晦的說法（例如「輕身」）也算。反過來，「解脫」「撐不下去」若明確指工作或某件事（例如想換工作、專案太累），照常解讀，不要進入關心模式。\n\nB. 關心模式（簡短為主，一般人的口吻，溫和、直接、不說教；危機當下話太長，對方反而讀不下去）：\n　1. 說明你先不談命盤。\n　2. 說出你從他的話裡感受到的擔心。可以引用他話裡痛苦的部分，讓他知道自己被聽見；但不要複述「命中注定」這類宿命說法。\n　3. 直接問：最近是否有不想活下去、或想結束自己生命的念頭。\n　4. 告訴他不用一個人扛，並提供：1925安心專線（24小時、免付費）、1995生命線、1980張老師；若有立即危險，請撥119或到最近的急診。\n　5. 結尾邀請他說說發生了什麼（可以直接回覆，也可以說給信任的人或專線聽），並表示等他想看命盤時再一起看。\n　不要把命盤當成他痛苦的原因或證據。全文避免任何帶「死」字的慣用語（例如「死撐」，改用「硬撐」）。\n　不要替對方說出絕望的結論（例如「讓人覺得除了離開別無他法」），即使是想表達理解也不行；可以說「這陣子一定很辛苦」。\n\nC. 任何情況下，都不從命盤推論自傷傾向、壽命長短或死亡時間，不論對象是使用者本人或其他人。\n　・若只是語氣平穩地好奇壽命，溫和說明命理不做這類推斷，改談現階段能照顧、能安排的事。\n　・若問家人病情，只談使用者自己照顧與陪伴的節奏，並一律提醒以醫師判斷為準。\n　・健康與病情「好壞都不說」：不從命盤判斷任何人身體的實際狀況或病情走向。不說「底子厚實」「元氣虛弱」，也不說「醫療有發揮作用」「有生機」「有轉圜空間」。病情、治療或體力恢復，都不給時間窗口或特定日子。\n　・若無法判斷屬於 A 還是 C，以 C 處理，並在最後附上 E 的那句話。\n\nD. 用字原則：不使用「大凶、劫數、血光、壽元、死期、在劫難逃、命中注定、逃不開」等宿命或恐嚇字眼。用「節奏」取代「吉凶」：\n　・順的時期：說適合推進，但提醒別衝太滿。\n　・低潮時期：說是蓄力期，適合放慢、少做大決定、照顧身體與睡眠，並至少給一件使用者今天就做得到的小事。\n\nE. 若整體解讀偏向低潮、壓力或卡關，在全文最後（財務提醒之後）原文附上這一句，不要改寫、不要改成針對個人的暗示：\n「這段時間如果心裡特別沉，找信任的人聊聊，或撥1925安心專線，都是很好的選擇。」\n　・「偏向低潮」指的是使用者本人的身心、工作、家庭或人際處境，不是單一投資標的的漲跌或目標價能否達成。\n　・純投資、財務標的的問題（例如股價、買賣時機），一律不附這一句；除非使用者的問題文字本身流露出明顯的壓力或焦慮。\n　・解讀的結論偏正向、轉機在即時，不附。\n　・不確定盤面算不算低潮時，不附（C 條「無法判斷屬於 A 還是 C」的情況例外，仍要附）。這句話是給真正處在低潮的人的，出現太頻繁反而會讓人覺得煩、失去意義。";
+const SANCAI_SAFETY = "【最優先：安全守則】（本段優先於下方所有格式要求）\n\nA. 開始解讀前，先讀使用者寫的問題文字與任何附註。若出現以下任一訊號，請不要做命理解讀，也不要套用「一句話總結」與其他格式要求，直接改用 B 的「關心模式」回應：\n　・提到想死、不想活、想消失、撐不下去、活著沒意義、想解脫、想結束一切\n　・帶著痛苦或絕望，問自己何時會死、是不是命中注定過不去\n　・覺得自己是別人的負擔、沒有自己大家會比較好；希望睡著就不要醒來\n　・說要把東西送人、想跟大家道別或交代事情，卻沒有明確的搬家、出國等理由\n　・整體語氣流露強烈的絕望或無助\n　依意思判斷，不只看字面：錯字或隱晦的說法（例如「輕身」）也算。反過來，「解脫」「撐不下去」若明確指工作或某件事（例如想換工作、專案太累），照常解讀，不要進入關心模式。\n\nB. 關心模式（簡短為主，一般人的口吻，溫和、直接、不說教；危機當下話太長，對方反而讀不下去）：\n　1. 說明你先不談命盤。\n　2. 說出你從他的話裡感受到的擔心。可以引用他話裡痛苦的部分，讓他知道自己被聽見；但不要複述「命中注定」這類宿命說法。\n　3. 直接問：最近是否有不想活下去、或想結束自己生命的念頭。\n　4. 告訴他不用一個人扛，並提供：1925安心專線（24小時、免付費）、1995生命線、1980張老師；若有立即危險，請撥119或到最近的急診。\n　5. 結尾邀請他說說發生了什麼（可以直接回覆，也可以說給信任的人或專線聽），並表示等他想看命盤時再一起看。\n　不要把命盤當成他痛苦的原因或證據。全文避免任何帶「死」字的慣用語（例如「死撐」，改用「硬撐」）。\n　不要替對方說出絕望的結論（例如「讓人覺得除了離開別無他法」），即使是想表達理解也不行；可以說「這陣子一定很辛苦」。\n\nC. 任何情況下，都不從命盤推論自傷傾向、壽命長短或死亡時間，不論對象是使用者本人或其他人。\n　・若只是語氣平穩地好奇壽命，溫和說明命理不做這類推斷，改談現階段能照顧、能安排的事。\n　・若問家人病情，只談使用者自己照顧與陪伴的節奏，並一律提醒以醫師判斷為準。\n　・健康與病情「好壞都不說」：不從命盤判斷任何人身體的實際狀況或病情走向。不說「底子厚實」「元氣虛弱」，也不說「醫療有發揮作用」「有生機」「有轉圜空間」。病情、治療或體力恢復，都不給時間窗口或特定日子。\n　・可以談的部分：卦辭或卦德的本義，以及使用者自己（照顧者）的照顧與陪伴節奏——看世爻，用語保持「可能」，不說「透支、臨界、到了邊緣」這類身心斷語。\n　・代表病人的那一爻（用神）以及官鬼、子孫的旺衰、沖破、生剋，紫微裡疾厄、父母等宮位的四化，都只能說明術語是什麼意思，不可用來描述病人的狀況、壓力或醫療成效。例如不可說「日破反映他正承受衝擊」「能量正在被消耗」「化科代表有醫療資源協助」。\n　・若無法判斷屬於 A 還是 C，以 C 處理，並在最後附上 E 的那句話。\n\nD. 用字原則：不使用「大凶、劫數、血光、壽元、死期、在劫難逃、命中注定、逃不開」等宿命或恐嚇字眼。用「節奏」取代「吉凶」：\n　・順的時期：說適合推進，但提醒別衝太滿。\n　・低潮時期：說是蓄力期，適合放慢、少做大決定、照顧身體與睡眠，並至少給一件使用者今天就做得到的小事。\n\nE. 若整體解讀偏向低潮、壓力或卡關，在全文最後（財務提醒之後）原文附上這一句，不要改寫、不要改成針對個人的暗示：\n「這段時間如果心裡特別沉，找信任的人聊聊，或撥1925安心專線，都是很好的選擇。」\n　・「偏向低潮」指的是使用者本人的身心、工作、家庭或人際處境，不是單一投資標的的漲跌或目標價能否達成。\n　・純投資、財務標的的問題（例如股價、買賣時機），一律不附這一句；除非使用者的問題文字本身流露出明顯的壓力或焦慮。\n　・解讀的結論偏正向、轉機在即時，不附。\n　・不確定盤面算不算低潮時，不附（C 條「無法判斷屬於 A 還是 C」的情況例外，仍要附）。這句話是給真正處在低潮的人的，出現太頻繁反而會讓人覺得煩、失去意義。";
 const SANCAI_COMMON = `另外，以下幾點與上面的要求同樣重要：
 ・若給時間推估，在給時間推估的那一段，原文附上這句：「這是傳統象數推估，非精確預測。」時間推估只用於事件，不用於生死與病情。若資料有附節氣或國曆日期，換算一律以資料為準，不要自行計算。
 ・若涉及財務決策，只談節奏與心態，不給買賣、停利、停損、分批、加減碼、目標價等任何操作建議，一句話總結裡也不行。「今天做得到的小事」也必須是非交易性質。解讀最後提醒這只是傳統占卜的參考視角，不構成財務建議。若涉及健康，提醒以醫師判斷為準。
-・誠實不誇大：命理是參考視角，不是證據。不使用「證明、精準、絕對、不偏不倚、完全吻合、高度印證、非常明確、清楚顯示、終將、一定會、必然」等過度肯定的字眼，改用「傾向、可能、比較像」來表達。
+・誠實不誇大：命理是參考視角，不是證據。不使用「證明、精準、絕對、不偏不倚、完全吻合、高度印證、非常明確、清楚顯示、清晰顯示、精準捕捉、非常貼切、終將、一定會、必然」等過度肯定的字眼，改用「傾向、可能、比較像」來表達。
 ・資料沒寫的，不說成事實：
 　・推測使用者的現實處境時，一律用「可能是……」的語氣（例如「可能來自上層決策或跨部門的拉扯」，而不是「你的上司政策反覆」）。
 　・描述使用者當下的身心狀態或生活重心也一樣（例如「這段時間可能已經很累了」，而不是「你的身心負荷已經來到臨界點」）。一句話總結也適用這條。
@@ -11231,8 +11299,20 @@ const __sancaiCastBlock = buildCastDataBlock;
 buildCastDataBlock = function(d, label){
   let s = __sancaiCastBlock(d, label);
   if(d.note) s = s.replace(/(【問題性質】[^\n]*)/, `$1\n【使用者補充的近況】${d.note}`);
+  const A = d.analysis || {};
+  if(A.mode){
+    s = s.replace(/（提示：傳統六爻理論「日月為綱，動爻次之」[^）]*）/, '')
+         // 健康、壽命題：代表病人的那一爻與官鬼、子孫的旺衰沖破生剋不交給 AI（t5 實測：資料裡有「死、日破、耗」，AI 就會拿來講病人）
+         .replace(/【用神分析】[\s\S]*?(?=\n\n【六神】)/, m=> ['【用神分析】（本題涉及健康與病情）',
+            ...m.split('\n').filter(l=> /^(用神：|日辰旬空：|23時後)/.test(l)),
+            '（依安全守則 C：代表病人的那一爻，以及官鬼、子孫的旺衰、沖破、生剋，程式不提供給 AI，以免被讀成病情或壽命。卦辭、卦德與照顧者的節奏仍可談。）'].join('\n'));
+    if(A.family && A.shi && !(A.yongLine && A.yongLine.isShi)){
+      const sh = A.shi;
+      s = s.replace('\n\n【六神】', `\n\n【照顧者（世爻）】${LINE_ORDINAL[sh.pos-1]}爻${sh.gz}：月${sh.ws}、日${sh.wsD}${sh.kong?'、旬空':''}${sh.po?'、月破':''}${sh.moving?'、發動':''}——可用來談使用者自己照顧與陪伴的節奏，用語保持「可能」。\n\n【六神】`);
+    }
+  }
   const jt = sancaiJieTable(d.castMs, 12);
-  if(jt) s += `\n\n【節氣月份與國曆起訖】（程式依節氣時刻算好，推估應期時以此為準）\n${jt}`;
+  if(jt && !A.mode) s += `\n\n【節氣月份與國曆起訖】（程式依節氣時刻算好，推估應期時以此為準）\n${jt}`;
   return s;
 };
 
@@ -11254,6 +11334,85 @@ buildLiuyuePromptBlock = function(c, yearInput, monthLabel, ly, huaList){
   const mp = ly && ly.monthPalace;
   return __zwLyBlock(c, yearInput, monthLabel, ly, huaList) + (mp ? `\n\n【流月十二宮】（程式推算，以此為準）\n${zwPalaceMap(c, mp.idx, '流月')}` : '');
 };
+
+/* =====================================================================
+   家人與快捷：調整順序（2026-10-30）
+   按「調整順序」進入排序模式：按住右側把手上下拖曳，或用 ↑↓ 移動；
+   「我」固定在最前面。順序存回快捷清單，命盤、八字、今日首頁的家人列一起套用。
+   ===================================================================== */
+let HUB_SORT = false;
+const __hubRender = renderHub;
+function hubIsMe(p, me){ return !!(me && p.date===me.date && p.hour===me.hour && p.gender===me.gender); }
+function hubRefreshAll(){
+  try{ renderPresetButtons(); }catch(e){}
+  try{ if(typeof renderBaziPresetButtons==='function') renderBaziPresetButtons(); }catch(e){}
+  try{ if(typeof bzRenderPeople==='function') bzRenderPeople(); }catch(e){}
+  try{ if(typeof renderPeopleChips==='function' && CURRENT) renderPeopleChips(); }catch(e){}
+}
+renderHub = function(){
+  if(HUB_SORT) return hubRenderSort();
+  __hubRender();
+  const el = document.getElementById('hubPeople'); if(!el) return;
+  const list = loadPresets(), me = loadMe();
+  if(list.filter(p=> !hubIsMe(p, me)).length < 2) return;
+  el.insertAdjacentHTML('afterbegin', `<div class="hub-sort-bar"><span></span><button type="button" class="hub-sort-btn" id="hubSortBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4v15M4.5 7.5 8 4l3.5 3.5M16 20V5M12.5 16.5 16 20l3.5-3.5"/></svg>調整順序</button></div>`);
+  document.getElementById('hubSortBtn').addEventListener('click', ()=>{ HUB_SORT = true; renderHub(); });
+};
+function hubSave(pinned, rest){
+  savePresets([...pinned, ...rest]);
+  hubRefreshAll();
+}
+function hubRenderSort(){
+  const el = document.getElementById('hubPeople'); if(!el) return;
+  const list = loadPresets(), me = loadMe();
+  const pinned = list.filter(p=> hubIsMe(p, me));
+  let rest = list.filter(p=> !hubIsMe(p, me));
+  const row = (p, i, fixed) => `<div class="hub-p${fixed ? ' pinned' : ' sortable'}"${fixed ? '' : ` data-i="${i}"`}>
+      <i>${escapeHtml((p.label||'？').charAt(0))}</i>
+      <div class="tx"><b>${escapeHtml(p.label||'我')}</b><small>${v2PersonLine(p)}</small></div>
+      ${fixed ? '<span class="hub-pin">固定在最前</span>' : `<div class="sort-acts"><button type="button" data-up="${i}" aria-label="往上移"${i===0?' disabled':''}>↑</button><button type="button" data-down="${i}" aria-label="往下移"${i===rest.length-1?' disabled':''}>↓</button><span class="grip" aria-label="按住拖曳排序" role="button">⠿</span></div>`}
+    </div>`;
+  const meOnly = (me && !pinned.length) ? row(me, -1, true) : '';
+  el.innerHTML = `<div class="hub-sort-bar on"><span>按住右側 ⠿ 上下拖曳，或用 ↑↓ 移動</span><button type="button" class="hub-sort-btn done" id="hubSortDone">完成</button></div>
+    ${meOnly}${pinned.map(p=> row(p, -1, true)).join('')}
+    <div class="hub-sort-list">${rest.map((p,i)=> row(p, i, false)).join('')}</div>`;
+  document.getElementById('hubSortDone').addEventListener('click', ()=>{ HUB_SORT = false; renderHub(); });
+  const move = (from, to)=>{ if(to<0 || to>=rest.length) return; const [x] = rest.splice(from,1); rest.splice(to,0,x); hubSave(pinned, rest); hubRenderSort(); };
+  el.querySelectorAll('[data-up]').forEach(b=> b.addEventListener('click', ()=> move(+b.dataset.up, +b.dataset.up-1)));
+  el.querySelectorAll('[data-down]').forEach(b=> b.addEventListener('click', ()=> move(+b.dataset.down, +b.dataset.down+1)));
+  const box = el.querySelector('.hub-sort-list');
+  box.querySelectorAll('.grip').forEach(g=> g.addEventListener('pointerdown', e=>{
+    e.preventDefault();
+    const r = g.closest('.hub-p');
+    try{ g.setPointerCapture(e.pointerId); }catch(_){}
+    let start = e.pageY; r.classList.add('dragging');
+    const pid = e.pointerId;
+    const onMove = ev=>{
+      if(ev.pointerId!==pid) return;
+      r.style.transform = `translateY(${ev.pageY - start}px)`;
+      const mid = r.getBoundingClientRect().top + r.offsetHeight/2;
+      const nx = r.nextElementSibling, pv = r.previousElementSibling;
+      const before = r.offsetTop;
+      if(nx && mid > nx.getBoundingClientRect().top + nx.offsetHeight/2) box.insertBefore(nx, r);
+      else if(pv && mid < pv.getBoundingClientRect().top + pv.offsetHeight/2) box.insertBefore(pv, r.nextSibling); // 只移動旁邊那列，避免被拖的那列離開 DOM 而失去指標
+      const shift = r.offsetTop - before;
+      if(shift){ start += shift; r.style.transform = `translateY(${ev.pageY - start}px)`; if(navigator.vibrate) try{ navigator.vibrate(8); }catch(_){} }
+      if(ev.clientY < 90) window.scrollBy(0, -10); else if(ev.clientY > window.innerHeight - 130) window.scrollBy(0, 10);
+    };
+    const onUp = ev=>{
+      if(ev && ev.pointerId!==pid) return;
+      document.removeEventListener('pointermove', onMove); document.removeEventListener('pointerup', onUp); document.removeEventListener('pointercancel', onUp);
+      r.classList.remove('dragging'); r.style.transform = '';
+      const order = [...box.querySelectorAll('.sortable')].map(x=> rest[+x.dataset.i]);
+      if(order.some((p,i)=> p!==rest[i])){ rest = order; hubSave(pinned, rest); }
+      hubRenderSort();
+    };
+    document.addEventListener('pointermove', onMove); document.addEventListener('pointerup', onUp); document.addEventListener('pointercancel', onUp);
+  }));
+}
+/* 離開「我的」分頁時自動結束排序模式 */
+const __hubTab = activateTopTab;
+activateTopTab = function(k, o){ if(k!=='combine' && HUB_SORT){ HUB_SORT = false; } return __hubTab(k, o); };
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
