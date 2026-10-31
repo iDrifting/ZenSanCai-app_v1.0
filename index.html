@@ -2255,6 +2255,19 @@
   details.vc-trad > summary{ cursor:pointer; font-size:12.5px; color:var(--celadon-deep,#4f7068); font-weight:600; padding:6px 0; }
   details.vc-trad ul{ margin:4px 0; padding-left:18px; } details.vc-trad li{ font-size:12.5px; line-height:1.75; color:var(--ink); }
   details.vc-trad p{ font-size:11.5px; color:var(--ink-soft); line-height:1.7; margin:4px 0 0; }
+  /* ---- 兩人合盤 v2 ---- */
+  .hp-box{ padding:4px 12px 10px; }
+  .hp-sec{ padding:10px 0 8px; border-bottom:1px solid var(--line); }
+  .hp-sec:last-of-type{ border-bottom:0; }
+  .hp-h{ font-family:'Noto Serif TC',serif; font-size:14.3px; font-weight:700; color:var(--ink); margin:0 0 6px; }
+  .hp-h small{ display:block; font-family:inherit; font-weight:400; font-size:11.8px; color:var(--ink-soft); margin-top:1px; }
+  .hp-row{ font-size:13px; line-height:1.85; }
+  .hp-row small{ color:var(--ink-soft); }
+  .hp-dui{ color:var(--ink); }
+  .hp-dui.borrow{ color:var(--ink-soft); }
+  .hp-note{ font-size:12.3px; line-height:1.75; color:var(--ink-soft); margin:2px 0 6px; }
+  .hp-time{ font-size:12.5px; line-height:1.8; color:var(--ink-soft); margin:10px 0 0; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .hp-time .pc-btn{ width:auto; flex:0 0 auto; margin:0; padding:4px 14px; font-size:12.5px; }
 </style>
 
 </head>
@@ -2829,7 +2842,7 @@
     </p>
     <div class="subsec">
       <h4>面相對照</h4>
-      <ul style="font-size:14.3px;line-height:2;color:var(--paper);padding-left:20px;">
+      <ul style="font-size:14.3px;line-height:2;color:var(--ink);padding-left:20px;">
         <li>額頭左側（日角）對應父親、右側（月角）對應母親，額角豐潤飽滿，多主祖蔭深厚。</li>
         <li>雙眉分屬手足宮，眉形濃淡疏密可略窺兄弟姊妹緣分之厚薄。</li>
         <li>眼下臥蠶部位傳統上左右分屬子女，兩眼大小、高低若明顯不對稱，命書上多作特殊身世的參考線索之一。</li>
@@ -3442,7 +3455,7 @@
       <tr><td>水中案山</td><td>案山聳立於水中，形勢挺拔</td><td>傳統上主格局不凡、堪為棟樑之才</td></tr>
     </table>
     <p style="font-size:14.9px;line-height:1.9;margin-top:14px;"><b style="color:var(--gold-bright)">朝山</b>是穴前遠方來朝的山勢，一般以形勢高大工整為佳。</p>
-    <ul style="font-size:13.8px;line-height:1.9;color:var(--paper);padding-left:20px;">
+    <ul style="font-size:13.8px;line-height:1.9;color:var(--ink);padding-left:20px;">
       <li>朝山形如座椅環抱 → 傳統上視為輔佐貴人之象</li>
       <li>朝山羅列有序如陣仗 → 傳統上主武職顯達</li>
       <li>朝山後方藏有隱蔽窺伺之地形 → 傳統上視為需留意的警示地形</li>
@@ -3580,7 +3593,7 @@
       </ol>
     </div>
     <div class="card" id="hepanSec">
-      <h2 style="font-size:16.5px;">兩人合盤<span class="info-tip">i<span class="info-tip-pop">把兩個人的紫微命盤放在一起，看彼此的生年四化各自飛入對方哪一宮，再交給 AI 分析相處模式、互補與摩擦點。適合夫妻、情侶、親子、合夥人。</span></span></h2>
+      <h2 style="font-size:16.5px;">兩人合盤<span class="info-tip">i<span class="info-tip-pop">把兩個人的紫微命盤放在一起，看彼此的生年四化各自飛入對方哪一宮，以及倪師的主星對位（專業模式另列宮干飛化），再交給 AI 分析相處模式、互補與摩擦點。適合夫妻、情侶、親子、合夥人、朋友、手足。</span></span></h2>
       <div id="hepanBody"></div>
     </div>
     <div class="card" id="histCard">
@@ -5694,7 +5707,7 @@ function showDetail(c,p){
     const huaStr = s.hua? `　<b style="color:var(--gold-bright)">生年化${s.hua.join('・化')}</b>`:'';
     const bookKey = (s.name==='天魁'||s.name==='天鉞') ? '天魁天鉞' : s.name;
     const bookLink = BOOK_DICT[bookKey] ? `　<a href="javascript:void(0)" onclick="jumpToBookEntry('${s.name}')" style="color:var(--blue);font-size:12.1px;text-decoration:underline;">查原典</a>` : '';
-    return `<li><b style="color:${s.type==='main'?'var(--paper)':(s.type==='good'?'var(--green)':'var(--red-bright)')}">${s.name}</b>${huaStr}　—　${info}${bookLink}</li>`;
+    return `<li><b style="color:${s.type==='main'?'var(--ink)':(s.type==='good'?'var(--green)':'var(--red-bright)')}">${s.name}</b>${huaStr}　—　${info}${bookLink}</li>`;
   }).join('') : '<li style="color:var(--paper-dim)">本宮無主星、六吉六煞入座（空宮），論斷須參考對宮借星。</li>';
 
   // 消法自動檢測：本宮若有煞星或生年化忌
@@ -11413,6 +11426,189 @@ function hubRenderSort(){
 /* 離開「我的」分頁時自動結束排序模式 */
 const __hubTab = activateTopTab;
 activateTopTab = function(k, o){ if(k!=='combine' && HUB_SORT){ HUB_SORT = false; } return __hubTab(k, o); };
+
+/* =====================================================================
+   兩人合盤 v2（2026-10-31）
+   一、先天：生年四化互飛（飛星派常見做法，App 原有）
+   二、倪師主星對位：天紀「男人父母宮的星正好在伴侶的命宮＝母子格；命宮的星在伴侶父母宮＝父女格；
+       兄弟宮的星在伴侶命宮＝兄弟格；朋友宮的星在伴侶命宮＝朋友格」，以及「夫妻宮坐紫微七殺，
+       意味著先生是紫微七殺」。只算主星組合完全相同；空宮依倪師「空宮看對面」借對宮主星，標示借星。
+       （每張盤都有十四顆主星，只比一顆星一定對得上某一宮，沒有意義。）
+   三、後天：關係宮宮干祿忌（現代飛星派做法，各家不一）：只在專業模式與 AI 提詞出現，不掛方外人之名。
+   ===================================================================== */
+const HP_REL = {
+  '夫妻／伴侶': {pal:'夫妻宮', couple:true},
+  '交往中／曖昧': {pal:'夫妻宮', couple:true},
+  '親子': {pal:'親子'},
+  '合夥／同事': {pal:'交友宮'},
+  '朋友': {pal:'交友宮'},
+  '手足': {pal:'兄弟宮'}
+};
+const HP_T = ['祿','權','科','忌'];
+const HP_HINT = {
+  '祿': h=> `在對方「${h}」上多給予`,
+  '權': h=> `在對方「${h}」上較有主導`,
+  '科': h=> `在對方「${h}」上較能緩和、幫忙`,
+  '忌': h=> `對對方「${h}」較牽掛或有壓力`
+};
+const HP_LIUQIN = {父母宮:'父母輩', 兄弟宮:'兄弟姊妹', 交友宮:'朋友', 夫妻宮:'伴侶', 子女宮:'孩子'};
+
+function hpMainStars(p){ return p ? p.stars.filter(s=> s.type==='main').map(s=> s.name) : []; }
+function hpCombo(c, p){
+  let m = hpMainStars(p), borrow = false;
+  if(!m.length){ m = hpMainStars(c.palaces.find(q=> q.idx===(p.idx+6)%12)); borrow = true; }
+  return {m, key:[...m].sort().join(''), borrow};
+}
+function hpPal(c, name){ return c.palaces.find(p=> p.name===name); }
+/* Y 的命宮主星組合，完整出現在 X 盤的哪些宮 */
+function hpDuiwei(X, cx, Y, cy){
+  const yc = hpCombo(cy, hpPal(cy,'命宮'));
+  const hits = [];
+  cx.palaces.forEach(p=>{ const xc = hpCombo(cx, p); if(yc.key && xc.key===yc.key) hits.push({pal:p.name, borrow: xc.borrow || yc.borrow, xBorrow: xc.borrow}); });
+  return {from:Y, to:X, yc, hits};
+}
+function hpDuiweiText(d, rel){
+  const {from:Y, to:X} = d, out = [];
+  d.hits.forEach(h=>{
+    const lq = HP_LIUQIN[h.pal];
+    let t, ge = '';
+    if(h.pal==='父母宮'){ t = `${Y.label}對${X.label}來說像${lq}`; if(rel.couple) ge = `${Y.gender==='M'?'父':'母'}${X.gender==='M'?'子':'女'}格`; }
+    else if(h.pal==='兄弟宮'){ t = `${Y.label}像${X.label}的${lq}`; if(rel.couple) ge = '兄弟格'; }
+    else if(h.pal==='交友宮'){ t = `${Y.label}像${X.label}的${lq}`; if(rel.couple) ge = '朋友格'; }
+    else if(h.pal==='夫妻宮'){ t = `${Y.label}正是${X.label}夫妻宮的星（倪師以夫妻宮的星看配偶）`; }
+    else if(h.pal==='子女宮'){ t = `${Y.label}正是${X.label}子女宮的星（倪師以子女宮的星看子女）`; }
+    else if(h.pal==='命宮'){ t = `兩人命宮主星相同`; }
+    else t = '這一宮沒有對應的六親';
+    out.push({liuqin: !!lq, pal:h.pal, borrow:h.borrow, ge,
+      text: `${Y.label}的命宮主星（${d.yc.m.join('')}${d.yc.borrow?'，借對宮':''}），正是${X.label}${h.pal}的星${h.xBorrow?'（借對宮）':''}：${t}${ge?`，倪師稱「${ge}」`:''}`});
+  });
+  return out;
+}
+function hpRelPal(rel, X, Y){
+  if(rel.pal!=='親子') return rel.pal;
+  return (X.date <= Y.date) ? '子女宮' : '父母宮';  // 出生較早者為長輩，看子女宮；晚輩看父母宮
+}
+function hpHou(X, cx, Y, cy, relName){
+  const rel = HP_REL[relName] || HP_REL['夫妻／伴侶'];
+  const pn = hpRelPal(rel, X, Y), p = hpPal(cx, pn);
+  const L = SIHUA[p.gan];
+  return {from:X, to:Y, pal:pn, gan:p.gan, sameAsYear: GAN[cx.yearGan]===p.gan, items:[0,3].map(i=>({tag:HP_T[i], star:L[i], pal:mmFindPal(cy, L[i])}))};
+}
+
+hepanCompute = function(){
+  const list = loadPresets();
+  const ia = parseInt(document.getElementById('hepanA').value), ib = parseInt(document.getElementById('hepanB').value);
+  if(ia===ib){ appNotice('請選擇兩位不同的人'); return null; }
+  const relName = (document.getElementById('hepanRel')||{}).value || '夫妻／伴侶';
+  const rel = HP_REL[relName] || HP_REL['夫妻／伴侶'];
+  const A = list[ia], B = list[ib];
+  const ca = mmChartOf(A), cb = mmChartOf(B);
+  const sameStem = ca.huaList.join()===cb.huaList.join();
+  const lines = [], rows = [];
+  [[A,ca,B,cb],[B,cb,A,ca]].forEach(([X,cx,Y,cy])=>{
+    cx.huaList.forEach((star,i)=>{
+      const p = mmFindPal(cy, star);
+      lines.push(`${X.label}的生年化${HP_T[i]}（${star}）落在${Y.label}的${p?p.name:'（未排入）'}`);
+      rows.push({from:X.label, to:Y.label, tag:HP_T[i], star, pal:p});
+    });
+  });
+  const dui = [hpDuiwei(A,ca,B,cb), hpDuiwei(B,cb,A,ca)].map(d=> ({d, items:hpDuiweiText(d, rel)}));
+  const hou = [hpHou(A,ca,B,cb,relName), hpHou(B,cb,A,ca,relName)];
+  return {A, B, ca, cb, lines, rows, sameStem, dui, hou, relName, rel};
+};
+
+function hpRowHtml(x){
+  return `<div class="mm-row hp-row${(x.tag==='權'||x.tag==='科')?' bz-pro':''}"><span class="k">${escapeHtml(x.from)}→${escapeHtml(x.to)}</span>化${x.tag}（${x.star}）入<b>${x.pal?x.pal.name:'—'}</b>${x.pal?`<small>・${HP_HINT[x.tag](MM_PALACE_HINT[x.pal.name])}</small>`:''}</div>`;
+}
+renderHepanPreview = function(){
+  const box = document.getElementById('hepanPreview');
+  if(!box) return;
+  const ia = document.getElementById('hepanA').value, ib = document.getElementById('hepanB').value;
+  if(ia===ib){ box.innerHTML = '<p style="font-size:12.5px;color:var(--vermilion-deep);">請選擇兩位不同的人</p>'; return; }
+  let r; try{ r = hepanCompute(); }catch(e){ box.innerHTML=''; return; }
+  if(!r) return;
+  const ord = {祿:0, 忌:1, 權:2, 科:3};
+  const rows = [...r.rows].sort((a,b)=> (a.from===r.A.label?0:1)-(b.from===r.A.label?0:1) || ord[a.tag]-ord[b.tag]);
+  const duiLq = r.dui.flatMap(x=> x.items.filter(i=> i.liuqin && i.pal!=='命宮'));
+  const duiOther = r.dui.flatMap(x=> x.items.filter(i=> !i.liuqin || i.pal==='命宮'));
+  const rn = escapeHtml(r.relName);
+  box.innerHTML = `<div class="mm-topic-box hp-box">
+    <div class="hp-sec">
+      <div class="hp-h">先天：生年四化互飛<small>飛星派常見做法</small></div>
+      ${r.sameStem ? `<p class="hp-note">兩人出生年的天干相同，生年四化是同一組星，兩個方向看的是同一件事。</p>` : ''}
+      ${rows.map(hpRowHtml).join('')}
+    </div>
+    <div class="hp-sec">
+      <div class="hp-h">倪師主星對位<small>天紀：宮中的主星，就是那一位六親的樣子</small></div>
+      ${duiLq.length ? duiLq.map(i=> `<div class="mm-row hp-row hp-dui${i.borrow?' borrow':''}">${escapeHtml(i.text)}${i.borrow?'<small>・借對宮，參考就好</small>':''}</div>`).join('')
+        : `<p class="hp-note">兩人的命宮主星，沒有完整出現在對方的父母、兄弟、朋友、夫妻、子女宮，倪師的對位格這次沒有對上。</p>`}
+      ${duiOther.map(i=> `<div class="mm-row hp-row bz-pro">${escapeHtml(i.text)}</div>`).join('')}
+      <p class="hp-note bz-pro">只算主星組合完全相同；只有一顆相同不算，因為每張盤都有全部十四顆主星。空宮依倪師「空宮看對面」借對宮主星。</p>
+    </div>
+    <div class="hp-sec bz-pro">
+      <div class="hp-h">後天：關係宮宮干祿忌<small>現代飛星派做法，各家不一</small></div>
+      <p class="hp-note">依「${rn}」看${r.hou[0].pal===r.hou[1].pal ? `兩人${r.hou[0].pal}` : r.hou.map(h=> `${escapeHtml(h.from.label)}的${h.pal}`).join('、')}的宮干。</p>
+      ${r.hou.map(h=> `<div class="mm-row hp-row"><span class="k">${escapeHtml(h.from.label)}（${h.pal}${h.gan}）→${escapeHtml(h.to.label)}</span>${h.items.map(it=> `化${it.tag}${it.star}入<b>${it.pal?it.pal.name:'—'}</b>`).join('；')}${h.sameAsYear?'<small>・此宮宮干與出生年干相同，飛出的星和生年四化一樣，不另計</small>':''}</div>`).join('')}
+      <p class="hp-note">各家對用哪些宮干、化忌怎麼解並不一致（有人看成在意、好感，有人看成消耗），這裡只列落宮，參考就好。</p>
+    </div>
+    <p class="hp-time">想看這一兩年的相處：到上方「AI 綜合解讀」，把兩人的流年一起加入。<button type="button" class="pc-btn" id="hepanToCombine">前往</button></p>
+  </div>`;
+  const go = document.getElementById('hepanToCombine');
+  if(go) go.addEventListener('click', ()=>{ const t = document.getElementById('combineCard') || document.getElementById('combineSection'); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); });
+};
+
+function hpBuildPrompt(r, q){
+  const A = r.A, B = r.B, rel = r.relName;
+  const dui = r.dui.flatMap(x=> x.items).map(i=> '・'+i.text+(i.borrow?'（借對宮，只作參考）':''));
+  const hou = r.hou.map(h=> `${h.from.label}（${h.pal}宮干${h.gan}）→${h.to.label}：${h.items.map(it=> `化${it.tag}${it.star}入${h.to.label}的${it.pal?it.pal.name:'（未排入）'}`).join('；')}${h.sameAsYear?'（此宮宮干與出生年干相同，和生年四化是同一組星，不要重複計算）':''}`);
+  return `${getObjModeInstruction()}你是一位精通紫微斗數合盤的命理顧問。以下是兩個人的命盤，關係是「${rel}」${q?`，我想特別問：「${q}」`:''}。請做合盤分析。
+
+【第一位：${A.label}】
+${buildZiweiPromptBlock(r.ca)}
+
+【第二位：${B.label}】
+${buildZiweiPromptBlock(r.cb)}
+
+【一、先天：生年四化互飛】（某人的生年四化星，落在對方命盤的哪一宮；飛星派常見做法）
+${r.lines.join('\n')}${r.sameStem ? '\n（兩人出生年天干相同，生年四化是同一組星，兩個方向不要重複計算。）' : ''}
+
+【二、倪師主星對位】（倪師天紀：男人父母宮的星正好在伴侶命宮為母子格、命宮的星在伴侶父母宮為父女格、兄弟宮的星在伴侶命宮為兄弟格、朋友宮的星在伴侶命宮為朋友格；夫妻宮、子女宮的星也看作配偶、子女的樣子。只算主星組合完全相同，空宮借對宮。）
+${dui.length ? dui.join('\n') : '兩人的命宮主星，沒有完整出現在對方的任何一宮：倪師的對位格沒有對上。'}
+
+【三、後天：關係宮宮干祿忌】（現代飛星派做法；各家對用哪些宮干、化忌怎麼解並不一致，只作輔助參考）
+${hou.join('\n')}
+
+請你：
+1. 開頭用一句話（40字內，獨立一行）總結這兩人的相處特質。
+2. 以「一、先天」為主說明：誰比較容易在對方哪方面付出、誰容易在對方哪方面牽掛。
+3. 「二、倪師主星對位」有對上才談，沒有對上就略過，不要硬套。
+4. 「三、後天」只作輔助；和先天落在同一宮時可以點出，但不要說成加倍確定。化忌用「在意、牽掛」這類中性說法。
+5. 指出兩人互補之處與最容易摩擦的地方，並針對「${rel}」這種關係說明。
+6. 給3到5個具體可行的相處建議。
+7. 不判斷兩人合不合、不打分數，不預測分手、離婚或外遇，也不論斷任何一方（包括孩子）的好壞。語氣溫和誠實，用白話文，專有名詞順手解釋，繁體中文，約500-700字。`;
+}
+
+const __hpRender = renderHepan;
+renderHepan = function(){
+  __hpRender();
+  const body = document.getElementById('hepanBody');
+  const sel = document.getElementById('hepanRel');
+  if(!body || !sel) return;
+  if(!sel.querySelector('option[value="手足"]')){
+    sel.innerHTML = Object.keys(HP_REL).map(k=> `<option value="${k}">${k}</option>`).join('');
+  }
+  sel.addEventListener('change', ()=> renderHepanPreview());
+  renderHepanPreview();
+  const old = document.getElementById('hepanBtn');
+  const btn = old.cloneNode(true); old.replaceWith(btn);   // 換掉原本的產生提詞動作
+  btn.addEventListener('click', ()=>{
+    const q = document.getElementById('hepanQ').value.trim();
+    if(sancaiL1(q)){ sancaiCare('l1'); return; }
+    const r = hepanCompute(); if(!r) return;
+    mmCopy(sancaiHarden(hpBuildPrompt(r, q)), document.getElementById('hepanStatus'), document.getElementById('hepanOut'));
+  });
+};
+setTimeout(()=>{ try{ renderHepan(); }catch(e){} }, 0);
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
