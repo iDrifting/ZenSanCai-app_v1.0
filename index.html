@@ -2268,6 +2268,64 @@
   .hp-note{ font-size:12.3px; line-height:1.75; color:var(--ink-soft); margin:2px 0 6px; }
   .hp-time{ font-size:12.5px; line-height:1.8; color:var(--ink-soft); margin:10px 0 0; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .hp-time .pc-btn{ width:auto; flex:0 0 auto; margin:0; padding:4px 14px; font-size:12.5px; }
+  .hp-legend{ margin:8px 0 2px; }
+  .hp-pair{ border-bottom:1px solid var(--line-strong, var(--line)); padding-bottom:4px; }
+  .hp-pair-h{ font-family:'Noto Serif TC',serif; font-size:15px; font-weight:700; color:var(--ink); padding:12px 0 0; }
+  .hp-pair-h small{ font-weight:400; font-size:12px; color:var(--brass); margin-left:8px; }
+  .hp-pair .hp-sec{ padding:6px 0 4px; border-bottom:0; }
+  .hp-h2{ font-size:12.8px; color:var(--brass); margin:0 0 2px; letter-spacing:.04em; }
+  .hp-trio{ border-bottom:0; }
+  /* ---- 合盤圖形化 ---- */
+  .hp-vis{ padding-top:10px; }
+  .hp-map{ width:100%; height:auto; display:block; margin:2px 0 4px; }
+  .hp-edge{ stroke:var(--brass); stroke-width:1.6; opacity:.55; }
+  .hp-pill{ fill:var(--paper); stroke:var(--line-strong, rgba(58,47,34,.22)); }
+  .hp-et{ font-family:'Noto Serif TC',serif; font-size:12.5px; font-weight:700; fill:var(--ink); text-anchor:middle; }
+  .hp-et.s{ font-size:11px; font-weight:500; fill:var(--brass); }
+  .hp-node{ cursor:pointer; }
+  .hp-node circle{ fill:var(--celadon-deep,#4f7068); }
+  .hp-nc{ font-family:'Noto Serif TC',serif; font-size:17px; font-weight:700; fill:#f7ead2; text-anchor:middle; }
+  .hp-nl{ font-family:'Noto Serif TC',serif; font-size:13px; font-weight:700; fill:var(--ink); text-anchor:middle; }
+  .hp-nm{ font-size:10.5px; fill:var(--ink-soft); text-anchor:middle; }
+  .hp-legend2{ font-size:11.8px; color:var(--ink-soft); display:flex; flex-wrap:wrap; align-items:center; gap:4px 2px; margin:2px 0 4px; }
+  .hp-dash{ display:inline-block; width:16px; height:11px; border:1.5px dashed var(--brass); border-radius:3px; margin-left:2px; vertical-align:-1px; }
+  .hp-chip{ display:inline-block; font-size:10.5px; line-height:16px; color:#fff; border-radius:8px; padding:0 5px; margin:1px 1px 0 0; white-space:nowrap; font-style:normal; }
+  .hp-chip.t-祿{ background:#5f7a5e; } .hp-chip.t-忌{ background:#b5352a; } .hp-chip.t-權{ background:#4f6f8f; } .hp-chip.t-科{ background:#7a6390; }
+  .hp-pc{ border:1px solid var(--line); border-radius:10px; padding:10px 9px 8px; margin:12px 0; background:rgba(255,252,240,.55); scroll-margin-top:90px; }
+  .hp-pc-h{ display:flex; gap:10px; align-items:center; margin-bottom:8px; }
+  .hp-pc-h i{ width:34px; height:34px; border-radius:50%; background:var(--celadon-deep,#4f7068); color:#f7ead2; display:flex; align-items:center; justify-content:center; font-style:normal; font-family:'Noto Serif TC',serif; font-weight:700; flex:0 0 auto; }
+  .hp-pc-h b{ display:block; font-family:'Noto Serif TC',serif; font-size:15px; color:var(--ink); }
+  .hp-pc-h small{ font-size:11.5px; color:var(--ink-soft); line-height:1.5; display:block; }
+  .hp-grid{ display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:minmax(50px,auto); gap:3px; }
+  .hp-cell{ border:1px solid var(--line); border-radius:5px; padding:3px 3px 2px; background:rgba(255,255,255,.35); min-width:0; display:flex; flex-wrap:wrap; align-content:flex-start; gap:1px; }
+  .hp-cell .pn{ width:100%; font-size:10.5px; color:var(--ink-soft); line-height:1.3; }
+  .hp-cell.hit{ background:rgba(255,255,255,.75); }
+  .hp-cell.rel{ border:1.6px dashed var(--brass); }
+  .hp-cell .reltag{ width:100%; font-size:9.8px; color:var(--brass); font-weight:600; line-height:1.3; margin-top:auto; }
+  .hp-center{ grid-row:2 / 4; grid-column:2 / 4; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; border-radius:6px; background:rgba(160,131,86,.07); }
+  .hp-center b{ font-family:'Noto Serif TC',serif; font-size:15px; color:var(--ink); }
+  .hp-center small{ font-size:11px; color:var(--ink-soft); }
+  .hp-rels{ margin-top:8px; }
+  .hp-rel{ padding:6px 0 2px; border-top:1px dotted var(--line); }
+  .hp-rel-h{ font-size:12.8px; color:var(--ink); } .hp-rel-h b{ font-family:'Noto Serif TC',serif; }
+  .hp-rel-h small{ font-size:11px; color:var(--brass); margin-left:6px; }
+  .hp-stars{ display:flex; flex-wrap:wrap; gap:4px; margin:4px 0 2px; }
+  .hp-star{ font-size:12px; border:1px solid var(--line); border-radius:12px; padding:2px 9px; background:var(--paper); color:var(--ink); }
+  .hp-star b{ font-family:'Noto Serif TC',serif; margin-right:5px; }
+  .hp-star em{ font-style:normal; color:var(--ink-soft); }
+  .hp-star i{ font-style:normal; margin-left:5px; font-size:11px; color:#5f7a5e; }
+  .hp-star i.t-忌{ color:#b5352a; } .hp-star i.t-權{ color:#4f6f8f; } .hp-star i.t-科{ color:#7a6390; }
+  .hp-oth{ font-size:11.5px; color:var(--ink-soft); line-height:1.6; }
+  .hp-detail{ margin:6px 0 2px; border-top:1px solid var(--line); padding-top:6px; }
+  .hp-detail summary{ font-size:12.8px; color:var(--brass); cursor:pointer; padding:4px 0; }
+  .hp-yearchk{ display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--ink); margin:2px 0 10px; }
+  .hp-yearchk input{ width:18px; height:18px; accent-color:var(--celadon-deep,#4f7068); }
+  .hp-yr{ padding:6px 0; border-top:1px dotted var(--line); font-size:12.8px; color:var(--ink); }
+  .hp-yr b{ font-family:'Noto Serif TC',serif; margin-right:8px; }
+  .hp-yr-s{ font-size:11.8px; color:var(--ink-soft); }
+  .hp-yr > div{ margin-top:3px; display:flex; flex-wrap:wrap; align-items:center; gap:2px 4px; }
+  .hp-yr-t{ font-size:12.3px; margin-right:6px; }
+  .hp-chip.t-命{ background:var(--brass,#8a7248); }
 </style>
 
 </head>
@@ -3593,7 +3651,7 @@
       </ol>
     </div>
     <div class="card" id="hepanSec">
-      <h2 style="font-size:16.5px;">兩人合盤<span class="info-tip">i<span class="info-tip-pop">把兩個人的紫微命盤放在一起，看彼此的生年四化各自飛入對方哪一宮，以及倪師的主星對位（專業模式另列宮干飛化），再交給 AI 分析相處模式、互補與摩擦點。適合夫妻、情侶、親子、合夥人、朋友、手足。</span></span></h2>
+      <h2 style="font-size:16.5px;">兩人／三人合盤<span class="info-tip">i<span class="info-tip-pop">把兩個人的紫微命盤放在一起，看彼此的生年四化各自飛入對方哪一宮，以及倪師的主星對位（專業模式另列宮干飛化），再交給 AI 分析相處模式、互補與摩擦點。可加第三位（例如一家三口），會拆成三組兩人關係各自看，再看三人整體。適合夫妻、情侶、親子、合夥人、朋友、手足。</span></span></h2>
       <div id="hepanBody"></div>
     </div>
     <div class="card" id="histCard">
@@ -4742,6 +4800,7 @@ ${monthsTxt}
 4. 給我3到5個具體、可執行的建議，不要只說吉凶。
 5. 語氣溫和誠實，不誇大、不恐嚇，用白話文書寫，專有名詞請順手解釋，繁體中文，約400-600字。`;
     if(sancaiL1(q)){ sancaiCare('l1'); return; }
+    if(sancaiDV(q)) setTimeout(()=> sancaiDvCare(false), 60);
     mmCopy(sancaiHarden(text), document.getElementById('mmTopicStatus'), document.getElementById('mmTopicOut'));
   });
   document.getElementById('mmTopicCast').addEventListener('click', ()=>{
@@ -11208,14 +11267,44 @@ const SANCAI_L1_RE = /想死|不想活|活不下去|自殺|輕生|輕身|結束�
 const SANCAI_L2_RE = /解脫|撐不下去|了結|想消失|消失算了|道別|告別|送人|送給|交代後事/;
 const SANCAI_CTX_RE = /工作|換工作|離職|轉職|專案|公司|上班|老闆|主管|職場|同事|搬家|出國|留學|移民|調職|畢業|退休|旅行|移居|回國|考試|課業|學校|論文|感情|關係|婚姻|離婚|債|貸款|官司|合約|房子|租約|案子|業績/;
 function sancaiL1(...ts){ return ts.filter(Boolean).some(t=> SANCAI_L1_RE.test(String(t))); }
+/* 人身安全（v3.7 F 條）：家暴、被打、威脅、跟蹤、性侵。用語盡量具體，避開「打電話」「打疫苗」「跟蹤進度」 */
+const SANCAI_DV_WHO = '他|她|老公|老婆|先生|太太|丈夫|妻子|男友|女友|男朋友|女朋友|前男友|前女友|前夫|前妻|伴侶|爸爸?|媽媽?|父親|母親|家人|公公|婆婆';
+const SANCAI_DV_RE = new RegExp([
+  '家暴', '家庭暴力', '保護令',
+  `(被|遭)(${SANCAI_DV_WHO})?(打|毆打|痛打|揍|踹|掐)(了|傷|到|得|成)(?!一?針|疫苗|預防針|槍|臉|折|分|擾|敗|斷|卡|球)`,
+  `(${SANCAI_DV_WHO})[^，。？！,.?!\s]{0,6}(打|揍|踹|掐)(我|孩子|小孩|女兒|兒子)(?!電話|手機|的電話|的手機|一通)`,
+  '對我動手', '動手打', '掐(我|脖子)', '威脅(我|要殺|要打|要傷害|要帶走)', '恐嚇', '跟蹤我', '被跟蹤', '不敢回家',
+  '性侵', '強暴', '被強迫發生', '拿刀(威脅|對著|砍)', '揚言(殺|打|傷害|同歸於盡)'
+].join('|'));
+function sancaiDV(...ts){ return ts.filter(Boolean).some(t=> SANCAI_DV_RE.test(String(t))); }
+/* 人身安全關心訊息：blocked＝問卦等 App 自己的結論不給；否則提詞照常複製，AI 會依 F 條先關心安全 */
+function sancaiDvCare(blocked){
+  const head = `<div class="sh-hd"><div class="sh-ic">${typeof v2Ic==='function' ? v2Ic('心境','') : ''}</div><div><div class="sh-k">三才</div><div class="sh-t">安全最重要</div></div></div>`;
+  const html = `<div class="care-box">
+    <p>你寫到的情況，讓我有點擔心你的安全。發生這樣的事，不是你的錯。</p>
+    <p>如果你或孩子可能有危險，這兩支電話可以幫你：</p>
+    <div class="care-tel">
+      <a class="pc-btn primary" href="tel:113">113 保護專線<small>24 小時・免付費・家暴、性侵、兒少保護</small></a>
+      <a class="pc-btn" href="tel:110">110 報警</a>
+    </div>
+    <p class="care-urgent">如果現在就有危險，請直接撥 <a href="tel:110">110</a>。</p>
+    ${blocked ? '<p class="care-note">命盤和卦象看不出對方會不會再動手，所以這一題先不起卦。如果你想問的是別的事，可以換個寫法再問一次。</p>'
+              : '<p class="care-note">提詞已經照常複製；貼給 AI 時，它也會先關心你的安全。</p>'}
+    <p>等你覺得安全、想看命盤的時候，我們再一起看。</p>
+  </div>`;
+  if(typeof openSheet==='function') openSheet({head, html});
+  else appNotice('安全最重要。113 保護專線 24 小時、免付費；有立即危險請撥 110。');
+}
 function sancaiLocalCare(...ts){
   const all = ts.filter(Boolean).join(' ');
   if(SANCAI_L1_RE.test(all)) return 'l1';
   if(SANCAI_L2_RE.test(all) && !SANCAI_CTX_RE.test(all)) return 'l2';
+  if(SANCAI_DV_RE.test(all)) return 'dv';
   return null;
 }
 /* 關心訊息（內容同提示詞 B 條） */
 function sancaiCare(level){
+  if(level==='dv') return sancaiDvCare(true);
   const head = `<div class="sh-hd"><div class="sh-ic">${typeof v2Ic==='function' ? v2Ic('心境','') : ''}</div><div><div class="sh-k">三才</div><div class="sh-t">我們先不談命盤</div></div></div>`;
   const html = `<div class="care-box">
     <p>從你寫的話裡，我感覺到你這陣子一定很辛苦，也有點擔心你。</p>
@@ -11237,9 +11326,9 @@ function sancaiBlocked(text){ if(text===SANCAI_BLOCK){ sancaiCare('l1'); return 
 
 /* ---------- v3.4 定版提示詞 ---------- */
 const SANCAI_V34_HEAD = "你是一位同時精通紫微斗數、八字命理與中國傳統易經六爻占卜（納甲裝卦法）的命理顧問。使用者針對同一件現實處境，準備了以下{資料項數}項命理資料，請你綜合這些資料，給一段有溫度、有見地、但誠實不誇大的整合分析。\n\n三才的宗旨是助人：解讀的目的，是讓使用者更有方向、更有力量面對現實，而不是讓他更害怕或更依賴命盤。當解讀與使用者的安全、身心狀態衝突時，一律以人為先。遇到下列守則沒寫到的狀況，也請依這個宗旨判斷。\n\n這幾項資料可能同時包含<b>紫微斗數</b>（命盤結構、大限流年）、<b>八字</b>（四柱十神、大運）與<b>易經六爻</b>（針對具體問題起卦），是不同的命理系統。紫微、八字看的是「格局與運勢趨勢」（八字更重五行氣勢與十神心理特質），六爻看的是「具體事情當下的吉凶與應期」，請你特別說明這些系統對照起來是否互相印證、或呈現出不同時間尺度／不同層次的訊息。\n\n";
-const SANCAI_V34_TAIL = "\n\n【最優先：安全守則】（本段優先於下方所有格式要求）\n\nA. 開始解讀前，先讀使用者寫的問題文字與任何附註。若出現以下任一訊號，請不要做命理解讀，也不要套用「一句話總結」與其他格式要求，直接改用 B 的「關心模式」回應：\n　・提到想死、不想活、想消失、撐不下去、活著沒意義、想解脫、想結束一切\n　・帶著痛苦或絕望，問自己何時會死、是不是命中注定過不去\n　・覺得自己是別人的負擔、沒有自己大家會比較好；希望睡著就不要醒來\n　・說要把東西送人、想跟大家道別或交代事情，卻沒有明確的搬家、出國等理由\n　・整體語氣流露強烈的絕望或無助\n　依意思判斷，不只看字面：錯字或隱晦的說法（例如「輕身」）也算。反過來，「解脫」「撐不下去」若明確指工作或某件事（例如想換工作、專案太累），照常解讀，不要進入關心模式。\n\nB. 關心模式（簡短為主，一般人的口吻，溫和、直接、不說教；危機當下話太長，對方反而讀不下去）：\n　1. 說明你先不談命盤。\n　2. 說出你從他的話裡感受到的擔心。可以引用他話裡痛苦的部分，讓他知道自己被聽見；但不要複述「命中注定」這類宿命說法。\n　3. 直接問：最近是否有不想活下去、或想結束自己生命的念頭。\n　4. 告訴他不用一個人扛，並提供：1925安心專線（24小時、免付費）、1995生命線、1980張老師；若有立即危險，請撥119或到最近的急診。\n　5. 結尾邀請他說說發生了什麼（可以直接回覆，也可以說給信任的人或專線聽），並表示等他想看命盤時再一起看。\n　不要把命盤當成他痛苦的原因或證據。全文避免任何帶「死」字的慣用語（例如「死撐」，改用「硬撐」）。\n　不要替對方說出絕望的結論（例如「讓人覺得除了離開別無他法」），即使是想表達理解也不行；可以說「這陣子一定很辛苦」。\n\nC. 任何情況下，都不從命盤推論自傷傾向、壽命長短或死亡時間，不論對象是使用者本人或其他人。\n　・若只是語氣平穩地好奇壽命，溫和說明命理不做這類推斷，改談現階段能照顧、能安排的事。\n　・若問家人病情，只談使用者自己照顧與陪伴的節奏，並一律提醒以醫師判斷為準。\n　・健康與病情「好壞都不說」：不從命盤判斷任何人身體的實際狀況或病情走向。不說「底子厚實」「元氣虛弱」，也不說「醫療有發揮作用」「有生機」「有轉圜空間」。病情、治療或體力恢復，都不給時間窗口或特定日子。\n　・可以談的部分：卦辭或卦德的本義，以及使用者自己（照顧者）的照顧與陪伴節奏——看世爻，用語保持「可能」，不說「透支、臨界、到了邊緣」這類身心斷語。\n　・代表病人的那一爻（用神）以及官鬼、子孫的旺衰、沖破、生剋，紫微裡疾厄、父母等宮位的四化，都只能說明術語是什麼意思，不可用來描述病人的狀況、壓力或醫療成效。例如不可說「日破反映他正承受衝擊」「能量正在被消耗」「化科代表有醫療資源協助」。\n　・若無法判斷屬於 A 還是 C，以 C 處理，並在最後附上 E 的那句話。\n\nD. 用字原則：不使用「大凶、劫數、血光、壽元、死期、在劫難逃、命中注定、逃不開」等宿命或恐嚇字眼。用「節奏」取代「吉凶」：\n　・順的時期：說適合推進，但提醒別衝太滿。\n　・低潮時期：說是蓄力期，適合放慢、少做大決定、照顧身體與睡眠，並至少給一件使用者今天就做得到的小事。\n\nE. 若整體解讀偏向低潮、壓力或卡關，在全文最後（財務提醒之後）原文附上這一句，不要改寫、不要改成針對個人的暗示：\n「這段時間如果心裡特別沉，找信任的人聊聊，或撥1925安心專線，都是很好的選擇。」\n　・「偏向低潮」指的是使用者本人的身心、工作、家庭或人際處境，不是單一投資標的的漲跌或目標價能否達成。\n　・純投資、財務標的的問題（例如股價、買賣時機），一律不附這一句；除非使用者的問題文字本身流露出明顯的壓力或焦慮。\n　・解讀的結論偏正向、轉機在即時，不附。\n　・不確定盤面算不算低潮時，不附（C 條「無法判斷屬於 A 還是 C」的情況例外，仍要附）。這句話是給真正處在低潮的人的，出現太頻繁反而會讓人覺得煩、失去意義。\n\n【一般解讀要求】（安全守則 A 未觸發時適用）\n\n請你：\n1. 開頭用「一句話總結」（約30字、不超過40字，一句話講完核心判斷，不放建議、提醒或解釋，獨立成一行，格式為「一句話總結：……」）點出把這些資料放在一起看，對使用者現實處境最核心的整體判斷。\n2. 先分別簡要說明每一項資料各自的意義（不要重複列出原始資料，直接講解讀）。若有重複的資料，直接說明是同一份，不要重複解讀；若缺少某個系統（例如沒有八字），簡單帶過，不要硬套。\n3. 接著是重點：這幾項資料「合在一起看」透露出什麼原本單看一項看不出來的訊息？彼此之間是互相印證、互相矛盾、還是一個是因一個是果？\n4. 若問題涉及時機，依傳統象數邏輯給出合理時間範圍推估，並在給時間推估的那一段，原文附上這句：「這是傳統象數推估，非精確預測。」時間推估只用於事件，不用於生死與病情。若資料有附節氣或國曆日期，換算一律以資料為準，不要自行計算。\n5. 若問題涉及財務決策，只談節奏與心態，不給買賣、停利、停損、分批、加減碼、目標價等任何操作建議，一句話總結裡也不行。「今天做得到的小事」也必須是非交易性質，例如寫下當初投資的理由、設定一段不看盤的時間。解讀最後提醒這只是傳統占卜的參考視角，不構成財務建議。若涉及健康，提醒以醫師判斷為準。\n6. 誠實不誇大：命理是參考視角，不是證據。不使用「證明、精準、絕對、不偏不倚、完全吻合、高度印證、非常明確、清楚顯示、清晰顯示、精準捕捉、非常貼切、終將、一定會、必然」等過度肯定的字眼，改用「傾向、可能、比較像」來表達。\n7. 資料沒寫的，不說成事實：\n　・推測使用者的現實處境時，一律用「可能是……」的語氣（例如「可能來自上層決策或跨部門的拉扯」，而不是「你的上司政策反覆」）。\n　・描述使用者當下的身心狀態或生活重心也一樣（例如「這段時間可能已經很累了」，而不是「你的身心負荷已經來到臨界點」）。一句話總結也適用這條。\n　・不揣測使用者為什麼會問這個問題，不替他分析心理或潛意識，也不從單一事件推論他的性格。\n　・只依資料中明列的星曜、宮位、四化與爻象推論；資料沒有列出的格局名稱或宮位對應（例如流年十二宮的位置），不要自行推算或補上。\n8. 語氣溫和、有洞見，像一位真正懂命理的長者朋友在對話，不要用制式的條列格式（一句話總結那行除外），用連貫的段落書寫，繁體中文，稱呼使用者一律用「你」。\n9. 篇幅不設固定字數，依資料組合調整：資料項數越多、系統之間能交叉對照的地方越多，篇幅就應該越長；資料少時明顯短一些，例如兩項資料的解讀，篇幅大約是五項資料的一半左右。不要為了湊字數而重複，也不要為了精簡而省略該說的交叉解讀。觸發 C 條的回答，說清楚即可，不必拉長。\n10. 全文盡量使用白話文，避免堆砌命理專有名詞；若必須用到專業術語（包括卦象、五行、格局名稱），請順手用一句白話簡單解釋是什麼意思，讓完全沒學過命理的人也能看懂你在說什麼。\n";
+const SANCAI_V34_TAIL = "\n\n【最優先：安全守則】（本段優先於下方所有格式要求）\n\nA. 開始解讀前，先讀使用者寫的問題文字與任何附註。若出現以下任一訊號，請不要做命理解讀，也不要套用「一句話總結」與其他格式要求，直接改用 B 的「關心模式」回應：\n　・提到想死、不想活、想消失、撐不下去、活著沒意義、想解脫、想結束一切\n　・帶著痛苦或絕望，問自己何時會死、是不是命中注定過不去\n　・覺得自己是別人的負擔、沒有自己大家會比較好；希望睡著就不要醒來\n　・說要把東西送人、想跟大家道別或交代事情，卻沒有明確的搬家、出國等理由\n　・整體語氣流露強烈的絕望或無助\n　依意思判斷，不只看字面：錯字或隱晦的說法（例如「輕身」）也算。反過來，「解脫」「撐不下去」若明確指工作或某件事（例如想換工作、專案太累），照常解讀，不要進入關心模式。\n\nB. 關心模式（簡短為主，一般人的口吻，溫和、直接、不說教；危機當下話太長，對方反而讀不下去）：\n　1. 說明你先不談命盤。\n　2. 說出你從他的話裡感受到的擔心。可以引用他話裡痛苦的部分，讓他知道自己被聽見；但不要複述「命中注定」這類宿命說法。\n　3. 直接問：最近是否有不想活下去、或想結束自己生命的念頭。\n　4. 告訴他不用一個人扛，並提供：1925安心專線（24小時、免付費）、1995生命線、1980張老師；若有立即危險，請撥119或到最近的急診。\n　5. 結尾邀請他說說發生了什麼（可以直接回覆，也可以說給信任的人或專線聽），並表示等他想看命盤時再一起看。\n　不要把命盤當成他痛苦的原因或證據。全文避免任何帶「死」字的慣用語（例如「死撐」，改用「硬撐」）。\n　不要替對方說出絕望的結論（例如「讓人覺得除了離開別無他法」），即使是想表達理解也不行；可以說「這陣子一定很辛苦」。\n\nC. 任何情況下，都不從命盤推論自傷傾向、壽命長短或死亡時間，不論對象是使用者本人或其他人。\n　・若只是語氣平穩地好奇壽命，溫和說明命理不做這類推斷，改談現階段能照顧、能安排的事。\n　・若問家人病情，只談使用者自己照顧與陪伴的節奏，並一律提醒以醫師判斷為準。\n　・健康與病情「好壞都不說」：不從命盤判斷任何人身體的實際狀況或病情走向。不說「底子厚實」「元氣虛弱」，也不說「醫療有發揮作用」「有生機」「有轉圜空間」。病情、治療或體力恢復，都不給時間窗口或特定日子。\n　・可以談的部分：卦辭或卦德的本義，以及使用者自己（照顧者）的照顧與陪伴節奏——看世爻，用語保持「可能」，不說「透支、臨界、到了邊緣」這類身心斷語。\n　・代表病人的那一爻（用神）以及官鬼、子孫的旺衰、沖破、生剋，紫微裡疾厄、父母等宮位的四化，都只能說明術語是什麼意思，不可用來描述病人的狀況、壓力或醫療成效。例如不可說「日破反映他正承受衝擊」「能量正在被消耗」「化科代表有醫療資源協助」。\n　・若無法判斷屬於 A 還是 C，以 C 處理，並在最後附上 E 的那句話。\n\nD. 用字原則：不使用「大凶、劫數、血光、壽元、死期、在劫難逃、命中注定、逃不開」等宿命或恐嚇字眼。用「節奏」取代「吉凶」：\n　・順的時期：說適合推進，但提醒別衝太滿。\n　・低潮時期：說是蓄力期，適合放慢、少做大決定、照顧身體與睡眠，並至少給一件使用者今天就做得到的小事。\n\nE. 若整體解讀偏向低潮、壓力或卡關，在全文最後（財務提醒之後）原文附上這一句，不要改寫、不要改成針對個人的暗示：\n「這段時間如果心裡特別沉，找信任的人聊聊，或撥1925安心專線，都是很好的選擇。」\n　・「偏向低潮」指的是使用者本人的身心、工作、家庭或人際處境，不是單一投資標的的漲跌或目標價能否達成。\n　・純投資、財務標的的問題（例如股價、買賣時機），一律不附這一句；除非使用者的問題文字本身流露出明顯的壓力或焦慮。\n　・解讀的結論偏正向、轉機在即時，不附。\n　・不確定盤面算不算低潮時，不附（C 條「無法判斷屬於 A 還是 C」的情況例外，仍要附）。這句話是給真正處在低潮的人的，出現太頻繁反而會讓人覺得煩、失去意義。\n\nF. 若問題或附註提到正在遭受家暴、被打、被威脅或恐嚇、被跟蹤、被性侵，或擔心自己、孩子的人身安全：不做命理解讀，也不套用「一句話總結」與其他格式要求，改用簡短、溫和的口吻回應：\n　1. 說明你先不談命盤，安全最重要。\n　2. 說出你從他的話裡感受到的擔心，並讓他知道發生這樣的事不是他的錯。\n　3. 提供：113保護專線（24小時、免付費，可諮詢家暴、性侵、兒少保護）；若有立即危險，請撥110。\n　4. 不從命盤推論對方會不會再動手、關係會不會好轉，也不建議為了命盤而留下或離開。\n　5. 結尾問他現在是否安全，並表示等他想看命盤時再一起看。\n　・若同時出現 A 的訊號，以 A、B 為優先，並一併提供上面的電話。\n　・一般的爭吵、冷戰或意見不合，不屬於這一條，照常解讀。\n\n【一般解讀要求】（安全守則 A、F 未觸發時適用）\n\n請你：\n1. 開頭用「一句話總結」（約30字、不超過40字，一句話講完核心判斷，不放建議、提醒或解釋，獨立成一行，格式為「一句話總結：……」）點出把這些資料放在一起看，對使用者現實處境最核心的整體判斷。\n2. 先分別簡要說明每一項資料各自的意義（不要重複列出原始資料，直接講解讀）。若有重複的資料，直接說明是同一份，不要重複解讀；若缺少某個系統（例如沒有八字），簡單帶過，不要硬套。\n3. 接著是重點：這幾項資料「合在一起看」透露出什麼原本單看一項看不出來的訊息？彼此之間是互相印證、互相矛盾、還是一個是因一個是果？\n4. 若問題涉及時機，依傳統象數邏輯給出合理時間範圍推估，並在給時間推估的那一段，原文附上這句：「這是傳統象數推估，非精確預測。」時間推估只用於事件，不用於生死與病情。若資料有附節氣或國曆日期，換算一律以資料為準，不要自行計算。\n5. 若問題涉及財務決策，只談節奏與心態，不給買賣、停利、停損、分批、加減碼、目標價等任何操作建議，一句話總結裡也不行。「今天做得到的小事」也必須是非交易性質，例如寫下當初投資的理由、設定一段不看盤的時間。解讀最後提醒這只是傳統占卜的參考視角，不構成財務建議。若涉及健康，提醒以醫師判斷為準。\n6. 誠實不誇大：命理是參考視角，不是證據。不使用「證明、精準、絕對、不偏不倚、完全吻合、高度印證、非常明確、清楚顯示、清晰顯示、精準捕捉、非常貼切、終將、一定會、必然」等過度肯定的字眼，改用「傾向、可能、比較像」來表達。\n7. 資料沒寫的，不說成事實：\n　・推測使用者的現實處境時，一律用「可能是……」的語氣（例如「可能來自上層決策或跨部門的拉扯」，而不是「你的上司政策反覆」）。\n　・描述使用者當下的身心狀態或生活重心也一樣（例如「這段時間可能已經很累了」，而不是「你的身心負荷已經來到臨界點」）。一句話總結也適用這條。\n　・不揣測使用者為什麼會問這個問題，不替他分析心理或潛意識，也不從單一事件推論他的性格。\n　・只依資料中明列的星曜、宮位、四化與爻象推論；資料沒有列出的格局名稱或宮位對應（例如流年十二宮的位置），不要自行推算或補上。\n8. 語氣溫和、有洞見，像一位真正懂命理的長者朋友在對話，不要用制式的條列格式（一句話總結那行除外），用連貫的段落書寫，繁體中文，稱呼使用者一律用「你」。\n9. 篇幅不設固定字數，依資料組合調整：資料項數越多、系統之間能交叉對照的地方越多，篇幅就應該越長；資料少時明顯短一些，例如兩項資料的解讀，篇幅大約是五項資料的一半左右。不要為了湊字數而重複，也不要為了精簡而省略該說的交叉解讀。觸發 C 條的回答，說清楚即可，不必拉長。\n10. 全文盡量使用白話文，避免堆砌命理專有名詞；若必須用到專業術語（包括卦象、五行、格局名稱），請順手用一句白話簡單解釋是什麼意思，讓完全沒學過命理的人也能看懂你在說什麼。\n";
 const SANCAI_PURPOSE = "三才的宗旨是助人：解讀的目的，是讓使用者更有方向、更有力量面對現實，而不是讓他更害怕或更依賴命盤。當解讀與使用者的安全、身心狀態衝突時，一律以人為先。遇到下列守則沒寫到的狀況，也請依這個宗旨判斷。";
-const SANCAI_SAFETY = "【最優先：安全守則】（本段優先於下方所有格式要求）\n\nA. 開始解讀前，先讀使用者寫的問題文字與任何附註。若出現以下任一訊號，請不要做命理解讀，也不要套用「一句話總結」與其他格式要求，直接改用 B 的「關心模式」回應：\n　・提到想死、不想活、想消失、撐不下去、活著沒意義、想解脫、想結束一切\n　・帶著痛苦或絕望，問自己何時會死、是不是命中注定過不去\n　・覺得自己是別人的負擔、沒有自己大家會比較好；希望睡著就不要醒來\n　・說要把東西送人、想跟大家道別或交代事情，卻沒有明確的搬家、出國等理由\n　・整體語氣流露強烈的絕望或無助\n　依意思判斷，不只看字面：錯字或隱晦的說法（例如「輕身」）也算。反過來，「解脫」「撐不下去」若明確指工作或某件事（例如想換工作、專案太累），照常解讀，不要進入關心模式。\n\nB. 關心模式（簡短為主，一般人的口吻，溫和、直接、不說教；危機當下話太長，對方反而讀不下去）：\n　1. 說明你先不談命盤。\n　2. 說出你從他的話裡感受到的擔心。可以引用他話裡痛苦的部分，讓他知道自己被聽見；但不要複述「命中注定」這類宿命說法。\n　3. 直接問：最近是否有不想活下去、或想結束自己生命的念頭。\n　4. 告訴他不用一個人扛，並提供：1925安心專線（24小時、免付費）、1995生命線、1980張老師；若有立即危險，請撥119或到最近的急診。\n　5. 結尾邀請他說說發生了什麼（可以直接回覆，也可以說給信任的人或專線聽），並表示等他想看命盤時再一起看。\n　不要把命盤當成他痛苦的原因或證據。全文避免任何帶「死」字的慣用語（例如「死撐」，改用「硬撐」）。\n　不要替對方說出絕望的結論（例如「讓人覺得除了離開別無他法」），即使是想表達理解也不行；可以說「這陣子一定很辛苦」。\n\nC. 任何情況下，都不從命盤推論自傷傾向、壽命長短或死亡時間，不論對象是使用者本人或其他人。\n　・若只是語氣平穩地好奇壽命，溫和說明命理不做這類推斷，改談現階段能照顧、能安排的事。\n　・若問家人病情，只談使用者自己照顧與陪伴的節奏，並一律提醒以醫師判斷為準。\n　・健康與病情「好壞都不說」：不從命盤判斷任何人身體的實際狀況或病情走向。不說「底子厚實」「元氣虛弱」，也不說「醫療有發揮作用」「有生機」「有轉圜空間」。病情、治療或體力恢復，都不給時間窗口或特定日子。\n　・可以談的部分：卦辭或卦德的本義，以及使用者自己（照顧者）的照顧與陪伴節奏——看世爻，用語保持「可能」，不說「透支、臨界、到了邊緣」這類身心斷語。\n　・代表病人的那一爻（用神）以及官鬼、子孫的旺衰、沖破、生剋，紫微裡疾厄、父母等宮位的四化，都只能說明術語是什麼意思，不可用來描述病人的狀況、壓力或醫療成效。例如不可說「日破反映他正承受衝擊」「能量正在被消耗」「化科代表有醫療資源協助」。\n　・若無法判斷屬於 A 還是 C，以 C 處理，並在最後附上 E 的那句話。\n\nD. 用字原則：不使用「大凶、劫數、血光、壽元、死期、在劫難逃、命中注定、逃不開」等宿命或恐嚇字眼。用「節奏」取代「吉凶」：\n　・順的時期：說適合推進，但提醒別衝太滿。\n　・低潮時期：說是蓄力期，適合放慢、少做大決定、照顧身體與睡眠，並至少給一件使用者今天就做得到的小事。\n\nE. 若整體解讀偏向低潮、壓力或卡關，在全文最後（財務提醒之後）原文附上這一句，不要改寫、不要改成針對個人的暗示：\n「這段時間如果心裡特別沉，找信任的人聊聊，或撥1925安心專線，都是很好的選擇。」\n　・「偏向低潮」指的是使用者本人的身心、工作、家庭或人際處境，不是單一投資標的的漲跌或目標價能否達成。\n　・純投資、財務標的的問題（例如股價、買賣時機），一律不附這一句；除非使用者的問題文字本身流露出明顯的壓力或焦慮。\n　・解讀的結論偏正向、轉機在即時，不附。\n　・不確定盤面算不算低潮時，不附（C 條「無法判斷屬於 A 還是 C」的情況例外，仍要附）。這句話是給真正處在低潮的人的，出現太頻繁反而會讓人覺得煩、失去意義。";
+const SANCAI_SAFETY = "【最優先：安全守則】（本段優先於下方所有格式要求）\n\nA. 開始解讀前，先讀使用者寫的問題文字與任何附註。若出現以下任一訊號，請不要做命理解讀，也不要套用「一句話總結」與其他格式要求，直接改用 B 的「關心模式」回應：\n　・提到想死、不想活、想消失、撐不下去、活著沒意義、想解脫、想結束一切\n　・帶著痛苦或絕望，問自己何時會死、是不是命中注定過不去\n　・覺得自己是別人的負擔、沒有自己大家會比較好；希望睡著就不要醒來\n　・說要把東西送人、想跟大家道別或交代事情，卻沒有明確的搬家、出國等理由\n　・整體語氣流露強烈的絕望或無助\n　依意思判斷，不只看字面：錯字或隱晦的說法（例如「輕身」）也算。反過來，「解脫」「撐不下去」若明確指工作或某件事（例如想換工作、專案太累），照常解讀，不要進入關心模式。\n\nB. 關心模式（簡短為主，一般人的口吻，溫和、直接、不說教；危機當下話太長，對方反而讀不下去）：\n　1. 說明你先不談命盤。\n　2. 說出你從他的話裡感受到的擔心。可以引用他話裡痛苦的部分，讓他知道自己被聽見；但不要複述「命中注定」這類宿命說法。\n　3. 直接問：最近是否有不想活下去、或想結束自己生命的念頭。\n　4. 告訴他不用一個人扛，並提供：1925安心專線（24小時、免付費）、1995生命線、1980張老師；若有立即危險，請撥119或到最近的急診。\n　5. 結尾邀請他說說發生了什麼（可以直接回覆，也可以說給信任的人或專線聽），並表示等他想看命盤時再一起看。\n　不要把命盤當成他痛苦的原因或證據。全文避免任何帶「死」字的慣用語（例如「死撐」，改用「硬撐」）。\n　不要替對方說出絕望的結論（例如「讓人覺得除了離開別無他法」），即使是想表達理解也不行；可以說「這陣子一定很辛苦」。\n\nC. 任何情況下，都不從命盤推論自傷傾向、壽命長短或死亡時間，不論對象是使用者本人或其他人。\n　・若只是語氣平穩地好奇壽命，溫和說明命理不做這類推斷，改談現階段能照顧、能安排的事。\n　・若問家人病情，只談使用者自己照顧與陪伴的節奏，並一律提醒以醫師判斷為準。\n　・健康與病情「好壞都不說」：不從命盤判斷任何人身體的實際狀況或病情走向。不說「底子厚實」「元氣虛弱」，也不說「醫療有發揮作用」「有生機」「有轉圜空間」。病情、治療或體力恢復，都不給時間窗口或特定日子。\n　・可以談的部分：卦辭或卦德的本義，以及使用者自己（照顧者）的照顧與陪伴節奏——看世爻，用語保持「可能」，不說「透支、臨界、到了邊緣」這類身心斷語。\n　・代表病人的那一爻（用神）以及官鬼、子孫的旺衰、沖破、生剋，紫微裡疾厄、父母等宮位的四化，都只能說明術語是什麼意思，不可用來描述病人的狀況、壓力或醫療成效。例如不可說「日破反映他正承受衝擊」「能量正在被消耗」「化科代表有醫療資源協助」。\n　・若無法判斷屬於 A 還是 C，以 C 處理，並在最後附上 E 的那句話。\n\nD. 用字原則：不使用「大凶、劫數、血光、壽元、死期、在劫難逃、命中注定、逃不開」等宿命或恐嚇字眼。用「節奏」取代「吉凶」：\n　・順的時期：說適合推進，但提醒別衝太滿。\n　・低潮時期：說是蓄力期，適合放慢、少做大決定、照顧身體與睡眠，並至少給一件使用者今天就做得到的小事。\n\nE. 若整體解讀偏向低潮、壓力或卡關，在全文最後（財務提醒之後）原文附上這一句，不要改寫、不要改成針對個人的暗示：\n「這段時間如果心裡特別沉，找信任的人聊聊，或撥1925安心專線，都是很好的選擇。」\n　・「偏向低潮」指的是使用者本人的身心、工作、家庭或人際處境，不是單一投資標的的漲跌或目標價能否達成。\n　・純投資、財務標的的問題（例如股價、買賣時機），一律不附這一句；除非使用者的問題文字本身流露出明顯的壓力或焦慮。\n　・解讀的結論偏正向、轉機在即時，不附。\n　・不確定盤面算不算低潮時，不附（C 條「無法判斷屬於 A 還是 C」的情況例外，仍要附）。這句話是給真正處在低潮的人的，出現太頻繁反而會讓人覺得煩、失去意義。\n\nF. 若問題或附註提到正在遭受家暴、被打、被威脅或恐嚇、被跟蹤、被性侵，或擔心自己、孩子的人身安全：不做命理解讀，也不套用「一句話總結」與其他格式要求，改用簡短、溫和的口吻回應：\n　1. 說明你先不談命盤，安全最重要。\n　2. 說出你從他的話裡感受到的擔心，並讓他知道發生這樣的事不是他的錯。\n　3. 提供：113保護專線（24小時、免付費，可諮詢家暴、性侵、兒少保護）；若有立即危險，請撥110。\n　4. 不從命盤推論對方會不會再動手、關係會不會好轉，也不建議為了命盤而留下或離開。\n　5. 結尾問他現在是否安全，並表示等他想看命盤時再一起看。\n　・若同時出現 A 的訊號，以 A、B 為優先，並一併提供上面的電話。\n　・一般的爭吵、冷戰或意見不合，不屬於這一條，照常解讀。";
 const SANCAI_COMMON = `另外，以下幾點與上面的要求同樣重要：
 ・若給時間推估，在給時間推估的那一段，原文附上這句：「這是傳統象數推估，非精確預測。」時間推估只用於事件，不用於生死與病情。若資料有附節氣或國曆日期，換算一律以資料為準，不要自行計算。
 ・若涉及財務決策，只談節奏與心態，不給買賣、停利、停損、分批、加減碼、目標價等任何操作建議，一句話總結裡也不行。「今天做得到的小事」也必須是非交易性質。解讀最後提醒這只是傳統占卜的參考視角，不構成財務建議。若涉及健康，提醒以醫師判斷為準。
@@ -11271,6 +11360,7 @@ function sancaiHarden(text){
 const __sancaiCastPrompt = buildAiPrompt;
 buildAiPrompt = function(d){
   if(sancaiL1(d && d.question, d && d.note)) return SANCAI_BLOCK;
+  if(sancaiDV(d && d.question, d && d.note)) setTimeout(()=> sancaiDvCare(false), 60);
   return sancaiHarden(__sancaiCastPrompt(d));
 };
 buildCombinedPrompt = function(records){
@@ -11278,6 +11368,7 @@ buildCombinedPrompt = function(records){
   const userTexts = [note];
   records.forEach(r=>{ userTexts.push(r.question, r.full && r.full.note); if(r.type==='消法比對' && r.full) userTexts.push(r.full.promptBlock); });
   if(sancaiL1(...userTexts)) return SANCAI_BLOCK;
+  if(sancaiDV(...userTexts)) setTimeout(()=> sancaiDvCare(false), 60);
   const blocks = records.map((r,i)=>{
     const roleTag = r.role ? `・對象：${r.role}` : '';
     const label = `第${i+1}項・${r.type}${roleTag}`;
@@ -11428,13 +11519,14 @@ const __hubTab = activateTopTab;
 activateTopTab = function(k, o){ if(k!=='combine' && HUB_SORT){ HUB_SORT = false; } return __hubTab(k, o); };
 
 /* =====================================================================
-   兩人合盤 v2（2026-10-31）
+   兩人／三人合盤 v2（2026-10-31）
    一、先天：生年四化互飛（飛星派常見做法，App 原有）
    二、倪師主星對位：天紀「男人父母宮的星正好在伴侶的命宮＝母子格；命宮的星在伴侶父母宮＝父女格；
        兄弟宮的星在伴侶命宮＝兄弟格；朋友宮的星在伴侶命宮＝朋友格」，以及「夫妻宮坐紫微七殺，
        意味著先生是紫微七殺」。只算主星組合完全相同；空宮依倪師「空宮看對面」借對宮主星，標示借星。
        （每張盤都有十四顆主星，只比一顆星一定對得上某一宮，沒有意義。）
    三、後天：關係宮宮干祿忌（現代飛星派做法，各家不一）：只在專業模式與 AI 提詞出現，不掛方外人之名。
+   三人合盤：拆成三組兩人關係各自看，再加「三人整體」：同年干者對第三人的四化相同、兩人的同一種化落在第三人同一宮。
    ===================================================================== */
 const HP_REL = {
   '夫妻／伴侶': {pal:'夫妻宮', couple:true},
@@ -11495,73 +11587,278 @@ function hpHou(X, cx, Y, cy, relName){
   return {from:X, to:Y, pal:pn, gan:p.gan, sameAsYear: GAN[cx.yearGan]===p.gan, items:[0,3].map(i=>({tag:HP_T[i], star:L[i], pal:mmFindPal(cy, L[i])}))};
 }
 
+
+/* 各自盤中看對方的那一宮：倪師以夫妻宮的星看配偶、子女宮看子女、父母宮看父母；空宮看對面 */
+const HP_ROLE = {夫妻宮:'伴侶', 子女宮:'孩子', 父母宮:'父母', 交友宮:'朋友、合夥', 兄弟宮:'手足'};
+function hpStarTxt(p){ return p.stars.map(st=> st.name + (st.hua && st.hua.length ? `（生年${st.hua.join('、')}）` : '')).join('、'); }
+function hpOwnPal(X, cx, Y, relName, palOverride){
+  const rel = HP_REL[relName] || HP_REL['夫妻／伴侶'];
+  const pn = palOverride || hpRelPal(rel, X, Y), p = hpPal(cx, pn);
+  const own = hpStarTxt(p), hasMain = hpMainStars(p).length > 0;
+  const opp = cx.palaces.find(q=> q.idx===(p.idx+6)%12);
+  const borrow = hasMain ? '' : hpMainStars(opp).join('、');
+  // 晚輩的父母宮父母共用一宮；倪師另以太陽看父親、太陰看母親，用來分出是哪一位
+  let sun = '';
+  if(pn==='父母宮'){ const st = Y.gender==='M' ? '太陽' : '太陰', sp = mmFindPal(cx, st); if(sp) sun = `。父母共用父母宮；倪師以${st}看${Y.gender==='M'?'父親':'母親'}，${st}在${sp.name}`; }
+  const mainsOf = q=> q.stars.filter(st=> st.type==='main').map(st=> ({name:st.name, t:(STAR_PERSONA[st.name]||{}).t||'', hua:(st.hua||[])}));
+  const info = {mains: hasMain ? mainsOf(p) : mainsOf(opp), borrowed: !hasMain,
+    others: p.stars.filter(st=> st.type!=='main').map(st=> st.name + (st.hua && st.hua.length ? `（生年${st.hua.join('、')}）` : '')),
+    sun: sun ? {star: Y.gender==='M'?'太陽':'太陰', who: Y.gender==='M'?'父親':'母親', pal: (mmFindPal(cx, Y.gender==='M'?'太陽':'太陰')||{}).name} : null};
+  return {from:X, to:Y, pal:pn, palIdx:p.idx, info, text: (own || '空宮') + (borrow ? `；無主星，借對宮${borrow}` : '') + sun};
+}
+/* 一組兩人：X、Y 與關係 */
+function hpPair(X, cx, Y, cy, relName){
+  const rel = HP_REL[relName] || HP_REL['夫妻／伴侶'];
+  const sameStem = cx.huaList.join()===cy.huaList.join();
+  const lines = [], rows = [];
+  [[X,cx,Y,cy],[Y,cy,X,cx]].forEach(([P,cp,Q,cq])=>{
+    cp.huaList.forEach((star,i)=>{
+      const p = mmFindPal(cq, star);
+      lines.push(`${P.label}的生年化${HP_T[i]}（${star}）落在${Q.label}的${p?p.name:'（未排入）'}`);
+      rows.push({from:P.label, to:Q.label, tag:HP_T[i], star, pal:p});
+    });
+  });
+  const dui = [hpDuiwei(X,cx,Y,cy), hpDuiwei(Y,cy,X,cx)].map(d=> ({d, items:hpDuiweiText(d, rel)}));
+  const hou = [hpHou(X,cx,Y,cy,relName), hpHou(Y,cy,X,cx,relName)];
+  const own = [hpOwnPal(X,cx,Y,relName), hpOwnPal(Y,cy,X,relName)];
+  const fude = rel.couple ? [hpOwnPal(X,cx,Y,relName,'福德宮'), hpOwnPal(Y,cy,X,relName,'福德宮')] : [];
+  return {A:X, B:Y, ca:cx, cb:cy, lines, rows, sameStem, dui, hou, own, fude, relName, rel};
+}
+/* 依年齡差與性別猜關係（可再手動改） */
+function hpGuessRel(X, Y){
+  const gap = Math.abs(parseInt(X.date) - parseInt(Y.date));
+  if(gap >= 16) return '親子';
+  return X.gender!==Y.gender ? '夫妻／伴侶' : '手足';
+}
+/* 三人整體：同年干、同一種化落在第三人同一宮 */
+function hpTrio(P, C){
+  const out = [];
+  for(let z=0; z<3; z++){
+    const [x, y] = [0,1,2].filter(i=> i!==z), Z = P[z];
+    if(C[x].huaList.join()===C[y].huaList.join()){
+      const lu = mmFindPal(C[z], C[x].huaList[0]), ji = mmFindPal(C[z], C[x].huaList[3]);
+      out.push({kind:'stem', text:`${P[x].label}和${P[y].label}出生年天干相同，兩人對${Z.label}的生年四化是同一組星（化祿${C[x].huaList[0]}入${lu?lu.name:'—'}、化忌${C[x].huaList[3]}入${ji?ji.name:'—'}）。生年四化只看出生年，分不出${P[x].label}和${P[y].label}跟${Z.label}的關係不同；差別要看各人小盤裡的虛線框（關係宮）。`});
+      continue;
+    }
+    [[0,'祿'],[3,'忌']].forEach(([i,t])=>{
+      const a = mmFindPal(C[z], C[x].huaList[i]), b = mmFindPal(C[z], C[y].huaList[i]);
+      if(a && b && a.name===b.name) out.push({kind:'conv', text:`${P[x].label}和${P[y].label}的化${t}（${C[x].huaList[i]}、${C[y].huaList[i]}）都落在${Z.label}的${a.name}`});
+    });
+  }
+  return out;
+}
 hepanCompute = function(){
   const list = loadPresets();
   const ia = parseInt(document.getElementById('hepanA').value), ib = parseInt(document.getElementById('hepanB').value);
-  if(ia===ib){ appNotice('請選擇兩位不同的人'); return null; }
+  const cEl = document.getElementById('hepanC'), ic = cEl && cEl.value!=='' ? parseInt(cEl.value) : null;
+  if(ia===ib || (ic!==null && (ic===ia || ic===ib))){ appNotice('請選擇不同的人'); return null; }
   const relName = (document.getElementById('hepanRel')||{}).value || '夫妻／伴侶';
-  const rel = HP_REL[relName] || HP_REL['夫妻／伴侶'];
-  const A = list[ia], B = list[ib];
-  const ca = mmChartOf(A), cb = mmChartOf(B);
-  const sameStem = ca.huaList.join()===cb.huaList.join();
-  const lines = [], rows = [];
-  [[A,ca,B,cb],[B,cb,A,ca]].forEach(([X,cx,Y,cy])=>{
-    cx.huaList.forEach((star,i)=>{
-      const p = mmFindPal(cy, star);
-      lines.push(`${X.label}的生年化${HP_T[i]}（${star}）落在${Y.label}的${p?p.name:'（未排入）'}`);
-      rows.push({from:X.label, to:Y.label, tag:HP_T[i], star, pal:p});
-    });
-  });
-  const dui = [hpDuiwei(A,ca,B,cb), hpDuiwei(B,cb,A,ca)].map(d=> ({d, items:hpDuiweiText(d, rel)}));
-  const hou = [hpHou(A,ca,B,cb,relName), hpHou(B,cb,A,ca,relName)];
-  return {A, B, ca, cb, lines, rows, sameStem, dui, hou, relName, rel};
+  const A = list[ia], B = list[ib], ca = mmChartOf(A), cb = mmChartOf(B);
+  const first = hpPair(A, ca, B, cb, relName);
+  const wantYear = !!(document.getElementById('hepanYear')||{}).checked;
+  const addYear = o=>{ o.year = wantYear ? o.people.map((_,z)=> hpYearInfo(o, z)) : null; return o; };
+  if(ic===null) return addYear(Object.assign(first, {people:[A,B], charts:[ca,cb], pairs:[first], trio:[]}));
+  const Cp = list[ic], cc = mmChartOf(Cp);
+  const relAC = (document.getElementById('hepanRelAC')||{}).value || hpGuessRel(A, Cp);
+  const relBC = (document.getElementById('hepanRelBC')||{}).value || hpGuessRel(B, Cp);
+  const pairs = [first, hpPair(A, ca, Cp, cc, relAC), hpPair(B, cb, Cp, cc, relBC)];
+  return addYear({people:[A,B,Cp], charts:[ca,cb,cc], pairs, trio: hpTrio([A,B,Cp],[ca,cb,cc])});
 };
 
 function hpRowHtml(x){
   return `<div class="mm-row hp-row${(x.tag==='權'||x.tag==='科')?' bz-pro':''}"><span class="k">${escapeHtml(x.from)}→${escapeHtml(x.to)}</span>化${x.tag}（${x.star}）入<b>${x.pal?x.pal.name:'—'}</b>${x.pal?`<small>・${HP_HINT[x.tag](MM_PALACE_HINT[x.pal.name])}</small>`:''}</div>`;
 }
-renderHepanPreview = function(){
-  const box = document.getElementById('hepanPreview');
-  if(!box) return;
-  const ia = document.getElementById('hepanA').value, ib = document.getElementById('hepanB').value;
-  if(ia===ib){ box.innerHTML = '<p style="font-size:12.5px;color:var(--vermilion-deep);">請選擇兩位不同的人</p>'; return; }
-  let r; try{ r = hepanCompute(); }catch(e){ box.innerHTML=''; return; }
-  if(!r) return;
+/* 一組兩人的三層內容；multi＝三人模式（標題精簡、出處寫在最上方） */
+function hpPairHtml(r, multi){
   const ord = {祿:0, 忌:1, 權:2, 科:3};
   const rows = [...r.rows].sort((a,b)=> (a.from===r.A.label?0:1)-(b.from===r.A.label?0:1) || ord[a.tag]-ord[b.tag]);
   const duiLq = r.dui.flatMap(x=> x.items.filter(i=> i.liuqin && i.pal!=='命宮'));
   const duiOther = r.dui.flatMap(x=> x.items.filter(i=> !i.liuqin || i.pal==='命宮'));
   const rn = escapeHtml(r.relName);
-  box.innerHTML = `<div class="mm-topic-box hp-box">
+  const H = (t, sub)=> multi ? `<div class="hp-h hp-h2">${t}</div>` : `<div class="hp-h">${t}<small>${sub}</small></div>`;
+  return `
     <div class="hp-sec">
-      <div class="hp-h">先天：生年四化互飛<small>飛星派常見做法</small></div>
-      ${r.sameStem ? `<p class="hp-note">兩人出生年的天干相同，生年四化是同一組星，兩個方向看的是同一件事。</p>` : ''}
+      ${H(multi?'先天':'先天：生年四化互飛', '飛星派常見做法')}
+      ${r.sameStem ? `<p class="hp-note">兩人出生年的天干相同，生年四化是同一組星。生年四化只看出生年，分不出關係，兩人的差別要看下面的「關係宮」。</p>` : ''}
       ${rows.map(hpRowHtml).join('')}
     </div>
     <div class="hp-sec">
-      <div class="hp-h">倪師主星對位<small>天紀：宮中的主星，就是那一位六親的樣子</small></div>
+      ${H(multi?'關係宮':'各自盤中的關係宮', '倪師：夫妻宮看配偶、子女宮看子女，空宮看對面')}
+      ${r.own.map(o=> `<div class="mm-row hp-row"><span class="k">${escapeHtml(o.from.label)}的${o.pal}（看${escapeHtml(o.to.label)}）</span>${escapeHtml(o.text)}</div>`).join('')}
+    </div>
+    <div class="hp-sec">
+      ${H(multi?'倪師對位':'倪師主星對位', '天紀：宮中的主星，就是那一位六親的樣子')}
       ${duiLq.length ? duiLq.map(i=> `<div class="mm-row hp-row hp-dui${i.borrow?' borrow':''}">${escapeHtml(i.text)}${i.borrow?'<small>・借對宮，參考就好</small>':''}</div>`).join('')
-        : `<p class="hp-note">兩人的命宮主星，沒有完整出現在對方的父母、兄弟、朋友、夫妻、子女宮，倪師的對位格這次沒有對上。</p>`}
+        : `<p class="hp-note">${multi?'沒有對上。':'兩人的命宮主星，沒有完整出現在對方的父母、兄弟、朋友、夫妻、子女宮，倪師的對位格這次沒有對上。'}</p>`}
       ${duiOther.map(i=> `<div class="mm-row hp-row bz-pro">${escapeHtml(i.text)}</div>`).join('')}
-      <p class="hp-note bz-pro">只算主星組合完全相同；只有一顆相同不算，因為每張盤都有全部十四顆主星。空宮依倪師「空宮看對面」借對宮主星。</p>
+      ${multi ? '' : '<p class="hp-note bz-pro">只算主星組合完全相同；只有一顆相同不算，因為每張盤都有全部十四顆主星。空宮依倪師「空宮看對面」借對宮主星。</p>'}
     </div>
     <div class="hp-sec bz-pro">
-      <div class="hp-h">後天：關係宮宮干祿忌<small>現代飛星派做法，各家不一</small></div>
+      ${H(multi?'後天':'後天：關係宮宮干祿忌', '現代飛星派做法，各家不一')}
       <p class="hp-note">依「${rn}」看${r.hou[0].pal===r.hou[1].pal ? `兩人${r.hou[0].pal}` : r.hou.map(h=> `${escapeHtml(h.from.label)}的${h.pal}`).join('、')}的宮干。</p>
       ${r.hou.map(h=> `<div class="mm-row hp-row"><span class="k">${escapeHtml(h.from.label)}（${h.pal}${h.gan}）→${escapeHtml(h.to.label)}</span>${h.items.map(it=> `化${it.tag}${it.star}入<b>${it.pal?it.pal.name:'—'}</b>`).join('；')}${h.sameAsYear?'<small>・此宮宮干與出生年干相同，飛出的星和生年四化一樣，不另計</small>':''}</div>`).join('')}
-      <p class="hp-note">各家對用哪些宮干、化忌怎麼解並不一致（有人看成在意、好感，有人看成消耗），這裡只列落宮，參考就好。</p>
+      ${multi ? '' : '<p class="hp-note">各家對用哪些宮干、化忌怎麼解並不一致（有人看成在意、好感，有人看成消耗），這裡只列落宮，參考就好。</p>'}
+    </div>`;
+}
+/* ---------- 今年：大限＋流年（流年四化依 App 的取干設定），只標出落在「看家人」那幾宮的祿忌 ---------- */
+function hpLunarYearOf(P){
+  const [y,m,d] = P.date.split('-').map(Number), sft = +(String(P.hour||'0-0').split('-')[1]||0);
+  const dt = new Date(Date.UTC(y,m-1,d)); if(sft) dt.setUTCDate(dt.getUTCDate()+1);
+  return solar2lunar(dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()).year;
+}
+function hpYearInfo(r, z){
+  const Z = r.people[z], c = r.charts[z], now = new Date();
+  const ly = solar2lunar(now.getFullYear(), now.getMonth()+1, now.getDate()).year;
+  const age = ly - hpLunarYearOf(Z) + 1;
+  const dx = c.palaces.find(p=> age>=p.daxianStart && age<=p.daxianEnd) || null;
+  const firstDx = Math.min(...c.palaces.map(p=> p.daxianStart));
+  const {gIdx, zIdx} = mmYearGZ(ly);
+  const ln = flowYearHua(c, gIdx, zIdx), lnMing = c.palaces.find(p=> p.idx===zIdx);
+  const relMap = {};
+  r.people.forEach((P,x)=>{ if(x===z) return; const pr = hpRelOf(r, z, x), o = hpOwnPal(Z, c, P, pr.relName);
+    (relMap[o.pal] = relMap[o.pal] || []).push('看'+P.label);
+    if(pr.rel.couple) (relMap['福德宮'] = relMap['福德宮'] || []).push('看婚姻'); });
+  const dxFly = dx ? sihuaFlyFromGan(c, GAN.indexOf(dx.gan)) : null;
+  const dxItems = dxFly ? HP_T.map(t=> ({tag:t, star:dxFly[t].star, pal:dxFly[t].palace})) : [];
+  const lnItems = ln.list.map((star,i)=> ({tag:HP_T[i], star, pal:mmFindPal(c, star)}));
+  const hits = [];
+  if(dx && relMap[dx.name]) hits.push({k:'大限', tag:'命', star:'', pal:dx.name, who:relMap[dx.name].join('、')});
+  if(relMap[lnMing.name]) hits.push({k:'流年', tag:'命', star:'', pal:lnMing.name, who:relMap[lnMing.name].join('、')});
+  [['大限',dxItems],['流年',lnItems]].forEach(([k,arr])=> arr.forEach(it=>{
+    if((it.tag==='祿'||it.tag==='忌') && it.pal && relMap[it.pal.name]) hits.push({k, tag:it.tag, star:it.star, pal:it.pal.name, who:relMap[it.pal.name].join('、')}); }));
+  return {Z, age, ly, gz:GAN[gIdx]+ZHI[zIdx], dx, firstDx, dxItems, ln, lnMing, zIdx, lnItems, hits};
+}
+function hpYearText(y){
+  const f = arr=> arr.map(it=> `化${it.tag}${it.star}入${it.pal?it.pal.name:'（未排入）'}`).join('、');
+  return `【${y.Z.label}・今年（${y.ly}年，${y.gz}）】虛歲${y.age}。${y.dx ? `走${y.dx.daxianStart}–${y.dx.daxianEnd}歲大限，大限命宮在本命${y.dx.name}（${y.dx.gan}${ZHI[y.dx.idx]}）；大限四化：${f(y.dxItems)}。` : `還沒起大限（${y.firstDx}歲起運）。`}
+流年命宮在本命${y.lnMing.name}（${ZHI[y.zIdx]}）；流年四化（${y.ln.src}）：${f(y.lnItems)}。
+疊到看家人的宮位：${y.hits.length ? y.hits.map(h=> h.tag==='命' ? `${h.k}命宮正落在${h.pal}（${h.who}）` : `${h.k}化${h.tag}（${h.star}）入${h.pal}（${h.who}）`).join('；') : '大限、流年的祿忌，都沒有落在看家人的那幾宮。'}`;
+}
+
+/* ---------- 圖形化：關係圖＋每人「收到」的十二宮小盤 ---------- */
+const HP_GRID = {5:[1,1],6:[1,2],7:[1,3],8:[1,4],4:[2,1],9:[2,4],3:[3,1],10:[3,4],2:[4,1],1:[4,2],0:[4,3],11:[4,4]};
+const HP_SHORT_REL = {'夫妻／伴侶':'夫妻','交往中／曖昧':'交往','親子':'親子','合夥／同事':'合夥','朋友':'朋友','手足':'手足'};
+function hpAv(P){ return escapeHtml((P.label||'？').charAt(0)); }
+function hpMingTxt(c, short){ const m = hpPal(c,'命宮'), cb = hpCombo(c, m); return cb.m.length ? `命宮${cb.m.join('')}${cb.borrow && !short?'（空宮，借對宮）':''}` : '命宮空宮'; }
+function hpRelOf(r, i, j){ const a = Math.min(i,j), b = Math.max(i,j); const k = (r.people.length===2) ? 0 : (a===0 ? (b===1?0:1) : 2); return r.pairs[k]; }
+function hpMapSvg(r){
+  const n = r.people.length, W = 320, Hh = n===2 ? 122 : 246;
+  const pos = n===2 ? [[70,48],[250,48]] : [[70,44],[250,44],[160,184]];
+  const edges = n===2 ? [[0,1]] : [[0,1],[0,2],[1,2]];
+  const eTxt = (i,j)=>{ const p = hpRelOf(r,i,j); const tags = [HP_SHORT_REL[p.relName]||p.relName];
+    if(p.sameStem) tags.push('同年干');
+    const ge = p.dui.flatMap(x=> x.items).filter(x=> x.liuqin && x.pal!=='命宮' && !x.borrow); if(ge.length) tags.push('★'+(ge[0].ge || '倪師對位'));
+    return tags; };
+  let svg = `<svg class="hp-map" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="${n}人關係圖">`;
+  edges.forEach(([i,j])=>{ const [x1,y1] = pos[i], [x2,y2] = pos[j]; svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="hp-edge"/>`; });
+  edges.forEach(([i,j])=>{ const [x1,y1] = pos[i], [x2,y2] = pos[j]; const f = (n===3 && j===2) ? 0.6 : 0.5; const mx = x1+(x2-x1)*f, my = y1+(y2-y1)*f + ((n===2 || j===1) ? -14 : 0);
+    const tags = eTxt(i,j), w = Math.max(...tags.map(t=> t.length))*12 + 16, h = tags.length*15 + 6;
+    svg += `<rect x="${mx-w/2}" y="${my-h/2}" width="${w}" height="${h}" rx="7" class="hp-pill"/>` + tags.map((t,k)=> `<text x="${mx}" y="${my-h/2+15+k*15}" class="hp-et${k?' s':''}">${escapeHtml(t)}</text>`).join(''); });
+  r.people.forEach((P,i)=>{ const [x,y] = pos[i];
+    svg += `<g class="hp-node" data-i="${i}"><circle cx="${x}" cy="${y}" r="21"/><text x="${x}" y="${y+6}" class="hp-nc">${hpAv(P)}</text>
+      <text x="${x}" y="${y+38}" class="hp-nl">${escapeHtml(P.label)}</text><text x="${x}" y="${y+53}" class="hp-nm">${escapeHtml(hpMingTxt(r.charts[i], true))}</text></g>`; });
+  return svg + '</svg>';
+}
+function hpPersonCard(r, z){
+  const Z = r.people[z], cz = r.charts[z];
+  const others = r.people.map((P,i)=> i).filter(i=> i!==z);
+  const inc = {};  // palace idx -> chips
+  const relCells = {};
+  others.forEach(x=>{
+    r.charts[x].huaList.forEach((star,i)=>{ const p = mmFindPal(cz, star); if(!p) return;
+      (inc[p.idx] = inc[p.idx] || []).push({who:r.people[x], tag:HP_T[i], star}); });
+    const pr = hpRelOf(r, z, x); const o = hpOwnPal(Z, cz, r.people[x], pr.relName);
+    (relCells[o.palIdx] = relCells[o.palIdx] || []).push('看'+r.people[x].label);
+    if(pr.rel.couple){ const f = hpOwnPal(Z, cz, r.people[x], pr.relName, '福德宮'); (relCells[f.palIdx] = relCells[f.palIdx] || []).push('看婚姻'); }
+  });
+  const ord = {祿:0, 忌:1, 權:2, 科:3};
+  const cells = cz.palaces.map(p=>{
+    const [row,col] = HP_GRID[p.idx];
+    const chips = (inc[p.idx]||[]).sort((a,b)=> ord[a.tag]-ord[b.tag]).map(c=> `<span class="hp-chip t-${c.tag}${(c.tag==='權'||c.tag==='科')?' bz-pro':''}" title="${escapeHtml(c.who.label)}的生年化${c.tag}（${c.star}）">${hpAv(c.who)}·${c.tag}</span>`).join('');
+    const rel = relCells[p.idx];
+    return `<div class="hp-cell${rel?' rel':''}${chips?' hit':''}" style="grid-row:${row};grid-column:${col}"><span class="pn">${p.name.replace('宮','')}</span>${chips}${rel?`<span class="reltag">${rel.map(x=> escapeHtml(x)).join('、')}</span>`:''}</div>`;
+  }).join('');
+  const relRow = (x, o, fudeNote)=>{
+    const f = o.info;
+    const stars = f.mains.map(m=> `<span class="hp-star"><b>${m.name}</b>${m.t?`<em>${escapeHtml(m.t)}</em>`:''}${m.hua.map(h=> `<i class="t-${h}">生年${h}</i>`).join('')}</span>`).join('');
+    return `<div class="hp-rel"><div class="hp-rel-h">${fudeNote ? '婚姻也看' : '看'+escapeHtml(r.people[x].label)}：<b>${o.pal}</b>${f.borrowed?'<small>無主星，借對宮</small>':''}${fudeNote?'<small>倪師：看婚姻一定要看福德宮</small>':''}</div>
+      <div class="hp-stars">${stars || '<span class="hp-note">沒有主星</span>'}</div>
+      ${f.others.length?`<div class="hp-oth">另有：${f.others.map(escapeHtml).join('、')}</div>`:''}
+      ${f.sun && f.sun.pal ? `<div class="hp-oth">父母共用父母宮；倪師以${f.sun.star}看${f.sun.who}，${f.sun.star}在${f.sun.pal}</div>` : ''}</div>`;
+  };
+  const relRows = others.map(x=>{
+    const pr = hpRelOf(r, z, x);
+    let h = relRow(x, hpOwnPal(Z, cz, r.people[x], pr.relName), false);
+    if(pr.rel.couple) h += relRow(x, hpOwnPal(Z, cz, r.people[x], pr.relName, '福德宮'), true);
+    return h;
+  }).join('');
+  return `<div class="hp-pc" id="hpPc${z}">
+    <div class="hp-pc-h"><i>${hpAv(Z)}</i><div><b>${escapeHtml(Z.label)}</b><small>${others.map(i=> escapeHtml(r.people[i].label)).join('、')}的祿、忌落在${escapeHtml(Z.label)}盤的哪一宮</small></div></div>
+    <div class="hp-grid">${cells}<div class="hp-center"><b>${escapeHtml(Z.label)}</b><small>${escapeHtml(hpMingTxt(cz))}</small></div></div>
+    <div class="hp-rels">${relRows}</div>
+  </div>`;
+}
+renderHepanPreview = function(){
+  const box = document.getElementById('hepanPreview');
+  if(!box) return;
+  hpSyncTrioUI();
+  let r; try{ r = hepanCompute(); }catch(e){ box.innerHTML=''; return; }
+  if(!r){ box.innerHTML = '<p style="font-size:12.5px;color:var(--vermilion-deep);">請選擇不同的人</p>'; return; }
+  const multi = r.pairs.length > 1, who = multi ? '三人' : '兩人';
+  const ge = r.pairs.flatMap(p=> p.dui.flatMap(x=> x.items).filter(i=> i.liuqin && i.pal!=='命宮'));
+  box.innerHTML = `<div class="mm-topic-box hp-box hp-vis">
+    ${hpMapSvg(r)}
+    <div class="hp-legend2"><span class="hp-chip t-祿">祿</span>給予　<span class="hp-chip t-忌">忌</span>牽掛<span class="bz-pro">　<span class="hp-chip t-權">權</span>主導　<span class="hp-chip t-科">科</span>緩和</span>　<span class="hp-dash"></span>看這位家人的宮位</div>
+    <p class="hp-note">小盤是每個人的十二宮：圓章是其他人的生年祿、忌落在這裡（字是對方名字第一個字）；虛線框是看對方的那一宮（倪師：夫妻宮看配偶、子女宮看子女，空宮看對面；夫妻另框福德宮，倪師說看婚姻一定要看福德）。同年生的人圓章會一樣，關係的差別看虛線框。</p>
+    ${r.people.map((P,i)=> hpPersonCard(r, i)).join('')}
+    <div class="hp-sec">
+      <div class="hp-h">倪師主星對位<small>天紀：宮中的主星，就是那一位六親的樣子</small></div>
+      ${ge.length ? ge.map(i=> `<div class="mm-row hp-row hp-dui${i.borrow?' borrow':''}">${escapeHtml(i.text)}${i.borrow?'<small>・借對宮，參考就好</small>':''}</div>`).join('')
+        : `<p class="hp-note">${multi?'三組都':'兩人'}沒有對上倪師的對位格（對方的命宮主星，完整出現在自己的父母、兄弟、朋友、夫妻、子女宮）。</p>`}
     </div>
-    <p class="hp-time">想看這一兩年的相處：到上方「AI 綜合解讀」，把兩人的流年一起加入。<button type="button" class="pc-btn" id="hepanToCombine">前往</button></p>
+    ${r.year ? `<div class="hp-sec hp-year"><div class="hp-h">今年<small>${r.year[0].ly}年（${r.year[0].gz}）・大限、流年有沒有疊到看家人的宮位</small></div>${r.year.map(y=> `<div class="hp-yr"><b>${escapeHtml(y.Z.label)}</b><span class="hp-yr-s">虛歲${y.age}・${y.dx ? `${y.dx.daxianStart}–${y.dx.daxianEnd}歲大限（大限命宮在${y.dx.name}）` : `還沒起大限（${y.firstDx}歲起運）`}</span><div>${y.hits.length ? y.hits.map(h=> h.tag==='命' ? `<span class="hp-chip t-命">${h.k}命宮</span><span class="hp-yr-t">落在${h.pal}（${escapeHtml(h.who)}）</span>` : `<span class="hp-chip t-${h.tag}">${h.k}${h.tag}</span><span class="hp-yr-t">${h.star}入${h.pal}（${escapeHtml(h.who)}）</span>`).join('') : '<span class="hp-note">沒有疊到看家人的宮位</span>'}</div></div>`).join('')}<p class="hp-note">流年四化取干：${escapeHtml(r.year[0].ln.src.replace(/（.*?）/,''))}（依「說明・設定」）。這是傳統象數推估，非精確預測。</p></div>` : ''}
+    ${multi && r.trio.length ? `<div class="hp-sec"><div class="hp-h">三人整體</div>${r.trio.map(t=> `<div class="mm-row hp-row">${escapeHtml(t.text)}</div>`).join('')}</div>` : ''}
+    <details class="hp-detail"><summary>逐條文字明細${multi?'（三組）':''}</summary>
+      ${r.pairs.map(p=> (multi ? `<div class="hp-pair"><div class="hp-pair-h">${escapeHtml(p.A.label)} ↔ ${escapeHtml(p.B.label)}<small>${escapeHtml(p.relName)}</small></div>` : '') + hpPairHtml(p, multi) + (multi ? '</div>' : '')).join('')}
+    </details>
+    ${r.year ? '' : `<p class="hp-time">想看這一兩年的相處：勾選上方「一併看今年」，或到「AI 綜合解讀」把${who}的流年一起加入。<button type="button" class="pc-btn" id="hepanToCombine">前往</button></p>`}
   </div>`;
   const go = document.getElementById('hepanToCombine');
   if(go) go.addEventListener('click', ()=>{ const t = document.getElementById('combineCard') || document.getElementById('combineSection'); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); });
+  box.querySelectorAll('.hp-node').forEach(g=> g.addEventListener('click', ()=>{ const c = document.getElementById('hpPc'+g.dataset.i); if(c) c.scrollIntoView({behavior:'smooth', block:'start'}); }));
 };
 
-function hpBuildPrompt(r, q){
-  const A = r.A, B = r.B, rel = r.relName;
+function hpPairPromptData(r, multi){
   const dui = r.dui.flatMap(x=> x.items).map(i=> '・'+i.text+(i.borrow?'（借對宮，只作參考）':''));
   const hou = r.hou.map(h=> `${h.from.label}（${h.pal}宮干${h.gan}）→${h.to.label}：${h.items.map(it=> `化${it.tag}${it.star}入${h.to.label}的${it.pal?it.pal.name:'（未排入）'}`).join('；')}${h.sameAsYear?'（此宮宮干與出生年干相同，和生年四化是同一組星，不要重複計算）':''}`);
-  return `${getObjModeInstruction()}你是一位精通紫微斗數合盤的命理顧問。以下是兩個人的命盤，關係是「${rel}」${q?`，我想特別問：「${q}」`:''}。請做合盤分析。
+  const none = multi ? '沒有對上。' : '兩人的命宮主星，沒有完整出現在對方的任何一宮：倪師的對位格沒有對上。';
+  return `【一、先天：生年四化互飛】${multi?'':'（某人的生年四化星，落在對方命盤的哪一宮；飛星派常見做法）'}
+${r.lines.join('\n')}${r.sameStem ? '\n（兩人出生年天干相同，生年四化是同一組星，兩個方向不要重複計算。）' : ''}
+
+【二、各自盤中的關係宮】${multi?'':'（倪師：夫妻宮的星看配偶、子女宮看子女、父母宮看父母；看婚姻一定要看福德宮；空宮看對面）'}
+${r.own.map(o=> `${o.from.label}的${o.pal}（看${o.to.label}）：${o.text}`).join('\n')}${r.fude.length ? '\n' + r.fude.map(o=> `${o.from.label}的福德宮（倪師：看婚姻一定要看福德宮）：${o.text}`).join('\n') : ''}
+
+【三、倪師主星對位】${multi?'':'（倪師天紀：男人父母宮的星正好在伴侶命宮為母子格、命宮的星在伴侶父母宮為父女格、兄弟宮的星在伴侶命宮為兄弟格、朋友宮的星在伴侶命宮為朋友格；夫妻宮、子女宮的星也看作配偶、子女的樣子。只算主星組合完全相同，空宮借對宮。）'}
+${dui.length ? dui.join('\n') : none}
+
+【四、後天：關係宮宮干祿忌】${multi?'':'（現代飛星派做法；各家對用哪些宮干、化忌怎麼解並不一致，只作輔助參考）'}
+${hou.join('\n')}`;
+}
+function hpYearPrompt(r){
+  return `【今年】（大限四化以大限命宮宮干起；流年四化依 App 設定；最後一行只列出疊到「看家人」那幾宮的部分：大限或流年命宮落在那一宮，或大限、流年的祿忌飛入那一宮）\n${r.year.map(hpYearText).join('\n\n')}`;
+}
+function hpBuildPrompt(r, q){
+  const multi = r.pairs.length > 1;
+  const askQ = q ? `，我想特別問：「${q}」` : '';
+  const rules = `
+3. 「三、倪師主星對位」有對上才談，沒有對上就略過，不要硬套。
+4. 「四、後天」只作輔助；和先天落在同一宮時可以點出，但不要說成加倍確定。化忌用「在意、牽掛」這類中性說法。`;
+  const yearRule = r.year ? `
+8. 「今年」只談這一兩年相處的節奏與提醒（例如誰這段時間比較忙、比較累，需要多一點體諒），不預測分合，也不給具體日期。` : '';
+  const tail = `不判斷合不合、不打分數，不預測分手、離婚或外遇，也不論斷任何一方（包括孩子）的好壞。語氣溫和誠實，用白話文，專有名詞順手解釋，繁體中文`;
+  if(!multi){
+    const A = r.A, B = r.B, rel = r.relName;
+    return `${getObjModeInstruction()}你是一位精通紫微斗數合盤的命理顧問。以下是兩個人的命盤，關係是「${rel}」${askQ}。請做合盤分析。
 
 【第一位：${A.label}】
 ${buildZiweiPromptBlock(r.ca)}
@@ -11569,23 +11866,58 @@ ${buildZiweiPromptBlock(r.ca)}
 【第二位：${B.label}】
 ${buildZiweiPromptBlock(r.cb)}
 
-【一、先天：生年四化互飛】（某人的生年四化星，落在對方命盤的哪一宮；飛星派常見做法）
-${r.lines.join('\n')}${r.sameStem ? '\n（兩人出生年天干相同，生年四化是同一組星，兩個方向不要重複計算。）' : ''}
-
-【二、倪師主星對位】（倪師天紀：男人父母宮的星正好在伴侶命宮為母子格、命宮的星在伴侶父母宮為父女格、兄弟宮的星在伴侶命宮為兄弟格、朋友宮的星在伴侶命宮為朋友格；夫妻宮、子女宮的星也看作配偶、子女的樣子。只算主星組合完全相同，空宮借對宮。）
-${dui.length ? dui.join('\n') : '兩人的命宮主星，沒有完整出現在對方的任何一宮：倪師的對位格沒有對上。'}
-
-【三、後天：關係宮宮干祿忌】（現代飛星派做法；各家對用哪些宮干、化忌怎麼解並不一致，只作輔助參考）
-${hou.join('\n')}
+${hpPairPromptData(r, false)}${r.year ? '\n\n' + hpYearPrompt(r) : ''}
 
 請你：
 1. 開頭用一句話（40字內，獨立一行）總結這兩人的相處特質。
-2. 以「一、先天」為主說明：誰比較容易在對方哪方面付出、誰容易在對方哪方面牽掛。
-3. 「二、倪師主星對位」有對上才談，沒有對上就略過，不要硬套。
-4. 「三、後天」只作輔助；和先天落在同一宮時可以點出，但不要說成加倍確定。化忌用「在意、牽掛」這類中性說法。
+2. 以「一、先天」與「二、關係宮」為主：先天看誰比較容易在對方哪方面付出、牽掛；關係宮看各自怎麼看待這段關係。先天只看出生年天干，兩人同年干時兩個方向相同、分不出關係，要靠關係宮與後天看出差別。${rules}
 5. 指出兩人互補之處與最容易摩擦的地方，並針對「${rel}」這種關係說明。
 6. 給3到5個具體可行的相處建議。
-7. 不判斷兩人合不合、不打分數，不預測分手、離婚或外遇，也不論斷任何一方（包括孩子）的好壞。語氣溫和誠實，用白話文，專有名詞順手解釋，繁體中文，約500-700字。`;
+7. ${tail}，約500-700字。${yearRule}`;
+  }
+  const [A,B,C] = r.people, ord = ['第一位','第二位','第三位'];
+  return `${getObjModeInstruction()}你是一位精通紫微斗數合盤的命理顧問。以下是三個人的命盤：${A.label}、${B.label}、${C.label}。${r.pairs.map(p=> `${p.A.label}與${p.B.label}是「${p.relName}」`).join('，')}${askQ}。請做三人合盤分析。
+
+${r.people.map((P,i)=> `【${ord[i]}：${P.label}】\n${buildZiweiPromptBlock(r.charts[i])}`).join('\n\n')}
+
+以下三組兩人關係，各自列出四項資料。依據：一、先天＝生年四化互飛（飛星派常見做法，只看出生年）；二、關係宮＝各自盤中看對方的那一宮（倪師：夫妻宮看配偶、子女宮看子女，看婚姻一定要看福德宮，空宮看對面）；三、倪師主星對位（倪師天紀：宮中的主星就是那一位六親的樣子，例如男人父母宮的星正好在伴侶命宮為母子格；只算主星組合完全相同，空宮借對宮）；四、後天＝關係宮宮干祿忌（現代飛星派做法，各家不一，只作輔助參考）。
+
+${r.pairs.map(p=> `===== ${p.A.label}與${p.B.label}（${p.relName}）=====\n${hpPairPromptData(p, true)}`).join('\n\n')}${r.year ? '\n\n' + hpYearPrompt(r) : ''}
+
+【三人整體】
+${r.trio.length ? r.trio.map(t=> '・'+t.text).join('\n') : '三人之間沒有「兩人的同一種化落在第三人同一宮」的情形。'}
+
+請你：
+1. 開頭用一句話（40字內，獨立一行）總結這三人的相處特質。
+2. 三組關係各用一段說明，以「一、先天」與「二、關係宮」為主：先天看誰比較容易在誰哪方面付出、牽掛；關係宮看各自怎麼看待這段關係。先天只看出生年天干，同年干的兩人對第三人的先天完全相同、分不出關係，要靠關係宮與後天看出差別。${rules}
+5. 再從三人整體看：家裡的互動重心可能在哪裡、各自比較常扮演的角色、最容易卡住的地方。「三人整體」有列出的共同點可以點出，但不要硬湊。
+6. 給3到5個具體可行的相處建議，可以針對其中兩人，也可以是三人一起。
+7. ${tail}，約700-900字。${yearRule}`;
+}
+
+/* 第一、二位的關係：選人時依年齡差與性別自動判斷；使用者手動改過就不再覆蓋 */
+function hpGuessAB(A, B){
+  const sel = document.getElementById('hepanRel'); if(!sel || !A || !B) return;
+  const key = A.date+A.hour+'|'+B.date+B.hour;
+  if(sel.dataset.key===key) return;
+  sel.dataset.key = key; sel.value = hpGuessRel(A, B);
+}
+/* 第三位與另外兩組關係的欄位 */
+function hpSyncTrioUI(){
+  const cEl = document.getElementById('hepanC'), wrap = document.getElementById('hepanTrio');
+  if(!cEl || !wrap){ const L = loadPresets(); hpGuessAB(L[+document.getElementById('hepanA').value], L[+document.getElementById('hepanB').value]); return; }
+  const on = cEl.value!=='';
+  wrap.classList.toggle('hidden', !on);
+  const lab = document.querySelector('label[for="hepanRel"]');
+  const list = loadPresets(), A = list[+document.getElementById('hepanA').value], B = list[+document.getElementById('hepanB').value], C = on ? list[+cEl.value] : null;
+  hpGuessAB(A, B);
+  if(lab) lab.textContent = on && A && B ? `${A.label}與${B.label}的關係` : '兩人關係';
+  if(!on || !A || !B || !C) return;
+  const key = [A,B,C].map(p=> p.date+p.hour).join('|');
+  const ac = document.getElementById('hepanRelAC'), bc = document.getElementById('hepanRelBC');
+  document.getElementById('hepanRelACLab').textContent = `${A.label}與${C.label}的關係`;
+  document.getElementById('hepanRelBCLab').textContent = `${B.label}與${C.label}的關係`;
+  if(wrap.dataset.key!==key){ wrap.dataset.key = key; ac.value = hpGuessRel(A, C); bc.value = hpGuessRel(B, C); }
 }
 
 const __hpRender = renderHepan;
@@ -11594,10 +11926,21 @@ renderHepan = function(){
   const body = document.getElementById('hepanBody');
   const sel = document.getElementById('hepanRel');
   if(!body || !sel) return;
-  if(!sel.querySelector('option[value="手足"]')){
-    sel.innerHTML = Object.keys(HP_REL).map(k=> `<option value="${k}">${k}</option>`).join('');
+  const opts = Object.keys(HP_REL).map(k=> `<option value="${k}">${k}</option>`).join('');
+  sel.innerHTML = opts;
+  const relField = sel.closest('.field');
+  const relLab = relField && relField.querySelector('label'); if(relLab) relLab.setAttribute('for','hepanRel');
+  const list = loadPresets();
+  if(list.length >= 3 && relField){
+    relField.insertAdjacentHTML('beforebegin', `<div class="field"><label>第三位（選填）</label><select id="hepanC"><option value="">不加，只看兩人</option>${list.map((p,i)=> `<option value="${i}">${escapeHtml(p.label)}</option>`).join('')}</select></div>`);
+    relField.insertAdjacentHTML('afterend', `<div id="hepanTrio" class="hidden">
+      <div class="field"><label id="hepanRelACLab">關係</label><select id="hepanRelAC">${opts}</select></div>
+      <div class="field"><label id="hepanRelBCLab">關係</label><select id="hepanRelBC">${opts}</select></div>
+      <p class="hp-note" style="margin-top:-4px;">依年齡差與性別先幫你選好，可以再改。</p></div>`);
   }
-  sel.addEventListener('change', ()=> renderHepanPreview());
+  const qField = document.getElementById('hepanQ') && document.getElementById('hepanQ').closest('.field');
+  if(qField && !document.getElementById('hepanYear')) qField.insertAdjacentHTML('afterend', `<label class="hp-yearchk"><input type="checkbox" id="hepanYear"> 一併看今年（大限、流年）</label>`);
+  ['hepanRel','hepanC','hepanRelAC','hepanRelBC','hepanYear'].forEach(id=>{ const e = document.getElementById(id); if(e) e.addEventListener('change', ()=> renderHepanPreview()); });
   renderHepanPreview();
   const old = document.getElementById('hepanBtn');
   const btn = old.cloneNode(true); old.replaceWith(btn);   // 換掉原本的產生提詞動作
@@ -11605,6 +11948,7 @@ renderHepan = function(){
     const q = document.getElementById('hepanQ').value.trim();
     if(sancaiL1(q)){ sancaiCare('l1'); return; }
     const r = hepanCompute(); if(!r) return;
+    if(sancaiDV(q)) setTimeout(()=> sancaiDvCare(false), 60);
     mmCopy(sancaiHarden(hpBuildPrompt(r, q)), document.getElementById('hepanStatus'), document.getElementById('hepanOut'));
   });
 };
