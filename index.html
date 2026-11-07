@@ -1590,9 +1590,9 @@
   .vc-hex{ font-size:13px; color:var(--ink-soft); margin:4px 0 10px; } .vc-hex em{ font-style:normal; color:var(--brass); }
   .vc-main{ display:flex; align-items:center; gap:14px; }
   .vc-main b{ font-family:'Noto Serif TC'; font-weight:900; font-size:30px; letter-spacing:0.1em; }
-  .vc-main.lv5 b, .vc-main.lv4 b{ color:var(--calm-jade); } .vc-main.lv3 b{ color:var(--brass); } .vc-main.lv2 b, .vc-main.lv1 b{ color:var(--vermilion); }
+  .vc-main.lv5 b, .vc-main.lv4 b{ color:var(--calm-jade); } .vc-main.lv3 b{ color:var(--brass); } .vc-main.lv2 b{ color:var(--brass); } .vc-main.lv1 b{ color:var(--vermilion); }
   .vc-meter{ display:flex; gap:4px; } .vc-meter i{ width:22px; height:8px; border-radius:4px; background:rgba(138,114,72,0.18); }
-  .vc-meter i.on.lv5, .vc-meter i.on.lv4{ background:var(--calm-jade); } .vc-meter i.on.lv3{ background:var(--brass); } .vc-meter i.on.lv2, .vc-meter i.on.lv1{ background:var(--vermilion); }
+  .vc-meter i.on.lv5, .vc-meter i.on.lv4{ background:var(--calm-jade); } .vc-meter i.on.lv3{ background:var(--brass); } .vc-meter i.on.lv2{ background:var(--brass); } .vc-meter i.on.lv1{ background:var(--vermilion); }
   .vc-desc{ font-size:15px; color:var(--ink); margin:8px 0 10px; line-height:1.8; }
   .vc-why{ list-style:none; padding:0; margin:0; border-top:1px dashed var(--line); padding-top:8px; }
   .vc-why li{ font-size:13.4px; line-height:1.8; color:var(--ink-soft); padding-left:20px; position:relative; }
@@ -1694,7 +1694,7 @@
     animation:stampIn .42s cubic-bezier(.3,1.5,.5,1) .1s both; }
   @keyframes stampIn{ from{ opacity:0; transform:rotate(-4deg) scale(1.6); } to{ opacity:1; transform:rotate(-4deg) scale(1); } }
   .vc-main.lv3 b.vc-stamp{ color:var(--brass); }
-  .vc-main.lv2 b.vc-stamp, .vc-main.lv1 b.vc-stamp{ color:var(--seal); }
+  .vc-main.lv2 b.vc-stamp{ color:var(--brass); } .vc-main.lv1 b.vc-stamp{ color:var(--seal); }
 
   /* 人設卡：淡墨圓相 */
   .persona-card{ position:relative; overflow:hidden; background:linear-gradient(160deg, rgba(255,252,240,0.88), rgba(157,183,172,0.16)) !important; }
@@ -1702,6 +1702,9 @@
     background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='150 190 715 685'%3E%3Cpath d='M652 226 L673 235 L693 246 L712 259 L730 273 L747 289 L763 306 L778 324 L791 343 L803 363 L814 384 L823 405 L830 428 L836 451 L841 474 L843 498 L844 522 L843 546 L840 569 L836 593 L830 616 L822 639 L813 661 L802 682 L789 703 L775 722 L760 741 L744 758 L726 774 L707 789 L687 803 L666 815 L645 825 L622 834 L600 841 L576 847 L553 851 L529 853 L506 854 L482 853 L458 850 L435 846 L412 840 L390 832 L368 823 L348 813 L327 801 L308 788 L290 773 L273 758 L257 741 L242 723 L228 704 L216 685 L205 664 L196 644 L188 622 L182 600 L177 578 L173 555 L172 532 L171 509 L173 486 L177 464 L182 442 L190 421 L198 400 L208 380 L220 361 L232 343 L246 326 L260 309 L275 293 L291 278 L308 265 L326 252 L344 241 L364 232 L384 224 L404 217 L425 211 L428 223 L408 230 L390 238 L372 248 L354 259 L338 271 L323 284 L308 298 L295 312 L283 328 L272 345 L263 362 L256 380 L249 399 L244 417 L241 436 L239 455 L238 473 L238 492 L238 510 L240 528 L242 546 L246 563 L251 581 L257 598 L264 614 L272 630 L282 645 L292 659 L303 673 L315 686 L327 699 L341 710 L355 721 L370 730 L385 739 L401 746 L418 753 L434 758 L452 762 L469 765 L486 767 L504 768 L522 768 L540 766 L557 763 L575 759 L592 754 L609 747 L625 740 L641 731 L656 721 L670 710 L684 698 L697 686 L709 672 L720 657 L730 642 L739 626 L747 609 L754 592 L759 574 L763 556 L766 538 L768 520 L768 501 L767 482 L765 464 L761 446 L756 427 L750 410 L743 392 L734 376 L724 360 L714 344 L702 330 L689 316 L675 302 L661 290 L645 279 L630 268Z' fill='%23201d17'/%3E%3C/svg%3E") center/contain no-repeat; opacity:.07; transform:rotate(14deg); }
   .persona-card > *{ position:relative; }
   @media (prefers-reduced-motion: reduce){ .vc-main b.vc-stamp{ animation:none; } }
+  .vc-main b.vc-stamp{ white-space:nowrap; flex-shrink:0; }
+  .vc-main .vc-meter{ flex:1 1 auto; min-width:56px; max-width:126px; }
+  .vc-main .vc-meter i{ flex:1 1 0; width:auto; max-width:22px; }
 
   /* =====================================================================
      v2 大改版（2026-10）：今日首頁、人生九宮、大限時間軸、底部面板、白話／專業
@@ -7005,11 +7008,11 @@ function castVerdict(a, movingArr){
   else if(a.chongHe.includes('暗動')){ why.push({t:'逢日辰沖而暗動：表面平靜，其實已在暗中變化', s:0}); }
   if(a.yongLine && movingArr[a.yongLine.pos-1]) why.push({t:'這件事本身正在動：近期會有動靜', s:0});
   let lv;
-  if(score >= 1.6) lv = {k:5, label:'偏順', desc:'整體條件對你有利，可以積極推進。'};
-  else if(score >= 0.3) lv = {k:4, label:'小順', desc:'有一定助力，按部就班可成，細節要顧好。'};
-  else if(score > -1.2) lv = {k:3, label:'持平', desc:'吉凶參半，關鍵在後續的變化與你的做法。'};
-  else if(score > -2.3) lv = {k:2, label:'小阻', desc:'目前阻力稍多，宜放慢腳步、補足準備，不急著定案。'};
-  else lv = {k:1, label:'阻力大', desc:'現在時機不利，建議先觀望，或調整方向再說。'};
+  if(score >= 1.6) lv = {k:5, label:'可以推進', desc:'條件對你有利，可以推進，但別衝太滿。'};
+  else if(score >= 0.3) lv = {k:4, label:'穩步推進', desc:'有一定助力，按部就班往前走，細節要顧好。'};
+  else if(score > -1.2) lv = {k:3, label:'邊走邊看', desc:'助力和壓力差不多，先跨小步，看後續變化再調整做法。'};
+  else if(score > -2.3) lv = {k:2, label:'先蓄力', desc:'現在適合放慢、補足準備，不急著定案。'};
+  else lv = {k:1, label:'暫緩調整', desc:'現在不宜硬推，先停下來調整方向或做法，少做大決定，也顧好自己的作息。'};
   const when = (lv.k<=3 && ELEM_SEASON[a.useElem]) ? `代表這件事的爻屬「${a.useElem}」，傳統上等到${ELEM_SEASON[a.useElem]}，「${a.useElem}」當令時比較容易有轉機。` : '';
   return {score, lv, why, when};
 }
@@ -10982,6 +10985,7 @@ function lyCareRhythm(sh){
   return t;
 }
 const LY_LIFE_RE = /壽命|活到|活多久|還能活|陽壽|死期|過世|離世|撐過|撐得過|病危/;
+const LY_NOT_LIFE_RE = /股|盤|價|漲|跌|投資|基金|幣|期貨|選擇權|ETF|套牢|解套|停損|公司|工作|專案|考試|面試|業績|景氣|生意|店/;
 const LY_CHOICE_RE = /還是|或者|或是|抑或/;
 
 /* 月建：依節氣（立春起寅月），不依農曆月份 */
@@ -11002,8 +11006,10 @@ function lyXunKong(dayGZ){ return getXunKong(GAN.indexOf(dayGZ.gan), ZHI.indexOf
 function castExtra(a, deploy, movingArr, chgGz, dayGZ, yueJianZhi, castTime){
   a.yueJianZhi = yueJianZhi; a.dayZhi = dayGZ.zhi;
   const qq = ((typeof questionText==='string' ? questionText : '') + ' ' + (((document.getElementById('castNoteInput')||{}).value)||''));
-  a.mode = LY_HEALTH_RE.test(qq) ? 'health' : LY_LIFE_RE.test(qq) ? 'life' : null;
-  a.lifeToo = a.mode==='health' && LY_LIFE_RE.test(qq);
+  // 「撐過／撐得過」也常用在股票、工作（例：這檔股票撐得過這個月嗎），只有不是在講財務、工作時才算壽命題
+  const lifeHit = LY_LIFE_RE.test(qq) && !(/^[^壽活死世危]*$/.test(qq.replace(/撐過|撐得過/g,'')) && LY_NOT_LIFE_RE.test(qq));
+  a.mode = LY_HEALTH_RE.test(qq) ? 'health' : lifeHit ? 'life' : null;
+  a.lifeToo = a.mode==='health' && lifeHit;
   a.castMs = castTime ? castTime.getTime() : Date.now();
   a.family = LY_FAMILY_RE.test(qq) || ['子','父','兄'].includes(typeof topicText==='string' ? topicText : '');
   { const mE0 = ZHI_ELEM[yueJianZhi], dE0 = ZHI_ELEM[dayGZ.zhi]; const kong0 = lyXunKong(dayGZ);
@@ -11084,7 +11090,7 @@ function lyElemMonths(ms, elem, n){
 }
 /* 結論 */
 const LY_DESC = {
-  gen: {5:'整體節奏偏順，適合推進，但別衝太滿。',4:'有一定助力，按部就班可成，細節要顧好。',3:'吉凶參半，關鍵在後續的變化與你的做法。',2:'目前阻力稍多，是蓄力期：宜放慢腳步、補足準備，不急著定案。',1:'現在是蓄力期，適合放慢、少做大決定，先照顧好身體與睡眠，再調整方向。'}
+  gen: {5:'條件對你有利，可以推進，但別衝太滿。',4:'有一定助力，按部就班往前走，細節要顧好。',3:'助力和壓力差不多，先跨小步，看後續變化再調整做法。',2:'現在適合放慢、補足準備，不急著定案。',1:'現在不宜硬推，先停下來調整方向或做法，少做大決定，也顧好自己的作息。'}
 };
 /* 健康、壽命類：不判斷好壞（v3.4 C 條） */
 const LY_NEUTRAL = {
@@ -11139,7 +11145,7 @@ castVerdict = function(a, movingArr){
   }
   const q = (typeof questionText==='string' ? questionText : '') || '';
   let k = score>=1.6 ? 5 : score>=.3 ? 4 : score>-1.2 ? 3 : score>-2.3 ? 2 : 1;
-  const LBL = {5:'偏順',4:'小順',3:'持平',2:'小阻',1:'阻力大'};
+  const LBL = {5:'可以推進',4:'穩步推進',3:'邊走邊看',2:'先蓄力',1:'暫緩調整'};
   const lv = {k, label:LBL[k], desc:LY_DESC.gen[k]};
   let when = '';
   if(k<=3 && ELEM_SEASON[a.useElem]){
