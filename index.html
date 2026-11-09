@@ -3152,7 +3152,7 @@
     <div class="ritual-step">
       <div class="cast-steps"><span class="on">① 想問什麼</span><span>② 擲銅錢</span><span>③ 看結果</span></div>
       <div class="v2-sec-t" style="margin-top:0">你想問什麼？<small>一事一問，寫具體一點</small></div>
-      <textarea id="questionInput" placeholder="例：要不要請媽媽再多留一週？"></textarea>
+      <textarea id="questionInput" placeholder="例：要不要報名這個課程？"></textarea>
       <div class="topic-auto hidden" id="topicAuto"></div>
       <div class="v2-sec-t">看哪一類<small>依問題自動選好，可以改</small></div>
       <div class="topic-grid" id="topicGrid"></div>
@@ -9879,12 +9879,12 @@ function v2EnsureMyChart(){
    v2 第二批：問卦（類別圖示、銅錢、卦象逐爻）＋風水（八卦羅盤）
    ===================================================================== */
 const TOPIC_TILES = [
-  {k:'自己的事', ic:'自身', idx:7, ph:'例：要不要請媽媽再多留一週？這件事該不該做？'},
+  {k:'自己的事', ic:'自身', idx:7, ph:'例：要不要報名這個課程？這週末適合出遠門嗎？'},
   {k:'事業', ic:'事業', idx:1, ph:'例：下個月換工作順利嗎？'},
   {k:'財運', ic:'財運', idx:0, ph:'例：這筆投資能獲利嗎？'},
   {k:'感情', ic:'感情', idx:null, ph:'例：我們的感情能走下去嗎？'},
   {k:'考試', ic:'書', idx:1, ph:'例：這次考試能通過嗎？'},
-  {k:'家人長輩', ic:'父母', idx:8, ph:'例：爸媽這次來住順利嗎？長輩會答應嗎？'},
+  {k:'家人長輩', ic:'父母', idx:8, ph:'例：爸媽這趟旅行順利嗎？這件事長輩會答應嗎？'},
   {k:'房屋文書', ic:'家宅', idx:4, ph:'例：這間房子買了好嗎？這份合約能簽嗎？'},
   {k:'朋友合夥', ic:'人際', idx:5, ph:'例：跟他合夥做生意可行嗎？'},
   {k:'健康', ic:'健康', idx:6, ph:'例：家人這次手術順利嗎？'},
