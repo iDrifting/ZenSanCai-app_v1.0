@@ -1936,6 +1936,15 @@
   .topic-gender button{ font-size:13px; padding:5px 12px; border-radius:16px; border:1px solid var(--line-strong); background:transparent; color:var(--ink); cursor:pointer; font-family:inherit; }
   .topic-gender button.on{ background:var(--ink); color:#f2ecd9; border-color:var(--ink); }
   .topic-ys{ font-size:12px; color:var(--brass); margin-top:8px; min-height:0; }
+  .topic-grid{ grid-template-columns:repeat(5,1fr); gap:6px; }
+  .topic-tile span{ font-size:12px; white-space:nowrap; }
+  .topic-auto{ margin:8px 0 2px; padding:10px 12px; border:1px dashed var(--line-strong); border-radius:12px; background:#fbf7ee; }
+  .topic-auto .ta-why{ font-size:13px; color:var(--ink-soft); }
+  .topic-auto .ta-opt{ display:block; width:100%; text-align:left; margin-top:6px; padding:8px 10px; border-radius:10px; border:1px solid var(--line-strong); background:transparent; font-family:inherit; color:var(--ink); cursor:pointer; }
+  .topic-auto .ta-opt b{ font-size:14px; margin-right:6px; }
+  .topic-auto .ta-opt small{ font-size:12px; color:var(--ink-soft); }
+  .topic-auto .ta-opt.on{ border-color:var(--celadon-deep,#4f7068); background:rgba(79,112,104,.10); }
+  .topic-auto .ta-opt.on b{ color:var(--celadon-deep,#4f7068); }
   body:not(.pro) .topic-ys{ display:none; }
   #step1 textarea#questionInput{ min-height:64px !important; height:64px; font-family:'Noto Serif TC'; font-size:15px; }
   details.cast-who{ margin:10px 0 0; }
@@ -3142,7 +3151,10 @@
   <div class="card" id="step1">
     <div class="ritual-step">
       <div class="cast-steps"><span class="on">① 想問什麼</span><span>② 擲銅錢</span><span>③ 看結果</span></div>
-      <div class="v2-sec-t" style="margin-top:0">想問哪一類事？</div>
+      <div class="v2-sec-t" style="margin-top:0">你想問什麼？<small>一事一問，寫具體一點</small></div>
+      <textarea id="questionInput" placeholder="例：要不要請媽媽再多留一週？"></textarea>
+      <div class="topic-auto hidden" id="topicAuto"></div>
+      <div class="v2-sec-t">看哪一類<small>依問題自動選好，可以改</small></div>
       <div class="topic-grid" id="topicGrid"></div>
       <div class="topic-gender hidden" id="topicGender"><span>你是</span><button type="button" data-g="M">男生（問女方）</button><button type="button" data-g="F">女生（問男方）</button></div>
       <div class="topic-ys" id="topicYs"></div>
@@ -3154,9 +3166,9 @@
           <option value="父">合約・文書・房屋・長輩（看父母爻）</option>
           <option value="兄">合夥・朋友・競爭對手（看兄弟爻）</option>
           <option value="子">子女・健康・下屬・寵物（看子孫爻）</option>
+          <option value="世">自己的事・要不要做（看世爻）</option>
+          <option value="父">家人長輩（看父母爻）</option>
         </select>
-      <div class="v2-sec-t">你的問題<small>選填，一事一問，寫具體一點</small></div>
-      <textarea id="questionInput" placeholder="（選填）在此輸入你的問題……例如：這個月工作運如何？"></textarea>
       <details class="cast-who" id="castNoteWrap"><summary>想補充的近況（選填）</summary>
         <textarea id="castNoteInput" placeholder="例如：最近工作量很大、家裡有人住院……寫下來，AI 解讀會更貼近你的處境" style="min-height:56px;margin-top:6px;"></textarea>
       </details>
@@ -4828,7 +4840,7 @@ ${monthsTxt}
     const qi = document.getElementById('questionInput');
     if(qi) qi.value = q || `關於${topic}：`;
     const ts = document.getElementById('topicSelect');
-    if(ts) ts.value = T.cast(me.gender);
+    if(ts){ ts.value = T.cast(me.gender); ts.dispatchEvent(new Event('change')); castTopicManual = true; }
     const ri = document.getElementById('castRoleInput');
     if(ri && !ri.value) ri.value = me.label;
     setTimeout(()=>{ if(qi){ qi.scrollIntoView({behavior:'smooth', block:'center'}); qi.focus(); } }, 200);
@@ -9867,20 +9879,23 @@ function v2EnsureMyChart(){
    v2 第二批：問卦（類別圖示、銅錢、卦象逐爻）＋風水（八卦羅盤）
    ===================================================================== */
 const TOPIC_TILES = [
+  {k:'自己的事', ic:'自身', idx:7, ph:'例：要不要請媽媽再多留一週？這件事該不該做？'},
   {k:'事業', ic:'事業', idx:1, ph:'例：下個月換工作順利嗎？'},
   {k:'財運', ic:'財運', idx:0, ph:'例：這筆投資能獲利嗎？'},
   {k:'感情', ic:'感情', idx:null, ph:'例：我們的感情能走下去嗎？'},
   {k:'考試', ic:'書', idx:1, ph:'例：這次考試能通過嗎？'},
+  {k:'家人長輩', ic:'父母', idx:8, ph:'例：爸媽這次來住順利嗎？長輩會答應嗎？'},
   {k:'房屋文書', ic:'家宅', idx:4, ph:'例：這間房子買了好嗎？這份合約能簽嗎？'},
   {k:'朋友合夥', ic:'人際', idx:5, ph:'例：跟他合夥做生意可行嗎？'},
   {k:'健康', ic:'健康', idx:6, ph:'例：家人這次手術順利嗎？'},
   {k:'子女寵物', ic:'子女', idx:6, ph:'例：孩子這學期的狀況如何？'}
 ];
-const YS_NAME = {'財':'妻財爻','官':'官鬼爻','父':'父母爻','兄':'兄弟爻','子':'子孫爻'};
-let castTopicKey = '財運';
+const YS_NAME = {'財':'妻財爻','官':'官鬼爻','父':'父母爻','兄':'兄弟爻','子':'子孫爻','世':'世爻'};
+let castTopicKey = '自己的事';
+let castTopicManual = false, castGenderManual = false;
 let castGender = (function(){ try{ const m = loadMe(); return m && m.gender==='F' ? 'F' : 'M'; }catch(e){ return 'M'; } })();
 function applyTopic(){
-  const t = TOPIC_TILES.find(x=>x.k===castTopicKey) || TOPIC_TILES[1];
+  const t = TOPIC_TILES.find(x=>x.k===castTopicKey) || TOPIC_TILES[0];
   const sel = document.getElementById('topicSelect');
   sel.selectedIndex = t.idx===null ? (castGender==='F' ? 3 : 2) : t.idx;
   const ys = document.getElementById('topicYs');
@@ -9892,12 +9907,12 @@ function applyTopic(){
 function renderTopicGrid(){
   const grid = document.getElementById('topicGrid'); if(!grid) return;
   grid.innerHTML = TOPIC_TILES.map(t=>`<button type="button" class="topic-tile${t.k===castTopicKey?' on':''}" data-k="${t.k}">${v2Ic(t.ic,'')}<span>${t.k}</span></button>`).join('');
-  grid.querySelectorAll('[data-k]').forEach(b=> b.addEventListener('click', ()=>{ castTopicKey = b.dataset.k; renderTopicGrid(); applyTopic(); }));
+  grid.querySelectorAll('[data-k]').forEach(b=> b.addEventListener('click', ()=>{ castTopicKey = b.dataset.k; castTopicManual = true; renderTopicGrid(); applyTopic(); if(typeof lyTopicAutoRender==='function') lyTopicAutoRender(); }));
 }
 document.querySelectorAll('#topicGender button').forEach(b=> b.addEventListener('click', ()=>{ castGender = b.dataset.g; applyTopic(); }));
 document.getElementById('topicSelect').addEventListener('change', ()=>{
   const i = document.getElementById('topicSelect').selectedIndex;
-  const t = (i===2||i===3) ? TOPIC_TILES[2] : TOPIC_TILES.find(x=>x.idx===i);
+  const t = (i===2||i===3) ? TOPIC_TILES.find(x=>x.k==='感情') : TOPIC_TILES.find(x=>x.idx===i);
   if(i===2) castGender='M'; if(i===3) castGender='F';
   if(t) castTopicKey = t.k;
   renderTopicGrid();
@@ -9905,6 +9920,73 @@ document.getElementById('topicSelect').addEventListener('change', ()=>{
   if(ys) ys.textContent = `用神：${YS_NAME[sel.value]||''}（${sel.selectedOptions[0].textContent.replace(/（.*$/,'')}）`;
 });
 renderTopicGrid(); applyTopic();
+
+/* 依問題自動選類別（2026-11-09）：先看問題裡提到誰，再看是什麼事；「要不要」這類決定另外提供「自己的事（世爻）」 */
+const LY_TOPIC_RULES = [
+  {k:'感情', re:/男朋友|女朋友|男友|女友|另一半|老公|老婆|丈夫|妻子|伴侶|交往|復合|分手|告白|喜歡的人|曖昧|對象|結婚|婚姻|離婚|桃花|約會|相親|前任/},
+  {k:'子女寵物', re:/小孩|孩子|兒子|女兒|寶寶|嬰兒|小朋友|子女|學生|下屬|部屬|員工|狗|貓|寵物/},
+  {k:'家人長輩', re:/媽咪|媽媽|老媽|爸爸|老爸|爸比|媽|爸|母親|父親|阿公|阿嬤|爺爺|奶奶|外公|外婆|公公|婆婆|岳父|岳母|長輩|老師|師父|師傅|阿姨|叔叔|伯伯|舅舅|姑姑/},
+  {k:'朋友合夥', re:/朋友|同事|同學|合夥|合作|對手|競爭|兄弟|姊妹|姐妹|哥哥|弟弟|姐姐|姊姊|妹妹|閨蜜|室友/},
+  {k:'考試', re:/考試|考上|錄取|面試|檢定|證照|學測|統測|分科|國考|會考|升學|上榜|甄試|口試/},
+  {k:'事業', re:/工作|上班|升遷|升職|加薪|換工作|跳槽|離職|辭職|老闆|主管|公司|職位|職缺|官司|訴訟|提告|業績|專案|客戶/},
+  {k:'財運', re:/股票|股市|投資|賺|錢|財|買賣|生意|基金|漲|跌|收入|薪水|貸款|借錢|還錢|中獎|彩券|樂透|ETF|定存|價格|價錢|成交/},
+  {k:'房屋文書', re:/房子|買房|賣房|租屋|租房|房東|房貸|搬家|裝潢|合約|簽約|契約|文件|證件|車子|買車|換車|手續|申請|簽證/}
+];
+const LY_DECIDE_RE = /要不要|該不該|應不應該|適不適合|可不可以|能不能|好不好|值不值得|是否/;
+const LY_TOPIC_ANGLE = {
+  '自己的事':'看這樣做對你自己好不好',
+  '家人長輩':'看長輩那邊順不順、方不方便',
+  '感情':'看對方和這段關係',
+  '子女寵物':'看孩子（或寵物、下屬）的狀況',
+  '朋友合夥':'看朋友、同事或合夥人那邊',
+  '考試':'看考試、面試能不能過',
+  '事業':'看工作、職位這件事',
+  '財運':'看錢、收入、買賣這件事',
+  '房屋文書':'看房子、合約、文件這件事',
+  '健康':'跟身體有關，只整理卦象，不判斷好壞'
+};
+function lySuggestTopic(q){
+  const t = (q||'').replace(/媽祖/g,'').trim();
+  if(!t) return null;
+  const dm = t.match(LY_DECIDE_RE);
+  try{ const hm = t.match(LY_HEALTH_RE); if(hm) return {k:'健康', hit:hm[0], alt:null}; }catch(e){}
+  for(const r of LY_TOPIC_RULES){ const m = t.match(r.re); if(m) return {k:r.k, hit:m[0], alt: dm ? '自己的事' : null}; }
+  return {k:'自己的事', hit: dm ? dm[0] : null, alt:null};
+}
+function lyTopicYs(k){
+  const t = TOPIC_TILES.find(x=>x.k===k); if(!t) return '';
+  const sel = document.getElementById('topicSelect');
+  const v = t.idx===null ? (castGender==='F' ? '官' : '財') : sel.options[t.idx].value;
+  return YS_NAME[v] || '';
+}
+function lyTopicAutoRender(){
+  const box = document.getElementById('topicAuto'); if(!box) return;
+  const s = lySuggestTopic((document.getElementById('questionInput')||{}).value);
+  if(!s){ box.innerHTML = ''; box.classList.add('hidden'); return; }
+  const opts = [s.k].concat(s.alt && s.alt!==s.k ? [s.alt] : []);
+  const why = s.k==='健康' ? `問題提到「${s.hit}」，跟身體有關`
+    : (s.hit && s.k!=='自己的事') ? `問題提到「${s.hit}」`
+    : s.hit ? `這是一個「${s.hit}」的決定` : '看不出是哪一類';
+  box.innerHTML = `<div class="ta-why">${escapeHtml(why)}${opts.length>1 ? '，可以從兩個角度看：' : '，這一卦看：'}</div>`
+    + opts.map(k=>`<button type="button" class="ta-opt${k===castTopicKey?' on':''}" data-k="${k}"><b>${k}</b><small>${lyTopicYs(k)}・${LY_TOPIC_ANGLE[k]||''}</small></button>`).join('');
+  box.classList.remove('hidden');
+  box.querySelectorAll('[data-k]').forEach(b=> b.addEventListener('click', ()=>{ castTopicKey = b.dataset.k; castTopicManual = true; renderTopicGrid(); applyTopic(); lyTopicAutoRender(); }));
+}
+function lyTopicAutoApply(){
+  const q = (document.getElementById('questionInput')||{}).value || '';
+  if(!q.trim()) castTopicManual = false;
+  const s = lySuggestTopic(q);
+  if(s && !castTopicManual && s.k==='感情' && !castGenderManual){
+    if(/男朋友|男友|老公|先生|丈夫/.test(q)) castGender = 'F';
+    else if(/女朋友|女友|老婆|太太|妻子/.test(q)) castGender = 'M';
+  }
+  if(s && !castTopicManual && (castTopicKey!==s.k || s.k==='感情')){ castTopicKey = s.k; renderTopicGrid(); applyTopic(); }
+  lyTopicAutoRender();
+}
+{ let tm = null; const qi = document.getElementById('questionInput');
+  if(qi) qi.addEventListener('input', ()=>{ clearTimeout(tm); tm = setTimeout(lyTopicAutoApply, 300); });
+  document.querySelectorAll('#topicGender button').forEach(b=> b.addEventListener('click', ()=>{ castGenderManual = true; lyTopicAutoRender(); }));
+  const ag = document.getElementById('againBtn'); if(ag) ag.addEventListener('click', ()=>{ castTopicManual = false; lyTopicAutoRender(); }); }
 
 /* 卦象逐爻長出來（取代進度點） */
 renderProgress = function(){
@@ -11982,6 +12064,42 @@ renderHepan = function(){
   });
 };
 setTimeout(()=>{ try{ renderHepan(); }catch(e){} }, 0);
+
+/* 「自己的事」：以世爻為用神（2026-11-09） */
+const __lyAyOrig = analyzeYongshen;
+analyzeYongshen = function(deploy, movingArr, topic, dayGZ, yueJianZhi){
+  if(topic!=='世') return __lyAyOrig(deploy, movingArr, topic, dayGZ, yueJianZhi);
+  const shi = deploy.lines.find(l=>l.isShi);
+  const key = shi ? (Object.keys(TOPIC_TO_RELATIVE).find(k=>TOPIC_TO_RELATIVE[k]===shi.relative) || '兄') : '兄';
+  const a = __lyAyOrig(deploy, movingArr, key, dayGZ, yueJianZhi);
+  if(!shi) return a;
+  const useElem = shi.elem, useZhi = shi.zhi;
+  let chongHe = '';
+  if(CHONG_PAIRS[useZhi] === dayGZ.zhi) chongHe = movingArr[shi.pos-1] ? "與日辰相沖（沖散，事有變動反覆）" : "逢日辰沖為「暗動」（看似平靜實則暗中已在起變化）";
+  else if(HE_PAIRS[useZhi] === dayGZ.zhi) chongHe = "與日辰相合，為「合絆」（用神被牽制暫時難以顯現，需等待合絆解開之時）";
+  const movingEffects = [];
+  deploy.lines.forEach(l=>{
+    if(!movingArr[l.pos-1] || l.pos===shi.pos) return;
+    let rel = null;
+    if(l.elem === useElem) rel = "比和";
+    else if(SHENG[l.elem] === useElem) rel = "生";
+    else if(KE[l.elem] === useElem) rel = "剋";
+    else if(SHENG[useElem] === l.elem) rel = "洩";
+    else if(KE[useElem] === l.elem) rel = "耗";
+    if(rel) movingEffects.push({pos:l.pos, gz:l.gz, relative:l.relative, elem:l.elem, rel});
+  });
+  return Object.assign({}, a, {yongLine:shi, fuShen:null, useElem, useZhi,
+    wsMonth: wangShuai(useElem, ZHI_ELEM[yueJianZhi]), wsDay: wangShuai(useElem, ZHI_ELEM[dayGZ.zhi]),
+    chongHe, neededRel:'世', shiRel: shi.relative, movingEffects});
+};
+const __lyRysSelf = renderYongshen;
+renderYongshen = function(a, topic){
+  __lyRysSelf(a, topic);
+  if(topic!=='世') return;
+  const el = document.getElementById('yongshenBlock'); if(!el) return;
+  el.innerHTML = el.innerHTML.replace('，恰為世爻，事情與自身直接相關','')
+    .replace(/用神為<b([^>]*)>世爻<\/b>/, '用神為<b$1>世爻</b>（世爻代表問事的你自己；問自己的事，六爻傳統上看世爻）');
+};
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
