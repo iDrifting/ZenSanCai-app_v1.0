@@ -1734,12 +1734,6 @@
   .hd-y{ font-size:12.5px; color:var(--ink-soft); }
   .hd-tag{ font-size:12px; color:var(--brass); margin-top:2px; letter-spacing:.06em; }
   /* 今日卡 */
-  .hw-tip{ display:flex; align-items:center; gap:10px; margin:-4px 0 14px; padding:10px 12px; border:1px dashed var(--line-strong); border-radius:12px; font-size:13.5px; line-height:1.6; color:var(--ink); }
-  .hw-tip > span{ flex:1; min-width:0; }
-  .hw-tip button{ flex:0 0 auto; font:inherit; font-size:13.5px; border:1.5px solid var(--vermilion); color:var(--vermilion); background:transparent; border-radius:999px; padding:4px 12px; cursor:pointer; white-space:nowrap; }
-  .hw-tip button.x{ border:0; color:var(--ink-soft); padding:4px 2px; font-size:18px; line-height:1; }
-  .hw-tip small{ display:block; color:var(--ink-soft); font-size:12px; margin-top:2px; }
-  .hw-tip small[hidden]{ display:none; }
   .home-today{ background:#fbf7ee; border:1px solid var(--line-strong); border-radius:14px; padding:12px 14px; margin:0 0 14px; }
   .home-today:empty{ display:none; }
   .ht-row{ display:flex; gap:10px; }
@@ -2752,7 +2746,6 @@
   <div id="homeSection">
     <div id="homeDate" class="home-date"></div>
     <div id="homeToday" class="home-today"></div>
-    <div id="homeWidgetTip"></div>
     <div id="homeMine"></div>
     <details id="homeMonthMore" class="home-more hidden">
       <summary>本月完整分析・12 個月走勢表</summary>
@@ -12608,30 +12601,13 @@ function lyIsStock(q){ return !!q && LY_STOCK_RE.test(q); }
     return out;
   }; }
 
-/* 桌面小工具（2026-11-11）：只在 Play 安裝的 App 裡顯示「放到桌面」 */
-const SC_TWA_KEY = 'sancai_twa_v1', SC_WTIP_OFF = 'sancai_widget_tip_off_v1';
-const SC_TWA_REF = 'android-app://io.github.idrifting.twa';
-try{ if((document.referrer||'').startsWith(SC_TWA_REF)) localStorage.setItem(SC_TWA_KEY, '1'); }catch(e){}
-function scIsTwa(){ if((document.referrer||'').startsWith(SC_TWA_REF)) return true; try{ return localStorage.getItem(SC_TWA_KEY)==='1'; }catch(e){ return false; } }
-function widgetTipRender(){
-  const el = document.getElementById('homeWidgetTip'); if(!el) return;
-  let off = false; try{ off = localStorage.getItem(SC_WTIP_OFF)==='1'; }catch(e){}
-  if(!scIsTwa() || off){ el.innerHTML = ''; return; }
-  el.innerHTML = `<div class="hw-tip"><span>把「今天」放到手機桌面，不開 App 也看得到宜忌和節氣。<small id="hwTipHelp" hidden>沒有跳出視窗？長按桌面空白處 → 小工具 → 三才App。</small></span><button type="button" onclick="pinWidget()">放到桌面</button><button type="button" class="x" aria-label="不再顯示" onclick="widgetTipOff()">×</button></div>`;
-}
-function pinWidget(){
-  const fb = encodeURIComponent(location.origin + location.pathname + '?go=widgethelp');
-  const h = document.getElementById('hwTipHelp'); if(h) h.hidden = false;
-  location.href = `intent://pin-widget#Intent;scheme=sancai;package=io.github.idrifting.twa;S.browser_fallback_url=${fb};end`;
-}
-function widgetTipOff(){ try{ localStorage.setItem(SC_WTIP_OFF, '1'); }catch(e){} widgetTipRender(); }
-{ const __rhWt = renderHome; renderHome = function(){ __rhWt(); widgetTipRender(); }; try{ renderHome(); }catch(e){ widgetTipRender(); } }
+/* 節日程式載入後重畫一次日期標題 */
+try{ renderHome(); }catch(e){}
 
-/* 桌面小工具捷徑（2026-11-11）：?go=cast 開問卦、?go=today 開今日 */
+/* 網址捷徑：?go=cast 開問卦、?go=today 開今日 */
 window.addEventListener('load', ()=>{ try{
   const go = new URLSearchParams(location.search).get('go');
-  if(go){ setTimeout(()=>{ try{ activateTopTab(go==='cast' ? 'renjian' : 'home'); history.replaceState(null, '', location.pathname);
-    if(go==='widgethelp') appNotice('這個版本的三才還沒有桌面小工具。\n請到 Play 商店把三才更新到最新版，再按一次「放到桌面」。'); }catch(e){} }, 400); }
+  if(go){ setTimeout(()=>{ try{ activateTopTab(go==='cast' ? 'renjian' : 'home'); history.replaceState(null, '', location.pathname); }catch(e){} }, 400); }
 }catch(e){} });
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
