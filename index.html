@@ -1594,6 +1594,7 @@
   .vc-meter{ display:flex; gap:4px; } .vc-meter i{ width:22px; height:8px; border-radius:4px; background:rgba(138,114,72,0.18); }
   .vc-meter i.on.lv5, .vc-meter i.on.lv4{ background:var(--calm-jade); } .vc-meter i.on.lv3{ background:var(--brass); } .vc-meter i.on.lv2{ background:var(--brass); } .vc-meter i.on.lv1{ background:var(--vermilion); }
   .vc-desc{ font-size:15px; color:var(--ink); margin:8px 0 10px; line-height:1.8; }
+  .vc-stock{ background:#f3ecdc; border-left:3px solid var(--brass); border-radius:0 8px 8px 0; padding:8px 11px !important; font-size:13px; line-height:1.75; }
   .vc-why{ list-style:none; padding:0; margin:0; border-top:1px dashed var(--line); padding-top:8px; }
   .vc-why li{ font-size:13.4px; line-height:1.8; color:var(--ink-soft); padding-left:20px; position:relative; }
   .vc-why li::before{ content:'・'; position:absolute; left:4px; color:var(--brass); }
@@ -1723,6 +1724,19 @@
   .hd-l{ font-family:'Noto Serif TC'; font-weight:900; font-size:28px; letter-spacing:.12em; color:var(--ink); line-height:1.2; }
   .hd-s{ font-size:12.3px; color:var(--ink-soft); margin-top:3px; line-height:1.6; }
   .hd-tag{ font-size:12px; color:var(--brass); margin-top:2px; letter-spacing:.06em; }
+  /* 今日卡 */
+  .home-today{ background:#fbf7ee; border:1px solid var(--line-strong); border-radius:14px; padding:12px 14px; margin:0 0 14px; }
+  .home-today:empty{ display:none; }
+  .ht-row{ display:flex; gap:10px; }
+  .ht-st{ flex:1; display:flex; flex-direction:column; min-width:0; }
+  .ht-k{ font-size:11px; letter-spacing:.12em; color:var(--brass); }
+  .ht-st b{ font-family:'Noto Serif TC'; font-weight:900; font-size:19px; color:var(--ink); line-height:1.35; }
+  .ht-st small{ font-size:12px; color:var(--ink-soft); }
+  .ht-cast{ font-size:12.5px; color:var(--ink-soft); margin-top:10px; padding-top:9px; border-top:1px dashed var(--line-strong); line-height:1.8; }
+  .ht-cast b{ color:var(--ink); font-weight:600; }
+  .ht-q{ margin-top:10px; padding-top:9px; border-top:1px dashed var(--line-strong); }
+  .ht-q p{ margin:0; font-family:'Noto Serif TC',serif; font-size:14.5px; line-height:1.75; color:var(--ink); }
+  .ht-q small{ display:block; text-align:right; font-size:11.5px; color:var(--brass); margin-top:3px; }
   .hd-moon{ width:52px; height:52px; flex-shrink:0; }
   .home-mine{ background:linear-gradient(160deg,#fbf7ee 0%,#edf3ee 100%); border:1px solid var(--line-strong); border-radius:16px; padding:16px 16px 12px; }
   .hm-top{ display:flex; gap:14px; align-items:center; }
@@ -2020,6 +2034,63 @@
   /* ---- v2 第三批：書庫 ---- */
   #sheetLayer .sheet.tall{ max-height:94vh; }
   .lib-sub{ font-size:12.5px; color:var(--ink-soft); margin:6px 0 2px; line-height:1.6; }
+  /* 「我的」頁分頁 */
+  .mine-tabs{ display:flex; border-bottom:1px solid var(--line-strong); margin:0 0 16px; }
+  .mine-tabs button{ flex:1; background:transparent; border:0; border-bottom:2px solid transparent; margin-bottom:-1px; padding:11px 2px 10px; font-family:'Noto Serif TC',serif; font-size:14.5px; color:var(--ink-soft); cursor:pointer; }
+  .mine-tabs button.on{ color:var(--ink); font-weight:700; border-bottom-color:var(--celadon-deep,#4f7068); }
+  #combineSection[data-mt="people"] [data-mt-g]:not([data-mt-g="people"]),
+  #combineSection[data-mt="lib"] [data-mt-g]:not([data-mt-g="lib"]),
+  #combineSection[data-mt="hepan"] [data-mt-g]:not([data-mt-g="hepan"]),
+  #combineSection[data-mt="ai"] [data-mt-g]:not([data-mt-g="ai"]){ display:none !important; }
+  #combineSection[data-mt="hepan"] #hepanSec{ margin-top:0; }
+  /* 書庫 v3：倪師看星、小辭典、資料來源 */
+  .ni-note{ font-size:12.5px; line-height:1.75; color:var(--ink-soft); background:#f6f0e2; border-radius:10px; padding:9px 12px; margin:4px 0 12px; }
+  .ni-mine{ border:1px solid var(--celadon-deep,#4f7068); background:rgba(79,112,104,.07); border-radius:12px; padding:10px 12px; margin-bottom:12px; }
+  .ni-mine-t{ font-family:'Noto Serif TC'; font-weight:700; font-size:14.5px; color:var(--celadon-deep,#4f7068); margin-bottom:4px; }
+  .ni-mine-r{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; font-size:13px; margin-top:6px; }
+  .ni-mine-r span{ color:var(--ink-soft); margin-right:2px; }
+  .ni-mine-r em{ font-style:normal; color:var(--ink-soft); }
+  .ni-mine-r button, .ni-rel button{ border:1px solid var(--celadon-deep,#4f7068); color:var(--celadon-deep,#4f7068); background:#fbf7ee; border-radius:999px; padding:3px 11px; font-size:13px; font-family:inherit; cursor:pointer; }
+  .ni-tabs{ display:flex; gap:6px; overflow-x:auto; padding-bottom:4px; margin-bottom:10px; scrollbar-width:none; }
+  .ni-tabs::-webkit-scrollbar{ display:none; }
+  .ni-tabs button{ flex:0 0 auto; border:1px solid var(--line-strong); background:transparent; color:var(--ink); border-radius:999px; padding:6px 14px; font-size:13.5px; font-family:inherit; cursor:pointer; }
+  .ni-tabs button.on{ background:var(--ink); color:#f6f0e2; border-color:var(--ink); }
+  .ni-chips{ display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:10px; }
+  .ni-chips button{ border:1px solid var(--line-strong); background:#fbf7ee; color:var(--ink); border-radius:9px; padding:7px 0; font-size:13px; font-family:'Noto Serif TC',serif; cursor:pointer; position:relative; }
+  .ni-chips button.on{ background:var(--celadon-deep,#4f7068); color:#fff; border-color:var(--celadon-deep,#4f7068); }
+  .ni-chips button.mine::after{ content:''; position:absolute; top:4px; right:4px; width:6px; height:6px; border-radius:50%; background:var(--vermilion); }
+  .ni-card{ border:1px solid var(--line-strong); border-radius:14px; padding:13px 14px; background:#fbf7ee; margin-bottom:10px; }
+  .ni-card-h{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+  .ni-card-h b{ font-family:'Noto Serif TC'; font-weight:900; font-size:20px; color:var(--ink); }
+  .ni-sub{ font-style:normal; font-size:12.5px; color:var(--brass); }
+  .ni-me{ font-style:normal; font-size:11.5px; color:#fff; background:var(--vermilion); border-radius:999px; padding:1px 8px; margin-left:6px; font-weight:400; font-family:inherit; }
+  .ni-tags{ display:flex; flex-wrap:wrap; gap:5px; margin:7px 0 4px; }
+  .ni-tags span{ font-size:11.5px; color:var(--celadon-deep,#4f7068); background:#e3ece7; border-radius:999px; padding:2px 9px; }
+  .ni-card dl{ margin:8px 0 0; }
+  .ni-card dt{ font-size:11.5px; letter-spacing:.1em; color:var(--brass); margin-top:8px; }
+  .ni-card dd{ margin:2px 0 0; font-size:14px; line-height:1.8; color:var(--ink); }
+  .ni-k{ font-size:11.5px; letter-spacing:.1em; color:var(--brass); }
+  .ni-gt{ margin:12px 0 4px; }
+  .ni-says{ margin-top:10px; }
+  .ni-says blockquote{ margin:5px 0 0; padding:6px 10px; border-left:3px solid var(--brass); background:#f3ecdc; font-family:'Noto Serif TC',serif; font-size:13.5px; line-height:1.75; color:var(--ink); border-radius:0 8px 8px 0; }
+  .ni-rel{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:10px; font-size:12px; color:var(--ink-soft); }
+  .ni-book{ display:block; width:100%; margin-top:12px; border:0; border-top:1px dashed var(--line-strong); background:transparent; padding:10px 0 0; text-align:left; color:var(--celadon-deep,#4f7068); font-size:13.5px; font-family:inherit; cursor:pointer; }
+  .ni-p{ font-size:14px; line-height:1.8; color:var(--ink); margin:6px 0; }
+  .ni-dim{ font-size:12.5px; color:var(--ink-soft); }
+  .ni-ul{ margin:6px 0 0; padding-left:1.15em; }
+  .ni-ul li{ font-size:14px; line-height:1.8; color:var(--ink); margin:2px 0; }
+  .ni-row{ display:flex; gap:10px; padding:10px 2px; border-bottom:1px dashed var(--line-strong); }
+  .ni-row > b{ flex:0 0 5.6em; font-family:'Noto Serif TC'; font-size:14px; color:var(--ink); line-height:1.6; }
+  .ni-row > span{ flex:1; font-size:13.5px; line-height:1.8; color:var(--ink); }
+  .ni-row em{ display:block; font-style:normal; font-size:12px; color:var(--ink-soft); margin-bottom:2px; }
+  .src-row em{ margin:3px 0 0; }
+  .ni-ge.hit{ background:rgba(79,112,104,.07); border-radius:10px; padding:10px 8px; border-bottom-color:transparent; }
+  .ni-ge.focus{ outline:2px solid var(--celadon-deep,#4f7068); outline-offset:1px; border-radius:10px; }
+  .ni-ge .ni-me{ display:inline-block; margin:3px 0 0; }
+  .gl-search{ width:100%; box-sizing:border-box; border:1px solid var(--line-strong); border-radius:10px; padding:10px 12px; font-size:15px; font-family:inherit; background:#fbf7ee; color:var(--ink); margin:2px 0 10px; }
+  .gl-c{ display:block; font-style:normal; font-size:10.5px; color:var(--brass); font-family:inherit; font-weight:400; }
+  .gl-row.focus{ background:rgba(79,112,104,.1); border-radius:10px; padding:10px 8px; }
+  span.gl{ border-bottom:1.5px dotted var(--celadon-deep,#4f7068); cursor:help; }
   .hub-lib{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
   .lib-tile{ text-align:left; background:#fbf7ee; border:1px solid var(--line-strong); border-radius:12px; padding:11px 12px; cursor:pointer; font-family:inherit; display:flex; flex-direction:column; gap:3px; align-items:flex-start; }
   .lib-tile .chap-ic{ margin-bottom:3px; }
@@ -2656,6 +2727,7 @@
   <!-- ============ 今日（首頁） ============ -->
   <div id="homeSection">
     <div id="homeDate" class="home-date"></div>
+    <div id="homeToday" class="home-today"></div>
     <div id="homeMine"></div>
     <details id="homeMonthMore" class="home-more hidden">
       <summary>本月完整分析・12 個月走勢表</summary>
@@ -3641,11 +3713,13 @@
 
   <!-- ============ 八字 ============ -->
   
-<div id="combineSection" class="hidden">
+<div id="combineSection" class="hidden" data-mt="people">
+    <div class="mine-tabs" id="mineTabs" role="tablist"><button type="button" class="on" data-mt="people">家人</button><button type="button" data-mt="lib">書庫</button><button type="button" data-mt="hepan">合盤</button><button type="button" data-mt="ai">AI 解讀</button></div>
     <div id="mineHub">
       <div class="v2-sec-t" style="margin-top:4px">家人與快捷<small>只存在這支手機</small></div>
       <div id="hubPeople" class="hub-people"></div>
-      <div class="v2-sec-t">書庫<small>古籍、六神、命卦、風水理論</small></div>
+      <div class="v2-sec-t">書庫<small>倪師筆記、古籍、小辭典、風水理論</small></div>
+      <div id="niLibWrap" class="hidden"></div><div id="glossWrap" class="hidden"></div><div id="srcWrap" class="hidden"></div>
       <div id="hubLib" class="hub-lib"></div>
       <div class="hub-links">
         <button type="button" class="hub-link" id="hubCelebBtn"><b>名人命盤庫</b><small>160 張可查證命盤，找跟你相像的人</small></button>
@@ -9766,7 +9840,7 @@ function renderHome(){
       <div class="hm-actions"><button type="button" class="pc-btn primary" id="hmChartBtn">看我的命盤</button><button type="button" class="pc-btn" id="hmMoreBtn">本月完整分析</button></div></div>`;
     mine.querySelectorAll('.heat button').forEach(b=> b.addEventListener('click', ()=> v2MonthSheet(tw[parseInt(b.dataset.k)], parseInt(b.dataset.k))));
     document.getElementById('hmChartBtn').addEventListener('click', ()=> v2LoadPerson(me));
-    document.getElementById('hmNotMe').addEventListener('click', ()=>{ activateTopTab('combine'); setTimeout(()=> v2ScrollTo(document.getElementById('hubPeople')), 80); });
+    document.getElementById('hmNotMe').addEventListener('click', ()=>{ if(typeof mineTab==='function') mineTab('people'); activateTopTab('combine'); setTimeout(()=> v2ScrollTo(document.getElementById('hubPeople')), 80); });
     document.getElementById('hmMoreBtn').addEventListener('click', ()=>{ more.open = true; setTimeout(()=> v2ScrollTo(more), 30); });
     more.classList.remove('hidden');
     if(typeof renderMyMonthCard==='function') renderMyMonthCard();
@@ -9793,12 +9867,15 @@ function renderHome(){
     <button type="button" class="home-tile primary" data-go="renjian">${navSvg('topTabRenjian')}<b>問一件事</b><small>擲銅錢，看事情走向</small></button>
     <button type="button" class="home-tile" data-go="chart">${navSvg('topTabTianji')}<b>${me?'我的命盤':'排一張命盤'}</b><small>格局・大限・今年</small></button>
     <button type="button" class="home-tile" data-go="dimai">${navSvg('topTabDimai')}<b>家裡方位</b><small>臥房方位合不合適</small></button>
-    <button type="button" class="home-tile" data-go="celeb"><svg viewBox="0 0 24 24">${V2_IC['人際']}</svg><b>誰跟我最像</b><small>比對 160 張名人命盤</small></button>`;
+    <button type="button" class="home-tile" data-go="celeb"><svg viewBox="0 0 24 24">${V2_IC['人際']}</svg><b>誰跟我最像</b><small>比對 160 張名人命盤</small></button>
+    <button type="button" class="home-tile" data-go="hepan"><svg viewBox="0 0 24 24">${V2_IC['感情']}</svg><b>家人合盤</b><small>兩人或三人的相處</small></button>
+    <button type="button" class="home-tile" data-go="lib"><svg viewBox="0 0 24 24">${V2_IC['書']}</svg><b>書庫</b><small>倪師看星・小辭典・古籍</small></button>`;
   document.querySelectorAll('#homeTiles [data-go]').forEach(b=> b.addEventListener('click', ()=>{
     const g = b.dataset.go;
     if(g==='renjian' || g==='dimai') activateTopTab(g);
     else if(g==='chart'){ if(me) v2LoadPerson(me); else activateTopTab('tianji'); }
     else if(g==='celeb'){ if(me) v2LoadPerson(me, ()=> v2ScrollTo(document.getElementById('celebMatchSec'))); else openCelebLib(); }
+    else if(g==='hepan' || g==='lib'){ if(typeof mineTab==='function') mineTab(g); activateTopTab('combine'); }
   }));
   // 家人
   const people = v2People();
@@ -9822,7 +9899,7 @@ function renderHome(){
 }
 
 /* ---------- 我的 ---------- */
-function v2GoManage(){ activateTopTab('combine'); setTimeout(()=> v2ScrollTo(document.getElementById('hubPeople')), 80); }
+function v2GoManage(){ if(typeof mineTab==='function') mineTab('people'); activateTopTab('combine'); setTimeout(()=> v2ScrollTo(document.getElementById('hubPeople')), 80); }
 function v2BindClearMe(el){
   const b = el.querySelector('[data-clearme]'); if(!b) return;
   b.addEventListener('click', ()=> appConfirm('確定要移除目前的「我」嗎？移除後「今日」不會顯示本月運勢，之後可在家人列表按「設為我」重新設定。').then(ok=>{ if(!ok) return; saveMe(null); renderHub(); }));
@@ -10096,13 +10173,493 @@ renderFsRoles(); renderFsWheel();
 /* =====================================================================
    v2 第三批：書庫（古籍、六神、命卦、陽宅六十四卦、風水理論、相學）
    ===================================================================== */
+Object.assign(V2_IC, {
+  '星':'<path d="M12 3.6l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/>',
+  '辭':'<path d="M4 6h10M4 11h7M4 16h5"/><circle cx="15.5" cy="15" r="3.6"/><path d="M18.2 17.7L21 20.5"/>',
+  '源':'<path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3.4L6 20V5a1 1 0 0 1 1-1z"/><path d="M9.5 9h5M9.5 12h3"/>'
+});
+/* =====================================================================
+   書庫 v3（2026-11-11）：倪師看星、名詞小辭典、資料來源
+   倪師內容整理自專案文件「天紀筆記（jeff 個人整理）」。只收相貌、個性、適合方向與成名格局，
+   筆記中關於壽夭、災禍的斷語不收錄。
+   ===================================================================== */
+const NI_STARS = [
+  {n:'紫微', tags:['北斗帝星','官帶・文武皆可','能解厄'],
+   look:'臉寬寬方方，耳朵長、正面不太看得到耳朵；五官開闊，整張臉寬大厚重。',
+   nature:'不苟言笑、不隨便開口，為人厚道。身邊沒有左輔、右弼時性情偏孤，喜歡一個人做事。',
+   path:'紫微是官帶，文武都可以；官帶落在官祿宮最好。流年走到紫微，容易接近上位的人。',
+   says:['帝星一定要左輔右弼來配合。','紫微還有一個功能：解厄制化。命中逢到凶星時，遇到紫微星都可以解掉。','紫微加七殺等於化權。'],
+   ge:['紫府坐垣・七殺朝斗','紫府夾命']},
+  {n:'天機', tags:['文官帶','聰明機變'],
+   look:'膚色偏深，個子不高，體格精壯。',
+   nature:'反應快、聰明、智慧高，心思比較多。',
+   path:'文官帶，適合公務人員。',
+   says:['機為反應快、聰明、智慧高。','天機本身沒有解厄制化的功能。'],
+   ge:['機月同梁']},
+  {n:'太陽', tags:['武官帶','財祿','貴人星','代表父親、丈夫、兒子'],
+   look:'紅光滿面，雙目圓大，圓臉，皮膚白，中等身材、很壯。',
+   nature:'光明、熱情；脾氣來得快也去得快。',
+   path:'武官帶：軍人、警察、法官、外交官。太陽在財帛主財，在官祿主官；太陽的財屬於不固定的收入。',
+   says:['命裡會到太陽，完全受到父親的影響。','太陽很旺的女孩子天生好手，很厲害。'],
+   ge:['日照雷門','日麗中天','巨日格','日月並明','明珠出海','日月夾命']},
+  {n:'武曲', tags:['武官星','財星王','貴人星'],
+   look:'身材不高而壯。倪師說：「相上五短主貴，亦主富。」',
+   nature:'個性跟太陽一樣直，火氣一發就過去。',
+   path:'最大的財星，也是武官星。武曲入田宅，產業會慢慢增加。',
+   says:['武曲也代表貴人。紫微、太陽、武曲都是貴人星。','武曲、七殺在一起，為武殺會，為生殺之權；男命武職大利，商人主勞多功少。'],
+   ge:['將星得地','武貪同行']},
+  {n:'天同', tags:['人和之星'],
+   look:'（筆記沒有特別描述）',
+   nature:'人和、溫順。倪師說同梁坐命是最溫厚、最溫馴的一種人。',
+   path:'需要人和的事最合適。流年走到天同，合夥吉。',
+   says:['天同是一個人和的星。','平天下時一定要人和。'],
+   ge:['機月同梁']},
+  {n:'廉貞', tags:['次桃花','武官帶'],
+   look:'長相清秀。',
+   nature:'本性清廉，帶桃花緣。',
+   path:'武官帶，適合獨當一面。廉貞七殺在丑未（廟旺）主積富、一方之主。',
+   says:['廉貞本身是很清廉的，逢到天府，兩個加起來，是很溫和的星。','雄宿朝元的人，武官出將相，做生意的一定當老闆。'],
+   ge:['雄宿朝元']},
+  {n:'天府', tags:['南斗星君','文官星・教星','財庫'],
+   look:'（筆記沒有特別描述）',
+   nature:'溫和、厚道，心思比較細。',
+   path:'文官、教職。紫微天府在財帛是財庫（不是財星），適合在企業裡當主管。',
+   says:['天府星是很溫和的星，很厚道。','夫妻宮坐天府帶天馬最好：天馬吃苦耐勞，天府厚道善良、善於理財。','府相會命，天生佐才。'],
+   ge:['紫府坐垣・七殺朝斗','府相會命','紫府夾命']},
+  {n:'太陰', tags:['文官帶','正財','代表母親、太太'],
+   look:'女命太陰坐命，倪師稱「月中嫦娥」。',
+   nature:'（筆記沒有特別描述）',
+   path:'文官帶。太陰在財帛為正財，適合領固定薪水的公職。',
+   says:['太陰為月亮。要亮，晚上出來較好。在亥、子時最好。','命裡會到太陰，完全受到母親的影響。'],
+   ge:['月朗天門','水澄桂萼','日月並明','明珠出海','日月夾命','機月同梁']},
+  {n:'貪狼', tags:['主桃花','財','武官星'],
+   look:'形貌魁梧，毛髮比較多。',
+   nature:'剛強、有主見，重享受。倪師提醒殺破狼的人要小心被人利用。',
+   path:'事業上貪狼主財。貪狼在午是武官星；在亥、子是正格桃花，適合演藝。流年貪狼旺，事業財祿好，但要留意桃花。',
+   says:['貪狼入命，有生殺大權。','火貪相聚，叫火貴格，主出武官、武貴。'],
+   ge:['火貪格','武貪同行']},
+  {n:'巨門', tags:['口舌之星','廟旺則口才好'],
+   look:'一種是個子小、聲量大；一種是身長體胖、毛髮多。',
+   nature:'靠嘴巴的星。亮的時候能言善道，暗的時候容易有口舌是非。',
+   path:'巨門廟旺適合靠口才、教學的工作。倪師說「巨門即為門很大」，廟旺可以當校長；富人逢巨門入廟主豪門宅第。',
+   says:['巨門星廟旺，這個災要去掉大半，變成能言善道，口才好。','巨日格必須要廟旺才能成正格。'],
+   ge:['巨日格']},
+  {n:'天相', tags:['宰相','佐才星'],
+   look:'瘦瘦高高。',
+   nature:'厚道，對人謙和，脾氣溫和，不爭權位。',
+   path:'最好的副手：助理、秘書、幕僚、副主管。',
+   says:['天相星是天上的宰相，為佐才星。','厚道，對人謙和，脾氣也溫和。做配偶最好了。','府相會命，天生佐才。'],
+   ge:['府相會命']},
+  {n:'天梁', tags:['食神','文武雙全'],
+   look:'英俊瀟灑，劍眉，個子不高、精壯。',
+   nature:'正派、厚道。',
+   path:'天梁在官祿，工作上交際應酬多。天梁在午，武職大利、一方之主。',
+   says:['天梁星文武雙全，允文允武。','天梁坐命的人，比較正派、厚道。'],
+   ge:['機月同梁']},
+  {n:'七殺', tags:['武官星','將星'],
+   look:'眼睛大。',
+   nature:'性急、多疑，剛強有主見。',
+   path:'武官星入廟最好。七殺在午稱為將星。事業上主耗：流年走到七殺，辛苦奔波、一個人拼，錢不容易留住。',
+   says:['紫微七殺等於化權，為權星。','武官星入廟，這個人非常剛強。'],
+   ge:['紫府坐垣・七殺朝斗']},
+  {n:'破軍', tags:['武官星','英星'],
+   look:'瘦瘦的，不容易胖。',
+   nature:'孤僻自守、孤芳自賞；不重利，重感覺。',
+   path:'破軍在子、午稱「英星入廟」，利武職。事業上主耗：流年走到破軍，辛苦奔波又花錢。',
+   says:['破軍比較孤僻自守，一個人孤芳自賞。','殺破狼都喜歡碰到火星和鈴星。'],
+   ge:['英星入廟','將星得地']}
+];
+const NI_HUA = [
+  {n:'化科', k:'科名、才藝、名氣', d:'考試、文筆、才藝、教學都屬於科；也代表名聲。',
+   pts:['化科在命，利於考試。','科在官祿，適合考公職，也有人去當老師。','科在財帛，有專業技術，用專長賺錢。','只有科、沒有權，是佐才：軍師、參謀、顧問。'],
+   say:'任何人的命，只要科進來，名氣很大，讀書很好。'},
+  {n:'化權', k:'官印、主見、領導', d:'權代表性剛、有主見、有領導力。',
+   pts:['命裡有化權，天生的領導者，個性很強。','官祿宮最喜歡權星：「當官要有權才行。」','權在財帛，做事業領導力強；只有權沒有祿，適合在企業當主管。','夫妻宮化權，另一半個性強、有主見。'],
+   say:'哪一顆星化權，看是哪一顆來決定他是做生意，還是在官場上做事。'},
+  {n:'化祿', k:'財祿', d:'祿就是錢財。化祿的性質是「守」，會理財、比較省。',
+   pts:['祿在財帛，自己會做生意。','祿在父母宮，父母從商、有祖業。','交友宮化祿，合夥大利，很會做人。','祿存同於化祿；祿逢天馬叫祿馬交馳，財很大。'],
+   say:'命中沒有科權祿，領薪水就好；科權祿會到，一方之主，不甘人下。'},
+  {n:'化忌', k:'停滯、想不開', d:'忌代表卡住、想不開、是非與破耗。倪師的重點是提醒人「想開」，並用住的位置來調整。',
+   pts:['化忌在事業上意味著停滯。','化忌在交友宮，合夥、作保要特別小心。','化忌在對宮沖過來，比在本宮更要留意。','流年遇到化忌，倪師的做法是調整陽宅位置，讓念頭轉過來。'],
+   say:'要告訴他想開。想不開，念頭就不對，念頭會影響到他的做法，做法就影響到他的命了。'}
+];
+const NI_AUX = [
+  {g:'吉星', items:[
+    {n:'文昌・文曲', d:'文昌主科甲、讀書考試；文曲主才藝、博學。兩顆同時會到，文采好、多有專業專長。'},
+    {n:'天魁・天鉞', d:'科甲星，也是貴人星。命宮和對宮各一顆叫「坐貴向貴」。流年走到天鉞，容易得到長輩或上司提拔。'},
+    {n:'左輔・右弼', d:'輔佐紫微的星，成對出現最好。'},
+    {n:'三台・八座', d:'輔佐天府的星。天府遇到三台八座，才有解厄的力量。'},
+    {n:'祿存', d:'等同化祿，是財星。在命宮的人節省；在財帛很會賺錢。'},
+    {n:'天馬', d:'奔波、吃苦耐勞。祿存或化祿遇到天馬，叫祿馬交馳。'},
+    {n:'紅鸞・天喜', d:'喜慶的星。紅鸞落在哪一宮，婚姻就受那一宮的人影響，例如落在父母宮，姻緣多由父母牽成。'}
+  ]},
+  {g:'煞星', items:[
+    {n:'擎羊・陀羅', d:'代表刀與暗處的阻礙，傳統上跟動刀、血光有關。倪師說：擎羊廟旺時，「這個刀下去，平安無事」。'},
+    {n:'火星・鈴星', d:'代表衝突與急躁。命帶火星的人性子拗。殺破狼反而喜歡遇到火、鈴。'},
+    {n:'地空・地劫', d:'代表落空與破耗。做生意的流年遇到空劫，要保守。'},
+    {n:'看煞星的原則', d:'「煞星要注意廟旺利陷。」亮的煞星反而有用，暗的才要小心。宮裡有吉星同在，煞星的力量就弱；倪師也說：「只要有戒心，再大的災都可以去掉。」'}
+  ]}
+];
+/* 格局：t(c) 為判斷函式，傳入命盤，回傳是否符合；沒有 t 的只列出不判斷 */
+const NI_GE = [
+  {n:'日照雷門', c:'太陽在卯宮坐命', d:'太陽剛升起，男命最好；做白天的行業容易發。'},
+  {n:'日麗中天', c:'太陽在午宮坐命', d:'正午的太陽，利武職。'},
+  {n:'月朗天門', c:'太陰在亥宮坐命', d:'月亮最亮的位置，女命最好。'},
+  {n:'水澄桂萼', c:'太陰在子宮坐命', d:'倪師說利於做官、為清官；女命為「月中嫦娥」。'},
+  {n:'日月並明', c:'命宮在辰或戌，太陽在辰、太陰在戌；或命宮在丑，太陽在巳、太陰在酉', d:'日月都亮，做事左右逢源。'},
+  {n:'明珠出海', c:'命宮在未，太陽在卯、太陰在亥', d:'日月並明的一種。父母緣好，為人公正清明。'},
+  {n:'日月夾命', c:'命宮在丑，太陰在子、太陽在寅', d:'又叫日月夾財，一生財祿好，包括祖業和自己掙的。'},
+  {n:'巨日格', c:'太陽、巨門都亮：同在寅宮坐命；或太陽在午、巨門在戌而命宮在寅；或太陽在巳、巨門在亥而命宮在其中一宮', d:'主大財、大戶人家。兩顆星要亮才算正格。'},
+  {n:'紫府坐垣・七殺朝斗', c:'紫微、天府同在寅或申，對宮是七殺；命宮在其中一邊', d:'紫府那一邊主位高；七殺那一邊是將星入命。'},
+  {n:'雄宿朝元', c:'廉貞獨坐寅或申，並且是命宮', d:'發武職，也發商人；經商的人命、財、官三宮要有祿。倪師提醒這種人晚年要留意桃花。'},
+  {n:'英星入廟', c:'破軍在子或午坐命', d:'利武職，男命英挺。男女都偏晚婚。'},
+  {n:'將星得地', c:'武曲、破軍同在亥宮，並且是命宮', d:'男命最好，行運走到也算。'},
+  {n:'武貪同行', c:'武曲、貪狼同在丑或未坐命', d:'將星入命。倪師說男命在未宮最好。'},
+  {n:'火貪格', c:'貪狼與火星同在命宮', d:'又叫火貴格，主武貴。'},
+  {n:'祿馬交馳', c:'命宮裡有天馬，又有祿存或化祿', d:'財來得大。'},
+  {n:'府相會命', c:'命宮的三方四正會到天府和天相', d:'天生的佐才，最好的副手。'},
+  {n:'機月同梁', c:'命宮的三方四正會齊天機、太陰、天同、天梁', d:'適合公家機關或學校，領固定薪水；有科權祿會到才適合經商。'},
+  {n:'紫府夾命', c:'命宮左右兩宮，一邊是紫微、一邊是天府', d:'又叫紫府夾權，主掌權。'},
+  {n:'魁鉞夾命', c:'命宮左右兩宮，一邊是天魁、一邊是天鉞', d:'又叫魁鉞夾貴，主有貴人、利讀書。'},
+  {n:'日月反背', c:'太陽、太陰都落在暗的位置', d:'倪師的說法：工作披星戴月、離鄉發展、凡事靠自己。這一項 App 不自動判斷。', nt:true}
+];
+const NI_PAL = [
+  {n:'命宮', pts:['看長相、天性、行為模式。看命宮一定要同時看財帛、官祿、遷移（三方四正）。','化權在命，個性強、天生領導；化科在命，利考試；化祿在命，會理財。','三方四正沒有科權祿，適合領薪水；科權祿會到，適合自己做事業。']},
+  {n:'兄弟宮', pts:['武曲入廟在兄弟宮，兄弟得力。','財星會到兄弟宮，兄弟做生意。']},
+  {n:'夫妻宮', pts:['夫妻宮的星，就是配偶的樣子。','看婚姻不能只看夫妻宮，一定要看福德宮。','夫妻宮化權，另一半有主見；化科，配偶靠專業吃飯。','夫妻宮坐天府帶天馬最好。']},
+  {n:'子女宮', pts:['子女宮空的時候，要看對面。','看子女也要看三方四正，有科權祿會到，孩子有成就。']},
+  {n:'財帛宮', pts:['財帛是到私人企業、自己當老闆的宮。','財星（祿存、化祿、武曲、貪狼）落在財帛最好。','文昌文曲在財帛，多是醫師、律師、會計師、建築師這類專業。']},
+  {n:'疾厄宮', pts:['倪師提醒：看疾厄宮要看整張盤，不能只憑一宮一星下判斷。','身體的事請以醫師為準，App 不從命盤判斷疾病。']},
+  {n:'遷移宮', pts:['命宮的星普通、遷移宮多吉星，適合到外地發展。','身宮在遷移，會到外地發展。','財星在遷移，是後天自己賺來的財。']},
+  {n:'交友宮', pts:['吉星多，合夥吉；化祿在這裡，合夥大利、很會做人。','倪師分辨朋友的說法：「君子難進易出，庸才易進易出，小人易進難出。」']},
+  {n:'官祿宮', pts:['官星落在官祿最好，最喜歡權星。','科在官祿，適合考公職或當老師。','財星和權星同在官祿，是管錢的主管。','身宮在官祿，傾向進公家機關。']},
+  {n:'田宅宮', pts:['看祖業和自己置的產。','武曲入田宅，產業慢慢增加；吉星會到，越置越旺。']},
+  {n:'福德宮', pts:['一輩子的福祿，也代表夫妻關係。','倪師說：「女人的福德代表先生。」']},
+  {n:'父母宮', pts:['祿在父母宮，父母從商、有祖業。','太陽代表父親，太陰代表母親。','紅鸞、天喜落在父母宮，姻緣多由父母牽成。']}
+];
+const NI_BASICS = [
+  ['三才', '「天占三分之一（算命），人占三分之一（人間道），地理占三分之一（陽宅）。」人和地加起來是三分之二，大於天命。'],
+  ['目的', '「算命的目的：以果決行。」知道結果，是為了決定現在怎麼做。'],
+  ['命與運', '「命好不如限好。」格局好，還要看行運走到哪裡。'],
+  ['怎麼看', '看命宮要同時看財帛、官祿、遷移；看十年大運也看三方四正；看單一年只看本宮和對宮。空宮看對面。'],
+  ['四化', '「科權祿忌排出來了，永遠固定在宮上，不要動，不要亂飛。」倪師只用出生年的四化。本 App 的流年和合盤另外用了方外人的宮干飛化，畫面上都有標明是哪一種。'],
+  ['煞星', '「煞星廟旺的話，這個煞星反而變成吉星。」另有「吉處藏凶、凶處藏吉」的說法：看整宮，不只看一顆星。'],
+  ['戒心', '「只要有戒心，再大的災都可以去掉。戒盛、戒盈；戒之初。」'],
+  ['不順時', '「流年不好，去讀書，進德修業最好。」'],
+  ['好命', '「最好的命是，前面凶一點，吉星都在後面。」']
+];
+
+/* 格局判斷（只判斷看位置就能確定的） */
+(function(){
+  const at = (c,i)=> c.palaces.find(p=>p.idx===((i%12)+12)%12);
+  const has = (p,s)=> !!p && p.stars.some(x=>x.name===s);
+  const mains = p=> p.stars.filter(x=>x.type==='main').map(x=>x.name);
+  const ming = c=> c.palaces.find(p=>p.name==='命宮');
+  const sfsz = c=> ['命宮','財帛宮','官祿宮','遷移宮'].map(n=> c.palaces.find(p=>p.name===n));
+  const inS = (c,s)=> sfsz(c).some(p=> has(p,s));
+  const T = {
+    '日照雷門': c=> ming(c).idx===3 && has(ming(c),'太陽'),
+    '日麗中天': c=> ming(c).idx===6 && has(ming(c),'太陽'),
+    '月朗天門': c=> ming(c).idx===11 && has(ming(c),'太陰'),
+    '水澄桂萼': c=> ming(c).idx===0 && has(ming(c),'太陰'),
+    '日月並明': c=>{ const m=ming(c).idx; return ((m===4||m===10) && has(at(c,4),'太陽') && has(at(c,10),'太陰')) || (m===1 && has(at(c,5),'太陽') && has(at(c,9),'太陰')); },
+    '明珠出海': c=> ming(c).idx===7 && has(at(c,3),'太陽') && has(at(c,11),'太陰'),
+    '日月夾命': c=> ming(c).idx===1 && has(at(c,0),'太陰') && has(at(c,2),'太陽'),
+    '巨日格': c=>{ const m=ming(c).idx; return (m===2 && has(at(c,2),'太陽') && has(at(c,2),'巨門')) || (m===2 && has(at(c,6),'太陽') && has(at(c,10),'巨門')) || ((m===5||m===11) && has(at(c,5),'太陽') && has(at(c,11),'巨門')); },
+    '紫府坐垣・七殺朝斗': c=>{ const p=ming(c), o=at(c,p.idx+6); if(p.idx!==2 && p.idx!==8) return false; return (has(p,'紫微')&&has(p,'天府')&&has(o,'七殺')) || (has(p,'七殺')&&has(o,'紫微')&&has(o,'天府')); },
+    '雄宿朝元': c=>{ const p=ming(c), m=mains(p); return (p.idx===2||p.idx===8) && m.length===1 && m[0]==='廉貞'; },
+    '英星入廟': c=> (ming(c).idx===0||ming(c).idx===6) && has(ming(c),'破軍'),
+    '將星得地': c=> ming(c).idx===11 && has(ming(c),'武曲') && has(ming(c),'破軍'),
+    '武貪同行': c=> (ming(c).idx===1||ming(c).idx===7) && has(ming(c),'武曲') && has(ming(c),'貪狼'),
+    '火貪格': c=> has(ming(c),'貪狼') && has(ming(c),'火星'),
+    '祿馬交馳': c=>{ const p=ming(c); return has(p,'天馬') && (has(p,'祿存') || p.stars.some(x=>(x.hua||[]).includes('祿'))); },
+    '府相會命': c=> inS(c,'天府') && inS(c,'天相'),
+    '機月同梁': c=> ['天機','太陰','天同','天梁'].every(s=> inS(c,s)),
+    '紫府夾命': c=>{ const m=ming(c).idx, a=at(c,m-1), b=at(c,m+1); return (has(a,'紫微')&&has(b,'天府')) || (has(a,'天府')&&has(b,'紫微')); },
+    '魁鉞夾命': c=>{ const m=ming(c).idx, a=at(c,m-1), b=at(c,m+1); return (has(a,'天魁')&&has(b,'天鉞')) || (has(a,'天鉞')&&has(b,'天魁')); }
+  };
+  NI_GE.forEach(g=>{ if(T[g.n]) g.t = T[g.n]; });
+})();
+function niMatchGe(c){ const out=[]; NI_GE.forEach(g=>{ try{ if(g.t && g.t(c)) out.push(g.n); }catch(e){} }); return out; }
+
+/* 名詞小辭典：c=分類（六爻／八字／紫微），k=名詞，d=白話，a=別名（也會被連結） */
+const GLOSS = [
+  // ---- 六爻 ----
+  {c:'六爻', k:'用神', d:'代表你問的那件事（或那個人）的那一爻。問錢看妻財爻、問工作看官鬼爻、問長輩看父母爻；問自己要不要做某件事，看世爻。整卦的判讀都圍著它轉。'},
+  {c:'六爻', k:'世爻', d:'代表問事的你自己。'},
+  {c:'六爻', k:'應爻', d:'代表對方，或你問的那個環境。'},
+  {c:'六爻', k:'六親', d:'卦裡的五種角色：父母、兄弟、子孫、妻財、官鬼。以卦宮的五行當「我」：生我的是父母，我生的是子孫，剋我的是官鬼，我剋的是妻財，跟我一樣的是兄弟。'},
+  {c:'六爻', k:'動爻', d:'擲出老陰或老陽的那一爻，會變。動爻是事情正在變化的地方，力量比不動的爻大。'},
+  {c:'六爻', k:'變爻', d:'動爻變出來的新爻，看事情接下來往哪裡走。'},
+  {c:'六爻', k:'本卦', d:'擲出來的卦，看現在的狀況。'},
+  {c:'六爻', k:'變卦', d:'動爻變了之後的卦，看後續的走向。沒有動爻就沒有變卦。'},
+  {c:'六爻', k:'月建', d:'起卦那個月的地支（照節氣分月）。它管一整個月的強弱，是判斷一個爻有沒有力的第一標準。'},
+  {c:'六爻', k:'日辰', d:'起卦那一天的地支。它可以生、剋、沖、合卦裡的每一爻。晚上 11 點以後起卦，算隔天的日辰。'},
+  {c:'六爻', k:'旺相休囚死', d:'爻的五行跟當月比出來的強弱：跟月令相同是「旺」，月令生它是「相」，它生月令是「休」，它剋月令是「囚」，月令剋它是「死」。旺、相有力；休、囚、死無力。', a:['旺相','休囚']},
+  {c:'六爻', k:'月破', d:'爻的地支正好被月建沖到（例如寅月的申爻）。這個月之內它像破掉的東西，使不上力；出了這個月，或逢合、逢填實才有用。'},
+  {c:'六爻', k:'日破', d:'沒有力的靜爻被日辰沖到，被沖散了。'},
+  {c:'六爻', k:'暗動', d:'有力的靜爻被日辰沖到，表面沒動，暗地裡已經在起變化。'},
+  {c:'六爻', k:'旬空', d:'每十天一旬，會有兩個地支輪空。爻逢旬空，代表這件事暫時還是空的、沒落實；過了這一旬（出旬）或被沖到才會落實。動爻和有力的爻不算真空。', a:['空亡（六爻）']},
+  {c:'六爻', k:'伏神', d:'用神沒有出現在卦裡時，要到這一宮的第一卦去找，它藏在某一爻的下面，叫伏神。伏神要得到日、月幫忙，或上面那一爻被沖開，才出得來。'},
+  {c:'六爻', k:'飛神', d:'蓋在伏神上面的那一爻。飛神生伏神是好事，剋伏神就壓住了。'},
+  {c:'六爻', k:'回頭生', d:'動爻變出來的爻，回過頭來生原本的爻。有後勁、越來越好。'},
+  {c:'六爻', k:'回頭剋', d:'動爻變出來的爻，回過頭來剋原本的爻。先有後無、開頭好看後面吃力。如果變出來的爻本身沒有力，剋的力道有限。'},
+  {c:'六爻', k:'進神', d:'動爻變成同一種五行、往前一位（例如寅變卯）。力量在增長。'},
+  {c:'六爻', k:'退神', d:'動爻變成同一種五行、往後一位（例如卯變寅）。力量在消退。'},
+  {c:'六爻', k:'伏吟', d:'爻動了，變出來卻還是同一個地支。事情反覆、原地踏步，心裡著急。'},
+  {c:'六爻', k:'反吟', d:'爻動了，變出來的地支正好跟自己相沖。事情反覆不定。'},
+  {c:'六爻', k:'入墓', d:'每種五行有一個「墓庫」：火在戌、水在辰、木在未、金在丑。爻入了墓，像被收進倉庫，暫時發揮不出來，要等到被沖開。', a:['化墓']},
+  {c:'六爻', k:'化絕', d:'動爻變到自己五行最沒氣的位置（例如木絕在申）。後繼無力。'},
+  {c:'六爻', k:'化空', d:'動爻變出來的爻正好逢旬空。變出來的結果暫時不落實。'},
+  {c:'六爻', k:'三合局', d:'申子辰合水、亥卯未合木、寅午戌合火、巳酉丑合金。卦裡的動爻、變爻加上日月湊齊三個，那一種五行的力量會大增。', a:['三合']},
+  {c:'六爻', k:'合絆', d:'動爻被日辰（或另一動爻）合住，像被絆住，暫時動不了，要等到合被沖開。'},
+  {c:'六爻', k:'合起', d:'靜爻被日辰合到，等於被扶起來，變得有力。'},
+  {c:'六爻', k:'六沖', d:'子午、丑未、寅申、卯酉、辰戌、巳亥互相沖。沖代表衝擊、分散、變動。'},
+  {c:'六爻', k:'原神', d:'生用神的那一種六親。原神有力，用神就有後援。'},
+  {c:'六爻', k:'忌神', d:'剋用神的那一種六親。忌神動而有力，事情阻礙多。', a:['忌神（六爻）']},
+  {c:'六爻', k:'六神', d:'青龍、朱雀、勾陳、螣蛇、白虎、玄武。照起卦日的天干排在六爻旁邊，用來補充事情的樣子，不決定成敗。'},
+  {c:'六爻', k:'納甲', d:'把天干地支配到每一爻上的方法。配上干支，才能談五行的生剋。'},
+  {c:'六爻', k:'卦宮', d:'六十四卦分屬八個宮。卦宮的五行就是「我」，用來定出六親。'},
+  // ---- 八字 ----
+  {c:'八字', k:'日主', d:'出生那一天的天干，代表你自己。八字裡其他的字，都是拿來跟日主比。', a:['日元']},
+  {c:'八字', k:'十神', d:'其他天干地支跟日主的十種關係：比肩、劫財、食神、傷官、正財、偏財、正官、七殺、正印、偏印。'},
+  {c:'八字', k:'比肩', d:'跟日主同五行、同陰陽。代表自己人、同輩、自主。'},
+  {c:'八字', k:'劫財', d:'跟日主同五行、陰陽不同。代表競爭、合夥、花錢。'},
+  {c:'八字', k:'食神', d:'日主所生、同陰陽。代表才華、口福、從容的表現。'},
+  {c:'八字', k:'傷官', d:'日主所生、陰陽不同。代表創意、表達、不服管。'},
+  {c:'八字', k:'正財', d:'日主所剋、陰陽不同。代表穩定的收入、務實。'},
+  {c:'八字', k:'偏財', d:'日主所剋、同陰陽。代表機會財、生意、人面廣。'},
+  {c:'八字', k:'正官', d:'剋日主、陰陽不同。代表規矩、職位、責任。'},
+  {c:'八字', k:'七殺', d:'剋日主、同陰陽。代表壓力、魄力、挑戰。', a:['偏官']},
+  {c:'八字', k:'正印', d:'生日主、陰陽不同。代表長輩、學問、保護。'},
+  {c:'八字', k:'偏印', d:'生日主、同陰陽。代表偏門的學問、敏銳、獨處。', a:['梟神']},
+  {c:'八字', k:'得令', d:'日主的五行在出生的月份正好當旺。這是強弱裡最重的一項。'},
+  {c:'八字', k:'得地', d:'地支裡有日主的根（同類五行）。有根就站得穩。'},
+  {c:'八字', k:'得勢', d:'天干裡幫日主的字多（同類或生我的）。'},
+  {c:'八字', k:'身強', d:'得令、得地、得勢加起來，日主力量夠。身強的人擔得起財和官。'},
+  {c:'八字', k:'身弱', d:'日主力量不夠，需要印（生我）或比劫（幫我）。'},
+  {c:'八字', k:'用神', d:'這張八字最需要的那一種五行，像藥。行運走到用神，事情比較順。', a:['用神（八字）']},
+  {c:'八字', k:'喜神', d:'幫助用神的五行。'},
+  {c:'八字', k:'忌神', d:'對這張八字不利的五行，像病。', a:['忌神（八字）']},
+  {c:'八字', k:'閒神', d:'不幫忙也不妨礙的五行。'},
+  {c:'八字', k:'調候', d:'照出生的季節調整冷暖：冬天生的要火來暖，夏天生的要水來潤。太冷或太熱時，調候比強弱更急。'},
+  {c:'八字', k:'通關', d:'兩種五行相剋打架時，中間放一個能把它們串起來的五行（例如金剋木，用水通關：金生水、水生木）。'},
+  {c:'八字', k:'藏干', d:'每個地支裡面藏著一到三個天干。看地支的力量，要看它藏了什麼。'},
+  {c:'八字', k:'大運', d:'每十年換一組干支，是人生的大環境。App 依「大運重地支」，地支佔六成、天干佔四成。'},
+  {c:'八字', k:'流年', d:'每一年的干支。天干看那年發生什麼事，地支看事情成不成。'},
+  {c:'八字', k:'蓋頭', d:'大運的天干剋地支，好的地支被天干壓住，打了折扣。'},
+  {c:'八字', k:'截腳', d:'大運的地支剋天干，好的天干站不穩，打了折扣。'},
+  {c:'八字', k:'歲運並臨', d:'流年的干支跟大運的干支一模一樣。那一年的吉凶會被放大。'},
+  {c:'八字', k:'天剋地沖', d:'兩柱的天干相剋、地支相沖。變動大。'},
+  {c:'八字', k:'空亡', d:'每十天一旬，有兩個地支輪空。八字裡哪一柱落空亡，那一柱的力量打折，也主虛、不落實。'},
+  {c:'八字', k:'羊刃', d:'日主最旺的那個地支，極剛。用得好有魄力，用不好主衝動、刀傷、手術。'},
+  {c:'八字', k:'驛馬', d:'主走動、出差、搬家、出國。'},
+  {c:'八字', k:'桃花', d:'又叫咸池。主人緣、異性緣。', a:['咸池']},
+  {c:'八字', k:'華蓋', d:'主孤高、聰明，跟宗教、藝術、玄學有緣。'},
+  {c:'八字', k:'天乙貴人', d:'最有力的貴人星，遇事有人幫。'},
+  {c:'八字', k:'魁罡', d:'庚辰、庚戌、壬辰、戊戌四天出生的人，個性剛烈。'},
+  {c:'八字', k:'專旺', d:'整張八字幾乎都是同一種五行，順著它走才好，不能逆。'},
+  {c:'八字', k:'從格', d:'日主弱到沒有根，乾脆順從最強的那一種五行。'},
+  {c:'八字', k:'胎元', d:'推算受孕的月份，看先天的底子。'},
+  {c:'八字', k:'十二長生', d:'一種五行從生到死的十二個階段：長生、沐浴、冠帶、臨官、帝旺、衰、病、死、墓、絕、胎、養。'},
+  // ---- 紫微 ----
+  {c:'紫微', k:'命宮', d:'代表你自己：天性、長相、行為模式。'},
+  {c:'紫微', k:'身宮', d:'代表後天的重心，人到中年以後特別明顯。身宮落在哪一宮，那件事影響你最深。'},
+  {c:'紫微', k:'三方四正', d:'看一個宮，要連同它的對宮和另外兩個三合宮一起看。命宮的三方四正是命宮、財帛宮、官祿宮、遷移宮。'},
+  {c:'紫微', k:'主星', d:'十四顆最重要的星：紫微、天機、太陽、武曲、天同、廉貞、天府、太陰、貪狼、巨門、天相、天梁、七殺、破軍。'},
+  {c:'紫微', k:'四化', d:'化祿、化權、化科、化忌。同一顆星被「化」了之後，會多一層意思：祿是財與機會，權是主導，科是名聲與貴人，忌是卡住、要費心的地方。'},
+  {c:'紫微', k:'生年四化', d:'照出生那一年的天干排出來的四化，一輩子不變。'},
+  {c:'紫微', k:'宮干四化', d:'每一宮都有自己的天干，用那個天干再排一次四化，看這一宮對其他宮的影響。這是飛星派的做法，方外人用它來看流年。', a:['飛星','飛化']},
+  {c:'紫微', k:'大限', d:'每十年走一個宮，那十年的重心就在那一宮。'},
+  {c:'紫微', k:'流年', d:'每一年走一個宮，看那一年的重心。', a:['流年（紫微）']},
+  {c:'紫微', k:'廟旺利陷', d:'星在不同位置的亮度。廟、旺最亮，力量發揮得好；陷最暗。'},
+  {c:'紫微', k:'空宮', d:'宮裡沒有主星。這時借對面那一宮的主星來看。'},
+  {c:'紫微', k:'對宮', d:'正對面的那一宮。對宮的星會照過來，影響很直接。'},
+  {c:'紫微', k:'五行局', d:'水二局、木三局、金四局、土五局、火六局。決定幾歲開始走第一個大限。'},
+  {c:'紫微', k:'消法', d:'命盤裡有煞星或化忌時，用實際的行動（例如手術、破相、金屬植入）把那個徵兆「應掉」。這是作者整合倪海廈醫理的個人心法，不是古籍原文。'}
+];
+
+/* ---------- 倪師看星：畫面 ---------- */
+let NI_TAB = 'star', NI_SEL = '紫微', NI_GE_FOCUS = null;
+function niMine(){
+  try{
+    const me = loadMe(); if(!me) return null;
+    const c = mmChartOf(me); if(!c) return null;
+    const mp = c.palaces.find(p=>p.name==='命宮');
+    let ms = mp.stars.filter(s=>s.type==='main').map(s=>s.name), borrow = false;
+    if(!ms.length){ const op = c.palaces.find(p=>p.idx===(mp.idx+6)%12); ms = op.stars.filter(s=>s.type==='main').map(s=>s.name); borrow = true; }
+    return {label: me.label || '我', stars: ms, borrow, ge: niMatchGe(c)};
+  }catch(e){ return null; }
+}
+function niStarCard(s, mine){
+  const isMine = mine && mine.stars.includes(s.n);
+  return `<div class="ni-card">
+    <div class="ni-card-h"><b>${s.n}</b>${isMine ? `<i class="ni-me">${escapeHtml(mine.label)}的命宮${mine.borrow?'（借對宮）':''}</i>` : ''}</div>
+    <div class="ni-tags">${s.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+    <dl><dt>相貌</dt><dd>${s.look}</dd><dt>個性</dt><dd>${s.nature}</dd><dt>適合的方向</dt><dd>${s.path}</dd></dl>
+    <div class="ni-says"><div class="ni-k">倪師的話</div>${s.says.map(q=>`<blockquote>「${q}」</blockquote>`).join('')}</div>
+    ${s.ge && s.ge.length ? `<div class="ni-rel"><span>相關格局</span>${s.ge.map(g=>`<button type="button" data-ni-ge="${g}">${g}</button>`).join('')}</div>` : ''}
+    <button type="button" class="ni-book" data-ni-book="${s.n}">看《紫微斗數全書》《深谷老人》原文 ›</button>
+  </div>`;
+}
+function niBodyHtml(mine){
+  if(NI_TAB==='star'){
+    const s = NI_STARS.find(x=>x.n===NI_SEL) || NI_STARS[0];
+    return `<div class="ni-chips">${NI_STARS.map(x=>`<button type="button" class="${x.n===s.n?'on':''}${mine&&mine.stars.includes(x.n)?' mine':''}" data-ni-star="${x.n}">${x.n}</button>`).join('')}</div>` + niStarCard(s, mine);
+  }
+  if(NI_TAB==='hua') return NI_HUA.map(h=>`<div class="ni-card"><div class="ni-card-h"><b>${h.n}</b><i class="ni-sub">${h.k}</i></div><p class="ni-p">${h.d}</p><ul class="ni-ul">${h.pts.map(p=>`<li>${p}</li>`).join('')}</ul><div class="ni-says"><blockquote>「${h.say}」</blockquote></div></div>`).join('');
+  if(NI_TAB==='pal') return NI_PAL.map(p=>`<div class="ni-card"><div class="ni-card-h"><b>${p.n}</b></div><ul class="ni-ul">${p.pts.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
+  if(NI_TAB==='aux') return NI_AUX.map(g=>`<div class="ni-k ni-gt">${g.g}</div>` + g.items.map(i=>`<div class="ni-row"><b>${i.n}</b><span>${i.d}</span></div>`).join('')).join('');
+  if(NI_TAB==='ge'){
+    const hit = mine ? mine.ge : [];
+    const list = NI_GE.slice().sort((a,b)=> (hit.includes(b.n)?1:0) - (hit.includes(a.n)?1:0));
+    return `<p class="ni-p ni-dim">格局是古人整理的「星的排法」，多數命盤都不會剛好排成這些樣子，沒有並不代表不好。${mine ? `有「符合」標記的，是依${escapeHtml(mine.label)}的命盤自動比對的結果。` : '設定「我」的命盤之後，這裡會自動標出符合的格局。'}</p>`
+      + list.map(g=>`<div class="ni-row ni-ge${hit.includes(g.n)?' hit':''}${NI_GE_FOCUS===g.n?' focus':''}" data-ge="${g.n}"><b>${g.n}${hit.includes(g.n)?'<i class="ni-me">符合</i>':''}</b><span><em>條件：${g.c}</em>${g.d}</span></div>`).join('');
+  }
+  return NI_BASICS.map(b=>`<div class="ni-row"><b>${b[0]}</b><span>${b[1]}</span></div>`).join('');
+}
+function niRender(){
+  const w = document.getElementById('niLibWrap'); if(!w) return;
+  const mine = niMine();
+  const tabs = [['star','主星'],['hua','四化'],['pal','十二宮'],['aux','吉煞星'],['ge','格局'],['basic','總綱']];
+  w.innerHTML = `<p class="ni-note">整理自倪海廈《天紀》課堂筆記。只收相貌、個性、適合的方向和成名格局，筆記裡關於壽夭、災禍的斷語沒有收錄。相貌與個性是傳統說法，只供對照。</p>`
+    + (mine ? `<div class="ni-mine"><div class="ni-mine-t">${escapeHtml(mine.label)}的命盤</div>
+        <div class="ni-mine-r"><span>命宮主星${mine.borrow?'（空宮，借對宮）':''}</span>${mine.stars.map(s=>`<button type="button" data-ni-star="${s}">${s}</button>`).join('') || '—'}</div>
+        <div class="ni-mine-r"><span>符合的格局</span>${mine.ge.length ? mine.ge.map(g=>`<button type="button" data-ni-ge="${g}">${g}</button>`).join('') : '<em>沒有剛好排成書上的格局（多數人都是這樣）</em>'}</div></div>` : '')
+    + `<div class="ni-tabs">${tabs.map(t=>`<button type="button" class="${NI_TAB===t[0]?'on':''}" data-ni-tab="${t[0]}">${t[1]}</button>`).join('')}</div><div id="niBody">${niBodyHtml(mine)}</div>`;
+  if(NI_TAB==='ge' && NI_GE_FOCUS){ const el = w.querySelector('.ni-ge.focus'); if(el) setTimeout(()=> el.scrollIntoView({block:'center', behavior:'smooth'}), 60); }
+}
+document.addEventListener('click', e=>{
+  const t = e.target.closest('[data-ni-tab],[data-ni-star],[data-ni-ge],[data-ni-book]'); if(!t) return;
+  if(t.dataset.niBook){ const k = t.dataset.niBook; closeSheet(); openLib('book'); setTimeout(()=>{ try{ jumpToBookEntry(k); }catch(err){} }, 120); return; }
+  if(t.dataset.niTab){ NI_TAB = t.dataset.niTab; NI_GE_FOCUS = null; }
+  if(t.dataset.niStar){ NI_TAB = 'star'; NI_SEL = t.dataset.niStar; NI_GE_FOCUS = null; }
+  if(t.dataset.niGe){ NI_TAB = 'ge'; NI_GE_FOCUS = t.dataset.niGe; }
+  niRender();
+  if(!t.dataset.niGe){ const sc = document.getElementById('sheetScroll'), b = document.getElementById('niBody'); if(sc && b && t.dataset.niStar && !t.closest('.ni-chips')) setTimeout(()=> b.scrollIntoView({block:'start', behavior:'smooth'}), 40); }
+});
+
+/* ---------- 名詞小辭典 ---------- */
+let GL_CAT = '全部', GL_Q = '', GL_FOCUS = null;
+const GL_LINK_WORDS = {
+  '六爻':['用神','世爻','應爻','動爻','變爻','月建','日辰','月破','日破','暗動','旬空','伏神','飛神','回頭生','回頭剋','進神','退神','伏吟','反吟','入墓','化墓','化絕','化空','三合','合絆','合起','原神','忌神','六神','納甲','卦宮','六親'],
+  '八字':['日主','得令','得地','得勢','調候','通關','藏干','蓋頭','截腳','歲運並臨','天剋地沖','空亡','羊刃','驛馬','華蓋','魁罡','天乙貴人','專旺','從格','胎元','十二長生','十神']
+};
+function glFind(cat, word){ return GLOSS.find(g=> g.c===cat && (g.k===word || (g.a||[]).includes(word))); }
+function glListHtml(){
+  const q = GL_Q.trim();
+  const rows = GLOSS.filter(g=> (GL_CAT==='全部' || g.c===GL_CAT) && (!q || g.k.includes(q) || g.d.includes(q) || (g.a||[]).some(a=>a.includes(q))));
+  if(!rows.length) return '<p class="ni-p ni-dim">找不到這個名詞，換個字試試。</p>';
+  return rows.map(g=>`<div class="ni-row gl-row${GL_FOCUS && GL_FOCUS.c===g.c && GL_FOCUS.k===g.k ? ' focus':''}"><b>${g.k}<i class="gl-c">${g.c}</i></b><span>${g.d}</span></div>`).join('');
+}
+function glRender(){
+  const w = document.getElementById('glossWrap'); if(!w) return;
+  w.innerHTML = `<input type="text" id="glSearch" class="gl-search" placeholder="搜尋名詞，例如：月破、得令、三方四正" value="${escapeHtml(GL_Q)}">
+    <div class="ni-tabs">${['全部','六爻','八字','紫微'].map(c=>`<button type="button" class="${GL_CAT===c?'on':''}" data-gl-cat="${c}">${c}</button>`).join('')}</div>
+    <div id="glList">${glListHtml()}</div>`;
+  const inp = document.getElementById('glSearch');
+  inp.addEventListener('input', ()=>{ GL_Q = inp.value; GL_FOCUS = null; document.getElementById('glList').innerHTML = glListHtml(); });
+  w.querySelectorAll('[data-gl-cat]').forEach(b=> b.addEventListener('click', ()=>{ GL_CAT = b.dataset.glCat; GL_FOCUS = null; glRender(); }));
+  if(GL_FOCUS){ const el = w.querySelector('.gl-row.focus'); if(el) setTimeout(()=> el.scrollIntoView({block:'center'}), 80); }
+}
+function glShow(cat, word){
+  const g = glFind(cat, word); if(!g) return;
+  openSheet({head:`<div class="sh-hd"><div class="sh-ic">${v2Ic('辭','')}</div><div><div class="sh-k">${g.c}名詞</div><div class="sh-t">${g.k}</div></div></div>`,
+    html:`<p class="sh-p">${g.d}</p><button type="button" class="ni-book" id="glAllBtn">看全部名詞 ›</button>`});
+  const b = document.getElementById('glAllBtn');
+  if(b) b.addEventListener('click', ()=>{ GL_CAT = g.c; GL_Q = ''; GL_FOCUS = {c:g.c, k:g.k}; closeSheet(); openLib('gloss'); });
+}
+/* 把結果頁裡的名詞變成可以點的（每個名詞只標第一次出現） */
+function glLinkIn(root, cat){
+  if(!root) return;
+  const words = (GL_LINK_WORDS[cat]||[]).filter(w=> !root.querySelector(`[data-gl="${w}"]`)).sort((a,b)=> b.length-a.length);
+  if(!words.length) return;
+  const skipSel = 'button,a,input,textarea,select,summary,svg,script,style,[data-gl],.no-gl,th,.vc-stamp,.cast-steps,.v2-sec-t,h1,h2,h3';
+  const nodes = []; const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  while(tw.nextNode()){ const n = tw.currentNode; if(n.nodeValue && n.nodeValue.trim().length>1 && n.parentElement && !n.parentElement.closest(skipSel)) nodes.push(n); }
+  const left = new Set(words);
+  const clickable = el=>{ for(let p = el; p && p!==root; p = p.parentElement){ if(getComputedStyle(p).cursor==='pointer') return true; } return false; };
+  for(let n of nodes){
+    if(!left.size) break;
+    let guard = 0;
+    while(n && left.size && guard++ < 8){
+      const txt = n.nodeValue; let best = null, bi = -1;
+      left.forEach(w=>{ const i = txt.indexOf(w); if(i>=0 && (bi<0 || i<bi || (i===bi && w.length>best.length))){ best = w; bi = i; } });
+      if(!best) break;
+      if(clickable(n.parentElement)){ break; }
+      const after = n.splitText(bi); const rest = after.splitText(best.length);
+      const sp = document.createElement('span'); sp.className = 'gl'; sp.dataset.gl = best; sp.dataset.glc = cat; sp.textContent = best;
+      after.parentNode.replaceChild(sp, after);
+      left.delete(best); n = rest;
+    }
+  }
+}
+document.addEventListener('click', e=>{
+  const s = e.target.closest && e.target.closest('span.gl[data-gl]'); if(!s) return;
+  e.stopPropagation(); e.preventDefault(); glShow(s.dataset.glc, s.dataset.gl);
+}, true);
+(function(){
+  const targets = [['step3','六爻'],['bzV2','八字']];
+  targets.forEach(([id, cat])=>{
+    const el = document.getElementById(id); if(!el || typeof MutationObserver==='undefined') return;
+    let tm = null;
+    const mo = new MutationObserver(()=>{ clearTimeout(tm); tm = setTimeout(()=>{ mo.disconnect(); try{ glLinkIn(el, cat); }catch(e){} mo.observe(el, {childList:true, subtree:true}); }, 300); });
+    mo.observe(el, {childList:true, subtree:true});
+  });
+})();
+
+/* ---------- 資料來源 ---------- */
+const SRC_ROWS = [
+  ['紫微排盤', '傳統安星法；農曆換算涵蓋 1900–2059 年。', '核心算法已用作者驗證過的命盤逐項核對。火星、鈴星用常見的三合定位法，各派略有出入。'],
+  ['紫微四化', '出生年的四化是各派共通的。流年四化預設用方外人的做法（流年命宮的宮干），可以在「說明・設定」改成用年干（三合派）。', '倪海廈只用出生年的四化，不用飛化。畫面上會標明每一條是哪一種。'],
+  ['主星解讀', '《紫微斗數全書》《深谷老人紫微星訣》原文；倪海廈《天紀》課堂筆記。', '白話的「人設」稱號是 App 的整理，不是古籍原文。'],
+  ['消法', '作者整合倪海廈醫理的個人心法。', '不是逐字出自古籍。'],
+  ['合盤', '出生年四化互飛是飛星派常見做法；主星對位、關係宮出自《天紀》筆記。', '關係宮宮干的祿忌是現代飛星派做法，各家不一，只在專業模式顯示。沒有找到方外人本人的合盤做法。'],
+  ['相似名人', '160 張可查證的命盤：《紫微斗數全書》古人命例，加上有出生時間紀錄的近代名人。', '命盤相近不代表人生相同。'],
+  ['八字排盤', '十二節交節時刻用天文曆算法預先算好（1899–2060 年，精確到分鐘）。', '與 lunar-python 比對 3,528 組生辰，四柱全部一致。'],
+  ['八字強弱與喜忌', '任鐵樵《滴天髓闡微》：得令、得地、得勢；調候依《窮通寶鑑》；蓋頭截腳依《神峰通考》。', '分數與門檻是 App 的量化方式，古書沒有數字。'],
+  ['八字健康', '倪海廈五行對五臟的說法。', '只當作保養方向，不是診斷。'],
+  ['銅錢問卦', '《增刪卜易》《卜筮正宗》的通則。月建照節氣，晚上 11 點後算隔日。', '結論的五個等級是 App 把各項條件加總的結果。健康、壽命的問題不判斷好壞。'],
+  ['小六壬', '民間流傳的掐指速斷法。', '只適合很快看一下單一問題。'],
+  ['陽宅方位', '倪海廈《天紀・地脈道》的六十四卦房位。', '風水理論篇是傳統堪輿名詞整理，需要現場勘查，App 無法代替。'],
+  ['命卦', '倪海廈《天紀》的四柱命卦。', ''],
+  ['AI 解讀', 'App 只負責把命盤、卦象整理成文字並附上守則，解讀由你選用的 AI 產生。', '守則要求：不論斷壽命、不從命盤判斷疾病、不預測分合、不論斷任何人的好壞。']
+];
+function srcRender(){
+  const w = document.getElementById('srcWrap'); if(!w) return;
+  w.innerHTML = `<p class="ni-note">命理是傳統文化裡的一套說法，目前沒有研究證明它能預測未來。這一頁列出 App 每個功能是照哪本書、哪一派做的，以及哪些部分是 App 自己的整理，讓你自己判斷要參考多少。</p>`
+    + SRC_ROWS.map(r=>`<div class="ni-row src-row"><b>${r[0]}</b><span>${r[1]}${r[2] ? `<em>${r[2]}</em>` : ''}</span></div>`).join('')
+    + `<p class="ni-p ni-dim">重要的決定，請回到現實的資訊和專業意見：身體找醫師，法律找律師，錢找有執照的顧問。</p>`;
+}
+
+/* ---------- 開啟時重畫；全站搜尋加入兩個新資料庫 ---------- */
+{ const __openLib3 = openLib;
+  openLib = function(id){ try{ if(id==='ni') niRender(); if(id==='gloss') glRender(); if(id==='src') srcRender(); }catch(e){} __openLib3(id); }; }
+{ const __gs3 = doGlobalSearch;
+  doGlobalSearch = function(query){
+    __gs3(query);
+    const q = (query||'').trim(); if(!q) return;
+    const el = document.getElementById('gsResults'); let html = '';
+    const stars = NI_STARS.filter(s=> s.n.includes(q) || s.tags.some(t=>t.includes(q)) || s.look.includes(q) || s.nature.includes(q) || s.path.includes(q)).slice(0,6);
+    html += gsRenderGroup('倪師看星・書庫', stars.map(s=>({title:s.n, snippet:s.tags.join('・'), go:()=>{ closeGlobalSearch(); NI_TAB='star'; NI_SEL=s.n; openLib('ni'); }})));
+    const ges = NI_GE.filter(g=> g.n.includes(q) || g.c.includes(q)).slice(0,6);
+    html += gsRenderGroup('格局・書庫', ges.map(g=>({title:g.n, snippet:g.c, go:()=>{ closeGlobalSearch(); NI_TAB='ge'; NI_GE_FOCUS=g.n; openLib('ni'); }})));
+    const gl = GLOSS.filter(g=> g.k.includes(q) || (g.a||[]).some(a=>a.includes(q))).slice(0,8);
+    html += gsRenderGroup('名詞小辭典・書庫', gl.map(g=>({title:`${g.k}（${g.c}）`, snippet:g.d, go:()=>{ closeGlobalSearch(); GL_CAT=g.c; GL_Q=''; GL_FOCUS={c:g.c,k:g.k}; openLib('gloss'); }})));
+    if(!html) return;
+    if(el.querySelector('.gs-group')) el.insertAdjacentHTML('beforeend', html); else el.innerHTML = html;
+  }; }
+
 const V2_LIB = {
+  ni:{t:'倪師看星', s:'十四主星的相貌、個性與適合方向，四化、十二宮、成名格局；出自《天紀》筆記', n:'niLibWrap', ic:'星'},
   book:{t:'古籍星曜查詢', s:'《紫微斗數全書》《深谷老人紫微星訣》原文，十四主星、六吉六煞、四化', n:'bookSec', ic:'書', open:'bookDetails'},
+  gloss:{t:'名詞小辭典', s:'六爻、八字、紫微的常見名詞，用白話解釋', n:'glossWrap', ic:'辭'},
   liushen:{t:'六神參考', s:'青龍・朱雀・勾陳・螣蛇・白虎・玄武，起例與臨六親', n:'liushenRefWrap', ic:'心境'},
   mingua:{t:'六十四卦命卦查詢', s:'先天、後天、流年命卦', n:'minguaWrap', ic:'時'},
   fs64:{t:'陽宅方位六十四卦', s:'八種家人 × 八個方位，完整六十四卦解讀', n:'fengshuiRefWrap', ic:'家宅'},
   theory:{t:'風水篇理論', s:'尋龍、看水、明堂、案山、水口、羅經', n:'fengshuiTheoryWrap', ic:'出外'},
-  face:{t:'面相・手相・經絡', s:'與命盤互相印證的傳統相學對照', n:'advRef', ic:'自身', open:'advRef'}
+  face:{t:'面相・手相・經絡', s:'與命盤互相印證的傳統相學對照', n:'advRef', ic:'自身', open:'advRef'},
+  src:{t:'資料來源', s:'每個功能依據哪本書、哪一派，哪些是 App 自己的整理', n:'srcWrap', ic:'源'}
 };
 function openLib(id){
   const L = V2_LIB[id]; if(!L) return;
@@ -10120,7 +10677,7 @@ function v2InitLibrary(){
   if(hub){
     hub.innerHTML = Object.keys(V2_LIB).map(k=>{ const L = V2_LIB[k]; return `<button type="button" class="lib-tile" data-lib="${k}"><span class="chap-ic">${v2Ic(L.ic,'')}</span><b>${L.t}</b><small>${L.s}</small></button>`; }).join('');
   }
-  [['tianjiSection',['book','face']],['renjianSection',['liushen','mingua']],['dimaiSection',['fs64','theory']]].forEach(([sec, ids])=>{
+  [['tianjiSection',['ni','book','gloss','face']],['renjianSection',['gloss','liushen','mingua']],['dimaiSection',['fs64','theory']]].forEach(([sec, ids])=>{
     const s = document.getElementById(sec); if(!s) return;
     const row = document.createElement('div'); row.className = 'lib-row'; row.innerHTML = libRowHtml(ids);
     s.appendChild(row);
@@ -11928,7 +12485,7 @@ renderHepanPreview = function(){
     ${r.year ? '' : `<p class="hp-time">想看這一兩年的相處：勾選上方「一併看今年」，或到「AI 綜合解讀」把${who}的流年一起加入。<button type="button" class="pc-btn" id="hepanToCombine">前往</button></p>`}
   </div>`;
   const go = document.getElementById('hepanToCombine');
-  if(go) go.addEventListener('click', ()=>{ const t = document.getElementById('combineCard') || document.getElementById('combineSection'); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); });
+  if(go) go.addEventListener('click', ()=>{ if(typeof mineTab==='function') mineTab('ai'); const t = document.getElementById('combineSection'); if(t) setTimeout(()=> window.scrollTo({top:0, behavior:'smooth'}), 30); });
   box.querySelectorAll('.hp-node').forEach(g=> g.addEventListener('click', ()=>{ const c = document.getElementById('hpPc'+g.dataset.i); if(c) c.scrollIntoView({behavior:'smooth', block:'start'}); }));
 };
 
@@ -12100,6 +12657,135 @@ renderYongshen = function(a, topic){
   el.innerHTML = el.innerHTML.replace('，恰為世爻，事情與自身直接相關','')
     .replace(/用神為<b([^>]*)>世爻<\/b>/, '用神為<b$1>世爻</b>（世爻代表問事的你自己；問自己的事，六爻傳統上看世爻）');
 };
+
+/* 「我的」頁分頁（2026-11-11）：家人｜書庫｜合盤｜AI 解讀 */
+function mineTab(k){
+  const sec = document.getElementById('combineSection'); if(!sec) return;
+  if(!['people','lib','hepan','ai'].includes(k)) k = 'people';
+  sec.dataset.mt = k;
+  sec.querySelectorAll('#mineTabs [data-mt]').forEach(b=> b.classList.toggle('on', b.dataset.mt===k));
+  try{ sessionStorage.setItem('sancai_mine_tab', k); }catch(e){}
+}
+(function(){
+  const sec = document.getElementById('combineSection'); if(!sec) return;
+  const hub = document.getElementById('mineHub'), dw = document.getElementById('combineDataWrap'), hp = document.getElementById('hepanSec');
+  if(hp && dw && dw.contains(hp)) dw.parentNode.insertBefore(hp, dw);   // 合盤移出來，才不會跟著「AI分析結果」子頁籤一起被藏
+  const tag = (el, g)=>{ if(el && g) el.dataset.mtG = g; };
+  [...(hub ? hub.children : []), ...sec.children].forEach(el=>{
+    if(!el.classList || !el.classList.contains('v2-sec-t')) return;
+    const x = el.textContent; tag(el, x.includes('家人') ? 'people' : x.includes('書庫') ? 'lib' : x.includes('AI') ? 'ai' : '');
+  });
+  tag(document.getElementById('hubPeople'), 'people'); tag(document.getElementById('historySec'), 'people');
+  tag(document.getElementById('hubLib'), 'lib'); tag(sec.querySelector('.hub-links'), 'lib');
+  tag(hp, 'hepan');
+  [...sec.children].forEach(el=>{ if(el.classList && (el.classList.contains('part-intro') || el.classList.contains('sub-tabs'))) tag(el, 'ai'); });
+  tag(dw, 'ai'); tag(document.getElementById('aiResultsWrap'), 'ai');
+  sec.querySelectorAll('#mineTabs [data-mt]').forEach(b=> b.addEventListener('click', ()=>{ mineTab(b.dataset.mt); window.scrollTo({top:0}); }));
+  let k = 'people'; try{ k = sessionStorage.getItem('sancai_mine_tab') || 'people'; }catch(e){}
+  mineTab(k);
+})();
+
+/* 今日卡（2026-11-11）：二十四節氣、現在問卦用的月建與日辰、今日一句 */
+const ST_NAMES = ['小寒','大寒','立春','雨水','驚蟄','春分','清明','穀雨','立夏','小滿','芒種','夏至','小暑','大暑','立秋','處暑','白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至'];
+function stSunLon(ms){ // 太陽視黃經（度）。Meeus 低精度公式，誤差約 0.01 度（時間上約 15 分鐘）
+  const T = (ms/86400000 + 2440587.5 - 2451545.0)/36525, r = Math.PI/180;
+  const L0 = 280.46646 + 36000.76983*T + 0.0003032*T*T;
+  const M = (357.52911 + 35999.05029*T - 0.0001537*T*T)*r;
+  const C = (1.914602 - 0.004817*T - 0.000014*T*T)*Math.sin(M) + (0.019993 - 0.000101*T)*Math.sin(2*M) + 0.000289*Math.sin(3*M);
+  const om = (125.04 - 1934.136*T)*r;
+  return (((L0 + C - 0.00569 - 0.00478*Math.sin(om)) % 360) + 360) % 360;
+}
+function stTermMs(year, k){ // 該年第 k 個節氣（0 小寒 … 23 冬至）的時刻
+  const target = (285 + 15*k) % 360;
+  let t = Date.UTC(year, 0, 6) + k*15.2184*86400000;
+  for(let i=0;i<6;i++){ let d = target - stSunLon(t); d = ((d + 540) % 360) - 180; t += d/360*365.2422*86400000; }
+  if(k%2===0 && typeof baziJieMs==='function'){ // 十二節改用八字的精確交節時刻表，兩邊日期才會一致
+    try{ let best = null; for(const yy of [year-1, year, year+1]) for(let j=0;j<12;j++){ const ms = baziJieMs(yy, j); if(ms && Math.abs(ms-t) < 6*3600000 && (best===null || Math.abs(ms-t) < Math.abs(best-t))) best = ms; } if(best!==null) return best; }catch(e){}
+  }
+  return t;
+}
+function stAround(now){
+  const y = now.getFullYear(), list = [];
+  for(const yy of [y-1, y, y+1]) for(let k=0;k<24;k++) list.push({name:ST_NAMES[k], ms:stTermMs(yy, k)});
+  list.sort((a,b)=> a.ms-b.ms);
+  const d0 = d=> new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  const today = d0(now), i = list.findIndex(t=> d0(new Date(t.ms)) > today);
+  return {cur:list[i-1], next:list[i], curDays:Math.round((today - d0(new Date(list[i-1].ms)))/86400000)+1, nextDays:Math.round((d0(new Date(list[i].ms)) - today)/86400000)};
+}
+const HOME_QUOTES = [
+  ['天行健，君子以自強不息。','《易・乾・象》'],
+  ['只要有戒心，再大的災都可以去掉。','倪海廈《天紀》筆記'],
+  ['地勢坤，君子以厚德載物。','《易・坤・象》'],
+  ['算命的目的：以果決行。','倪海廈《天紀》筆記'],
+  ['窮則變，變則通，通則久。','《易・繫辭下》'],
+  ['命好不如限好。','倪海廈《天紀》筆記'],
+  ['君子藏器於身，待時而動。','《易・繫辭下》'],
+  ['流年不好，去讀書，進德修業最好。','倪海廈《天紀》筆記'],
+  ['二人同心，其利斷金。','《易・繫辭上》'],
+  ['要告訴他想開。想不開，念頭就不對，念頭會影響到他的做法，做法就影響到他的命了。','倪海廈《天紀》筆記'],
+  ['積善之家，必有餘慶。','《易・坤・文言》'],
+  ['君子難進易出，庸才易進易出，小人易進難出。','倪海廈《天紀》筆記'],
+  ['君子安而不忘危，存而不忘亡，治而不忘亂。','《易・繫辭下》'],
+  ['地理位置改變了，念頭自然就會改變。','倪海廈《天紀》筆記'],
+  ['謙謙君子，卑以自牧也。','《易・謙・象》'],
+  ['戒盛、戒盈；戒之初。','倪海廈《天紀》筆記'],
+  ['君子以思患而豫防之。','《易・既濟・象》'],
+  ['最好的命是，前面凶一點，吉星都在後面。','倪海廈《天紀》筆記'],
+  ['無平不陂，無往不復。','《易・泰・九三》'],
+  ['見善則遷，有過則改。','《易・益・象》'],
+  ['同聲相應，同氣相求。','《易・乾・文言》'],
+  ['樂天知命，故不憂。','《易・繫辭上》'],
+  ['履霜，堅冰至。','《易・坤・初六》'],
+  ['君子以慎言語，節飲食。','《易・頤・象》'],
+  ['時止則止，時行則行，動靜不失其時，其道光明。','《易・艮・彖》'],
+  ['君子以懲忿窒欲。','《易・損・象》'],
+  ['善不積，不足以成名；惡不積，不足以滅身。','《易・繫辭下》'],
+  ['君子終日乾乾，夕惕若，厲無咎。','《易・乾・九三》'],
+  ['有天道焉，有人道焉，有地道焉，兼三才而兩之。','《易・繫辭下》']
+];
+function homeTodayRender(){
+  const el = document.getElementById('homeToday'); if(!el) return;
+  try{
+    const now = new Date(), st = stAround(now);
+    const dgz = getDayGanZhi(now.getHours()>=23 ? new Date(now.getTime()+864e5) : now), yj = getYueJianZhi(now), kong = lyXunKong(dgz);
+    const doy = Math.floor((Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) - Date.UTC(now.getFullYear(), 0, 0))/864e5);
+    const q = HOME_QUOTES[doy % HOME_QUOTES.length];
+    const md = ms=>{ const d = new Date(ms); return `${d.getMonth()+1}月${d.getDate()}日`; };
+    const gl = w=> `<span class="gl" data-gl="${w}" data-glc="六爻">${w}</span>`;
+    el.innerHTML = `<div class="ht-row">
+        <div class="ht-st"><span class="ht-k">節氣</span><b>${st.cur.name}</b><small>${st.curDays===1 ? '今天交節' : '第 '+st.curDays+' 天'}</small></div>
+        <div class="ht-st"><span class="ht-k">下一個節氣</span><b>${st.next.name}</b><small>${md(st.next.ms)}・還有 ${st.nextDays} 天</small></div></div>
+      <div class="ht-cast">現在問卦：${gl('月建')} <b>${yj}</b>（${ZHI_ELEM[yj]}當令）・${gl('日辰')} <b>${dgz.gan}${dgz.zhi}</b>・${gl('旬空')} <b>${kong.join('')}</b></div>
+      <div class="ht-q"><p>「${q[0]}」</p><small>${q[1]}</small></div>`;
+  }catch(e){ el.innerHTML = ''; }
+}
+{ const __rhToday = renderHome; renderHome = function(){ __rhToday(); homeTodayRender(); }; homeTodayRender(); }
+
+/* 股票、投資類問題（2026-11-11）：卦看的是問的人自己的狀態，不預測股價 */
+const LY_STOCK_RE = /股票|股市|股價|台股|美股|個股|大盤|ETF|基金|期貨|選擇權|權證|虛擬幣|加密貨幣|比特幣|漲|跌|加碼|減碼|停損|停利|套牢|解套|買進|賣出|進場|出場/;
+const LY_STOCK_DESC = {5:'你這邊的條件是齊的。照原本的資金規劃執行就好，不要因為順就加碼超過計畫。',
+  4:'可以照計畫分批進行，停損、停利先設好。',
+  3:'先小額或先觀察，等自己的判斷更清楚再決定。',
+  2:'先別加碼，把資金規劃和停損想清楚，現金留在手上也是一種選擇。',
+  1:'先停手，不追高、不急著攤平，等心情和資金都穩下來再看。'};
+function lyIsStock(q){ return !!q && LY_STOCK_RE.test(q); }
+{ const __rcvStock = renderCastVerdict;
+  renderCastVerdict = function(v, origName, chgName){
+    __rcvStock(v, origName, chgName);
+    try{
+      if(!v || v.neutral || !lyIsStock(questionText)) return;
+      const el = document.getElementById('castVerdict'); const d = el && el.querySelector('.vc-desc'); if(!d) return;
+      d.textContent = LY_STOCK_DESC[v.lv.k] || d.textContent;
+      const w = el.querySelector('.vc-when'); if(w) w.remove();   // 不給股票題「哪個月有轉機」的時間點
+      d.insertAdjacentHTML('afterend', `<p class="vc-note vc-stock">這一卦看的是<b>你自己面對這筆投資的狀態</b>：心態穩不穩、時機是不是你準備好的時機。股價是整個市場一起決定的，卦不預測漲跌；實際買賣請依自己的資金規劃，需要時請教有執照的專業人士。</p>`);
+    }catch(e){}
+  }; }
+{ const __bcdStock = buildCastDataBlock;
+  buildCastDataBlock = function(){
+    const out = __bcdStock.apply(this, arguments);
+    try{ if(typeof out==='string' && lyIsStock(questionText)) return out + '\n【投資類問題的解讀原則】這一卦只看問卦者面對這筆投資的心態與準備，不預測股價或大盤漲跌，不建議買賣哪一檔、何時進出場；可以談資金規劃、風險承受度與情緒管理，並提醒實際決定請依自己的財務狀況與專業意見。'; }catch(e){}
+    return out;
+  }; }
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
