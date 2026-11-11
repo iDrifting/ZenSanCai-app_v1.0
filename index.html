@@ -1725,11 +1725,21 @@
   .hd-s{ font-size:12.3px; color:var(--ink-soft); margin-top:3px; line-height:1.6; }
   .hd-row{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
   .hd-row + .hd-row{ margin-top:2px; }
+  .hd-fests{ display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+  .hd-fest{ font-size:12.5px; color:#fff; background:var(--vermilion); border-radius:999px; padding:1px 10px; white-space:nowrap; }
+  .ht-fest{ font-size:13px; color:var(--ink-soft); margin-top:8px; line-height:1.7; }
+  .ht-fest b{ color:var(--vermilion); font-weight:700; }
   .hd-row .hd-l{ font-size:24px; letter-spacing:.08em; }
   .hd-k{ font-style:normal; font-size:11.5px; color:var(--ink-soft); border:1px solid var(--line-strong); border-radius:5px; padding:0 5px; position:relative; top:-3px; }
   .hd-y{ font-size:12.5px; color:var(--ink-soft); }
   .hd-tag{ font-size:12px; color:var(--brass); margin-top:2px; letter-spacing:.06em; }
   /* 今日卡 */
+  .hw-tip{ display:flex; align-items:center; gap:10px; margin:-4px 0 14px; padding:10px 12px; border:1px dashed var(--line-strong); border-radius:12px; font-size:13.5px; line-height:1.6; color:var(--ink); }
+  .hw-tip > span{ flex:1; min-width:0; }
+  .hw-tip button{ flex:0 0 auto; font:inherit; font-size:13.5px; border:1.5px solid var(--vermilion); color:var(--vermilion); background:transparent; border-radius:999px; padding:4px 12px; cursor:pointer; white-space:nowrap; }
+  .hw-tip button.x{ border:0; color:var(--ink-soft); padding:4px 2px; font-size:18px; line-height:1; }
+  .hw-tip small{ display:block; color:var(--ink-soft); font-size:12px; margin-top:2px; }
+  .hw-tip small[hidden]{ display:none; }
   .home-today{ background:#fbf7ee; border:1px solid var(--line-strong); border-radius:14px; padding:12px 14px; margin:0 0 14px; }
   .home-today:empty{ display:none; }
   .ht-row{ display:flex; gap:10px; }
@@ -2742,6 +2752,7 @@
   <div id="homeSection">
     <div id="homeDate" class="home-date"></div>
     <div id="homeToday" class="home-today"></div>
+    <div id="homeWidgetTip"></div>
     <div id="homeMine"></div>
     <details id="homeMonthMore" class="home-more hidden">
       <summary>本月完整分析・12 個月走勢表</summary>
@@ -9836,7 +9847,7 @@ function renderHome(){
   const ygz = mmYearGZ(lu.year), dgz = getDayGanZhi(now.getHours()>=23 ? new Date(now.getTime()+864e5) : now);
   const wk = '日一二三四五六'[now.getDay()];
   document.getElementById('homeDate').innerHTML = `<div><div class="hd-row"><i class="hd-k">國曆</i><span class="hd-l">${now.getMonth()+1}月${now.getDate()}日</span><span class="hd-y">${now.getFullYear()}年・週${wk}</span></div>
-    <div class="hd-row"><i class="hd-k">農曆</i><span class="hd-l">${lu.isLeap?'閏':''}${MM_MONTHS[lu.month-1]}月${V2_DAY[lu.day-1]}</span><span class="hd-y">${GAN[ygz.gIdx]}${ZHI[ygz.zIdx]}年・${dgz.gan}${dgz.zhi}日</span></div>
+    <div class="hd-row"><i class="hd-k">農曆</i><span class="hd-l">${lu.isLeap?'閏':''}${MM_MONTHS[lu.month-1]}月${V2_DAY[lu.day-1]}</span><span class="hd-y">${GAN[ygz.gIdx]}${ZHI[ygz.zIdx]}年・${dgz.gan}${dgz.zhi}日</span></div>${(()=>{ try{ const f = festOf(now), a = f.lunar.concat(f.solar); return a.length ? `<div class="hd-fests">${a.map(n=>`<span class="hd-fest">${n}</span>`).join('')}</div>` : ''; }catch(e){ return ''; } })()}
     <div class="hd-tag">命是天註定，運操之在我</div></div>${v2Moon(lu.day)}`;
   const me = loadMe();
   const mine = document.getElementById('homeMine'), more = document.getElementById('homeMonthMore');
@@ -12510,6 +12521,29 @@ const ALM_YJ = {
 const ALM_PZ_G = {'甲':'甲不開倉，財物耗散','乙':'乙不栽植，千株不長','丙':'丙不修灶，必見災殃','丁':'丁不剃頭，頭必生瘡','戊':'戊不受田，田主不祥','己':'己不破券，二比並亡','庚':'庚不經絡，織機虛張','辛':'辛不合醬，主人不嘗','壬':'壬不汲水，更難提防','癸':'癸不詞訟，理弱敵強'};
 const ALM_PZ_Z = {'子':'子不問卜，自惹禍殃','丑':'丑不冠帶，主不還鄉','寅':'寅不祭祀，神鬼不嘗','卯':'卯不穿井，水泉不香','辰':'辰不哭泣，必主重喪','巳':'巳不遠行，財物伏藏','午':'午不苫蓋，屋主更張','未':'未不服藥，毒氣入腸','申':'申不安床，鬼祟入房','酉':'酉不會客，醉坐顛狂','戌':'戌不吃犬，作怪上床','亥':'亥不嫁娶，不利新郎'};
 const ALM_SX = '鼠牛虎兔龍蛇馬羊猴雞狗豬';
+/* 中西節日（2026-11-12） */
+const FEST_SOLAR = {'1-1':'元旦','2-14':'情人節','2-28':'和平紀念日','3-8':'婦女節','3-12':'植樹節','4-1':'愚人節','4-4':'兒童節','5-1':'勞動節','8-8':'父親節','9-28':'教師節','10-10':'國慶日','10-25':'臺灣光復節','10-31':'萬聖夜','12-24':'平安夜','12-25':'聖誕節','12-31':'跨年夜'};
+const FEST_LUNAR = {'1-1':'春節','1-15':'元宵節','2-2':'頭牙','3-23':'媽祖生日','5-5':'端午節','7-7':'七夕','7-15':'中元節','8-15':'中秋節','9-9':'重陽節','12-8':'臘八','12-16':'尾牙','12-24':'送神'};
+function festEaster(y){ const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1; return [mo,da]; }
+/* 回傳 {solar:[], lunar:[]}；solar 含國曆節日、母親節、感恩節、復活節、清明、冬至 */
+function festOf(date){
+  const y=date.getFullYear(), m=date.getMonth()+1, d=date.getDate(), wd=date.getDay();
+  const solar=[], lunar=[];
+  if(FEST_SOLAR[m+'-'+d]) solar.push(FEST_SOLAR[m+'-'+d]);
+  if(m===5 && wd===0 && d>=8 && d<=14) solar.push('母親節');
+  if(m===11 && wd===4 && d>=22 && d<=28) solar.push('感恩節');
+  const ea=festEaster(y); if(m===ea[0] && d===ea[1]) solar.push('復活節');
+  try{ const st=stAround(new Date(y,m-1,d,12)); if(st.curDays===1 && (st.cur.name==='清明'||st.cur.name==='冬至')) solar.push(st.cur.name==='清明'?'清明節':'冬至'); }catch(e){}
+  const l=solar2lunar(y,m,d);
+  if(!l.isLeap && FEST_LUNAR[l.month+'-'+l.day]) lunar.push(FEST_LUNAR[l.month+'-'+l.day]);
+  const t=new Date(y,m-1,d+1), ln=solar2lunar(t.getFullYear(),t.getMonth()+1,t.getDate());
+  if(!ln.isLeap && ln.month===1 && ln.day===1) lunar.push('除夕');
+  return {solar, lunar};
+}
+function festNext(date){
+  for(let i=1;i<=400;i++){ const t=new Date(date.getFullYear(),date.getMonth(),date.getDate()+i); const f=festOf(t); const all=f.lunar.concat(f.solar); if(all.length) return {date:t, days:i, names:all}; }
+  return null;
+}
 function almJieZhi(date){ // 建除用節氣月：取今天（含）以前最近的「節」
   const d0 = x=> new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime(), today = d0(date);
   let best = null;
@@ -12536,7 +12570,7 @@ function homeTodayRender(){
     el.innerHTML = `<div class="ht-row">
         <div class="ht-st"><span class="ht-k">節氣</span><b>${st.cur.name}</b><small>${st.curDays===1 ? '今天交節' : '第 '+st.curDays+' 天'}</small></div>
         <div class="ht-st"><span class="ht-k">下一個節氣</span><b>${st.next.name}</b><small>${md(st.next.ms)}・還有 ${st.nextDays} 天</small></div></div>
-      <div class="ht-cast">現在問卦：${gl('月建')} <b>${yj}</b>（${ZHI_ELEM[yj]}當令）・${gl('日辰')} <b>${dgz.gan}${dgz.zhi}</b>・${gl('旬空')} <b>${kong.join('')}</b></div>
+      ${(()=>{ try{ const f = festNext(now); if(!f) return ''; const wkn='日一二三四五六'[f.date.getDay()]; return `<div class="ht-fest">下一個節日：<b>${f.names.join('・')}</b> ${f.date.getMonth()+1}/${f.date.getDate()}（週${wkn}）・還有 ${f.days} 天</div>`; }catch(e){ return ''; } })()}
       ${(()=>{ try{ const a = almanacOf(now); return `<div class="ht-alm">
         <div class="ht-alm-h"><b>${a.zs}日</b><span>${a.chong}・${a.sha}</span></div>
         <div class="ht-yj"><i class="y">宜</i><span>${a.yj.y}</span></div>
@@ -12574,10 +12608,30 @@ function lyIsStock(q){ return !!q && LY_STOCK_RE.test(q); }
     return out;
   }; }
 
+/* 桌面小工具（2026-11-11）：只在 Play 安裝的 App 裡顯示「放到桌面」 */
+const SC_TWA_KEY = 'sancai_twa_v1', SC_WTIP_OFF = 'sancai_widget_tip_off_v1';
+const SC_TWA_REF = 'android-app://io.github.idrifting.twa';
+try{ if((document.referrer||'').startsWith(SC_TWA_REF)) localStorage.setItem(SC_TWA_KEY, '1'); }catch(e){}
+function scIsTwa(){ if((document.referrer||'').startsWith(SC_TWA_REF)) return true; try{ return localStorage.getItem(SC_TWA_KEY)==='1'; }catch(e){ return false; } }
+function widgetTipRender(){
+  const el = document.getElementById('homeWidgetTip'); if(!el) return;
+  let off = false; try{ off = localStorage.getItem(SC_WTIP_OFF)==='1'; }catch(e){}
+  if(!scIsTwa() || off){ el.innerHTML = ''; return; }
+  el.innerHTML = `<div class="hw-tip"><span>把「今天」放到手機桌面，不開 App 也看得到宜忌和節氣。<small id="hwTipHelp" hidden>沒有跳出視窗？長按桌面空白處 → 小工具 → 三才App。</small></span><button type="button" onclick="pinWidget()">放到桌面</button><button type="button" class="x" aria-label="不再顯示" onclick="widgetTipOff()">×</button></div>`;
+}
+function pinWidget(){
+  const fb = encodeURIComponent(location.origin + location.pathname + '?go=widgethelp');
+  const h = document.getElementById('hwTipHelp'); if(h) h.hidden = false;
+  location.href = `intent://pin-widget#Intent;scheme=sancai;package=io.github.idrifting.twa;S.browser_fallback_url=${fb};end`;
+}
+function widgetTipOff(){ try{ localStorage.setItem(SC_WTIP_OFF, '1'); }catch(e){} widgetTipRender(); }
+{ const __rhWt = renderHome; renderHome = function(){ __rhWt(); widgetTipRender(); }; try{ renderHome(); }catch(e){ widgetTipRender(); } }
+
 /* 桌面小工具捷徑（2026-11-11）：?go=cast 開問卦、?go=today 開今日 */
 window.addEventListener('load', ()=>{ try{
   const go = new URLSearchParams(location.search).get('go');
-  if(go){ setTimeout(()=>{ try{ activateTopTab(go==='cast' ? 'renjian' : 'home'); history.replaceState(null, '', location.pathname); }catch(e){} }, 400); }
+  if(go){ setTimeout(()=>{ try{ activateTopTab(go==='cast' ? 'renjian' : 'home'); history.replaceState(null, '', location.pathname);
+    if(go==='widgethelp') appNotice('這個版本的三才還沒有桌面小工具。\n請到 Play 商店把三才更新到最新版，再按一次「放到桌面」。'); }catch(e){} }, 400); }
 }catch(e){} });
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
